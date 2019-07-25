@@ -10,6 +10,7 @@ body{
 	position: relative;
 	width: 900px;
 	height: 650px;
+	user-select: none;
 }
 #play{
 	width: 100%;
@@ -20,7 +21,7 @@ body{
 	position: relative;
 	width: 100%;
 	height: 100%;
-	opacity: 0.8;
+	opacity: 0.9;
 	z-index: 0;
 }
 #firstLine{
@@ -72,6 +73,7 @@ li:hover{
 	width: 43%;
 	height: 25%;
 	left: 5%;
+	top: 0;
 	border-radius: 7px;
 	background: black;
 }
@@ -84,6 +86,8 @@ li:hover{
 	background: black;
 	float: right;
 	right: 5%;
+	color: #fff;
+	text-align: center;
 }
 #goToPlay{
 	display: inline-table;
@@ -93,14 +97,47 @@ li:hover{
 	border-radius: 7px;
 	background: black;
 	left: 5%;
-	top: 5%;
+	top: 5.5%;
 }
 .portrait-crop{
-	position: relative;
-    top: 50%;
-    left: 50%;
-    height: 100px;
-    width: 100px;
+	position: absolute;
+    height: 90px;
+    width: 90px;
+	top:50%;
+	left: 5%;
+	bottom: 50%;
+	transform: translate(0, -50%);
 	border: 5px solid #0ff;
-	border-radius: 7px;	
+	border-radius: 7px;
+	overflow: hidden;
+}
+#ava-notation{
+	position: relative;
+	display: block;
+	width: 65%;
+	height: 100%;
+	float: right;
+	top: 25px;
+	right: 0;
+	margin: 0;
+	color: #fff;
+}
+.ava-notation-element{
+	margin: 2px;
+	padding: 2;
+}
+#news-notation{
+	position: relative;
+	display: block;
+	width: 350px;
+	height: 30%;
+	bottom: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	color: #fff;
+	background: red;
+	border: 5px solid #0ff;
+	border-radius: 7px;
+	overflow: hidden;
 }

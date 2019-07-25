@@ -31,3 +31,4 @@ var player = {
 	*Который день подряд заходит игрок. 
 	*/
 }
+document.querySelector("img").setAttribute("src", player.avatar);
