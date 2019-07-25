@@ -1,0 +1,22 @@
+version: 0.0.1
+jobs:
+  build:
+    branches:
+      only:
+        - master
+    docker:
+      - image: circleci/node:9.11.2-stretch
+
+    working_directory: ~/repo/front
+
+    steps:
+      - checkout
+        
+      - run:
+          name: Deploying
+          command: |
+            zip -r front.zip ./
+
+            scp -oStrictHostKeyChecking=no front.zip ${ssh_connection}:front.zip;
+            scp -oStrictHostKeyChecking=no install.sh ${ssh_connection}:install.sh;
+            ssh -oStrictHostKeyChecking=no ${ssh_connection} <<< $'./install.sh';
