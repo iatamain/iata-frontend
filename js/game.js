@@ -2,46 +2,26 @@ const ctx = document.querySelector("canvas").getContext("2d");
 let currentScene = "main";
 const canvHeight = 650;
 const canvWidth = 900;
-let cof_x = 0;
-let cof_y = 0;
 var gameObj = {
 		x: 0,
 		y: 0,
-		dx: 200,
-		dy: 200,
+		dx: 100,
+		dy: 100,
 		sizeX: 50,
 		sizeY: 50
 }
 function game(){
-	let width = window.innerWidth;
-	let height = window.innerHeight;
-	if(width/height > canvWidth / canvHeight){
-		document.querySelector("canvas").style.height = height + "px";
-		document.querySelector("canvas").style.width = (height / canvHeight * canvWidth) + "px";
-		cof_y = height/650
-		cof_x = height / 650;
-	}
-	else{
-		document.querySelector("canvas").style.width = width + "px";
-		document.querySelector("canvas").style.height = (width / canvWidth * canvHeight) + "px";
-		cof_x = (width / canvWidth * canvHeight)/canvHeight;
-		cof_y = width / canvWidth;
-	}
 	let now = Date.now();
 	let dt = (now - last)/1000;
-	if(dt < 0.1){
+	if(dt < 0.1){ //Нужно вместо этого чекать возможность перескока сквозь стены.
 		update(dt);
 		render(currentScene);
 	}
 	last = now;
 	requestAnimFrame(game);
 }
-var maxdt = 0;
+
 function update(dt){
-	if(dt > maxdt){
-	console.log(dt);
-	maxdt=dt;
-	}
 	gameObj.x += gameObj.dx * dt;
 	gameObj.y += gameObj.dy * dt;
 	if(gameObj.x +  gameObj.sizeX / 2 > canvWidth){
@@ -63,7 +43,8 @@ function update(dt){
 }
 
 function render(scene){
-	ctx.clearRect(0, 0, canvWidth, canvHeight)
+	ctx.fillStyle = " #003A3C";
+	ctx.fillRect(0, 0, canvWidth, canvHeight);
 	ctx.fillStyle = "#03E6EF"; 
 	ctx.fillRect(gameObj.x - gameObj.sizeX / 2, gameObj.y - gameObj.sizeY / 2, gameObj.sizeX, gameObj.sizeY);
 }
@@ -78,4 +59,4 @@ let requestAnimFrame = (function() {
 	};
 })();
 last = Date.now();
-game();
+game();  

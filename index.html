@@ -3,9 +3,40 @@
 	<head>
 		<meta charset = "utf-8">
 		<link rel = "stylesheet" href = "css/style.css">
-		<script type = "text/javascript" src = "js/main.js" defer></script>
+		<script type = "text/javascript" src = "js/data.js" defer></script>
+		<script type = "text/javascript" src = "js/game.js" defer></script>
 	</head>
 	<body>
-		<canvas width = "900px" height = "650px"></canvas>
+		<div id = "game">
+			<div id = "play">
+				<canvas width = "900px" height = "650px"></canvas>
+			</div>
+			<div id = "interface">
+				<div id = "firstLine"></div>
+				<div id = "secondLine">
+					<ul class = "menu">
+						<li>Главная</li>
+						<li>Комнаты</li>
+						<li>Достижения</li>
+						<li>Магазин</li>
+						<li>Профиль</li>
+						<li>Кланы</li>
+						<li>Локации</li>
+						<li>Рейтинг</li>
+					</ul>
+				</div>
+				<div id = "main" class = "menuScene">
+					<div id = "playerInfo">
+					
+					</div>
+					<div id = "news"></div>
+					<div id = "goToPlay"></div>
+				</div>
+				<div id = "rooms">
+					<div id = "listRooms"></div>
+					<div id = "createRoom"></div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
