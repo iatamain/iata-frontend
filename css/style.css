@@ -148,8 +148,9 @@ li:hover{
 	font-size: 90%;
 	position: relative;
 	left:0;
-	transition: 2s;
+	transition: left 2s;
 }
+
 .news-container-mobile{
 	font-size: 80%;
 	position: absolute;
