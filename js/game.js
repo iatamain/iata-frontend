@@ -52,7 +52,6 @@ function exitHandler() {
 		canvWidth = 900;
 		document.querySelector("canvas").setAttribute("width", canvWidth);
 		document.querySelector("canvas").setAttribute("height", canvHeight);
-		console.log("test");
     }
 }  
 

@@ -93,6 +93,7 @@ li:hover{
 	right: 5%;
 	color: #fff;
 	text-align: left;
+	overflow: hidden;
 }
 #goToPlay{
 	display: inline-table;
@@ -138,7 +139,7 @@ li:hover{
 	height: 150px;
 	right: 0;
 	color: #fff;
-	margin: 0 auto;
+	margin: 10px auto;
 	border: 5px solid #0ff;
 	border-radius: 7px;
 	overflow: hidden;
@@ -146,20 +147,26 @@ li:hover{
 .news-container{
 	font-size: 90%;
 	position: relative;
+	left:0;
+	transition: 2s;
 }
 .news-container-mobile{
 	font-size: 80%;
 	position: absolute;
-
+	margin:5px;
 }
 
-#news-radio{
+.news-footer{
 	position: absolute;
-	bottom: 5px;
+	bottom: 10px;
 	left: 0;
 	right: 0;
 	text-align: center;
 }
+.news-container:hover{
+	left: 100px;
+	transition: 2s;
+}
 canvas{
-	background: yellow;
+	background: #334E57;
 }
