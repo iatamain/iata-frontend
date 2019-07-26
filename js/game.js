@@ -1,7 +1,7 @@
 const ctx = document.querySelector("canvas").getContext("2d");
 let currentScene = "main";
-const canvHeight = 650;
-const canvWidth = 900;
+let canvHeight = 650;
+let canvWidth = 900;
 var gameObj = {
 		x: 0,
 		y: 0,
@@ -10,6 +10,53 @@ var gameObj = {
 		sizeX: 50,
 		sizeY: 50
 }
+function openFullscreen() {
+	var elem = document.querySelector("#game");
+	isFullScreen = true;
+	if(elem.requestFullscreen) {
+		elem.requestFullscreen();
+	}else if(elem.mozRequestFullScreen) { /* Firefox */
+		elem.mozRequestFullScreen();
+	}else if(elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+		elem.webkitRequestFullscreen();
+	}else if(elem.msRequestFullscreen) { /* IE/Edge */
+		elem.msRequestFullscreen();
+	}
+	document.querySelector("canvas").setAttribute("width", screen.width);
+	document.querySelector("canvas").setAttribute("height", screen.height);
+	canvHeight = screen.height;
+	canvWidth = screen.width;
+}
+function closeFullscreen() {
+	isFullScreen = false;
+	if (document.exitFullscreen) {
+		document.exitFullscreen();
+	}else if (document.mozCancelFullScreen) {
+		document.mozCancelFullScreen();
+	}else if (document.webkitExitFullscreen) {
+		document.webkitExitFullscreen();
+	}else if (document.msExitFullscreen) {
+		document.msExitFullscreen();
+	}
+}
+document.addEventListener("keydown", (elem) => {
+	if(elem.code == "KeyP") openFullscreen();
+})
+document.addEventListener('fullscreenchange', exitHandler);
+document.addEventListener('webkitfullscreenchange', exitHandler);
+document.addEventListener('mozfullscreenchange', exitHandler);
+document.addEventListener('MSFullscreenChange', exitHandler);
+function exitHandler() {
+    if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+        canvHeight = 650;
+		canvWidth = 900;
+		document.querySelector("canvas").setAttribute("width", canvWidth);
+		document.querySelector("canvas").setAttribute("height", canvHeight);
+		console.log("test");
+    }
+}  
+
+
 function game(){
 	let now = Date.now();
 	let dt = (now - last)/1000;
@@ -20,6 +67,7 @@ function game(){
 	last = now;
 	requestAnimFrame(game);
 }
+
 
 function update(dt){
 	gameObj.x += gameObj.dx * dt;

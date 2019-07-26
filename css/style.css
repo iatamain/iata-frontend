@@ -8,6 +8,7 @@ body{
 }
 #game{
 	position: relative;
+	min-width: 860px;
 	width: 900px;
 	height: 650px;
 	user-select: none;
@@ -19,6 +20,7 @@ body{
 	position: absolute;
 }
 #interface{
+	min-width: 860px;
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -136,6 +138,7 @@ li:hover{
 	height: 150px;
 	right: 0;
 	color: #fff;
+	margin: 0 auto;
 	border: 5px solid #0ff;
 	border-radius: 7px;
 	overflow: hidden;
@@ -148,4 +151,15 @@ li:hover{
 	font-size: 80%;
 	position: absolute;
 
+}
+
+#news-radio{
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+canvas{
+	background: yellow;
 }
