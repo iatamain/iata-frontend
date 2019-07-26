@@ -82,14 +82,15 @@ li:hover{
 #news{
 	display: inline-table;
 	position:  relative;
-	width: 43%;
+	width: 40%;
 	height: 97%;
+	padding: 20px;
 	border-radius: 7px;
 	background: black;
 	float: right;
 	right: 5%;
 	color: #fff;
-	text-align: center;
+	text-align: left;
 }
 #goToPlay{
 	display: inline-table;
@@ -137,13 +138,18 @@ li:hover{
 	margin-left: auto;
 	margin-right: auto;
 	color: #fff;
-	background: red;
 	border: 5px solid #0ff;
 	border-radius: 7px;
 	overflow: hidden;
 }
 .news-container{
 	font-size: 95%;
+	position: relative;
+	width: 100%;
+	height: 100px;
+}
+.news-container-mobile{
+	font-size: 80%;
 	position: absolute;
 	width: 100%;
 	height: 100px;
