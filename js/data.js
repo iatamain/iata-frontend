@@ -31,4 +31,7 @@ var player = {
 	*Который день подряд заходит игрок. 
 	*/
 }
-document.querySelector("img").setAttribute("src", player.avatar);
+var img = document.createElement("img");
+img.setAttribute("src", player.avatar);
+img.setAttribute("width", "90px");
+document.querySelector(".portrait-crop").appendChild(img);
