@@ -6,7 +6,7 @@ body: JSON.stringify(parseGet(window.location.href))
 .catch(function (error) { 
 console.log('Request failed ', error ); 
 }); 
-
+console.log(JSON.stringify(parseGet(window.location.href)));
 var player = {
 	id: 24234324242,
 	gameId: 45,
