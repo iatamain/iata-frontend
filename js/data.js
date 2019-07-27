@@ -1,3 +1,12 @@
+fetch(url, { 
+method: 'post', 
+body: "объект"; 
+})
+.then(response=>console.log(' .... ', response.json())
+.catch(function (error) { 
+console.log('Request failed ', error ); 
+}); 
+
 var player = {
 	id: 24234324242,
 	gameId: 45,
@@ -31,8 +40,9 @@ var player = {
 	*Который день подряд заходит игрок. 
 	*/
 }
-var img = document.createElement("img");
-img.setAttribute("src", player.avatar);
-img.setAttribute("width", "90px");
+var img = document.createElement("img");//Создаем и устанавливаем аву
+img.setAttribute("src", player.avatar); 
+img.setAttribute("width", "90px"); 
 document.querySelector(".portrait-crop").appendChild(img);
 console.log(parseGet(window.location.href));
+
