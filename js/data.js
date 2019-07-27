@@ -35,4 +35,4 @@ var img = document.createElement("img");
 img.setAttribute("src", player.avatar);
 img.setAttribute("width", "90px");
 document.querySelector(".portrait-crop").appendChild(img);
-console.log("test: " + window.location.href);
+console.log(parseGet(window.location.href));
