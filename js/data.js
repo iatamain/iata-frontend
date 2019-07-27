@@ -1,5 +1,8 @@
 fetch("https://itracers.xyz:8443/api/vkauth", { 
 method: 'post', 
+headers: { 
+	"Content-type": "application/json; charset=UTF-8" 
+},
 body: JSON.stringify(parseGet(window.location.href))
 })
 .then(response=>console.log(' .... ', response.json()))
@@ -44,5 +47,4 @@ var img = document.createElement("img");//Создаем и устанавлив
 img.setAttribute("src", player.avatar); 
 img.setAttribute("width", "90px"); 
 document.querySelector(".portrait-crop").appendChild(img);
-console.log(parseGet(window.location.href));
 
