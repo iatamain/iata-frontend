@@ -150,7 +150,6 @@ li:hover{
 	left:0;
 	transition: left 2s;
 }
-
 .news-container-mobile{
 	font-size: 80%;
 	position: absolute;
@@ -165,7 +164,7 @@ li:hover{
 	text-align: center;
 }
 .news-container:hover{
-	left: 100px;
+	left: 500px;
 	transition: 2s;
 }
 canvas{
