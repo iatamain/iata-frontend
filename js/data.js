@@ -84,7 +84,7 @@ if(session.snsName === "vk"){
 						firstName: friend.first_name,
 						lastName: friend.last_name,
 						avatar: friend.photo_200,
-						link: "https://vk.com/id" + friend.id;
+						link: "https://vk.com/id" + friend.id,
 						snsId: friend.id
 					})
 				});
