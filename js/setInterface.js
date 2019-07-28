@@ -1,4 +1,4 @@
-let img = document.createElement("img");//Создаем и устанавливаем аву
+let AVAimg = document.createElement("img");//Создаем и устанавливаем аву
 img.setAttribute("src", snsPlayerInf.avatar); 
 img.setAttribute("width", "90px"); 
 document.querySelector(".portrait-crop").appendChild(img);
