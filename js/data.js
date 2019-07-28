@@ -4,6 +4,7 @@ class PlayerInf {
 		this.nickName = "Temp";
 		this.clan = "Temp";
 		this.element = "Temp";
+		this.id = 42;
 		this.rank = 42;
 		this.rankingPos = 42;
 		this.lvl = 42;
@@ -39,7 +40,6 @@ var session = {
 	isFirstEntryToday: true,
 	snsName: parseGet(window.location.href).runner,
 	howManyDays: 42,
-	id: 42,
 }
 var mainPlayerInf = new PlayerInf();
 if(session.snsName === "vk"){
@@ -77,7 +77,19 @@ if(session.snsName === "vk"){
 			setInterface()
 		});
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) {
-			console.log(data.response);
+			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
+				data.response.forEach(function(friend) {
+					snsPlayerInf.friends.push({
+						friendPlayerInfo: new PlayerInf(),
+						firstName: friend.first_name,
+						lastName: friend.last_name,
+						avatar: friend.photo_200,
+						link: "https://vk.com/id" + friend.id;
+						snsId: friend.id
+					})
+				});
+			});
+			console.log(snsPlayerInf);
 		});
 	}, 
 	function() { 
