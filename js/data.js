@@ -57,7 +57,7 @@ VK.init(function() {
 		snsPlayerInf.country = data.response[0].country.title;
 		//Еще друзей
 		if(session.isFirstEntry){
-			mainPlayerInf.nickName = player.firstName + " " + player.lastName;
+			mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
 			mainPlayerInf.clan = "";
 			mainPlayerInf.element = "Земля"; //Должен быть на выбор
 			mainPlayerInf.lvl = 1;
