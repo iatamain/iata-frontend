@@ -1,7 +1,7 @@
-let AVAimg = document.createElement("img");//Создаем и устанавливаем аву
-img.setAttribute("src", snsPlayerInf.avatar); 
-img.setAttribute("width", "90px"); 
-document.querySelector(".portrait-crop").appendChild(img);
+let AvaImg = document.createElement("img");//Создаем и устанавливаем аву
+AvaImg.setAttribute("src", snsPlayerInf.avatar); 
+AvaImg.setAttribute("width", "90px"); 
+document.querySelector(".portrait-crop").appendChild(AvaImg);
 
 let nickName = document.querySelector("#nickName-text").innerHTML = mainPlayerInf.nickName;
 let clan = document.querySelector("#clan-text").innerHTML = "Клан: " + mainPlayerInf.clan;
