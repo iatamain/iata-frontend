@@ -1,28 +1,7 @@
-fetch("https://itracers.xyz:8443/api/vkauth", { 
-method: 'post', 
-headers: { 
-	"Content-type": "application/json; charset=UTF-8" 
-},
-body: JSON.stringify(parseGet(window.location.href))
-})
-.then(response=>console.log(' .... ', response.json()))
-.catch(function (error) { 
-console.log('Request failed ', error ); 
-}); 
-console.log(parseGet(window.location.href));
-
-VK.init(function() { 
-     alert("Ура, мы подключились к вк!:D");
-	 VK.api("wall.post", {"message": "Hello!", "v":"5.73"}, function (data) {
-		alert("Post ID:" + data.response.post_id);
-	});
-  }, function() { 
-     alert("Что-то поломалось:с");
-}, '5.101'); 
-
 var player = {
-	id: 24234324242,
-	gameId: 45,
+	id: 3, //Внутриигровой id
+	snsId: parseGet(window.location.href).user_id,
+	snsName: "facebook",
 	firstName: "Иван",
 	lastName: "Иванов",
 	nickName: "Ivanushka",
@@ -53,6 +32,31 @@ var player = {
 	*Который день подряд заходит игрок. 
 	*/
 }
+
+fetch("https://itracers.xyz:8443/api/vkauth", { 
+method: 'post', 
+headers: { 
+	"Content-type": "application/json; charset=UTF-8" 
+},
+body: JSON.stringify(parseGet(window.location.href))
+})
+.then(response=>console.log(' .... ', response.json()))
+.catch(function (error) { 
+console.log('Request failed ', error ); 
+}); 
+console.log(parseGet(window.location.href));
+
+VK.init(function() { 
+     alert("Ура, мы подключились к вк!:D");
+	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_100", "city,verified", "screen_name"], "v":"5.101"}, function (data) {
+		console.log("Инфа: " + data.response);
+		console.log("Инфа2: " + data);
+	});
+}, 
+function() { 
+	alert("Что-то поломалось:с");
+}, '5.101'); 
+
 var img = document.createElement("img");//Создаем и устанавливаем аву
 img.setAttribute("src", player.avatar); 
 img.setAttribute("width", "90px"); 
