@@ -47,12 +47,9 @@ console.log('Request failed ', error );
 console.log(parseGet(window.location.href));
 
 VK.init(function() { 
-	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_200", "city,verified", "screen_name"], "v":"5.101"}, function (data) {
-		console.log("Инфа: " + data.response[0]);
-		console.log("Инфа2: " + data);
-		console.log(data.response[0].first_name, data.response[0].last_name, data.response[0].screen_name, data.response[0].city, data.response[0].photo_200);
-		console.log(JSON.stringify(data));
-		console.log(JSON.stringify(data.response));
+	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_200", "city", "verified", "screen_name"], "v":"5.101"}, function (data) {
+		console.log(data.response[0]);
+		console.log(data.response[0].first_name, data.response[0].last_name, data.response[0].screen_name, data.response[0].city.title, data.response[0].photo_200);
 	});
 }, 
 function() { 
