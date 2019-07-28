@@ -47,10 +47,10 @@ console.log('Request failed ', error );
 console.log(parseGet(window.location.href));
 
 VK.init(function() { 
-     alert("Ура, мы подключились к вк!:D");
-	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_100", "city,verified", "screen_name"], "v":"5.101"}, function (data) {
+	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_200", "city,verified", "screen_name"], "v":"5.101"}, function (data) {
 		console.log("Инфа: " + data.response);
 		console.log("Инфа2: " + data);
+		console.log(data.response.first_name, data.response.last_name, data.response.screen_name, data.response.sity.title, data.response.photo_200);
 	});
 }, 
 function() { 
