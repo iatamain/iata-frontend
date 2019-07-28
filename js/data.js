@@ -54,7 +54,6 @@ if(session.snsName === "vk"){
 			snsPlayerInf.avatar = data.response[0].photo_200;
 			snsPlayerInf.sex = data.response[0].sex; //1 -- Female, 2 -- Male;
 			snsPlayerInf.country = data.response[0].country.title;
-			//Над еще список друзей запросить, но это позже:D
 			if(session.isFirstEntry){
 				mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
 				mainPlayerInf.clan = "";
@@ -76,6 +75,9 @@ if(session.snsName === "vk"){
 				*/
 			}
 			setInterface()
+		});
+		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) {
+			console.log(data.response);
 		});
 	}, 
 	function() { 
