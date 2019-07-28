@@ -32,7 +32,7 @@ var snsPlayerInf = {
 	avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png",
 	sex: "",
 	country: "",
-	friends: [] //Avatar, link, new PlayerInf
+	friends: [] //Avatar, link, new PlayerInf, snsId, FirstName, LastName
 }
 var session = {
 	isFirstEntry: true,
@@ -75,30 +75,13 @@ if(session.snsName === "vk"){
 				Данные сессии
 				*/
 			}
-			[
-				"js/setInterface.js",
-				"js/game.js"
-			].forEach(function(src) {
-				var script = document.createElement('script');
-				script.src = src;
-				script.async = false;
-				document.head.appendChild(script);
-			});
-		
+			setInterface()
 		});
 	}, 
 	function() { 
 		console.log("Что-то cломалось:с");
 	}, '5.101'); 
 }else{
-	[
-		"js/setInterface.js",
-		"js/game.js"
-	].forEach(function(src) {
-		var script = document.createElement('script');
-		script.src = src;
-		script.async = false;
-		document.head.appendChild(script);
-	});
+	setInterface()
 }
 
