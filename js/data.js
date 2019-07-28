@@ -37,18 +37,16 @@ var snsPlayerInf = {
 var session = {
 	isFirstEntry: true,
 	isFirstEntryToday: true,
-	snsName: "Temp",
+	snsName: parseGet(window.location.href).runner,
 	howManyDays: 42,
 	id: 42,
 }
 var mainPlayerInf = new PlayerInf();
-try{
 	send(JSON.stringify(parseGet(window.location.href)), response=>console.log(' .... ', response.json()))
 	console.log(parseGet(window.location.href));
 	VK.init(function() { 
-		 VK.api("users.get", {"user_ids": [snsPlayerInf.snsId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
+		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
 			console.log(data.response[0]);
-			session.snsName = "vk";
 			snsPlayerInf.firstName = data.response[0].first_name;
 			snsPlayerInf.lastName = data.response[0].last_name;
 			snsPlayerInf.birthDay = data.response[0].bdate;
@@ -85,22 +83,22 @@ try{
 				script.async = false;
 				document.head.appendChild(script);
 			});
-			flag = false;
+		
 		});
 	}, 
 	function() { 
 		console.log("Что-то cломалось:с");
 	}, '5.101'); 
-}catch{
-	if(flag){
-		[
-		  "js/setInterface.js",
-		  "js/game.js"
-		].forEach(function(src) {
-		  var script = document.createElement('script');
-		  script.src = src;
-		  script.async = false;
-		  document.head.appendChild(script);
-		});
-	}
-}
+
+
+[
+	"js/setInterface.js",
+	"js/game.js"
+].forEach(function(src) {
+	var script = document.createElement('script');
+	script.src = src;
+	script.async = false;
+	document.head.appendChild(script);
+});
+	
+
