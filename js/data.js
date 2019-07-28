@@ -13,7 +13,9 @@ console.log(parseGet(window.location.href));
 
 VK.init(function() { 
      alert("Ура, мы подключились к вк!:D");
-	 console.log(account.getProfileInfo());
+	 VK.api("wall.post", {"message": "Hello!", "v":"5.73"}, function (data) {
+		alert("Post ID:" + data.response.post_id);
+	});
   }, function() { 
      alert("Что-то поломалось:с");
 }, '5.101'); 
