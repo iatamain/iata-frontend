@@ -43,11 +43,10 @@ var session = {
 }
 var mainPlayerInf = new PlayerInf();
 
-
 send(JSON.stringify(parseGet(window.location.href)), response=>console.log(' .... ', response.json()))
 console.log(parseGet(window.location.href));
 VK.init(function() { 
-	 VK.api("users.get", {"user_ids": [player.snsId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
+	 VK.api("users.get", {"user_ids": [snsPlayerInf.snsId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
 		console.log(data.response[0]);
 		session.snsName = "vk";
 		snsPlayerInf.firstName = data.response[0].first_name;
