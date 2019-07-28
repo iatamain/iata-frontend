@@ -9,7 +9,12 @@ body: JSON.stringify(parseGet(window.location.href))
 .catch(function (error) { 
 console.log('Request failed ', error ); 
 }); 
-console.log(JSON.stringify(parseGet(window.location.href)));
+console.log(parseGet(window.location.href));
+VK.init(function() { 
+     alert("Ура, мы подключились к вк!:D");
+  }, function() { 
+     alert("Что-то поломалось:с");
+}, '5.101'); 
 var player = {
 	id: 24234324242,
 	gameId: 45,
