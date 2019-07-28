@@ -42,7 +42,8 @@ var session = {
 	id: 42,
 }
 var mainPlayerInf = new PlayerInf();
-	send(JSON.stringify(parseGet(window.location.href)), response=>console.log(' .... ', response.json()))
+if(session.snsName === "vk"){
+	send(JSON.stringify(parseGet(window.location.href)), response=>console.log(' .... ', response.json()));
 	console.log(parseGet(window.location.href));
 	VK.init(function() { 
 		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
@@ -89,16 +90,15 @@ var mainPlayerInf = new PlayerInf();
 	function() { 
 		console.log("Что-то cломалось:с");
 	}, '5.101'); 
-
-
-[
-	"js/setInterface.js",
-	"js/game.js"
-].forEach(function(src) {
-	var script = document.createElement('script');
-	script.src = src;
-	script.async = false;
-	document.head.appendChild(script);
-});
-	
+}else{
+	[
+		"js/setInterface.js",
+		"js/game.js"
+	].forEach(function(src) {
+		var script = document.createElement('script');
+		script.src = src;
+		script.async = false;
+		document.head.appendChild(script);
+	});
+}
 
