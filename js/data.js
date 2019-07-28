@@ -76,17 +76,17 @@ try{
 				Данные сессии
 				*/
 			}
+			[
+				"js/setInterface.js",
+				"js/game.js"
+			].forEach(function(src) {
+				var script = document.createElement('script');
+				script.src = src;
+				script.async = false;
+				document.head.appendChild(script);
+			});
+			flag = false;
 		});
-		[
-		  "js/setInterface.js",
-		  "js/game.js"
-		].forEach(function(src) {
-		  var script = document.createElement('script');
-		  script.src = src;
-		  script.async = false;
-		  document.head.appendChild(script);
-		});
-		flag = false;
 	}, 
 	function() { 
 		console.log("Что-то cломалось:с");
