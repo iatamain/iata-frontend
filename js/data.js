@@ -54,8 +54,12 @@ if(session.snsName === "vk"){
 			snsPlayerInf.sex = data.response[0].sex; //1 -- Female, 2 -- Male;
 			snsPlayerInf.country = data.response[0].country.title;
 			send(snsPlayerInf, "/api/user/update", "put", response=>{
-				console.log(' .... ', response.json());
-				 response.json().then(value => console.log(value));
+				let responseObj = response.json()
+				console.log(' .... ', responseObj;
+				 responseObj.then(value => {
+					 console.log(value);
+					 console.log(value.loginsCount);
+				 });
 			});
 
 			if(session.isFirstEntry){
