@@ -43,7 +43,7 @@ var session = {
 }
 var mainPlayerInf = new PlayerInf();
 if(session.snsName === "vk"){
-	send(JSON.stringify(parseGet(window.location.href)), "/api/vkauth", "post", response=>console.log(' .... ', response.json()));
+	send(parseGet(window.location.href), "/api/vkauth", "post", response=>console.log(' .... ', response.json()));
 	console.log(parseGet(window.location.href));
 	VK.init(function() {
 		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
