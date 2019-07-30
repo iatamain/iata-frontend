@@ -16,7 +16,8 @@ function send(data,  url, method, collback){
 	method: method,
 	headers: {
 		"Content-type": "application/json; charset=UTF-8",
-		"auth_key": parseGet(window.location.href).auth_key
+		"auth_key": parseGet(window.location.href).auth_key,
+		"snsID": snsId: parseGet(window.location.href).user_id
 	},
 	body: JSON.stringify(data)
 	})
