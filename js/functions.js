@@ -11,23 +11,24 @@ function parseGet(getHref){
 		return 0;
 	}
 }
-function send(data, collback){
-	fetch("https://itracers.xyz:8443/api/vkauth", { 
-	method: 'post', 
-	headers: { 
-		"Content-type": "application/json; charset=UTF-8" 
+function send(data,  url, method, collback){
+	fetch("https://itracers.xyz:8443" + url, {
+	method: method,
+	headers: {
+		"Content-type": "application/json; charset=UTF-8",
+		"auth_key": parseGet(window.location.href).auth_key
 	},
-	body: data
+	body: JSON.stringify(data)
 	})
 	.then(collback)
-	.catch(function (error) { 
-	console.log('Request failed ', error ); 
-	}); 
+	.catch(function (error) {
+	console.log('Request failed ', error );
+	});
 }
 function setInterface(){
 	let AvaImg = document.createElement("img");//Создаем и устанавливаем аву
-	AvaImg.setAttribute("src", snsPlayerInf.avatar); 
-	AvaImg.setAttribute("width", "90px"); 
+	AvaImg.setAttribute("src", snsPlayerInf.avatar);
+	AvaImg.setAttribute("width", "90px");
 	document.querySelector(".portrait-crop").appendChild(AvaImg);
 
 	let nickName = document.querySelector("#nickName-text").innerHTML = mainPlayerInf.nickName;

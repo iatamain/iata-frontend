@@ -43,9 +43,9 @@ var session = {
 }
 var mainPlayerInf = new PlayerInf();
 if(session.snsName === "vk"){
-	send(JSON.stringify(parseGet(window.location.href)), response=>console.log(' .... ', response.json()));
+	send(JSON.stringify(parseGet(window.location.href)), "/api/vkauth", "post", response=>console.log(' .... ', response.json()));
 	console.log(parseGet(window.location.href));
-	VK.init(function() { 
+	VK.init(function() {
 		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
 			console.log(data.response[0]);
 			snsPlayerInf.firstName = data.response[0].first_name;
@@ -54,6 +54,7 @@ if(session.snsName === "vk"){
 			snsPlayerInf.avatar = data.response[0].photo_200;
 			snsPlayerInf.sex = data.response[0].sex; //1 -- Female, 2 -- Male;
 			snsPlayerInf.country = data.response[0].country.title;
+			send(snsPlayerInf, "/api/user/update", "put", response=>console.log(' .... ', response.json()));
 			if(session.isFirstEntry){
 				mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
 				mainPlayerInf.clan = "";
@@ -91,11 +92,10 @@ if(session.snsName === "vk"){
 			});
 			console.log(snsPlayerInf);
 		});
-	}, 
-	function() { 
+	},
+	function() {
 		console.log("Что-то cломалось:с");
-	}, '5.101'); 
+	}, '5.101');
 }else{
 	setInterface()
 }
-
