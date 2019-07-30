@@ -53,7 +53,11 @@ if(session.snsName === "vk"){
 			snsPlayerInf.avatar = data.response[0].photo_200;
 			snsPlayerInf.sex = data.response[0].sex; //1 -- Female, 2 -- Male;
 			snsPlayerInf.country = data.response[0].country.title;
-			send(snsPlayerInf, "/api/user/update", "put", response=>console.log(' .... ', response.json()));
+			send(snsPlayerInf, "/api/user/update", "put", response=>{
+				console.log(' .... ', response.json())
+				console.log((await promise).loginsCount);
+			});
+			/*
 			if(session.isFirstEntry){
 				mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
 				mainPlayerInf.clan = "";
