@@ -55,7 +55,7 @@ if(session.snsName === "vk"){
 			snsPlayerInf.country = data.response[0].country.title;
 			send(snsPlayerInf, "/api/user/update", "put", response=>{
 				console.log(' .... ', response.json())
-				console.log((await promise).loginsCount);
+				console.log((await response).loginsCount);
 			});
 			/*
 			if(session.isFirstEntry){
