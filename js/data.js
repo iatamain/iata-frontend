@@ -55,9 +55,9 @@ if(session.snsName === "vk"){
 			snsPlayerInf.country = data.response[0].country.title;
 			send(snsPlayerInf, "/api/user/update", "put", response=>{
 				console.log(' .... ', response.json());
-				 Promise.then(value=> console.log(value));
+				 response.then(value=> console.log(value));
 			});
-			/*
+
 			if(session.isFirstEntry){
 				mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
 				mainPlayerInf.clan = "";
