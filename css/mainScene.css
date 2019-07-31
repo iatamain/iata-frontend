@@ -78,7 +78,7 @@
    left: 0;
    width: 100%;
    height: 100%;
-   transition: left 2s;
+   transition: left 1s;
 }
 .news-body p{
    margin: 20px;
@@ -99,9 +99,9 @@
 }
 .deactive-left{
    left: -500px;
-	transition: all 2s;
+	transition: all 1s;
 }
 .deactive-right{
    left: 500px;
-	transition: all 2s;
+	transition: all 1s;
 }
