@@ -53,7 +53,7 @@ function exitHandler() {
 		document.querySelector("canvas").setAttribute("width", canvWidth);
 		document.querySelector("canvas").setAttribute("height", canvHeight);
     }
-}  
+}
 
 
 function game(){
@@ -90,9 +90,9 @@ function update(dt){
 }
 
 function render(scene){
-	ctx.fillStyle = " #003A3C";
+	ctx.fillStyle = "#003A3C";
 	ctx.fillRect(0, 0, canvWidth, canvHeight);
-	ctx.fillStyle = "#03E6EF"; 
+	ctx.fillStyle = "#03E6EF";
 	ctx.fillRect(gameObj.x - gameObj.sizeX / 2, gameObj.y - gameObj.sizeY / 2, gameObj.sizeX, gameObj.sizeY);
 }
 let requestAnimFrame = (function() {
@@ -106,4 +106,4 @@ let requestAnimFrame = (function() {
 	};
 })();
 last = Date.now();
-game();  
+game();

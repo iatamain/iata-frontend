@@ -104,5 +104,5 @@ if(session.snsName === "vk"){
 		console.log("Что-то cломалось:с");
 	}, '5.101');
 }else{
-	setInterface()
+	setInterface();
 }

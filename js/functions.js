@@ -28,11 +28,11 @@ function send(data,  url, method, collback){
 	});
 }
 function setInterface(){
-	let AvaImg = document.createElement("img");//Создаем и устанавливаем аву
-	AvaImg.setAttribute("src", snsPlayerInf.avatar);
-	AvaImg.setAttribute("width", "90px");
-	document.querySelector(".portrait-crop").appendChild(AvaImg);
-
+	let avaImg = document.createElement("img");//Создаем и устанавливаем аву
+	avaImg.setAttribute("src", snsPlayerInf.avatar);
+	avaImg.setAttribute("width", "90px");
+	document.querySelector(".portrait-crop").appendChild(avaImg);
+	document.querySelector("#lvl > p").innerHTML = mainPlayerInf.lvl;;
 	let nickName = document.querySelector("#nickName-text").innerHTML = mainPlayerInf.nickName;
 	let clan = document.querySelector("#clan-text").innerHTML = "Клан: " + mainPlayerInf.clan;
 	let lvl = document.querySelector("#lvl-text").innerHTML = "Уровень: " + mainPlayerInf.lvl;
