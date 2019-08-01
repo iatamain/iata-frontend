@@ -7,7 +7,7 @@ class PlayerInf {
 		this.id = 42;
 		this.rank = 42;
 		this.rankingPos = 42;
-		this.lvl = 42;
+		this.lvl = 2;
 		this.experience = 42;
 		this.amountCrystal = 42;
 		this.progress = {};

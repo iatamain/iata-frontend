@@ -11,6 +11,10 @@ function parseGet(getHref){
 		return 0;
 	}
 }
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
 function send(data,  url, method, collback){
 	fetch("https://itracers.xyz:8443" + url, {
 	method: method,
@@ -26,15 +30,4 @@ function send(data,  url, method, collback){
 	.catch(function (error) {
 	console.log('Request failed ', error );
 	});
-}
-function setInterface(){
-	let avaImg = document.createElement("img");//Создаем и устанавливаем аву
-	avaImg.setAttribute("src", snsPlayerInf.avatar);
-	avaImg.setAttribute("width", "90px");
-	document.querySelector(".portrait-crop").appendChild(avaImg);
-	document.querySelector("#lvl > p").innerHTML = mainPlayerInf.lvl;;
-	let nickName = document.querySelector("#nickName-text").innerHTML = mainPlayerInf.nickName;
-	let clan = document.querySelector("#clan-text").innerHTML = "Клан: " + mainPlayerInf.clan;
-	let lvl = document.querySelector("#lvl-text").innerHTML = "Уровень: " + mainPlayerInf.lvl;
-	let element = document.querySelector("#element").innerHTML = "Стихия: " + mainPlayerInf.element;
 }
