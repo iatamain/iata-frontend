@@ -1,5 +1,5 @@
 #main{
-	pointer-events: auto
+
 }
 #playerInfo{
 	display: inline-table;
@@ -112,10 +112,10 @@
 	text-align: center;
 }
 .deactive-left{
-   left: -500px;
+   left: -100%;
 	transition: left 0.7s;
 }
 .deactive-right{
-   left: 500px;
+   left: 100%;
 	transition: left 0.7s;
 }
