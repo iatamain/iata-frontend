@@ -103,7 +103,7 @@ body{
 }
 #experience div{
    position: absolute;
-   width: 33%;
+   width: 0%;
    height: 100%;
    background: linear-gradient(to top, #082 60%, #fff 100%, #082 100%);
 }
@@ -139,6 +139,7 @@ li:hover{
 	transition: 0.8s;
 }
 .menuScene{
+   position: absolute;
 	width: 100%;
 	height: 80%;
 }

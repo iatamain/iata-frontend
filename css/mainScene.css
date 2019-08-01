@@ -1,17 +1,21 @@
+#main{
+	pointer-events: auto
+}
 #playerInfo{
 	display: inline-table;
 	position:  relative;
-	width: 43%;
+	width: 43.5%;
 	height: 25%;
 	left: 5%;
 	top: 0;
 	border-radius: 7px;
 	background: black;
+	transition: left 1s;
 }
 #news{
 	display: inline-table;
 	position:  relative;
-	width: 40%;
+	width: 39%;
 	height: 97%;
 	padding: 20px;
 	border-radius: 7px;
@@ -21,16 +25,26 @@
 	color: #fff;
 	text-align: left;
 	overflow: hidden;
+	transition: right 1s;
 }
 #goToPlay{
 	display: inline-table;
 	position:  relative;
-	width: 43%;
-	height: 66%;
+	width: 43.5%;
+	height: 65.8%;
 	border-radius: 7px;
 	background: black;
 	left: 5%;
 	top: 5.5%;
+	transition: left 1s;
+}
+.deactiveMain-left{
+	left: -100% !important;
+	transition: left 1s;
+}
+.deactiveMain-right{
+	right: -100% !important;
+	transition: right 1s;
 }
 .portrait-crop{
 	position: absolute;
@@ -78,7 +92,7 @@
    left: 0;
    width: 100%;
    height: 100%;
-   transition: left 1s;
+   transition: left 0.7s;
 }
 .news-body p{
    margin: 20px;
@@ -99,9 +113,9 @@
 }
 .deactive-left{
    left: -500px;
-	transition: left 1s;
+	transition: left 0.7s;
 }
 .deactive-right{
    left: 500px;
-	transition: left 1s;
+	transition: left 0.7s;
 }

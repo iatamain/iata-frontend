@@ -1,0 +1,33 @@
+#rooms{
+   pointer-events: auto;
+}
+#createRoom{
+	display: inline-table;
+	position:  relative;
+	width: 39%;
+	height: 97%;
+	padding: 20px;
+	border-radius: 7px;
+	background: black;
+	float: right;
+	right: 5%;
+	color: #fff;
+	text-align: left;
+	overflow: hidden;
+	transition: right 1s;
+}
+#listRooms{
+	display: inline-table;
+	position:  relative;
+	width: 39%;
+	height: 97%;
+	padding: 20px;
+	border-radius: 7px;
+	background: black;
+	float: left;
+	left: 5%;
+	color: #fff;
+	text-align: left;
+	overflow: hidden;
+	transition: left 1s;
+}

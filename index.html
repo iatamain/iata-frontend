@@ -6,6 +6,7 @@
 		<link rel = "stylesheet" href = "css/style.css">
 		<link rel = "stylesheet" href = "css/inputs.css">
 		<link rel = "stylesheet" href = "css/mainScene.css">
+		<link rel = "stylesheet" href = "css/roomsScene.css">
 		<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript" defer></script>
 		<script type = "text/javascript" src = "js/data.json" defer></script>
 		<script type = "text/javascript" src = "js/functions.js" defer></script>
@@ -27,13 +28,13 @@
 					</div>
 					<div id = "experience">
 						<div><!--Шкала опыта--></div>
-						<p>100/300</p>
+						<p>0/29</p>
 					</div>
 				</div>
 				<div id = "secondLine">
 					<ul class = "menu">
-						<li>Главная</li>
-						<li>Комнаты</li>
+						<li onclick="setScene('main')">Главная</li>
+						<li onclick="setScene('rooms')">Комнаты</li>
 						<li>Достижения</li>
 						<li>Магазин</li>
 						<li>Профиль</li>
@@ -59,9 +60,9 @@
 					</div>
 					<div id = "goToPlay"></div>
 				</div>
-				<div id = "rooms">
-					<div id = "listRooms"></div>
-					<div id = "createRoom"></div>
+				<div id = "rooms" class = "menuScene">
+					<div onclick = "alert()" id = "listRooms" class = "deactiveMain-left"></div>
+					<div id = "createRoom" class = "deactiveMain-right"></div>
 				</div>
 			</div>
 		</div>

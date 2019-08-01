@@ -3,20 +3,21 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 }
 setNews(dataNews);
 
-let active = 0;
+let activeRadio = 0;
+let activeScene = 'main';
 function changeRadio(arg){
 		var classN, ink;
-		if(arg > active) classN = "left", ink = 1;
-		if(arg < active) classN = "right", ink = -1;
-		if(arg == active) return 0;
+		if(arg > activeRadio) classN = "left", ink = 1;
+		if(arg < activeRadio) classN = "right", ink = -1;
+		if(arg == activeRadio) return 0;
 		document.querySelector(".active").setAttribute("class", "news-body deactive-"+classN);
 		document.querySelector("#news" + pad(arg, 2)).setAttribute("style", "visibility: visible");
 		document.querySelector("#news" + pad(arg, 2)).setAttribute("class", "news-body active");
-		for(let i = active + ink; i * ink < arg * ink; i += ink){
+		for(let i = activeRadio + ink; i * ink < arg * ink; i += ink){
 			document.querySelector("#news" + pad(i, 2)).setAttribute("style", "visibility: hidden");
 			document.querySelector("#news" + pad(i, 2)).setAttribute("class", "news-body deactive-" + classN);
 		}
-		active = arg;
+		activeRadio = arg;
 }
 function setNews(newsList){
 	let news = document.querySelector("#news");
@@ -56,6 +57,28 @@ function setNews(newsList){
 		footer.appendChild(label);
 	}
 	news.appendChild(footer);
+}
+function setScene(scene){
+	if(scene == "rooms"){
+		document.querySelector("#main").setAttribute("style", "pointer-events: none");
+		document.querySelector("#playerInfo").setAttribute("class", "deactiveMain-left");
+		document.querySelector("#goToPlay").setAttribute("class", "deactiveMain-left");
+		document.querySelector("#news").setAttribute("class", "deactiveMain-right");
+		document.querySelector("#listRooms").setAttribute("class", "");
+		document.querySelector("#createRoom").setAttribute("class", "")
+		document.querySelector("#rooms").setAttribute("style", "pointer-events: auto");
+
+	}
+	if(scene == "main"){
+		document.querySelector("#rooms").setAttribute("style", "pointer-events: none;");
+		document.querySelector("#listRooms").setAttribute("class", "deactiveMain-left");
+		document.querySelector("#createRoom").setAttribute("class", "deactiveMain-right");
+		document.querySelector("#playerInfo").setAttribute("class", "");
+		document.querySelector("#goToPlay").setAttribute("class", "");
+		document.querySelector("#news").setAttribute("class", "");
+		document.querySelector("#main").setAttribute("style", "pointer-events: auto");
+	}
+	activeScene = scene;
 }
 function setInterface(){
 	let avaImg = document.createElement("img");//Создаем и устанавливаем аву
