@@ -4,8 +4,9 @@
 #playerInfo{
 	display: inline-table;
 	position:  relative;
-	width: 43.5%;
+	width: 39%;
 	height: 25%;
+	padding: 0 20px;
 	left: 5%;
 	top: 0;
 	border-radius: 7px;
@@ -30,12 +31,13 @@
 #goToPlay{
 	display: inline-table;
 	position:  relative;
-	width: 43.5%;
-	height: 65.8%;
+	width: 39%;
+	height: 66.8%;
+	padding: 20px;
 	border-radius: 7px;
 	background: black;
 	left: 5%;
-	top: 5.5%;
+	top: 4.5%;
 	transition: left 1s;
 }
 .deactiveMain-left{
