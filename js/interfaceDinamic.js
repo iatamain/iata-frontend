@@ -2,7 +2,17 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 	document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 }
 setNews(dataNews);
-
+	function testRadio(tim = 500, a = 3, b = 0, c = 2, d = 1){
+	let lol = i => {
+		document.querySelectorAll("label")[i].click()
+	}
+	for(let i = 0; i < 100; i+=4){
+		setTimeout(lol, tim*(1 + i), a);
+		setTimeout(lol, tim*(2 + i), b);
+		setTimeout(lol, tim*(3 + i), c);
+		setTimeout(lol, tim*(4 + i), d);
+	}
+}
 let activeRadio = 0;
 let activeScene = 'main';
 function changeRadio(arg){
