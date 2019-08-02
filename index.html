@@ -7,6 +7,9 @@
 		<link rel = "stylesheet" href = "css/inputs.css">
 		<link rel = "stylesheet" href = "css/mainScene.css">
 		<link rel = "stylesheet" href = "css/roomsScene.css">
+		<link rel = "stylesheet" href = "css/achievementsScene.css">
+		<link rel = "stylesheet" href = "css/storeScene.css">
+		<link rel = "stylesheet" href = "css/animations.css">
 		<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript" defer></script>
 		<script type = "text/javascript" src = "js/data.json" defer></script>
 		<script type = "text/javascript" src = "js/functions.js" defer></script>
@@ -35,8 +38,8 @@
 					<ul class = "menu">
 						<li onclick="setScene('main')">Главная</li>
 						<li onclick="setScene('rooms')">Комнаты</li>
-						<li>Достижения</li>
-						<li>Магазин</li>
+						<li onclick = "setScene('achievements')">Достижения</li>
+						<li onclick = "setScene('store')">Магазин</li>
 						<li>Профиль</li>
 						<li>Кланы</li>
 						<li>Локации</li>
@@ -61,8 +64,14 @@
 					<div id = "goToPlay"></div>
 				</div>
 				<div id = "rooms" class = "menuScene">
-					<div onclick = "alert(1)" id = "listRooms" class = "deactiveMain-left"></div>
-					<div onclick = "alert(2)" id = "createRoom" class = "deactiveMain-right"></div>
+					<div onclick = "alert(1)" id = "listRooms" class = "deactive-left"></div>
+					<div onclick = "alert(2)" id = "createRoom" class = "deactive-right"></div>
+				</div>
+				<div id = "achievements" class = "menuScene">
+					<div id = "achievementsContainer" class = "deactive-bottom"></div>
+				</div>
+				<div id = "store" class = "menuScene">
+					<div id="storeItems" class = "deactive-bottom"></div>
 				</div>
 			</div>
 		</div>

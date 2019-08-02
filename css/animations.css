@@ -1,0 +1,51 @@
+.deactive-left{
+	left: -150% !important;
+	transition: left 1s;
+}
+.deactive-right{
+	right: -150% !important;
+	transition: right 1s;
+}
+.deactive-bottom{
+   bottom: -250% !important;
+   transition: bottom 1s;
+}
+/*Main Scene*/
+#playerInfo{
+   transition: left 0.7s;
+}
+#news{
+   transition: right 1s;
+}
+.news-body{
+   transition: left 0.5s;
+}
+#goToPlay{
+   transition: left 1s;
+}
+/*Rooms*/
+#createRoom{
+   transition: right 1s;
+}
+#listRooms{
+   transition: left 1s;
+}
+/*Achievements*/
+#achievementsContainer{
+   transition: bottom 1s;
+}
+/*Store*/
+#storeItems{
+   transition: bottom 1s;
+}
+/*Transitions*/
+#playerInfo.deactive-left{
+	transition: left 1.5s 0.1s;
+}
+.news-body.deactive-left{
+	transition: left 0.5s;
+}
+.news-body.deactive-right{
+   left: 150%;
+	transition: left 0.5s;
+}

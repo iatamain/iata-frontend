@@ -2,17 +2,6 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 	document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 }
 setNews(dataNews);
-	function testRadio(tim = 500, a = 3, b = 0, c = 2, d = 1){
-	let lol = i => {
-		document.querySelectorAll("label")[i].click()
-	}
-	for(let i = 0; i < 100; i+=4){
-		setTimeout(lol, tim*(1 + i), a);
-		setTimeout(lol, tim*(2 + i), b);
-		setTimeout(lol, tim*(3 + i), c);
-		setTimeout(lol, tim*(4 + i), d);
-	}
-}
 let activeRadio = 0;
 let activeScene = 'main';
 function changeRadio(arg){
@@ -69,26 +58,12 @@ function setNews(newsList){
 	news.appendChild(footer);
 }
 function setScene(scene){
-	if(scene == "rooms"){
-		document.querySelector("#main").setAttribute("style", "pointer-events: none");
-		document.querySelector("#playerInfo").setAttribute("class", "deactiveMain-left");
-		document.querySelector("#goToPlay").setAttribute("class", "deactiveMain-left");
-		document.querySelector("#news").setAttribute("class", "deactiveMain-right");
-		document.querySelector("#listRooms").setAttribute("class", "");
-		document.querySelector("#createRoom").setAttribute("class", "")
-		document.querySelector("#rooms").setAttribute("style", "pointer-events: auto");
-
+	for(i in interfaceData){
+		document.querySelector("#" + i).setAttribute("style", "pointer-events: " + (i == scene ? "auto" : "none"));
+		for(j in interfaceData[i]){
+			document.querySelector("#" + j).setAttribute("class", i == scene ? "" : interfaceData[i][j]);
+		}
 	}
-	if(scene == "main"){
-		document.querySelector("#rooms").setAttribute("style", "pointer-events: none;");
-		document.querySelector("#listRooms").setAttribute("class", "deactiveMain-left");
-		document.querySelector("#createRoom").setAttribute("class", "deactiveMain-right");
-		document.querySelector("#playerInfo").setAttribute("class", "");
-		document.querySelector("#goToPlay").setAttribute("class", "");
-		document.querySelector("#news").setAttribute("class", "");
-		document.querySelector("#main").setAttribute("style", "pointer-events: auto");
-	}
-	activeScene = scene;
 }
 function setInterface(){
 	let avaImg = document.createElement("img");//Создаем и устанавливаем аву

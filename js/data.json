@@ -20,3 +20,20 @@ var dataNews = [
       img: "images/news/news00.jpg"
    }
 ];
+var interfaceData = {
+   main: {
+      playerInfo: "deactive-left",
+      goToPlay: "deactive-left",
+      news: "deactive-right"
+   },
+   rooms: {
+      listRooms: "deactive-left",
+      createRoom: "deactive-right"
+   },
+   achievements: {
+      achievementsContainer: "deactive-bottom"
+   },
+   store: {
+      storeItems: "deactive-bottom"
+   }
+}

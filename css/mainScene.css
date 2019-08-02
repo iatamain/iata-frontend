@@ -11,7 +11,6 @@
 	top: 0;
 	border-radius: 7px;
 	background: black;
-	transition: left 1s;
 }
 #news{
 	display: inline-table;
@@ -26,7 +25,6 @@
 	color: #fff;
 	text-align: left;
 	overflow: hidden;
-	transition: right 1s;
 }
 #goToPlay{
 	display: inline-table;
@@ -38,15 +36,6 @@
 	background: black;
 	left: 5%;
 	top: 4.5%;
-	transition: left 1s;
-}
-.deactiveMain-left{
-	left: -100% !important;
-	transition: left 1s;
-}
-.deactiveMain-right{
-	right: -100% !important;
-	transition: right 1s;
 }
 .portrait-crop{
 	position: absolute;
@@ -94,7 +83,6 @@
    left: 0;
    width: 100%;
    height: 100%;
-   transition: left 0.5s;
 }
 .news-body p{
    margin: 20px;
@@ -112,12 +100,4 @@
 	left: 0;
 	right: 0;
 	text-align: center;
-}
-.deactive-left{
-   left: -100%;
-	transition: left 0.5s;
-}
-.deactive-right{
-   left: 100%;
-	transition: left 0.5s;
 }

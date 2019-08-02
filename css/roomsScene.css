@@ -14,7 +14,9 @@
 	color: #fff;
 	text-align: left;
 	overflow: hidden;
-	transition: right 1s;
+}
+#news{
+   transition: right 1s;
 }
 #listRooms{
 	display: inline-table;
@@ -29,5 +31,4 @@
 	color: #fff;
 	text-align: left;
 	overflow: hidden;
-	transition: left 1s;
 }
