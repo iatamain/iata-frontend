@@ -1,0 +1,14 @@
+#elementary{
+   pointer-events: none;
+}
+#elementaryContainer{
+   position:  relative;
+   width: 90%;
+   margin: 0 auto;
+   height: 97%;
+   border-radius: 7px;
+   color: #fff;
+   background: black;
+   overflow: hidden;
+   bottom: 0;
+}

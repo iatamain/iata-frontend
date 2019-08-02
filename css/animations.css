@@ -38,6 +38,18 @@
 #storeItems{
    transition: bottom 1s;
 }
+#altarContainer{
+   transition: bottom 1s;
+}
+#elementaryContainer{
+   transition: bottom 1s;
+}
+#clansContainer{
+   transition: bottom 1s;
+}
+#rankingContainer{
+   transition: bottom 1s;
+}
 /*Transitions*/
 #playerInfo.deactive-left{
 	transition: left 1.5s 0.1s;

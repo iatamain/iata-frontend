@@ -9,6 +9,10 @@
 		<link rel = "stylesheet" href = "css/roomsScene.css">
 		<link rel = "stylesheet" href = "css/achievementsScene.css">
 		<link rel = "stylesheet" href = "css/storeScene.css">
+		<link rel = "stylesheet" href = "css/altarScene.css">
+		<link rel = "stylesheet" href = "css/elementaryScene.css">
+		<link rel = "stylesheet" href = "css/clansScene.css">
+		<link rel = "stylesheet" href = "css/rankingScene.css">
 		<link rel = "stylesheet" href = "css/animations.css">
 		<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript" defer></script>
 		<script type = "text/javascript" src = "js/data.json" defer></script>
@@ -40,10 +44,10 @@
 						<li onclick="setScene('rooms')">Комнаты</li>
 						<li onclick = "setScene('achievements')">Достижения</li>
 						<li onclick = "setScene('store')">Магазин</li>
-						<li>Профиль</li>
-						<li>Кланы</li>
-						<li>Локации</li>
-						<li>Рейтинг</li>
+						<li onclick = "setScene('altar')">Алтарь</li>
+						<li onclick = "setScene('elementary')">Элементарий</li>
+						<li onclick = "setScene('clans')">Кланы</li>
+						<li onclick = "setScene('ranking')">Рейтинг</li>
 					</ul>
 				</div>
 				<div id = "main" class = "menuScene">
@@ -68,10 +72,34 @@
 					<div onclick = "alert(2)" id = "createRoom" class = "deactive-right"></div>
 				</div>
 				<div id = "achievements" class = "menuScene">
-					<div id = "achievementsContainer" class = "deactive-bottom"></div>
+					<div id = "achievementsContainer" class = "deactive-bottom">
+						<h1 class = "inDevText">Достижения в разработке</h1>
+					</div>
 				</div>
 				<div id = "store" class = "menuScene">
-					<div id="storeItems" class = "deactive-bottom"></div>
+					<div id="storeItems" class = "deactive-bottom">
+						<h1 class = "inDevText">Магазин в разработке</h1>
+					</div>
+				</div>
+				<div id = "altar" class = "menuScene">
+					<div id = "altarContainer" class = "deactive-bottom">
+						<h1 class = "inDevText">Алтарь в разработке</h1>
+					</div>
+				</div>
+				<div id = "elementary" class = "menuScene">
+					<div id = "elementaryContainer" class = "deactive-bottom">
+						<h1 class = "inDevText">Элементарий в разработке</h1>
+					</div>
+				</div>
+				<div id = "clans" class = "menuScene">
+					<div id = "clansContainer" class = "deactive-bottom">
+						<h1 class = "inDevText">Кланы в разработке</h1>
+					</div>
+				</div>
+				<div id = "ranking" class = "menuScene">
+					<div id = "rankingContainer" class = "deactive-bottom">
+						<h1 class = "inDevText">Рейтинговая таблица разработке</h1>
+					</div>
 				</div>
 			</div>
 		</div>

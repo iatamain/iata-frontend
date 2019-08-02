@@ -35,5 +35,17 @@ var interfaceData = {
    },
    store: {
       storeItems: "deactive-bottom"
+   },
+   altar: {
+      altarContainer: "deactive-bottom"
+   },
+   elementary: {
+      elementaryContainer: "deactive-bottom"
+   },
+   clans: {
+      clansContainer: "deactive-bottom"
+   },
+   ranking: {
+      rankingContainer: "deactive-bottom"
    }
 }
