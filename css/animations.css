@@ -10,6 +10,18 @@
    bottom: -250% !important;
    transition: bottom 1s;
 }
+.deactive-left-temp{
+   transition: right 0s !important;;
+	left: -150% !important;
+}
+.deactive-right-temp{
+   transition: right 0s !important;;
+	left: 150% !important;
+}
+.deactive-bottom-temp{
+   transition: right 0s !important;;
+   bottom: -250% !important;
+}
 /*Main Scene*/
 #playerInfo{
    transition: left 0.7s;
@@ -32,23 +44,47 @@
 }
 /*Achievements*/
 #achievementsContainer{
-   transition: bottom 1s;
+   transition: all 1s;
+}
+#achievementsContainer.deactive-right{
+   left: 150% !important;
+	transition: left 1s;
 }
 /*Store*/
 #storeItems{
-   transition: bottom 1s;
+   transition: all 1s;
+}
+#storeItems.deactive-right{
+   left: 150% !important;
+	transition: left 1s;
 }
 #altarContainer{
-   transition: bottom 1s;
+   transition: all 1s;
+}
+#altarContainer.deactive-right{
+   left: 150% !important;
+	transition: left 1s;
 }
 #elementaryContainer{
-   transition: bottom 1s;
+   transition: all 1s;
+}
+#elementaryContainer.deactive-right{
+   left: 150% !important;
+	transition: all 1s;
 }
 #clansContainer{
-   transition: bottom 1s;
+   transition: all 1s;
+}
+#clansContainer.deactive-right{
+   left: 150% !important;
+	transition: all 1s;
 }
 #rankingContainer{
-   transition: bottom 1s;
+   transition: all 1s;
+}
+#rankingContainer.deactive-right{
+   left: 150% !important;
+	transition: all 1s;
 }
 /*Transitions*/
 #playerInfo.deactive-left{

@@ -3,9 +3,10 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 }
 setNews(dataNews);
 let activeRadio = 0;
-let activeScene = 'main';
+let activeScene = 0;
+let activeSceneName = 0;
 function changeRadio(arg){
-		var classN, ink;
+		let classN, ink;
 		if(arg > activeRadio) classN = "left", ink = 1;
 		if(arg < activeRadio) classN = "right", ink = -1;
 		if(arg == activeRadio) return 0;
@@ -57,13 +58,32 @@ function setNews(newsList){
 	}
 	news.appendChild(footer);
 }
-function setScene(scene){
+function setScene(scene, num){
+	let classN = 0;
 	for(i in interfaceData){
 		document.querySelector("#" + i).setAttribute("style", "pointer-events: " + (i == scene ? "auto" : "none"));
 		for(j in interfaceData[i]){
-			document.querySelector("#" + j).setAttribute("class", i == scene ? "" : interfaceData[i][j]);
+			if(num > 1 && activeScene > 1 && interfaceData[i][j] == "deactive-bottom"){
+				document.querySelector("#" + j).setAttribute("class", num <= activeScene ? "deactive-left-temp" : "deactive-right-temp");
+				if(i == scene){
+					setTimeout((function (){
+						let temp = j;
+						return 'document.querySelector("#' + temp + '").setAttribute("class", "")';
+					})(), 20);
+				}else{
+					if(i == activeSceneName){
+						document.querySelector("#" + j).setAttribute("class", num > activeScene ? "deactive-left" : "deactive-right");
+					}else{
+						document.querySelector("#" + j).setAttribute("class", num > activeScene ? "deactive-left-temp" : "deactive-right-temp");
+					}
+				}
+			}else{
+				document.querySelector("#" + j).setAttribute("class", i == scene ? "" : interfaceData[i][j]);
+			}
 		}
 	}
+	activeSceneName = scene;
+	activeScene = num;
 }
 function setInterface(){
 	let avaImg = document.createElement("img");//Создаем и устанавливаем аву
