@@ -58,7 +58,6 @@ if(session.snsName === "vk"){
 				console.log(' .... ', responseObj);
 				 responseObj.then(value => {
 					 console.log(value);
-					 console.log(value.loginsCount);
 				 });
 			});
 

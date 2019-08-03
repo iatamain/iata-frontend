@@ -15,6 +15,10 @@ function pad (str, max) {
   str = str.toString();
   return str.length < max ? pad("0" + str, max) : str;
 }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function send(data,  url, method, collback){
 	fetch("https://itracers.xyz:8443" + url, {
 	method: method,

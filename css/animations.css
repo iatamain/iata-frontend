@@ -42,47 +42,12 @@
 #listRooms{
    transition: left 1s;
 }
-/*Achievements*/
-#achievementsContainer{
+
+/*Big blocks*/
+.bigScene{
    transition: all 1s;
 }
-#achievementsContainer.deactive-right{
-   left: 150% !important;
-	transition: all 1s;
-}
-/*Store*/
-#storeItems{
-   transition: all 1s;
-}
-#storeItems.deactive-right{
-   left: 150% !important;
-	transition: all 1s;
-}
-#altarContainer{
-   transition: all 1s;
-}
-#altarContainer.deactive-right{
-   left: 150% !important;
-	transition: all 1s;
-}
-#elementaryContainer{
-   transition: all 1s;
-}
-#elementaryContainer.deactive-right{
-   left: 150% !important;
-	transition: all 1s;
-}
-#clansContainer{
-   transition: all 1s;
-}
-#clansContainer.deactive-right{
-   left: 150% !important;
-	transition: all 1s;
-}
-#rankingContainer{
-   transition: all 1s;
-}
-#rankingContainer.deactive-right{
+.bigScene.deactive-right{
    left: 150% !important;
 	transition: all 1s;
 }

@@ -58,27 +58,34 @@ function setNews(newsList){
 	}
 	news.appendChild(footer);
 }
-function setScene(sceneName, sceneNum){
+async function setScene(sceneName, sceneNum){
+	function removeAllAnimClass(selector){
+		["deactive-left", "deactive-right", "deactive-bottom", "deactive-left-temp", "deactive-right-temp", "deactive-bottom-temp"].forEach((name) => {
+			document.querySelector(selector).classList.remove(name);
+		})
+	}
+	let classN1 = sceneNum > activeSceneNum ? "right" : "left";
+	let classN2 = sceneNum > activeSceneNum ? "left" : "right";
 	if(sceneNum != activeSceneNum)
 	for(i in interfaceData){
-		document.querySelector("#" + i).setAttribute("style", "pointer-events: " + (i == sceneName ? "auto" : "none"));
+		document.querySelector("#" + i).style.pointerEvents = (i == sceneName ? "auto" : "none");
 		for(j in interfaceData[i]){
-			if(sceneNum > 1 && activeSceneNum > 1 && interfaceData[i][j] == "deactive-bottom"){
-				document.querySelector("#" + j).setAttribute("class", sceneNum <= activeSceneNum ? "deactive-left-temp" : "deactive-right-temp");
+			if(sceneNum > 1 && activeSceneNum > 1 && document.querySelector(`#${j}`).classList.contains("bigScene")){ //Ориентация по классу
+				removeAllAnimClass("#" + j);
+				document.querySelector("#" + j).classList.add(`deactive-${classN1}-temp`);
 				if(i == sceneName){
-					setTimeout((function (){
-						let temp = j;
-						return 'document.querySelector("#' + temp + '").setAttribute("class", "")';
-					})(), 20);
+					setTimeout(removeAllAnimClass, 20, "#" + j);
 				}else{
+					removeAllAnimClass("#" + j);
 					if(i == activeSceneName){
-						document.querySelector("#" + j).setAttribute("class", sceneNum > activeSceneNum ? "deactive-left" : "deactive-right");
+						document.querySelector("#" + j).classList.add(`deactive-${classN2}`);
 					}else{
-						document.querySelector("#" + j).setAttribute("class", sceneNum > activeSceneNum ? "deactive-left-temp" : "deactive-right-temp");
+						document.querySelector("#" + j).classList.add(`deactive-${classN2}-temp`);
 					}
 				}
 			}else{
-				document.querySelector("#" + j).setAttribute("class", i == sceneName ? "" : interfaceData[i][j]);
+				removeAllAnimClass("#" + j);
+				if(i != sceneName) document.querySelector("#" + j).classList.add(interfaceData[i][j]);
 			}
 		}
 	}
