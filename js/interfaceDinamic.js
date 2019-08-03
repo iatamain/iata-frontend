@@ -3,7 +3,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 }
 setNews(dataNews);
 let activeRadio = 0;
-let activeScene = 0;
+let activeSceneNum = 0;
 let activeSceneName = 0;
 function changeRadio(arg){
 		let classN, ink;
@@ -58,32 +58,32 @@ function setNews(newsList){
 	}
 	news.appendChild(footer);
 }
-function setScene(scene, num){
-	let classN = 0;
+function setScene(sceneName, sceneNum){
+	if(sceneNum != activeSceneNum)
 	for(i in interfaceData){
-		document.querySelector("#" + i).setAttribute("style", "pointer-events: " + (i == scene ? "auto" : "none"));
+		document.querySelector("#" + i).setAttribute("style", "pointer-events: " + (i == sceneName ? "auto" : "none"));
 		for(j in interfaceData[i]){
-			if(num > 1 && activeScene > 1 && interfaceData[i][j] == "deactive-bottom"){
-				document.querySelector("#" + j).setAttribute("class", num <= activeScene ? "deactive-left-temp" : "deactive-right-temp");
-				if(i == scene){
+			if(sceneNum > 1 && activeSceneNum > 1 && interfaceData[i][j] == "deactive-bottom"){
+				document.querySelector("#" + j).setAttribute("class", sceneNum <= activeSceneNum ? "deactive-left-temp" : "deactive-right-temp");
+				if(i == sceneName){
 					setTimeout((function (){
 						let temp = j;
 						return 'document.querySelector("#' + temp + '").setAttribute("class", "")';
 					})(), 20);
 				}else{
 					if(i == activeSceneName){
-						document.querySelector("#" + j).setAttribute("class", num > activeScene ? "deactive-left" : "deactive-right");
+						document.querySelector("#" + j).setAttribute("class", sceneNum > activeSceneNum ? "deactive-left" : "deactive-right");
 					}else{
-						document.querySelector("#" + j).setAttribute("class", num > activeScene ? "deactive-left-temp" : "deactive-right-temp");
+						document.querySelector("#" + j).setAttribute("class", sceneNum > activeSceneNum ? "deactive-left-temp" : "deactive-right-temp");
 					}
 				}
 			}else{
-				document.querySelector("#" + j).setAttribute("class", i == scene ? "" : interfaceData[i][j]);
+				document.querySelector("#" + j).setAttribute("class", i == sceneName ? "" : interfaceData[i][j]);
 			}
 		}
 	}
-	activeSceneName = scene;
-	activeScene = num;
+	activeSceneName = sceneName;
+	activeSceneNum = sceneNum;
 }
 function setInterface(){
 	let avaImg = document.createElement("img");//Создаем и устанавливаем аву

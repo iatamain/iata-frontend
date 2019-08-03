@@ -1,26 +1,26 @@
 .deactive-left{
 	left: -150% !important;
-	transition: left 1s;
+	transition: all 1s;
 }
 .deactive-right{
 	right: -150% !important;
-	transition: right 1s;
+	transition: all 1s;
 }
 .deactive-bottom{
    bottom: -250% !important;
-   transition: bottom 1s;
+   transition: all 1s;
 }
 .deactive-left-temp{
-   transition: right 0s !important;;
 	left: -150% !important;
+   transition: all 0s !important;
 }
 .deactive-right-temp{
-   transition: right 0s !important;;
 	left: 150% !important;
+   transition: all 0s !important;
 }
 .deactive-bottom-temp{
-   transition: right 0s !important;;
    bottom: -250% !important;
+   transition: all 0s !important;
 }
 /*Main Scene*/
 #playerInfo{
@@ -48,7 +48,7 @@
 }
 #achievementsContainer.deactive-right{
    left: 150% !important;
-	transition: left 1s;
+	transition: all 1s;
 }
 /*Store*/
 #storeItems{
@@ -56,14 +56,14 @@
 }
 #storeItems.deactive-right{
    left: 150% !important;
-	transition: left 1s;
+	transition: all 1s;
 }
 #altarContainer{
    transition: all 1s;
 }
 #altarContainer.deactive-right{
    left: 150% !important;
-	transition: left 1s;
+	transition: all 1s;
 }
 #elementaryContainer{
    transition: all 1s;
@@ -88,12 +88,12 @@
 }
 /*Transitions*/
 #playerInfo.deactive-left{
-	transition: left 1.5s 0.1s;
+	transition: all 1.5s 0.1s;
 }
 .news-body.deactive-left{
-	transition: left 0.5s;
+	transition: all 0.5s;
 }
 .news-body.deactive-right{
    left: 150%;
-	transition: left 0.5s;
+	transition: all 0.5s;
 }
