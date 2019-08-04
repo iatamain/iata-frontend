@@ -55,7 +55,6 @@ if(session.snsName === "vk"){
 			snsPlayerInf.country = data.response[0].country.title;
 			send(snsPlayerInf, "/api/user/update", "put", response=>{
 				let responseObj = response.json()
-				console.log(' .... ', responseObj);
 				 responseObj.then(value => {
 					 console.log(value);
 				 });

@@ -39,12 +39,12 @@ body{
 	border-radius: 7px;
 }
 #lvl{
-      position: relative;
-      left: 10px;
-      margin-right: 10px;
-      width:45px;
-      height: 100%;
-      float: left;
+   position: relative;
+   left: 10px;
+   margin-right: 10px;
+   width:45px;
+   height: 100%;
+   float: left;
 }
 #lvl img{
    position: absolute;
@@ -122,7 +122,7 @@ body{
 	background: black;
 }
 
-li{
+.menu li{
 	display: block;
 	position: relative;
 	left: -3.5%;
@@ -132,7 +132,7 @@ li{
 	font-weight: bold;
 	cursor: pointer;
 }
-li:hover{
+.menu li:hover{
 	background: #0ff;
 	outline: 1px solid #0ff;
 	color: black;

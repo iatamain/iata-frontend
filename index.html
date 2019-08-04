@@ -68,8 +68,69 @@
 					<div id = "goToPlay"></div>
 				</div>
 				<div id = "rooms" class = "menuScene">
-					<div onclick = "alert(1)" id = "listRooms" class = "deactive-left"></div>
-					<div onclick = "alert(2)" id = "createRoom" class = "deactive-right"></div>
+					<div id = "listRooms" class = "deactive-left"><!--class = "deactive-left"-->
+						<div id = "listRoomsBody">
+							<ul>
+								<li>
+									<p class = "nameRoom">Ололо</p>
+									<p class = "typeRoom">TDM: Лес</p>
+									<p class = "playerInRoom">4/8</p>
+									<div onclick = "alert('Нет, ну а чо?:DDD')" class = "smallButton goToRoom">
+										<span>В бой</span>
+									</div>
+								</li>
+								<li>
+									<p class = "nameRoom">4242</p>
+									<p class = "typeRoom">DM: TestMap</p>
+									<p class = "playerInRoom">3/4</p>
+									<div class = "smallButton goToRoom">
+										<span>В бой</span>
+									</div>
+								</li>
+								<li>
+									<p class = "nameRoom">игра</p>
+									<p class = "typeRoom">DM: TestMap2</p>
+									<p class = "playerInRoom">2/4</p>
+									<div class = "smallButton goToRoom">
+										<span>В бой</span>
+									</div>
+								</li>
+								<li>
+									<p class = "nameRoom">заходите:D</p>
+									<p class = "typeRoom">TDM: BigTestMap</p>
+									<p class = "playerInRoom">12/20</p>
+									<div class = "smallButton goToRoom">
+										<span>В бой</span>
+									</div>
+								</li>
+								<li>
+									<p class = "nameRoom">хеей</p>
+									<p class = "typeRoom">DM: TestMap</p>
+									<p class = "playerInRoom">4/4</p>
+									<div class = "smallButton goToRoom">
+										<span>В бой</span>
+									</div>
+								</li>
+								<li>
+									<p class = "nameRoom">хм</p>
+									<p class = "typeRoom">TDM: TestMap</p>
+									<p class = "playerInRoom">6/8</p>
+									<div class = "smallButton goToRoom">
+										<span>В бой</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div id = "listRoomsFooter">
+							<p class = "activePlayers">Игроков онлайн: 31</p>
+							<p class = "activeRooms">Активных комнат: 6</p>
+							<div id = "listRoomsHeader">
+								<input onclick = "alert(`Не пиши, оно рванет!!11!!1!!!`)" oninput = "alert(`Пездюк, все сломал(((`); document.body.innerHTML = `Мазафака, бум!:С`" type = "text" placeholder="Искать комнату..."/>
+							</div>
+						</div>
+					</div>
+					<div id = "createRoom" class = "deactive-right">
+					</div>
 				</div>
 				<div id = "achievements" class = "menuScene">
 					<div id = "achievementsContainer" class = "bigScene deactive-bottom">

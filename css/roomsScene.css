@@ -30,5 +30,99 @@
 	left: 5%;
 	color: #fff;
 	text-align: left;
-	overflow: hidden;
+
+}
+#listRoomsHeader{
+   position: absolute;
+   width: 100%;
+   height: 10%;
+   left: 0;
+   top: 0;
+   border-bottom: 2px solid white;
+}
+#listRoomsHeader input{
+   position: relative;
+   top:50%;
+   transform: translate(0, -50%);
+   height: 24px;
+   left: 5%;
+   width: calc(90% - 10px);
+   margin: 0;
+}
+#listRoomsBody{
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 80%;
+}
+#listRoomsBody ul{
+   width: 100%;
+   height: 100%;
+   position: relative;
+   margin: 0;
+   padding: 0;
+
+}
+#listRoomsBody ul li{
+   display: block;
+   position: relative;
+   left: 0;
+   padding: 5% 0;
+   font-weight: bold;
+   border-bottom: 1px solid #333;
+   width: 100%;
+   height: 3%;
+   cursor: pointer;
+}
+.nameRoom{
+   position: absolute;
+   top: 15%;
+   left: 5%;
+   margin: 0;
+}
+.typeRoom{
+   position: absolute;
+   bottom: 15%;
+   left: 5%;
+   margin: 0;
+   font-weight: lighter;
+   color: #aaa;
+}
+.playerInRoom{
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(0, -50%);
+   margin: 0;
+}
+.goToRoom{
+   position: absolute;
+   right: 5%;
+   top: calc(50% - 3px);
+   transform: translate(0, -50%);
+}
+#listRoomsFooter{
+   position: absolute;
+   margin: 0;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height: 10%;
+   border-top: 2px solid white;
+}
+.activePlayers{
+   position: absolute;
+   left: 10%;
+   top: 20%;
+}
+.activeRooms{
+   position: absolute;
+   right: 10%;
+   top: 20%;
+}
+#listRoomsFooter .smallButton{
+      position: absolute;
+      right: 0;
+      top: 0%;
 }

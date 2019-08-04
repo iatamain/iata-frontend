@@ -1,10 +1,12 @@
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 	document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 }
-setNews(dataNews);
 let activeRadio = 0;
 let activeSceneNum = 0;
-let activeSceneName = 0;
+let activeSceneName = "main";
+setNews(dataNews);
+setScene("rooms", 1);
+
 function changeRadio(arg){
 		let classN, ink;
 		if(arg > activeRadio) classN = "left", ink = 1;
