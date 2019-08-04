@@ -5,7 +5,6 @@ let activeRadio = 0;
 let activeSceneNum = 0;
 let activeSceneName = "main";
 setNews(dataNews);
-setScene("rooms", 1);
 
 function changeRadio(arg){
 		let classN, ink;
