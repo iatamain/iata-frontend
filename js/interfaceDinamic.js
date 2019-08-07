@@ -36,17 +36,20 @@
 		requestAnimFrame(move);
 	}
 	let update= function(dt){
-		let border = listRoomsBody.elementHTML.offsetHeight / 3;
-		let down = listRoomsBody.elementHTML.offsetHeight / 2 + border
-		let up = listRoomsBody.elementHTML.offsetHeight / 2 - border;
-		let sensitivity = listRoomsBody.elementHTML.offsetHeight / 32;
+		let height = listRoomsBody.elementHTML.offsetHeight;
+		let border = height / 3;
+		let down = height / 2 + border
+		let up = height / 2 - border;
+		let sensitivity = height / 32;
 		if(!listRoomsBody.stop){
 			if(listRoomsBody.y > down){
-				if(parseInt(listRoomsBody.elementChildHTML.style.top) > -11.729*4){
-					listRoomsBody.top -= (up - Math.abs(listRoomsBody.elementHTML.offsetHeight - listRoomsBody.y))/sensitivity;
+				if(listRoomsBody.top - (up - Math.abs(height - listRoomsBody.y))/sensitivity >= -11.729*4){
+					listRoomsBody.top -= (up - Math.abs(height - listRoomsBody.y))/sensitivity;
+				}else{
+					listRoomsBody.top = -11.729*4;
 				}
 			} else if (listRoomsBody.y < up){
-				if(parseInt(listRoomsBody.elementChildHTML.style.top) < 0){
+				if(listRoomsBody.top +  (up - listRoomsBody.y) / sensitivity <= 0){
 					listRoomsBody.top += (up - listRoomsBody.y) / sensitivity;
 				}else{
 				 	listRoomsBody.top = 0;
