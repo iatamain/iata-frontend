@@ -37,16 +37,17 @@
 		requestAnimFrame(move);
 	}
 	let update= function(dt){
+		let border = listRoomsBody.elementHTML.offsetHeight / 3;
+		let down = listRoomsBody.elementHTML.offsetHeight / 2 + border
+		let up = listRoomsBody.elementHTML.offsetHeight / 2 - border;
 		if(!listRoomsBody.stop){
-			if(listRoomsBody.y > listRoomsBody.elementHTML.offsetHeight / 2){
-				listRoomsBody.top--;
-			} else {
-
+			if(listRoomsBody.y > down){
+				listRoomsBody.top -= (up - Math.abs(listRoomsBody.elementHTML.offsetHeight - listRoomsBody.y))/(listRoomsBody.elementHTML.offsetHeight / 32);
+			} else if (listRoomsBody.y < up){
 				if(parseInt(listRoomsBody.elementChildHTML.style.top) < 0)
-				listRoomsBody.top++;
+				listRoomsBody.top += (up - listRoomsBody.y)/(listRoomsBody.elementHTML.offsetHeight / 32);;
 			}
 			listRoomsBody.elementChildHTML.style.top = listRoomsBody.top + "%";
-			console.log(listRoomsBody.elementHTML.offsetHeight);
 		}
 	}
 	let render = function(){
