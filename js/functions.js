@@ -18,7 +18,16 @@ function pad (str, max) {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+var requestAnimFrame = (function() {
+	return window.requestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.oRequestAnimationFrame ||
+	window.msRequestAnimationFrame ||
+	function(callback) {
+		window.setTimeout(callback, 50);
+	};
+})();
 function send(data,  url, method, collback){
 	fetch("https://itracers.xyz:8443" + url, {
 	method: method,
