@@ -63,7 +63,6 @@
    position: relative;
    margin: 0;
    padding: 0 0 50% 0;
-   top: calc(11.85% * -2);
 }
 #listRoomsBody ul li{
    display: block;
