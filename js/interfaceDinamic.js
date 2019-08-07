@@ -32,7 +32,6 @@
 		let now = Date.now();
 		let dt = (now - last)/1000;
 		update(dt);
-		render();
 		last = now;
 		requestAnimFrame(move);
 	}
@@ -44,7 +43,6 @@
 		if(!listRoomsBody.stop){
 			if(listRoomsBody.y > down){
 				if(parseInt(listRoomsBody.elementChildHTML.style.top) > -11.729*4){
-					console.log("...", listRoomsBody.top);
 					listRoomsBody.top -= (up - Math.abs(listRoomsBody.elementHTML.offsetHeight - listRoomsBody.y))/sensitivity;
 				}
 			} else if (listRoomsBody.y < up){
@@ -56,9 +54,6 @@
 			}
 			listRoomsBody.elementChildHTML.style.top = listRoomsBody.top + "%";
 		}
-	}
-	let render = function(){
-
 	}
 	function changeRadio(arg){
 			let classN, ink;
@@ -113,7 +108,7 @@
 		}
 		news.appendChild(footer);
 	}
-	async function setScene(sceneName, sceneNum){
+	function setScene(sceneName, sceneNum){
 		function removeAllAnimClass(selector){
 			["deactive-left", "deactive-right", "deactive-bottom", "deactive-left-temp", "deactive-right-temp", "deactive-bottom-temp"].forEach((name) => {
 				document.querySelector(selector).classList.remove(name);
