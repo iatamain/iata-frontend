@@ -1,4 +1,3 @@
-let flag = true;
 class PlayerInf {
 	constructor() {
 		this.nickName = "Temp";
@@ -22,12 +21,34 @@ class PlayerInf {
 		console.log("В разработке " + ID);
 	}
 }
+var rooms = {};
+for(let i = 0; i < Math.floor(50 + Math.random() * (120 - 50 + 1)); i++){
+	let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
+	let mode = ["DM", "TDM", "CTF", "CP"]
+	let randoms = [];
+	let name = "";
+	for(let j = 0; j <= 10; j++){
+		randoms.push(Math.floor(0 + Math.random() * (9 - 0 + 1)));
+	}
+	for(let j = 0; j <= randoms[10]; j++){
+		name += str[randoms[j]];
+	}
+	rooms[i] = {
+		name: name,
+		map: "TestMap"+ i,
+		mode: mode[randoms[10] % 4],
+		capacity: randoms[10] % 2 ? 10 : randoms[10] % 3 ? 12 : 14,
+		playersInRoom: randoms[10] + 1,
+		isBought: true,
+		isActive: true
+	}
+}
 var snsPlayerInf = {
 	snsId: parseGet(window.location.href).user_id,
 	authKey: parseGet(window.location.href).auth_key,
 	apiId: parseGet(window.location.href).api_id,
 	viewerId: parseGet(window.location.href).viewer_id,
-	firstName: "Temp",
+	firstName: "Ноунейм",
 	lastName: "Temp",
 	birthDay: "1.1.1970",
 	avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png",
@@ -42,6 +63,7 @@ var session = {
 	howManyDays: 42,
 }
 var mainPlayerInf = new PlayerInf();
+var test =2;
 if(session.snsName === "vk"){
 	console.log(parseGet(window.location.href));
 	VK.init(function() {
@@ -81,6 +103,7 @@ if(session.snsName === "vk"){
 				*/
 			}
 			setInterface()
+			setRooms(rooms);
 		});
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) {
 			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
@@ -103,4 +126,5 @@ if(session.snsName === "vk"){
 	}, '5.101');
 }else{
 	setInterface();
+	setRooms(rooms);
 }

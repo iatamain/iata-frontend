@@ -2,12 +2,16 @@
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 		document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 	}
+	let countRooms = 0;
+	let countPlayers = 0;
 	let activeRadio = 0;
 	let activeSceneNum = 0;
 	let activeSceneName = "main";
 	let listRoomsBody = {
 		elementHTML: document.querySelector("#listRoomsBody"),
 		elementChildHTML: document.querySelector("#listRoomsBody ul"),
+		sizeElement: 11.84,
+		elementsPerPage: 8,
 		x: 0,
 		y: 0,
 		dy: 1,
@@ -15,6 +19,9 @@
 		rect: 0,
 		stop: true
 	};
+	function msg(){
+		alert("Не мешай им, " + snsPlayerInf.firstName + ", пусть играют с:");
+	}
 	listRoomsBody.elementHTML.addEventListener("mousemove", e => {
 		listRoomsBody.rect = listRoomsBody.elementHTML.getBoundingClientRect();
 		listRoomsBody.x = e.clientX - listRoomsBody.rect.left;
@@ -36,17 +43,17 @@
 		requestAnimFrame(move);
 	}
 	let update= function(dt){
-		let height = listRoomsBody.elementHTML.offsetHeight;
-		let border = height / 3;
-		let down = height / 2 + border
-		let up = height / 2 - border;
-		let sensitivity = height / 32;
+		let size = listRoomsBody.elementHTML.offsetHeight;
+		let border = size / 3;
+		let down = size / 2 + border
+		let up = size / 2 - border;
+		let sensitivity = size / 32;
 		if(!listRoomsBody.stop){
 			if(listRoomsBody.y > down){
-				if(listRoomsBody.top - (up - Math.abs(height - listRoomsBody.y))/sensitivity >= -11.729*4){
-					listRoomsBody.top -= (up - Math.abs(height - listRoomsBody.y))/sensitivity;
+				if(listRoomsBody.top - (up - Math.abs(size - listRoomsBody.y))/sensitivity >= -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0)){
+					listRoomsBody.top -= (up - Math.abs(size - listRoomsBody.y))/sensitivity;
 				}else{
-					listRoomsBody.top = -11.729*4;
+					listRoomsBody.top = -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0);
 				}
 			} else if (listRoomsBody.y < up){
 				if(listRoomsBody.top +  (up - listRoomsBody.y) / sensitivity <= 0){
@@ -71,6 +78,36 @@
 				document.querySelector("#news" + pad(i, 2)).setAttribute("class", "news-body deactive-" + classN);
 			}
 			activeRadio = arg;
+	}
+	function setRooms(rooms){
+		countRooms = 0;
+		countPlayers = 0;
+		document.querySelector("#listRoomsBody ul").innerHTML = "";
+		for(i in rooms){
+			let li = document.createElement("li");
+			let p = document.createElement("p");
+			p.setAttribute("class", "nameRoom");
+			p.innerHTML = rooms[i].name;
+			li.appendChild(p);
+			let p2 = document.createElement("p");
+			p2.setAttribute("class", "typeRoom");
+			p2.innerHTML = `${rooms[i].mode}: ${rooms[i].map}`;
+			li.appendChild(p2);
+			let p3 = document.createElement("p");
+			p3.setAttribute("class", "playerInRoom");
+			p3.innerHTML = `${rooms[i].playersInRoom}/${rooms[i].capacity}`;
+			li.appendChild(p3);
+			let div = document.createElement("div");
+			div.setAttribute("onclick", "msg()");
+			div.setAttribute("class", "smallButton goToRoom");
+			div.innerHTML = "<span>В бой</span>";
+			li.appendChild(div);
+			document.querySelector("#listRoomsBody ul").appendChild(li);
+			countRooms++;
+			countPlayers += rooms[i].playersInRoom;
+		}
+		document.querySelector(".activePlayers").innerHTML = "Игроков онлайн: " + countPlayers;
+		document.querySelector(".activeRooms").innerHTML = "Активных комнат: " + countRooms;
 	}
 	function setNews(newsList){
 		let news = document.querySelector("#news");
