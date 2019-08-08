@@ -128,7 +128,8 @@
 
 		}
 		document.querySelector(".activePlayers").innerHTML = "Игроков онлайн: " + countPlayers;
-		document.querySelector(".activeRooms").innerHTML = "Активных комнат: " + countRooms;
+		if(document.querySelector("#listRoomsHeader input").value == "") document.querySelector(".activeRooms").innerHTML = "Активных комнат: " + countRooms;
+		else  document.querySelector(".activeRooms").innerHTML = "Результатов поиска: " + countRooms;
 		listRoomsBody.elementChildHTML.style.top = listRoomsBody.top + "%";
 	}
 	function setNews(newsList){
