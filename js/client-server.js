@@ -126,5 +126,5 @@ if(session.snsName === "vk"){
 	}, '5.101');
 }else{
 	setInterface();
-	setRooms(rooms);
+	setRooms(rooms, "set");
 }

@@ -79,35 +79,57 @@
 			}
 			activeRadio = arg;
 	}
-	function setRooms(rooms){
-		countRooms = 0;
-		countPlayers = 0;
-		document.querySelector("#listRoomsBody ul").innerHTML = "";
-		for(i in rooms){
-			let li = document.createElement("li");
-			let p = document.createElement("p");
-			p.setAttribute("class", "nameRoom");
-			p.innerHTML = rooms[i].name;
-			li.appendChild(p);
-			let p2 = document.createElement("p");
-			p2.setAttribute("class", "typeRoom");
-			p2.innerHTML = `${rooms[i].mode}: ${rooms[i].map}`;
-			li.appendChild(p2);
-			let p3 = document.createElement("p");
-			p3.setAttribute("class", "playerInRoom");
-			p3.innerHTML = `${rooms[i].playersInRoom}/${rooms[i].capacity}`;
-			li.appendChild(p3);
-			let div = document.createElement("div");
-			div.setAttribute("onclick", "msg()");
-			div.setAttribute("class", "smallButton goToRoom");
-			div.innerHTML = "<span>В бой</span>";
-			li.appendChild(div);
-			document.querySelector("#listRoomsBody ul").appendChild(li);
-			countRooms++;
-			countPlayers += rooms[i].playersInRoom;
+	function setRooms(rooms, mode){
+		if(mode == "set"){
+			countRooms = 0;
+			countPlayers = 0;
+			document.querySelector("#listRoomsBody ul").innerHTML = "";
+			for(i in rooms){
+				let li = document.createElement("li");
+				li.setAttribute("id", "roomN" + i);
+				let p = document.createElement("p");
+				p.setAttribute("class", "nameRoom");
+				p.innerHTML = rooms[i].name;
+				li.appendChild(p);
+				let p2 = document.createElement("p");
+				p2.setAttribute("class", "typeRoom");
+				p2.innerHTML = `${rooms[i].mode}: ${rooms[i].map}`;
+				li.appendChild(p2);
+				let p3 = document.createElement("p");
+				p3.setAttribute("class", "playerInRoom");
+				p3.innerHTML = `${rooms[i].playersInRoom}/${rooms[i].capacity}`;
+				li.appendChild(p3);
+				let div = document.createElement("div");
+				div.setAttribute("onclick", "msg()");
+				div.setAttribute("class", "smallButton goToRoom");
+				div.innerHTML = "<span>В бой</span>";
+				li.appendChild(div);
+				document.querySelector("#listRoomsBody ul").appendChild(li);
+				rooms[i].isActive = true;
+				countRooms++;
+				countPlayers += rooms[i].playersInRoom;
+			}
+		}
+		if(mode == "search"){
+			let text = document.querySelector("#listRoomsHeader input").value;
+			for(i in rooms){
+				if(rooms[i].name.indexOf(text) == -1 && rooms[i].isActive){
+					document.querySelector("#roomN" + i).style.display = "none";
+					countRooms--;
+					rooms[i].isActive = false;
+				}else if(!rooms[i].isActive && rooms[i].name.indexOf(text) != -1){
+					document.querySelector("#roomN" + i).style.display = "block";
+					countRooms++;
+					rooms[i].isActive = true;
+				}
+			}
+			if(listRoomsBody.top < -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0))
+			listRoomsBody.top = -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0);
+
 		}
 		document.querySelector(".activePlayers").innerHTML = "Игроков онлайн: " + countPlayers;
 		document.querySelector(".activeRooms").innerHTML = "Активных комнат: " + countRooms;
+		listRoomsBody.elementChildHTML.style.top = listRoomsBody.top + "%";
 	}
 	function setNews(newsList){
 		let news = document.querySelector("#news");
