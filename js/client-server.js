@@ -103,7 +103,7 @@ if(session.snsName === "vk"){
 				*/
 			}
 			setInterface()
-			setRooms(rooms);
+			setRooms(rooms, "set");
 		});
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) {
 			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
