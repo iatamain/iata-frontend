@@ -113,14 +113,19 @@
 		if(mode == "search"){
 			let text = document.querySelector("#listRoomsHeader input").value;
 			for(i in rooms){
-				if(rooms[i].name.indexOf(text) == -1 && rooms[i].isActive){
+				let searchIndex = rooms[i].name.indexOf(text);
+				if(searchIndex == -1 && rooms[i].isActive){
 					document.querySelector("#roomN" + i).style.display = "none";
 					countRooms--;
 					rooms[i].isActive = false;
-				}else if(!rooms[i].isActive && rooms[i].name.indexOf(text) != -1){
+				}else if(!rooms[i].isActive && searchIndex != -1){
 					document.querySelector("#roomN" + i).style.display = "block";
 					countRooms++;
 					rooms[i].isActive = true;
+				}
+				if(searchIndex != -1){
+					console.log(rooms[i].name.substr(0, searchIndex), rooms[i].name.substr(searchIndex, text.length), rooms[i].name.substr(searchIndex + text.length, rooms[i].name.length));
+					document.querySelector("#roomN" + i + " p").innerHTML = rooms[i].name.substr(0, searchIndex) + '<font color = "#0ff">' + rooms[i].name.substr(searchIndex, text.length) +'</font>' + rooms[i].name.substr(searchIndex + text.length, rooms[i].name.length);
 				}
 			}
 			if(listRoomsBody.top < -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0))
