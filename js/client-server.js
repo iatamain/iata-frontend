@@ -69,20 +69,20 @@ if(session.snsName === "vk"){
 	VK.init(function() {
 		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
 			console.log(data.response[0]);
-			snsPlayerInf.firstName = data.response[0].first_name;
-			snsPlayerInf.lastName = data.response[0].last_name;
-			snsPlayerInf.birthDay = data.response[0].bdate;
-			snsPlayerInf.avatar = data.response[0].photo_200;
+			snsPlayerInf.firstName = data.response[0].first_name; //Получаем имя
+			snsPlayerInf.lastName = data.response[0].last_name; //Получаем фамилию
+			snsPlayerInf.birthDay = data.response[0].bdate; //Получаем дату др
+			snsPlayerInf.avatar = data.response[0].photo_200; //Получаем аву
 			snsPlayerInf.sex = data.response[0].sex; //1 -- Female, 2 -- Male;
-			snsPlayerInf.country = data.response[0].country.title;
-			send(snsPlayerInf, "/api/user/update", "put", response=>{
+			snsPlayerInf.country = data.response[0].country.title; //Получаем страну
+			send(snsPlayerInf, "/api/user/update", "put", response=>{ //Отправляем данные на наш серв
 				let responseObj = response.json()
 				 responseObj.then(value => {
-					 console.log(value);
+					 console.log(value); //Получаем ответочку с необходимыми данными
 				 });
 			});
 
-			if(session.isFirstEntry){
+			if(session.isFirstEntry){ //Если первый вход...
 				mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
 				mainPlayerInf.clan = "";
 				mainPlayerInf.element = "Земля"; //Должен быть на выбор
@@ -105,8 +105,8 @@ if(session.snsName === "vk"){
 			setInterface()
 			setRooms(rooms, "set");
 		});
-		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) {
-			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
+		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) { //Получаем массив id Друзей
+			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) { //Получаем инфу о каждом друге
 				data.response.forEach(function(friend) {
 					snsPlayerInf.friends.push({
 						friendPlayerInfo: new PlayerInf(),
@@ -124,6 +124,13 @@ if(session.snsName === "vk"){
 	function() {
 		console.log("Что-то cломалось:с");
 	}, '5.101');
+}else if(session.snsName === "ok"){
+	alert("Зашли через ok с:")
+	//Сюда код от Ве
+}
+else if(session.snsName === "fb"){
+	alert("Зашли через fb с:")
+	//Сюда код от Ве
 }else{
 	setInterface();
 	setRooms(rooms, "set");
