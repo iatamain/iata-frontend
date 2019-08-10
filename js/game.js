@@ -60,15 +60,12 @@
 	let game = function(){
 		let now = Date.now();
 		let dt = (now - last)/1000;
-		if(dt < 0.1){ //Нужно вместо этого чекать возможность перескока сквозь стены.
-			update(dt);
-			render(currentScene);
-		}
+		update(dt);
+		render(currentScene);
 		last = now;
+
 		requestAnimFrame(game);
 	}
-
-
 	let update = function(dt){
 		gameObj.x += gameObj.dx * dt;
 		gameObj.y += gameObj.dy * dt;

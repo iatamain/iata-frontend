@@ -47,17 +47,17 @@
 		let border = size / 3;
 		let down = size / 2 + border
 		let up = size / 2 - border;
-		let sensitivity = size / 32;
+		let speed = 3;
 		if(!listRoomsBody.stop){
 			if(listRoomsBody.y > down){
-				if(listRoomsBody.top - (up - Math.abs(size - listRoomsBody.y))/sensitivity >= -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0)){
-					listRoomsBody.top -= (up - Math.abs(size - listRoomsBody.y))/sensitivity;
+				if(listRoomsBody.top - (up - Math.abs(size - listRoomsBody.y)) * speed * dt>= -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0)){
+					listRoomsBody.top -= (up - Math.abs(size - listRoomsBody.y)) * speed * dt;
 				}else{
 					listRoomsBody.top = -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0);
 				}
 			} else if (listRoomsBody.y < up){
-				if(listRoomsBody.top +  (up - listRoomsBody.y) / sensitivity <= 0){
-					listRoomsBody.top += (up - listRoomsBody.y) / sensitivity;
+				if(listRoomsBody.top +  (up - listRoomsBody.y) * speed * dt <= 0){
+					listRoomsBody.top += (up - listRoomsBody.y) * speed * dt;
 				}else{
 				 	listRoomsBody.top = 0;
 				}
