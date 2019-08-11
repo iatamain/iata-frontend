@@ -130,7 +130,6 @@ if(session.snsName === "vk"){
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
   	function() {
 			console.log("Инициализация прошла успешно");
-
 			function getInitCards(){																	//Функция запросов
 				console.log("Вход в функцию")
 				var callback_users_getCurrentUser = function(status, data, error){
