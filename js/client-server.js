@@ -143,7 +143,7 @@ if(session.snsName === "vk"){
 				FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"},callback_users_getCurrentUser);
 			}		//Конец функции запроса
 
-			console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsId + " - " + authKey);
+			console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
 		},
 		function(error){
 			console.log("Ошибка инициализации");
