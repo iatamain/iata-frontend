@@ -128,6 +128,8 @@ if(session.snsName === "vk"){
 	alert("Зашли через ok с:")
 
 	var rParams = FAPI.Util.getRequestParameters();
+	console.log(rParams); //Отладка
+
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],
           function() {
               alert("Инициализация прошла успешно");
