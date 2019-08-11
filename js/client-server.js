@@ -126,7 +126,15 @@ if(session.snsName === "vk"){
 	}, '5.101');
 }else if(session.snsName === "ok"){
 	alert("Зашли через ok с:")
-	//Сюда код от Ве
+
+	var rParams = FAPI.Util.getRequestParameters();
+	FAPI.init(rParams["api_server"], rParams["apiconnection"],
+          function() {
+              alert("Инициализация прошла успешно");
+          },
+          function(error) {
+              alert("Ошибка инициализации");
+          });
 }
 else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
