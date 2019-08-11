@@ -12,7 +12,7 @@ class PlayerInf {
 		this.progress = {};
 		this.achievements = {};
 		this.purchasedItems = {};
-		this.statistics = {
+		this.statistics	
 			kills: 42,
 			battles: 42
 		}
@@ -64,7 +64,7 @@ var session = {
 }
 var mainPlayerInf = new PlayerInf();
 var test =2;
-if(session.snsName === "vk"){
+if(session.snsName === "vk"){								//Start VK.API Auth
 	console.log(parseGet(window.location.href));
 	VK.init(function() {
 		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
@@ -123,10 +123,22 @@ if(session.snsName === "vk"){
 	},
 	function() {
 		console.log("Что-то cломалось:с");
-	}, '5.101');
+	}, '5.101');								//End VK.API Auth
 }else if(session.snsName === "ok"){
-	alert("Зашли через ok с:")
+	alert("Зашли через ok с:") // пиздец у дноклассников АПИ непонятное, я в ахуе блять, пиздец...
+
 	//Сюда код от Ве
+
+	var rParams = FAPI.Util.getRequestParameters();
+	FAPI.init(rParams["api_server"], rParams["apiconnection"],
+          function() {
+              alert("Инициализация прошла успешно");
+              // здесь можно вызывать методы API
+          },
+          function(error) {
+              alert("Ошибка инициализации");
+          }
+);
 }
 else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
