@@ -129,7 +129,6 @@ if(session.snsName === "vk"){
 	console.log(parseGet(window.location.href));
 
 	var rParams = FAPI.Util.getRequestParameters();
-	console.log(rParams); //Отладка
 
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
           function() {
@@ -165,8 +164,9 @@ if(session.snsName === "vk"){
     }
  
 
-    FAPI.Client.call({"fields":"first_name,last_name,location,pic128x128","method":"users.getCurrentUser"}, callback_users_getCurrentUser);
-    FAPI.Client.call({"method":"friends.get"}, callback_friends_get);
+    Console.log(FAPI.Client.call({"fields":"first_name,last_name,location,pic128x128","method":"users.getCurrentUser"}, callback_users_getCurrentUser));
+    Console.log(FAPI.Client.call({"method":"friends.get"}, callback_friends_get)); 
+
 }
 
 }
