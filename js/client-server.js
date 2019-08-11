@@ -126,17 +126,49 @@ if(session.snsName === "vk"){
 	}, '5.101');
 }else if(session.snsName === "ok"){
 	alert("Зашли через ok с:")
+	console.log(parseGet(window.location.href));
 
 	var rParams = FAPI.Util.getRequestParameters();
 	console.log(rParams); //Отладка
 
-	FAPI.init(rParams["api_server"], rParams["apiconnection"],
+	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
           function() {
               alert("Инициализация прошла успешно");
           },
           function(error) {
               alert("Ошибка инициализации");
           });
+
+	function initCard() {
+    var callback_users_getCurrentUser = function(status, data, error){
+        if (data) {
+            fillCard(data);
+        } else {
+            processError(error);
+        }
+    };
+ 
+    var callback_friends_get = function(status, data, error){
+        if(data) {
+            var randomFriendId = result[getRandomInt(0, result.length)];
+            var callback_users_getInfo = function(status, data, error) {
+                if (data) {
+                    document.getElementById("random_friend_name_surname").innerHTML = data[0]["first_name"] + " " + data[0]["last_name"];
+                } else {
+                    processError(error);
+                }
+            }
+            FAPI.Client.call({"method":"users.getInfo", "fields":"first_name,last_name", "uids":randomFriendId}, callback_users_getInfo);
+        } else {
+            processError(error);
+        }
+    }
+ 
+
+    FAPI.Client.call({"fields":"first_name,last_name,location,pic128x128","method":"users.getCurrentUser"}, callback_users_getCurrentUser);
+    FAPI.Client.call({"method":"friends.get"}, callback_friends_get);
+}
+
 }
 else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
