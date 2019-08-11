@@ -126,13 +126,25 @@ if(session.snsName === "vk"){
 	}, '5.101');
 }else if(session.snsName === "ok"){
 	console.log(parseGet(window.location.href));
-	var rParams = FAPI.Util.getRequestParameters();
+	var rParams = FAPI.Util.getRequestParameters();								//Параметры инициализации
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
-  	function(){
+  	function() {
 			console.log("Инициализация прошла успешно");
+			function getInitCards(){																	//Функция запросов
+				var callback_users_getCurrentUser = function(status, data, error){
+					if(data) {
+						snsPlayerInf.firstName = data[0]["first_name"] + " " + data[0]["last_name"];	//Имя фамилия
+					} else {
+						processError(error);
+						console.log("Неудалось запросить данные текущего пользователя");
+					}
+				};
+				FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"},callback_users_getCurrentUser);
+			}		//Конец функции запроса
 		},
 		function(error){
 			console.log("Ошибка инициализации");
+			processError(error);
 		});
 	}
 else if(session.snsName === "fb"){
