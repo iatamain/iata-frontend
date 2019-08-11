@@ -107,21 +107,22 @@ input[type="radio"]:checked + label::after {
     transform: translate(0, 4px);
 }
 /*Input Text*/
-input[type="text"] {
+input[type="text"], input[type="password"], select{
    border: 1px solid #FFF;
    border-radius: 7px;
    -webkit-border-radius: 7px;
    -moz-border-radius: 7px;
    -khtml-border-radius: 7px;
-   background: black !important;
+   background: black;
    outline: none;
 	padding-left: 10px;
    color: #FFF;
    font-size: 15px;
    font-family: Tahoma;
 }
-input[type="text"]:focus{
-	border: 2px solid #0ff;
+input[type="text"]:focus, input[type="password"]:focus{
+	border: 2px solid #0FF;
+	color: #0FF;
 }
 input[type="text"]:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   opacity: 0; /* Firefox */
@@ -154,4 +155,14 @@ input[type="text"]::-ms-input-placeholder { /* Microsoft Edge */
   background: #0FF;
   color: black;
   font-weight: bold;
+}
+/*Selection*/
+option {
+	color: #FFF;
+	background: black;
+}
+select{
+	position: relative;
+	left: -3%;
+	width: 153px;
 }

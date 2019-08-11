@@ -125,3 +125,9 @@
       right: 0;
       top: 0%;
 }
+#createRoom input, #createRoom select{
+
+   margin: 0px 0px 10px 0px;
+   width: calc(100% - 10px);
+   float: right;
+}

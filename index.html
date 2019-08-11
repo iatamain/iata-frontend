@@ -78,11 +78,29 @@
 							<p class = "activePlayers">Игроков онлайн: 0</p>
 							<p class = "activeRooms">Активных комнат: 0</p>
 							<div id = "listRoomsHeader">
-								<input oninput = "setRooms(rooms, 'search')" type = "text" placeholder="Искать комнату..."/>
+								<input oninput = "setRooms(rooms, 'search')" type = "text" placeholder="Искать комнату..." spellcheck="false"/>
 							</div>
 						</div>
 					</div>
 					<div id = "createRoom" class = "deactive-right">
+						<p>Имя: <input spellcheck="false" type = "Text"></p>
+						<p>Пароль: <input type = "password"></p>
+						<p>Режим:
+							<select>
+								<option>Каждый сам за себя</option>
+								<option>Командный бой</option>
+								<option>Захват точки</option>
+								<option>Захват флага</option>
+							</select>
+						</p>
+						<p>Локация:
+							<select>
+								<option>TestMap1</option>
+								<option>TestMap2</option>
+								<option>TestMap3</option>
+								<option>TestMap4</option>
+						</select></p>
+						
 					</div>
 				</div>
 				<div id = "achievements" class = "menuScene">
