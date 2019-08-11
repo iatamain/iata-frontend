@@ -130,10 +130,6 @@ if(session.snsName === "vk"){
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
   	function(){
 			console.log("Инициализация прошла успешно");
-<<<<<<< HEAD
-=======
-			function
->>>>>>> b1a530dcacfd424b995cdc997852ab8e0e3aca8c
 		},
 		function(error){
 			console.log("Ошибка инициализации");
