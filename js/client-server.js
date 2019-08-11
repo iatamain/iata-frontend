@@ -133,7 +133,8 @@ if(session.snsName === "vk"){
 			function getInitCards(){																	//Функция запросов
 				var callback_users_getCurrentUser = function(status, data, error){
 					if(data) {
-						snsPlayerInf.firstName = data[0]["first_name"] + " " + data[0]["last_name"];	//Имя фамилия
+						snsPlayerInf.firstName = data[0]["first_name"];		  //Получает имя
+						snsPlayerInf.lastName = data[0]["last_name"];
 					} else {
 						processError(error);
 						console.log("Неудалось запросить данные текущего пользователя");
@@ -141,6 +142,8 @@ if(session.snsName === "vk"){
 				};
 				FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"},callback_users_getCurrentUser);
 			}		//Конец функции запроса
+
+			console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsId + " - " + authKey);
 		},
 		function(error){
 			console.log("Ошибка инициализации");
