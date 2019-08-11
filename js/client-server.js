@@ -131,7 +131,7 @@ if(session.snsName === "vk"){
   	function() {
 			console.log("Инициализация прошла успешно");
 			function getInitCards(){																	//Функция запросов
-				console.log("Вход в функцию")
+				console.log("Вход в функцию");
 				var callback_users_getCurrentUser = function(status, data, error){
 					console.log('test');
 					console.log(data);
@@ -143,8 +143,8 @@ if(session.snsName === "vk"){
 						processError(error);
 						console.log("Неудалось запросить данные текущего пользователя");
 					}
-					FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"}, callback_users_getCurrentUser);
 				};
+				FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"}, callback_users_getCurrentUser);
 			}																													//Конец функции запроса
 		},
 		function(error){
