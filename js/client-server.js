@@ -128,15 +128,14 @@ if(session.snsName === "vk"){
 	console.log(parseGet(window.location.href));
 	var rParams = FAPI.Util.getRequestParameters();
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
-          function() {
-              console.log("Инициализация прошла успешно");
-          },
-          function(error) {
-              console.log("Ошибка инициализации");
-          });
-}
-
-}
+  	function(){
+			console.log("Инициализация прошла успешно");
+			function
+		},
+		function(error){
+			console.log("Ошибка инициализации");
+		});
+	}
 else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
 	//Сюда код от Ве
