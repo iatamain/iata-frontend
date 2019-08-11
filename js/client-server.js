@@ -135,6 +135,7 @@ if(session.snsName === "vk"){
 					if(data) {
 						snsPlayerInf.firstName = data[0]["first_name"];		  //Получает имя
 						snsPlayerInf.lastName = data[0]["last_name"];
+						console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
 					} else {
 						processError(error);
 						console.log("Неудалось запросить данные текущего пользователя");
@@ -142,8 +143,6 @@ if(session.snsName === "vk"){
 				};
 				FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"},callback_users_getCurrentUser);
 			}		//Конец функции запроса
-
-			console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
 		},
 		function(error){
 			console.log("Ошибка инициализации");
