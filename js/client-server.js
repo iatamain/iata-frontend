@@ -125,46 +125,17 @@ if(session.snsName === "vk"){
 		console.log("Что-то cломалось:с");
 	}, '5.101');
 }else if(session.snsName === "ok"){
-	console.log("Зашли через ok с:");
 	console.log(parseGet(window.location.href));
 	var rParams = FAPI.Util.getRequestParameters();
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
-		function() {
-			console.log("Инициализация прошла успешно");
-			initCard();
-		},
-		function(error) {
-			console.log("Ошибка инициализации");
-		}
-	);
-	function initCard() {
-		var callback_users_getCurrentUser = function(status, data, error){
-   		if (data) {
-      		fillCard(data);
-				console.log(data);
-      	} else {
-   			processError(error);
-			}
-		};
-    var callback_friends_get = function(status, data, error){
-        if(data) {
-            var randomFriendId = result[getRandomInt(0, result.length)];
-            var callback_users_getInfo = function(status, data, error) {
-            	if (data) {
-						 console.log(data);
-						 document.getElementById("random_friend_name_surname").innerHTML = data[0]["first_name"] + " " + data[0]["last_name"];
-         		} else {
-                    processError(error);
-         		}
-      		}
-            FAPI.Client.call({"method":"users.getInfo", "fields":"first_name,last_name", "uids":randomFriendId}, callback_users_getInfo);
-			} else {
-            processError(error);
-        }
-    }
-    FAPI.Client.call({"fields":"first_name,last_name,location,pic128x128","method":"users.getCurrentUser"}, callback_users_getCurrentUser);
-    FAPI.Client.call({"method":"friends.get"}, callback_friends_get);
-	}
+          function() {
+              console.log("Инициализация прошла успешно");
+          },
+          function(error) {
+              console.log("Ошибка инициализации");
+          });
+}
+
 }
 else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
