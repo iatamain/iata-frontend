@@ -130,10 +130,11 @@ if(session.snsName === "vk"){
 	var rParams = FAPI.Util.getRequestParameters();
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
 		function() {
-		     alert("Инициализация прошла успешно");
+			console.log("Инициализация прошла успешно");
+			initCard();
 		},
 		function(error) {
-			alert("Ошибка инициализации");
+			console.log("Ошибка инициализации");
 		}
 	);
 	function initCard() {
