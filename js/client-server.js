@@ -20,7 +20,7 @@ class PlayerInf {
 	getData(ID){
 		console.log("В разработке " + ID);
 	}
-
+}
 var rooms = {};
 for(let i = 0; i < Math.floor(50 + Math.random() * (120 - 50 + 1)); i++){
 	let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
@@ -127,15 +127,18 @@ if(session.snsName === "vk"){								//Start VK.API Auth
 }else if(session.snsName === "ok"){
 	alert("Зашли через ok с:") // пиздец у дноклассников АПИ непонятное, я в ахуе блять, пиздец...
 
+	//Сюда код от Ве
+
 	var rParams = FAPI.Util.getRequestParameters();
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],
-    function() {
-        initCard();
-        FAPI.Client.call({"method":"users.getCurrentUser", "fields":"first_name,last_name,location,pic128x128"}, callback_users_getCurrentUser);
-    },
-    function(error){
-        processError(error);
-    });
+          function() {
+              alert("Инициализация прошла успешно");
+              // здесь можно вызывать методы API
+          },
+          function(error) {
+              alert("Ошибка инициализации");
+          }
+);
 }
 else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
