@@ -136,17 +136,30 @@ if(session.snsName === "vk"){
 				if(data) {
 					snsPlayerInf.firstName = data.first_name;		  //Получает имя
 					snsPlayerInf.lastName = data.last_name;
+					if(session.isFirstEntry){ //Если первый вход...
+						mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
+						mainPlayerInf.clan = "";
+						mainPlayerInf.element = "Земля"; //Должен быть на выбор
+						mainPlayerInf.lvl = 1;
+						mainPlayerInf.experience = 0;
+						mainPlayerInf.amountCrystal = 0;
+						statistics = {
+							kills: 0,
+							battles: 0,
+						}
+					}
 					console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
 				} else {
 					processError(error);
 					console.log("Неудалось запросить данные текущего пользователя");
 				}
 				setInterface();
+				setRooms(rooms, "set");
 			});
 		},
 		function(error){
-			console.log("Ошибка инициализации");
 			processError(error);
+			console.log("Ошибка инициализации");
 		});
 	}
 else if(session.snsName === "fb"){
