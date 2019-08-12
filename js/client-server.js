@@ -130,19 +130,19 @@ if(session.snsName === "vk"){
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
   	function() {
 			console.log("Инициализация прошла успешно");																	//Функция запросов
-			var callback_users_getCurrentUser = function(status, data, error){
+			FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"},function(status, data, error){
 				console.log('test');
 				console.log(data);
 				if(data) {
-					snsPlayerInf.firstName = data[0]["first_name"];		  //Получает имя
-					snsPlayerInf.lastName = data[0]["last_name"];
+					snsPlayerInf.firstName = data.first_name;		  //Получает имя
+					snsPlayerInf.lastName = data.last_name;
 					console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
 				} else {
 					processError(error);
 					console.log("Неудалось запросить данные текущего пользователя");
 				}
-			}
-			FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"},callback_users_getCurrentUser);
+				setInterface();
+			});
 		},
 		function(error){
 			console.log("Ошибка инициализации");
