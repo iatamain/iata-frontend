@@ -130,12 +130,15 @@ if(session.snsName === "vk"){
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
   	function() {
 			console.log("Инициализация прошла успешно");																	//Функция запросов
-			FAPI.Client.call({"fields":"first_name,last_name","method":"users.getCurrentUser"},function(status, data, error){
-				console.log('test');
+			FAPI.Client.call({"fields":"first_name,last_name,pic_3,birthday,gender,location","method":"users.getCurrentUser"},function(status, data, error){
 				console.log(data);
 				if(data) {
 					snsPlayerInf.firstName = data.first_name;		  //Получает имя
-					snsPlayerInf.lastName = data.last_name;
+					snsPlayerInf.lastName = data.last_name;				//Получает фамилию
+					snsPlayerInf.avatar = data.pic_3;							//Получает аватарку
+					snsPlayerInf.birthDay = data.birthday;				//Получаем дату рождения
+					snsPlayerInf.sex = data.gender;								//Получаем пол
+					snsPlayerInf.country = data.location.countryName; //Получаем страну
 					if(session.isFirstEntry){ //Если первый вход...
 						mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
 						mainPlayerInf.clan = "";
@@ -149,6 +152,7 @@ if(session.snsName === "vk"){
 						}
 					}
 					console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
+					console.log(snsPlayerInf);
 				} else {
 					processError(error);
 					console.log("Неудалось запросить данные текущего пользователя");
