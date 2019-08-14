@@ -9,7 +9,7 @@
 	});
 	document.querySelectorAll("input").forEach((el)=> {
 		el.addEventListener("input", function (e){
-			el.value = (/[A-Za-z0-9А-Яа-я\_\:\№\"\?\!\-\+\=\*\/\#\@\^\,\.\(\)\[\]\{\}\<\>\$\%\;\&]*/.exec(el.value));
+			el.value = (/[A-Za-z0-9А-Яа-я\ \_\:\№\"\?\!\-\+\=\*\/\#\@\^\,\.\(\)\[\]\{\}\<\>\$\%\;\&]*/.exec(el.value));
 		});
 	});
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {

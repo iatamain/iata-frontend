@@ -64,7 +64,6 @@ var session = {
 	howManyDays: 42,
 }
 var mainPlayerInf = new PlayerInf();
-var test =2;
 if(session.snsName === "vk"){
 	console.log(parseGet(window.location.href));
 	VK.init(function() {
