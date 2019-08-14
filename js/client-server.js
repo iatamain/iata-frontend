@@ -64,6 +64,7 @@ var session = {
 	howManyDays: 42,
 }
 var mainPlayerInf = new PlayerInf();
+var test =2;
 if(session.snsName === "vk"){
 	console.log(parseGet(window.location.href));
 	VK.init(function() {
@@ -130,7 +131,7 @@ if(session.snsName === "vk"){
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
   	function() {
 			console.log("Инициализация прошла успешно");																	//Функция запросов
-			FAPI.Client.call({"fields":"first_name,last_name,pic_3,birthday,gender,location","method":"users.getCurrentUser"},function(status, data, error){
+			FAPI.Client.call({"fields":"first_name,last_name,pic_3,birthday,gender,location","method":"users.getCurrentUser"},function(status, data, error){  //Получение информации о пользователе
 				console.log(data);
 				if(data) {
 					snsPlayerInf.firstName = data.first_name;		  //Получает имя
@@ -160,11 +161,27 @@ if(session.snsName === "vk"){
 				setInterface();
 				setRooms("set");
 			});
-		},
+
+			//Получение информации о друзьях и их списке
+			FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){
+				if(data){
+						console.log(data);
+				} else {
+					processError(error);
+					console.log("Не удалось запросить uID друзей пользователя");			
+				}
+			});
+
+		},	//Закрытие функции инициализации
 		function(error){
 			processError(error);
 			console.log("Ошибка инициализации");
 		});
+
+
+
+
+
 	}
 else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
