@@ -190,8 +190,8 @@
 		news.appendChild(footer);
 	}
 	function setScene(sceneName, sceneNum){
-		document.querySelector("#menu" + activeSceneNum).classList.remove("active");
-		document.querySelector("#menu" + sceneNum).classList.add("active");
+		if(document.querySelector("#menu" + activeSceneNum)) document.querySelector("#menu" + activeSceneNum).classList.remove("active");
+		if(document.querySelector("#menu" + sceneNum)) document.querySelector("#menu" + sceneNum).classList.add("active");
 		function removeAllAnimClass(selector){
 			["deactive-left", "deactive-right", "deactive-bottom", "deactive-left-temp", "deactive-right-temp", "deactive-bottom-temp"].forEach((name) => {
 				document.querySelector(selector).classList.remove(name);
@@ -203,16 +203,16 @@
 		for(i in interfaceData){
 			document.querySelector("#" + i).style.pointerEvents = (i == sceneName ? "auto" : "none");
 			for(j in interfaceData[i]){
-				if(sceneNum > 1 && activeSceneNum > 1 && document.querySelector(`#${j}`).classList.contains("bigScene")){ //Ориентация по классу
+				if(sceneNum > 1 && activeSceneNum > 1 && document.querySelector(`#${j}`).classList.contains("bigScene")){ //Если переход осуществляется с большой сцены на большую
 					removeAllAnimClass("#" + j);
-					document.querySelector("#" + j).classList.add(`deactive-${classN1}-temp`);
-					if(i == sceneName){
-						setTimeout(removeAllAnimClass, 20, "#" + j);
+					document.querySelector("#" + j).classList.add(`deactive-${classN1}-temp`); //Моментальное перемещение в стартовую точку движения
+					if(i == sceneName){ //Если наткнулись на целевую сцену
+						setTimeout(removeAllAnimClass, 20, "#" + j); //Задержка, чтоб успел переместиться в стартовую точку
 					}else{
 						removeAllAnimClass("#" + j);
-						if(i == activeSceneName){
+						if(i == activeSceneName){ //Если активная сцена -- плавно ее убираем
 							document.querySelector("#" + j).classList.add(`deactive-${classN2}`);
-						}else{
+						}else{ //Иначе -- переносим моментально
 							document.querySelector("#" + j).classList.add(`deactive-${classN2}-temp`);
 						}
 					}
@@ -296,11 +296,11 @@
 				password: passwordRoom,
 				mode: modeRoom,
 				map: mapRoom,
-				capacity: 14,//Хранится на серве
-				playersInRoom: 0, //На серве
-				isBought: true, //На серве
-				isActive: true, //Дефолт новой комнаты
-				isClose: isCloseRoom
+				capacity: 14,//Вместимость (Хранится на серве)
+				playersInRoom: 0, //Вычисляется на серве
+				isBought: true, //Куплена ли комната (Хранится на серве)
+				isActive: true, //Только на фронте
+				isClose: isCloseRoom //Является ли комната запароленной
 			};
 			setRooms("set");
 			setRooms("search");
