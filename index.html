@@ -83,23 +83,23 @@
 						</div>
 					</div>
 					<div id = "createRoom" class = "deactive-right">
-						<p>Имя: <input spellcheck="false" type = "Text"></p>
-						<p>Пароль: <input type = "password"></p>
-						<p>Режим:
-							<select>
-								<option>Каждый сам за себя</option>
-								<option>Командный бой</option>
-								<option>Захват точки</option>
-								<option>Захват флага</option>
-							</select>
-						</p>
-						<p>Локация:
-							<select>
-								<option>TestMap1</option>
-								<option>TestMap2</option>
-								<option>TestMap3</option>
-								<option>TestMap4</option>
-						</select></p>						
+						<input placeholder= "Имя комнаты" spellcheck="false" type = "Text">
+						<input placeholder= "Пароль" class = "hideInput" spellcheck="false" type = "password">
+						<div class="select collapsed" >
+							<div class="shown">Выбрать режим</div>
+							<div class="option">Каждый сам за себя</div>
+							<div class="option">Командный бой</div>
+							<div class="option">Захват флага</div>
+							<div class="option">Захват точки</div>
+						</div>
+						<div class = "rooms-notation">
+							<img src = "temp/testmap2.jpg" height = "130px" width = "350px" />
+							<div onclick = "msg('Карт еще нет с:')"class = "rooms-notation-hover">
+								<b>Выбрать карту</b>
+							</div>
+						</div>
+						<div onclick = "msg('В разработке')" class = "smallButton"><span>Создать</span></div>
+						<input type = "checkbox" id = "createRoom-checkbox"/><label onclick = "changeCheckbox()" for = "createRoom-checkbox">Закрытая комната</label>
 					</div>
 				</div>
 				<div id = "achievements" class = "menuScene">
@@ -131,6 +131,12 @@
 					<div id = "rankingContainer" class = "bigScene deactive-bottom">
 						<h1 class = "inDevText">Рейтинговая таблица разработке</h1>
 					</div>
+				</div>
+			</div>
+			<div id="modal">
+				<div id = "modal-message">
+					<p>Комната с таким именем уже существует</p>
+					<div onclick = "closeMsg()" class = "smallButton"><span>Ок</span></div>
 				</div>
 			</div>
 		</div>

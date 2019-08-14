@@ -2,13 +2,13 @@
 input[type="radio"] {
 	display: none;
 }
-label {
+input[type="radio"] + label {
 	position: relative;
 	display: inline-block;
 	padding: 3px 3px 3px 20px;
 	cursor: pointer;
 }
-label::before, label::after {
+input[type="radio"] + label::before, input[type="radio"] + label::after {
 	position: absolute;
 	content: '';
 	top: 50%;
@@ -16,7 +16,7 @@ label::before, label::after {
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
 }
-label::before {
+input[type="radio"] + label::before {
 	left: 0;
 	width: 14px;
 	height: 14px;
@@ -24,10 +24,10 @@ label::before {
 	background: #f3f3f3;
 	border: 1px solid #ccc;
 }
-label:hover::before {
+input[type="radio"] + label:hover::before {
 	background: #fff;
 }
-label::after {
+input[type="radio"] + label::after {
 	opacity: 0;
 	left: 4px;
 	width: 8px;
@@ -42,6 +42,54 @@ input[type="radio"]:checked + label::before {
 	border: 1px solid #0ff;
 }
 input[type="radio"]:checked + label::after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+/*Checkbox*/
+input[type="checkbox"] {
+	display: none;
+}
+input[type="checkbox"] + label {
+	position: relative;
+	display: inline-block;
+	padding: 3px 3px 3px 20px;
+	cursor: pointer;
+}
+input[type="checkbox"] + label::before, input[type="checkbox"] + label::after {
+	position: absolute;
+	content: '';
+	top: 50%;
+	border-radius: 20%;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+}
+input[type="checkbox"] + label::before {
+	left: 0;
+	width: 14px;
+	height: 14px;
+	margin-top: -8px;
+	background: #f3f3f3;
+	border: 1px solid #ccc;
+}
+input[type="checkbox"] + label:hover::before {
+	background: #fff;
+}
+input[type="checkbox"] + label::after {
+	opacity: 0;
+	left: 4px;
+	width: 8px;
+	height: 8px;
+	margin-top: -4px;
+	background: #0ff;
+	-webkit-transform: scale(2);
+	transform: scale(2);
+}
+input[type="checkbox"]:checked + label::before {
+	background: #fff;
+	border: 1px solid #0ff;
+}
+input[type="checkbox"]:checked + label::after {
 	opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);
@@ -107,12 +155,10 @@ input[type="radio"]:checked + label::after {
     transform: translate(0, 4px);
 }
 /*Input Text*/
-input[type="text"], input[type="password"], select{
+input[type="text"], input[type="password"]{
    border: 1px solid #FFF;
    border-radius: 7px;
-   -webkit-border-radius: 7px;
-   -moz-border-radius: 7px;
-   -khtml-border-radius: 7px;
+	height: 26px;
    background: black;
    outline: none;
 	padding-left: 10px;
@@ -120,34 +166,16 @@ input[type="text"], input[type="password"], select{
    font-size: 15px;
    font-family: Tahoma;
 }
-input[type="text"]:focus, input[type="password"]:focus{
-	border: 2px solid #0FF;
+input[type="text"]:hover, input[type="password"]:hover{
+	border: 1px solid #0FF;
 	color: #0FF;
 }
-input[type="text"]:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+input[type="text"]:focus::placeholder,  input[type="password"]:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   opacity: 0; /* Firefox */
 }
-input[type="text"]:focus::-ms-input-placeholder { /* Internet Explorer 10-11 */
-  opacity: 0;
-}
-input[type="text"]:focus::-ms-input-placeholder { /* Microsoft Edge */
-  opacity: 0;
-}
-input[type="text"]::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+input[type="text"]::placeholder, input[type="password"]::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #033;
   opacity: 1; /* Firefox */
-  font-weight: bold;
-  font-size: 15px;
-}
-input[type="text"]::-ms-input-placeholder { /* Internet Explorer 10-11 */
-	color: #033;
-	opacity: 1;
-	font-weight: bold;
-   font-size: 15px;
-}
-input[type="text"]::-ms-input-placeholder { /* Microsoft Edge */
-  color: #033;
-  opacity: 1;
   font-weight: bold;
   font-size: 15px;
 }
@@ -156,13 +184,90 @@ input[type="text"]::-ms-input-placeholder { /* Microsoft Edge */
   color: black;
   font-weight: bold;
 }
-/*Selection*/
-option {
-	color: #FFF;
-	background: black;
-}
-select{
+/*Select*/
+.select {
+	width: 100%;
+	border-radius: 7px;
+	border: 1px solid #fff;
+	overflow: hidden;
+	color: #ffffff;
+	font-weight: 300px;
+	margin: 0;
 	position: relative;
-	left: -3%;
-	width: 153px;
+	height: auto;
+	max-height: calc(30px * 5); /* max 8 element in list */
+	transition: 0.2s;
+	margin-bottom: 10px;
+}
+.select:hover{
+	border-color: #0FF;
+}
+.select:before {
+	content: '';
+	position: absolute;
+	background-color: #FFF;
+	width: 10px;
+	height: 10px;
+	-webkit-transform: rotate(45deg);
+	top: 12px;
+	right: 15px;
+}
+.select:hover:before{
+	background-color: #0FF;
+}
+.select:after {
+	content: '';
+	position: absolute;
+	background-color: #000;
+	width: 10px;
+	height: 10px;
+	-webkit-transform: rotate(45deg);
+	top: 17px;
+	right: 15px;
+}
+.select.collapsed {
+	max-height: 30px;
+	transition: 0.2s;
+}
+.select.collapsed:before {
+	content: '';
+	position: absolute;
+	background-color: #ffffff;
+	width: 10px;
+	height: 10px;
+	-webkit-transform: rotate(45deg);
+	top: 8px;
+	right: 15px;
+}
+.select.collapsed:hover:before{
+	background-color: #0FF;
+}
+.select.collapsed:after {
+	content: '';
+	position: absolute;
+	background-color: #000;
+	width: 10px;
+	height: 10px;
+	-webkit-transform: rotate(45deg);
+	top: 3px;
+	right: 15px;
+}
+.option,.select .shown {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 15px;
+	cursor: pointer;
+	background-color: #000;
+}
+.option:hover{
+		color: #0FF;
+}
+.select .shown {
+	background-color: #000;
+	font-weight: 400;
+	border-bottom: 1px solid #FFF;
+}
+.select:hover .shown {
+	border-bottom: 1px solid #0FF;
 }

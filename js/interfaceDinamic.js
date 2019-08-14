@@ -1,6 +1,15 @@
 {
+	document.querySelectorAll(".select").forEach((el)=> {
+		el.addEventListener("click", function (e){
+			if (e.target && e.target.matches(".option")) {
+				this.querySelector(".shown").innerHTML = e.target.innerHTML;
+			}
+			this.classList.toggle("collapsed");
+		});
+	});
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-		document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
+		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
+		msg("Поддержка мобильных устройств в разработке", "closeAcces");
 	}
 	let countRooms = 0;
 	let countPlayers = 0;
@@ -19,9 +28,6 @@
 		rect: 0,
 		stop: true
 	};
-	function msg(){
-		alert("Не мешай им, " + snsPlayerInf.firstName + ", пусть играют с:");
-	}
 	listRoomsBody.elementHTML.addEventListener("mousemove", e => {
 		listRoomsBody.rect = listRoomsBody.elementHTML.getBoundingClientRect();
 		listRoomsBody.x = e.clientX - listRoomsBody.rect.left;
@@ -65,6 +71,9 @@
 			listRoomsBody.elementChildHTML.style.top = listRoomsBody.top + "%";
 		}
 	}
+	function changeCheckbox(){
+		document.querySelector('#createRoom input[type="password"]').classList.toggle('hideInput');
+	}
 	function changeRadio(arg){
 			let classN, ink;
 			if(arg > activeRadio) classN = "left", ink = 1;
@@ -100,7 +109,7 @@
 				p3.innerHTML = `${rooms[i].playersInRoom}/${rooms[i].capacity}`;
 				li.appendChild(p3);
 				let div = document.createElement("div");
-				div.setAttribute("onclick", "msg()");
+				div.setAttribute("onclick", "msg('Не мешай им, " + snsPlayerInf.firstName + ", пусть играют с:')");
 				div.setAttribute("class", "smallButton goToRoom");
 				div.innerHTML = "<span>В бой</span>";
 				li.appendChild(div);
@@ -223,8 +232,21 @@
 		document.querySelector("#experience div").style.width = (mainPlayerInf.experience /  Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5)) * 100 + "%";
 		document.querySelector("#experience p").innerHTML = mainPlayerInf.experience + "/" + Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5);
 	}
+	function msg(msg, type){
+		if(type == "closeAcces"){
+			document.querySelector("#modal-message").innerHTML = `<p>${msg}</p>`;
+			document.querySelector("#modal").style.background = "#000";
+			document.querySelector("#modal").style.display = "block";
+		}else{
+			document.querySelector("#modal p").innerHTML = msg;
+			document.querySelector("#modal").style.display = "block";
+		}
+	}
+	function closeMsg(msg){
+		document.querySelector("#modal").style.display = "none";
+	}
 	setScene("rooms", 1);
 	setNews(dataNews);
 	let last = Date.now();
-	move(listRoomsBody);
+	move();
 }
