@@ -7,6 +7,11 @@
 			this.classList.toggle("collapsed");
 		});
 	});
+	document.querySelectorAll("input").forEach((el)=> {
+		el.addEventListener("input", function (e){
+			el.value = (/[A-Za-z0-9А-Яа-я\_\:\№\"\?\!\-\+\=\*\/\#\@\^\,\.\(\)\[\]\{\}\<\>\$\%\;\&]*/.exec(el.value));
+		});
+	});
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 		msg("Поддержка мобильных устройств в разработке", "closeAcces");
@@ -88,25 +93,25 @@
 			}
 			activeRadio = arg;
 	}
-	function setRooms(rooms, mode){
+	function setRooms(mode){
 		if(mode == "set"){
 			countRooms = 0;
 			countPlayers = 0;
 			document.querySelector("#listRoomsBody ul").innerHTML = "";
-			for(i in rooms){
+			for(i in dataRooms){
 				let li = document.createElement("li");
 				li.setAttribute("id", "roomN" + i);
 				let p = document.createElement("p");
 				p.setAttribute("class", "nameRoom");
-				p.innerHTML = rooms[i].name;
+				p.innerHTML = dataRooms[i].name;
 				li.appendChild(p);
 				let p2 = document.createElement("p");
 				p2.setAttribute("class", "typeRoom");
-				p2.innerHTML = `${rooms[i].mode}: ${rooms[i].map}`;
+				p2.innerHTML = `${dataRooms[i].mode}: ${dataRooms[i].map}`;
 				li.appendChild(p2);
 				let p3 = document.createElement("p");
 				p3.setAttribute("class", "playerInRoom");
-				p3.innerHTML = `${rooms[i].playersInRoom}/${rooms[i].capacity}`;
+				p3.innerHTML = `${dataRooms[i].playersInRoom}/${dataRooms[i].capacity}`;
 				li.appendChild(p3);
 				let div = document.createElement("div");
 				div.setAttribute("onclick", "msg('Не мешай им, " + snsPlayerInf.firstName + ", пусть играют с:')");
@@ -114,27 +119,26 @@
 				div.innerHTML = "<span>В бой</span>";
 				li.appendChild(div);
 				document.querySelector("#listRoomsBody ul").appendChild(li);
-				rooms[i].isActive = true;
+				dataRooms[i].isActive = true;
 				countRooms++;
-				countPlayers += rooms[i].playersInRoom;
+				countPlayers += dataRooms[i].playersInRoom;
 			}
 		}
 		if(mode == "search"){
-			let text = document.querySelector("#listRoomsHeader input").value;
-			for(i in rooms){
-				let searchIndex = rooms[i].name.indexOf(text);
-				if(searchIndex == -1 && rooms[i].isActive){
+			let text = document.querySelector("#listRoomsHeader input").value.trim();
+			for(i in dataRooms){
+				let searchIndex = dataRooms[i].name.indexOf(text);
+				if(searchIndex == -1 && dataRooms[i].isActive){
 					document.querySelector("#roomN" + i).style.display = "none";
 					countRooms--;
-					rooms[i].isActive = false;
-				}else if(!rooms[i].isActive && searchIndex != -1){
+					dataRooms[i].isActive = false;
+				}else if(!dataRooms[i].isActive && searchIndex != -1){
 					document.querySelector("#roomN" + i).style.display = "block";
 					countRooms++;
-					rooms[i].isActive = true;
+					dataRooms[i].isActive = true;
 				}
 				if(searchIndex != -1){
-					console.log(rooms[i].name.substr(0, searchIndex), rooms[i].name.substr(searchIndex, text.length), rooms[i].name.substr(searchIndex + text.length, rooms[i].name.length));
-					document.querySelector("#roomN" + i + " p").innerHTML = rooms[i].name.substr(0, searchIndex) + '<font color = "#0ff">' + rooms[i].name.substr(searchIndex, text.length) +'</font>' + rooms[i].name.substr(searchIndex + text.length, rooms[i].name.length);
+					document.querySelector("#roomN" + i + " p").innerHTML = dataRooms[i].name.substr(0, searchIndex) + '<font color = "#0ff">' + dataRooms[i].name.substr(searchIndex, text.length) +'</font>' + dataRooms[i].name.substr(searchIndex + text.length, dataRooms[i].name.length);
 				}
 			}
 			if(listRoomsBody.top < -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0))
@@ -186,6 +190,8 @@
 		news.appendChild(footer);
 	}
 	function setScene(sceneName, sceneNum){
+		document.querySelector("#menu" + activeSceneNum).classList.remove("active");
+		document.querySelector("#menu" + sceneNum).classList.add("active");
 		function removeAllAnimClass(selector){
 			["deactive-left", "deactive-right", "deactive-bottom", "deactive-left-temp", "deactive-right-temp", "deactive-bottom-temp"].forEach((name) => {
 				document.querySelector(selector).classList.remove(name);
@@ -244,6 +250,61 @@
 	}
 	function closeMsg(msg){
 		document.querySelector("#modal").style.display = "none";
+	}
+	function createRoom(){
+		let nameRoom = document.querySelector("#createRoom input[type='text']").value.trim();
+		let passwordRoom = document.querySelector("#createRoom input[type='password']").value.trim();
+		let modeRoom = document.querySelector("#createRoom .shown").innerHTML;
+		let mapRoom = "TestMap";
+		let isCloseRoom = document.querySelector("#createRoom input[type='checkbox']").checked;
+		let isCreated = false;
+		let isSelected = true;
+		switch (modeRoom) {
+			case "Каждый сам за себя":
+				modeRoom = "DM";
+				break;
+			case "Командный бой":
+				modeRoom = "TDM";
+				break;
+			case "Захват флага":
+				modeRoom = "CTF";
+				break;
+			case "Захват точки":
+				modeRoom = "CP";
+				break;
+			default:
+				isSelected = false;
+		}
+		for(i in dataRooms){
+			if(dataRooms[i].name == nameRoom){
+				isCreated = true;
+			}
+		}
+		//Выбран ли режим
+		//Длина имени+
+		//Уже существует+
+		//Недопустимые символы+
+		//Тримминг+
+		if(isCreated){
+			msg("Комната с таким именем уже существует");
+		}else if(!isSelected){
+			msg("Выберите режим игры");
+		}else{
+			msg("Комната успешно создана");
+			dataRooms[lastIdRoom++] = {
+				name: nameRoom,
+				password: passwordRoom,
+				mode: modeRoom,
+				map: mapRoom,
+				capacity: 14,//Хранится на серве
+				playersInRoom: 0, //На серве
+				isBought: true, //На серве
+				isActive: true, //Дефолт новой комнаты
+				isClose: isCloseRoom
+			};
+			setRooms("set");
+			setRooms("search");
+		}
 	}
 	setScene("rooms", 1);
 	setNews(dataNews);

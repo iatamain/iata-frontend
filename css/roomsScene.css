@@ -150,6 +150,7 @@
 	border-radius: 7px;
 	overflow: hidden;
    margin-bottom: 10px;
+   cursor: pointer;
 }
 .rooms-notation:hover{
    border: 1px solid #0FF;

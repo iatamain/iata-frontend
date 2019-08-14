@@ -132,7 +132,7 @@ body{
 	font-weight: bold;
 	cursor: pointer;
 }
-.menu li:hover{
+.menu li:hover, .menu li.active{
 	background: #0ff;
 	outline: 1px solid #0ff;
 	color: black;

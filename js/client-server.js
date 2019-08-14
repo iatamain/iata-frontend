@@ -21,8 +21,7 @@ class PlayerInf {
 		console.log("В разработке " + ID);
 	}
 }
-var rooms = {};
-for(let i = 0; i < Math.floor(50 + Math.random() * (120 - 50 + 1)); i++){
+for(let i = 0; i < 5; i++){
 	let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
 	let mode = ["DM", "TDM", "CTF", "CP"]
 	let randoms = [];
@@ -33,14 +32,16 @@ for(let i = 0; i < Math.floor(50 + Math.random() * (120 - 50 + 1)); i++){
 	for(let j = 0; j <= randoms[10]; j++){
 		name += str[randoms[j]];
 	}
-	rooms[i] = {
+	dataRooms[lastIdRoom++] = {
 		name: name,
+		password: "",
 		map: "TestMap"+ i,
 		mode: mode[randoms[10] % 4],
 		capacity: randoms[10] % 2 ? 10 : randoms[10] % 3 ? 12 : 14,
 		playersInRoom: randoms[10] + 1,
 		isBought: true,
-		isActive: true
+		isActive: true,
+		isClose: false
 	}
 }
 var snsPlayerInf = {
@@ -103,7 +104,7 @@ if(session.snsName === "vk"){
 				*/
 			}
 			setInterface()
-			setRooms(rooms, "set");
+			setRooms("set");
 		});
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) { //Получаем массив id Друзей
 			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) { //Получаем инфу о каждом друге
@@ -158,7 +159,7 @@ if(session.snsName === "vk"){
 					console.log("Неудалось запросить данные текущего пользователя");
 				}
 				setInterface();
-				setRooms(rooms, "set");
+				setRooms("set");
 			});
 		},
 		function(error){
@@ -171,5 +172,5 @@ else if(session.snsName === "fb"){
 	//Сюда код от Ве
 }else{
 	setInterface();
-	setRooms(rooms, "set");
+	setRooms("set");
 }

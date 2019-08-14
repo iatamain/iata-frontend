@@ -41,14 +41,14 @@
 				</div>
 				<div id = "secondLine">
 					<ul class = "menu">
-						<li onclick="setScene('main', 0)">Главная</li>
-						<li onclick="setScene('rooms', 1)">Комнаты</li>
-						<li onclick = "setScene('achievements', 2)">Достижения</li>
-						<li onclick = "setScene('store', 3)">Магазин</li>
-						<li onclick = "setScene('altar', 4)">Алтарь</li>
-						<li onclick = "setScene('elementary', 5)">Элементарий</li>
-						<li onclick = "setScene('clans', 6)">Кланы</li>
-						<li onclick = "setScene('ranking', 7)">Рейтинг</li>
+						<li id = "menu0" onclick = "setScene('main', 0)">Главная</li>
+						<li id = "menu1" onclick = "setScene('rooms', 1)">Комнаты</li>
+						<li id = "menu2" onclick = "setScene('achievements', 2)">Достижения</li>
+						<li id = "menu3" onclick = "setScene('store', 3)">Магазин</li>
+						<li id = "menu4" onclick = "setScene('altar', 4)">Алтарь</li>
+						<li id = "menu5" onclick = "setScene('elementary', 5)">Элементарий</li>
+						<li id = "menu6" onclick = "setScene('clans', 6)">Кланы</li>
+						<li id = "menu7" onclick = "setScene('ranking', 7)">Рейтинг</li>
 					</ul>
 				</div>
 				<div id = "main" class = "menuScene">
@@ -78,13 +78,13 @@
 							<p class = "activePlayers">Игроков онлайн: 0</p>
 							<p class = "activeRooms">Активных комнат: 0</p>
 							<div id = "listRoomsHeader">
-								<input oninput = "setRooms(rooms, 'search')" type = "text" placeholder="Искать комнату..." spellcheck="false"/>
+								<input oninput = "setRooms('search')" type = "text" placeholder="Искать комнату..." spellcheck="false"/>
 							</div>
 						</div>
 					</div>
 					<div id = "createRoom" class = "deactive-right">
-						<input placeholder= "Имя комнаты" spellcheck="false" type = "Text">
-						<input placeholder= "Пароль" class = "hideInput" spellcheck="false" type = "password">
+						<input maxlength = "20" placeholder= "Имя комнаты" spellcheck="false" type = "Text">
+						<input maxlength = "20" placeholder= "Пароль" class = "hideInput" spellcheck="false" type = "password">
 						<div class="select collapsed" >
 							<div class="shown">Выбрать режим</div>
 							<div class="option">Каждый сам за себя</div>
@@ -98,7 +98,7 @@
 								<b>Выбрать карту</b>
 							</div>
 						</div>
-						<div onclick = "msg('В разработке')" class = "smallButton"><span>Создать</span></div>
+						<div onclick = "createRoom()" class = "smallButton"><span>Создать</span></div>
 						<input type = "checkbox" id = "createRoom-checkbox"/><label onclick = "changeCheckbox()" for = "createRoom-checkbox">Закрытая комната</label>
 					</div>
 				</div>
