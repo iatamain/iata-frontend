@@ -84,7 +84,7 @@
 			if(arg > activeRadio) classN = "left", ink = 1;
 			if(arg < activeRadio) classN = "right", ink = -1;
 			if(arg == activeRadio) return 0;
-			document.querySelector(".active").setAttribute("class", "news-body deactive-"+classN);
+			document.querySelector("#news .active").setAttribute("class", "news-body deactive-"+classN);
 			document.querySelector("#news" + pad(arg, 2)).setAttribute("style", "visibility: visible");
 			document.querySelector("#news" + pad(arg, 2)).setAttribute("class", "news-body active");
 			for(let i = activeRadio + ink; i * ink < arg * ink; i += ink){
