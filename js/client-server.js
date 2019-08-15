@@ -168,7 +168,7 @@ if(session.snsName === "vk"){
 						console.log(data);
 				} else {
 					processError(error);
-					console.log("Не удалось запросить uID друзей пользователя");			
+					console.log("Не удалось запросить uID друзей пользователя");
 				}
 			});
 
