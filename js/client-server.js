@@ -68,6 +68,9 @@ var test =2;
 if(session.snsName === "vk"){
 	console.log(parseGet(window.location.href));
 	VK.init(function() {
+		VK.addCallback('onRequestFail', function (error){
+            processError(error, "apivk");
+       });
 		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
 			console.log(data.response[0]);
 			snsPlayerInf.firstName = data.response[0].first_name; //Получаем имя
@@ -123,67 +126,58 @@ if(session.snsName === "vk"){
 		});
 	},
 	function() {
-		console.log("Что-то cломалось:с");
+		processError(error, "vk.com");
 	}, '5.101');
 }else if(session.snsName === "ok"){
 	console.log(parseGet(window.location.href));
 	var rParams = FAPI.Util.getRequestParameters();								//Параметры инициализации
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
-  	function() {
-			console.log("Инициализация прошла успешно");																	//Функция запросов
-			FAPI.Client.call({"fields":"first_name,last_name,pic_3,birthday,gender,location","method":"users.getCurrentUser"},function(status, data, error){  //Получение информации о пользователе
-				console.log(data);
-				if(data) {
-					snsPlayerInf.firstName = data.first_name;		  //Получает имя
-					snsPlayerInf.lastName = data.last_name;				//Получает фамилию
-					snsPlayerInf.avatar = data.pic_3;							//Получает аватарку
-					snsPlayerInf.birthDay = data.birthday;				//Получаем дату рождения
-					snsPlayerInf.sex = data.gender;								//Получаем пол
-					snsPlayerInf.country = data.location.countryName; //Получаем страну
-					if(session.isFirstEntry){ //Если первый вход...
-						mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
-						mainPlayerInf.clan = "";
-						mainPlayerInf.element = "Земля"; //Должен быть на выбор
-						mainPlayerInf.lvl = 1;
-						mainPlayerInf.experience = 0;
-						mainPlayerInf.amountCrystal = 0;
-						statistics = {
-							kills: 0,
-							battles: 0,
-						}
+	function() {
+		console.log("Инициализация прошла успешно");																	//Функция запросов
+		FAPI.Client.call({"fields":"first_name,last_name,pic_3,birthday,gender,location","method":"users.getCurrentUser"},function(status, data, error){  //Получение информации о пользователе
+			console.log(data);
+			if(data) {
+				snsPlayerInf.firstName = data.first_name;		  //Получает имя
+				snsPlayerInf.lastName = data.last_name;				//Получает фамилию
+				snsPlayerInf.avatar = data.pic_3;							//Получает аватарку
+				snsPlayerInf.birthDay = data.birthday;				//Получаем дату рождения
+				snsPlayerInf.sex = data.gender;								//Получаем пол
+				snsPlayerInf.country = data.location.countryName; //Получаем страну
+				if(session.isFirstEntry){ //Если первый вход...
+					mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
+					mainPlayerInf.clan = "";
+					mainPlayerInf.element = "Земля"; //Должен быть на выбор						mainPlayerInf.lvl = 1;
+					mainPlayerInf.experience = 0;
+					mainPlayerInf.amountCrystal = 0;
+					statistics = {
+						kills: 0,
+						battles: 0,
 					}
-					console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
-					console.log(snsPlayerInf);
-				} else {
-					processError(error);
-					console.log("Неудалось запросить данные текущего пользователя");
 				}
-				setInterface();
-				setRooms("set");
-			});
-
-			//Получение информации о друзьях и их списке
-			FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){
-				if(data){
-						console.log(data);
-				} else {
-					processError(error);
-					console.log("Не удалось запросить uID друзей пользователя");
-				}
-			});
-
-		},	//Закрытие функции инициализации
-		function(error){
-			processError(error);
-			console.log("Ошибка инициализации");
+				console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
+				console.log(snsPlayerInf);
+			}else{
+				processError(error, "okGetCurrentUser");
+				console.log("Неудалось запросить данные текущего пользователя");
+			}
+			setInterface();
+			setRooms("set");
 		});
 
-
-
-
-
-	}
-else if(session.snsName === "fb"){
+		//Получение информации о друзьях и их списке
+		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){
+			if(data){
+					console.log(data);
+			} else {
+				processError(error, "okGetAppUsers");
+				console.log("Не удалось запросить uID друзей пользователя");
+			}
+		});
+	},	//Закрытие функции инициализации
+	function(error){
+		processError(error, "ok.ru");
+	});
+}else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
 	//Сюда код от Ве
 }else{

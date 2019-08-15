@@ -5,6 +5,6 @@ query: {
    viewer_id: "135534097",
    snsName: session.snsName}
 });
-socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
+socket.on('connect', function () { 
    console.log("eee");
 });

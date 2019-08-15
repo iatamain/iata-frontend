@@ -93,7 +93,7 @@
 			}
 			activeRadio = arg;
 	}
-	function setRooms(mode){
+	function setRooms(mode, room){
 		if(mode == "set"){
 			countRooms = 0;
 			countPlayers = 0;
@@ -107,7 +107,7 @@
 				li.appendChild(p);
 				let p2 = document.createElement("p");
 				p2.setAttribute("class", "typeRoom");
-				p2.innerHTML = `${dataRooms[i].mode}: ${dataRooms[i].map}`;
+				p2.innerHTML = `${dataRooms[i].mode}: ${dataRooms[i].map} ${dataRooms[i].isClose ? "(Закрытая)" : ""}`;
 				li.appendChild(p2);
 				let p3 = document.createElement("p");
 				p3.setAttribute("class", "playerInRoom");
@@ -144,6 +144,16 @@
 			if(listRoomsBody.top < -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0))
 			listRoomsBody.top = -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0);
 
+		}
+		if(mode == "add"){
+			dataRooms[lastIdRoom++] = room;
+			setRooms("set");
+			setRooms("search");
+		}
+		if(mode == "del"){
+			delete dataRooms[room];
+			setRooms("set");
+			setRooms("search");
 		}
 		document.querySelector(".activePlayers").innerHTML = "Игроков онлайн: " + countPlayers;
 		if(document.querySelector("#listRoomsHeader input").value == "") document.querySelector(".activeRooms").innerHTML = "Активных комнат: " + countRooms;
@@ -238,16 +248,6 @@
 		document.querySelector("#experience div").style.width = (mainPlayerInf.experience /  Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5)) * 100 + "%";
 		document.querySelector("#experience p").innerHTML = mainPlayerInf.experience + "/" + Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5);
 	}
-	function msg(msg, type){
-		if(type == "closeAcces"){
-			document.querySelector("#modal-message").innerHTML = `<p>${msg}</p>`;
-			document.querySelector("#modal").style.background = "#000";
-			document.querySelector("#modal").style.display = "block";
-		}else{
-			document.querySelector("#modal p").innerHTML = msg;
-			document.querySelector("#modal").style.display = "block";
-		}
-	}
 	function closeMsg(msg){
 		document.querySelector("#modal").style.display = "none";
 	}
@@ -291,7 +291,7 @@
 			msg("Выберите режим игры");
 		}else{
 			msg("Комната успешно создана");
-			dataRooms[lastIdRoom++] = {
+			setRooms("add", {
 				name: nameRoom,
 				password: passwordRoom,
 				mode: modeRoom,
@@ -301,9 +301,7 @@
 				isBought: true, //Куплена ли комната (Хранится на серве)
 				isActive: true, //Только на фронте
 				isClose: isCloseRoom //Является ли комната запароленной
-			};
-			setRooms("set");
-			setRooms("search");
+			});
 		}
 	}
 	setScene("rooms", 1);
