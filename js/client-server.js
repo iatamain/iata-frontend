@@ -95,6 +95,8 @@ if(session.snsName === "vk"){
 						snsId: friend.id
 					})
 				});
+				setFriends();
+				console.log(snsPlayerInf);
 			});
 			console.log(snsPlayerInf);
 		});
