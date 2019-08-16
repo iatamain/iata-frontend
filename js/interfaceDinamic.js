@@ -12,6 +12,15 @@
 			el.value = (/[A-Za-z0-9А-Яа-я\ \_\:\№\"\?\!\-\+\=\*\/\#\@\^\,\.\(\)\[\]\{\}\<\>\$\%\;\&]*/.exec(el.value));
 		});
 	});
+	document.querySelectorAll("input").forEach((el)=> {
+		el.addEventListener("click", function (e){
+			el.classList.remove("wrong");
+		});
+	});
+	document.querySelectorAll("input").forEach((el)=> {
+		el.value = "";
+		el.checked = false;
+	});
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 		msg("Поддержка мобильных устройств в разработке", "closeAcces");
@@ -103,7 +112,8 @@
 				li.setAttribute("id", "roomN" + i);
 				let p = document.createElement("p");
 				p.setAttribute("class", "nameRoom");
-				p.innerHTML = dataRooms[i].name;
+				let text = document.createTextNode(dataRooms[i].name);
+				p.appendChild(text);
 				li.appendChild(p);
 				let p2 = document.createElement("p");
 				p2.setAttribute("class", "typeRoom");
@@ -114,7 +124,7 @@
 				p3.innerHTML = `${dataRooms[i].playersInRoom}/${dataRooms[i].capacity}`;
 				li.appendChild(p3);
 				let div = document.createElement("div");
-				div.setAttribute("onclick", "msg('Не мешай им, " + snsPlayerInf.firstName + ", пусть играют с:')");
+				div.setAttribute("onclick", `goToRoom(${i})`);
 				div.setAttribute("class", "smallButton goToRoom");
 				div.innerHTML = "<span>В бой</span>";
 				li.appendChild(div);
@@ -138,7 +148,17 @@
 					dataRooms[i].isActive = true;
 				}
 				if(searchIndex != -1){
-					document.querySelector("#roomN" + i + " p").innerHTML = dataRooms[i].name.substr(0, searchIndex) + '<font color = "#0ff">' + dataRooms[i].name.substr(searchIndex, text.length) +'</font>' + dataRooms[i].name.substr(searchIndex + text.length, dataRooms[i].name.length);
+					document.querySelector("#roomN" + i + " p").innerHTML = "";
+					let pushText = document.createTextNode(dataRooms[i].name.substr(0, searchIndex));
+					document.querySelector("#roomN" + i + " p").appendChild(pushText);
+					let font = document.createElement("font");
+					font.setAttribute("color", "#0FF");
+					pushText = document.createTextNode(dataRooms[i].name.substr(searchIndex, text.length));
+					font.appendChild(pushText);
+					document.querySelector("#roomN" + i + " p").appendChild(font);
+					pushText = document.createTextNode(dataRooms[i].name.substr(searchIndex + text.length, dataRooms[i].name.length));
+					document.querySelector("#roomN" + i + " p").appendChild(pushText);
+					//document.querySelector("#roomN" + i + " p").innerHTML = dataRooms[i].name.substr(0, searchIndex) + '<font color = "#0ff">' + dataRooms[i].name.substr(searchIndex, text.length) +'</font>' + dataRooms[i].name.substr(searchIndex + text.length, dataRooms[i].name.length);
 				}
 			}
 			if(listRoomsBody.top < -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0))
@@ -248,9 +268,6 @@
 		document.querySelector("#experience div").style.width = (mainPlayerInf.experience /  Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5)) * 100 + "%";
 		document.querySelector("#experience p").innerHTML = mainPlayerInf.experience + "/" + Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5);
 	}
-	function closeMsg(msg){
-		document.querySelector("#modal").style.display = "none";
-	}
 	function createRoom(){
 		let nameRoom = document.querySelector("#createRoom input[type='text']").value.trim();
 		let passwordRoom = document.querySelector("#createRoom input[type='password']").value.trim();
@@ -280,11 +297,6 @@
 				isCreated = true;
 			}
 		}
-		//Выбран ли режим
-		//Длина имени+
-		//Уже существует+
-		//Недопустимые символы+
-		//Тримминг+
 		if(isCreated){
 			msg("Комната с таким именем уже существует");
 		}else if(!isSelected){
@@ -302,6 +314,26 @@
 				isActive: true, //Только на фронте
 				isClose: isCloseRoom //Является ли комната запароленной
 			});
+		}
+		//Выбран ли режим
+		//Длина имени+
+		//Уже существует+
+		//Недопустимые символы+
+		//Тримминг+
+	}
+	function goToRoom(id){
+		if(dataRooms[id].isClose){
+			let password = 3;
+			msg("Введите пароль", "prompt", function testPass(arg){
+				password = arg;
+				if(password == dataRooms[id].password){
+					msg("Пароль верный");
+				}else{
+					msg("Пароль не верный", "prompt", testPass, "wrong");
+				}
+			});
+		}else{
+			msg("Она открыта, но играть еще нельзя:D")
 		}
 	}
 	setScene("rooms", 1);

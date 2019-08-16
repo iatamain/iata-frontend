@@ -97,8 +97,9 @@ input[type="checkbox"]:checked + label::after {
 /*smallButton*/
 :root {
   --btn-bottom-color: #050;
+  --btn-bottom-color-red: #500;
   --grad-top-first: green;
-  --grad-top-second: blue;
+  --grad-top-second: darkgreen;
 }
 .smallButton {
     display: inline-block;
@@ -117,35 +118,50 @@ input[type="checkbox"]:checked + label::after {
     color: #fff;
 	 cursor: pointer;
 }
-
+.smallButton.red {
+	-webkit-box-shadow: 0 6px 0 var(--btn-bottom-color-red);
+	-moz-box-shadow: 0 6px 0 var(--btn-bottom-color-red);
+	box-shadow: 0 6px 0 var(--btn-bottom-color-red);
+}
 .smallButton span {
     display: inline-block;
     padding: 7px 18px;
+	 background: linear-gradient(green, darkgreen);
     background: -webkit-linear-gradient(green, darkgreen);
     background: -moz-linear-gradient(green, darkgreen);
     background: -o-linear-gradient(green, darkgreen);
+	 border-radius: 7px;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
-    border-radius: 7px;
+	 box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
     -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
     -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
-    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
     line-height: 1;
     text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
+	 transition: background-color .2s ease-in-out, transform .1s ease-in-out;
     -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
     -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
     -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
-    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
 }
-
+.smallButton.red span {
+	background: linear-gradient(red, darkred);
+	background: -webkit-linear-gradient(red, darkred);
+	background: -moz-linear-gradient(red, darkred);
+	background: -o-linear-gradient(red, darkred);
+}
 .smallButton:hover span {
     text-shadow: 0 0 5px rgba(255, 255, 255, .8);
 }
 
 .smallButton:active, .smallButton:focus {
-    -webkit-box-shadow:    0 6px 0 var(--btn-bottom-color);
+    -webkit-box-shadow: 0 6px 0 var(--btn-bottom-color);
     -moz-box-shadow: 0 6px 0 var(--btn-bottom-color);
-    box-shadow:    0 6px 0 var(--btn-bottom-color);
+    box-shadow: 0 6px 0 var(--btn-bottom-color);
+}
+.smallButton.red:active, .smallButton.red:focus {
+    -webkit-box-shadow: 0 6px 0 var(--btn-bottom-color-red);
+    -moz-box-shadow: 0 6px 0 var(--btn-bottom-color-red);
+    box-shadow: 0 6px 0 var(--btn-bottom-color-red);
 }
 
 .smallButton:active span {
@@ -166,16 +182,23 @@ input[type="text"], input[type="password"]{
    font-size: 15px;
    font-family: Tahoma;
 }
+input[type="text"].wrong, input[type="password"].wrong{
+   border: 1px solid #F00;
+}
 input[type="text"]:hover, input[type="password"]:hover{
 	border: 1px solid #0FF;
 	color: #0FF;
 }
-input[type="text"]:focus::placeholder,  input[type="password"]:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  opacity: 0; /* Firefox */
+input[type="text"]:focus, input[type="password"]:focus{
+	border: 1px solid #0FF;
+	color: #0FF;
 }
-input[type="text"]::placeholder, input[type="password"]::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+input[type="text"]:focus::placeholder,  input[type="password"]:focus::placeholder {
+  opacity: 0;
+}
+input[type="text"]::placeholder, input[type="password"]::placeholder {
   color: #033;
-  opacity: 1; /* Firefox */
+  opacity: 1;
   font-weight: bold;
   font-size: 15px;
 }

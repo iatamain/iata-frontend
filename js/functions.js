@@ -45,7 +45,7 @@ function send(data,  url, method, collback){
 		console.log('Request failed ', error );
 	});
 }
-function msg(msg, type){
+function msg(msg, type, callback, inputStyle){
 	if(type == "closeAcces"){
 		document.head.innerHTML = `
 		<title>IATA</title>
@@ -62,10 +62,93 @@ function msg(msg, type){
 		document.querySelector("#modal-message").innerHTML = `<p>${msg}</p>`;
 		document.querySelector("#modal").style.background = "#000";
 		document.querySelector("#modal").style.display = "block";
+	}else if(type == "prompt"){
+		let div = document.querySelector("#modal-message");
+		div.innerHTML = "";
+		let p = document.createElement("p");
+		p.innerHTML = msg
+		div.appendChild(p);
+		let input = document.createElement("input");
+		input.setAttribute("type", "password");
+		input.setAttribute("placeholder", "Пароль от комнаты");
+		if(inputStyle == "wrong") input.classList.add("wrong");
+		div.appendChild(input);
+		let btn = document.createElement("div");
+		btn.classList.add("smallButton");
+		btn.classList.add("prompt");
+		let span = document.createElement("span");
+		span.innerHTML ="Oк";
+		btn.appendChild(span);
+		div.appendChild(btn);
+		let btnRed = document.createElement("div");
+		btnRed.classList.add("smallButton");
+		btnRed.classList.add("prompt");
+		btnRed.classList.add("red");
+		span = document.createElement("span");
+		span.innerHTML ="Oтмена";
+		btnRed.appendChild(span);
+		div.appendChild(btnRed);
+		document.querySelector("#modal").style.display = "block";
+		btn.addEventListener("click", () => {
+			closeMsg();
+			callback(input.value);
+		});
+		btnRed.addEventListener("click", () => {
+			closeMsg();
+		});
+		input.addEventListener("input", function (e){
+			input.value = (/[A-Za-z0-9А-Яа-я\ \_\:\№\"\?\!\-\+\=\*\/\#\@\^\,\.\(\)\[\]\{\}\<\>\$\%\;\&]*/.exec(input.value));
+		});
+		input.addEventListener("click", function (e){
+			input.classList.remove("wrong");
+		});
+	}else if(type == "confirm"){
+		let div = document.querySelector("#modal-message");
+		div.innerHTML = "";
+		let p = document.createElement("p");
+		p.innerHTML = msg
+		div.appendChild(p);
+		let btn = document.createElement("div");
+		btn.classList.add("smallButton");
+		btn.classList.add("confirm");
+		let span = document.createElement("span");
+		span.innerHTML ="Да";
+		btn.appendChild(span);
+		div.appendChild(btn);
+		let btnRed = document.createElement("div");
+		btnRed.classList.add("smallButton");
+		btnRed.classList.add("confirm");
+		btnRed.classList.add("red");
+		span = document.createElement("span");
+		span.innerHTML ="Нет";
+		btnRed.appendChild(span);
+		div.appendChild(btnRed);
+		document.querySelector("#modal").style.display = "block";
+		btn.addEventListener("click", () => {
+			closeMsg();
+			callback();
+		});
+		btnRed.addEventListener("click", () => {
+			closeMsg();
+		});
 	}else{
-		document.querySelector("#modal p").innerHTML = msg;
+		let div = document.querySelector("#modal-message");
+		div.innerHTML = "";
+		let p = document.createElement("p");
+		p.innerHTML = msg
+		div.appendChild(p);
+		let btn = document.createElement("div");
+		btn.setAttribute("onclick", "closeMsg()");
+		btn.classList.add("smallButton");
+		let span = document.createElement("span");
+		span.innerHTML ="Oк";
+		btn.appendChild(span);
+		div.appendChild(btn);
 		document.querySelector("#modal").style.display = "block";
 	}
+}
+function closeMsg(){
+	document.querySelector("#modal").style.display = "none";
 }
 function processError(error, param){
 	switch (param) {

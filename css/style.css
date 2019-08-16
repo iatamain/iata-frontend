@@ -184,3 +184,21 @@ body{
    bottom: 15px;
    transform: translate(-50%, 0);
 }
+#modal-message .smallButton.prompt, #modal-message .smallButton.confirm{
+   left: 25px;
+   bottom: 5px;
+}
+#modal-message .smallButton.prompt.red{
+   float: right;
+   margin-right: -6%;
+}
+#modal-message .smallButton.confirm.red{
+   float: right;
+   margin-right: -5px;
+}
+#modal-message input{
+   position: relative;
+   width: 95%;
+   margin-right: 0;
+   top: -20px;
+}

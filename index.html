@@ -4,8 +4,8 @@
 		<title>IATA</title>
 		<meta charset = "utf-8">
 		<meta name = "viewport" content = "width=device-width, initial-scale=1">
-		<link rel = "stylesheet" href = "css/style.css">
 		<link rel = "stylesheet" href = "css/inputs.css">
+		<link rel = "stylesheet" href = "css/style.css">
 		<link rel = "stylesheet" href = "css/mainScene.css">
 		<link rel = "stylesheet" href = "css/roomsScene.css">
 		<link rel = "stylesheet" href = "css/achievementsScene.css">
@@ -138,8 +138,9 @@
 			</div>
 			<div id="modal">
 				<div id = "modal-message">
-					<p>Комната с таким именем уже существует</p>
-					<div onclick = "closeMsg()" class = "smallButton"><span>Ок</span></div>
+					<p><!--Сообщение--></p>
+					<input type ="password" placeholder="Пароль от комнаты"/>
+					<div onclick = "closeMsg()" class = "smallButton prompt"><span>Ок</span></div>
 				</div>
 			</div>
 		</div>
