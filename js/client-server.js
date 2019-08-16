@@ -160,7 +160,6 @@ if(session.snsName === "vk"){
 			setInterface();
 			setRooms("set");
 		});
-
 		//Получение информации о друзьях и их списке
 		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){
 			if(data){
