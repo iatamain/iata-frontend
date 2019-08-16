@@ -140,9 +140,26 @@ if(session.snsName === "vk"){
 			setRooms("set");
 		});
 		//Получение информации о друзьях и их списке
-		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){
+		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){ //получение id друзей
 			if(data){
 					console.log(data);
+					FAPI.Client.call({"uids": data, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){ //Получение информации о друзьях
+						if(data){
+							data.forEach(function(friends){
+								snsPlayerInf.friends.push({
+									friendPlayerInfo: new PlayerInf(),
+									firstName: friend.first_name,
+									lastName: friend.last_name,
+									avatar: friend.photo_200,
+									link: "https://ok.ru/profile/" + friend.id,
+									snsId: friend.id
+								})
+							});
+						} else {
+							processError(error);
+							console.log("Не удалось получить данные о друзьях");
+						}
+					});	//end 2
 			} else {
 				processError(error, "okGetAppUsers");
 				console.log("Не удалось запросить uID друзей пользователя");
