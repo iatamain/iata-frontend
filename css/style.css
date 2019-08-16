@@ -251,6 +251,7 @@ body{
    border-radius: 7px;
    border: 1px solid #aaa;
    transition: 0.2s;
+   overflow: hidden;
 }
 .friend-ava{
    border-radius: 7px;

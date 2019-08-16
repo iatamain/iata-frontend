@@ -184,7 +184,7 @@ if(session.snsName === "vk"){
 		}
 		snsPlayerInf.friends[i] = {
 			firstName: name,
-			lastName: "",
+			lastName: "teeeeeeeest",
 			avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png"
 		}
 	}
