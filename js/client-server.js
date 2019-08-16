@@ -104,7 +104,7 @@ if(session.snsName === "vk"){
 	function() {
 		processError(error, "vk.com");
 	}, '5.101');
-}else if(session.snsName === "ok"){				//Одноклассники
+}else if(session.snsName === "ok"){
 	console.log(parseGet(window.location.href));
 	var rParams = FAPI.Util.getRequestParameters();								//Параметры инициализации
 	FAPI.init(rParams["api_server"], rParams["apiconnection"],		//Инициализация
@@ -142,21 +142,7 @@ if(session.snsName === "vk"){
 		//Получение информации о друзьях и их списке
 		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){
 			if(data){
-					FAPI.Client.call({"uids":data, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){
-						data.forEach(function(friend){
-							snsPlayerInf.friends.push({
-								friendPlayerInfo: new PlayerInf(),
-								firstName: friend.first_name,
-								lastName: friend.last_name,
-								avatar: friend.photo_200,
-								link: "https://ok.ru/profile/" + friend.id,
-								snsId: friend.id
-							})
-						});
-					} else {
-						processError(error);
-						console.log("Не удалось вывести информацию об друзьях пользотвателя");
-					}
+					console.log(data);
 			} else {
 				processError(error, "okGetAppUsers");
 				console.log("Не удалось запросить uID друзей пользователя");
