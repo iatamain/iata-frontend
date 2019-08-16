@@ -83,30 +83,27 @@ if(session.snsName === "vk"){
 				let responseObj = response.json()
 				 responseObj.then(value => {
 					 console.log(value); //Получаем ответочку с необходимыми данными
-				 });
+					 mainPlayerInf.nickName = value.nickname;
+					 mainPlayerInf.clan = "";
+					 mainPlayerInf.element = "Земля";
+					 mainPlayerInf.lvl = value.lvl;
+					 mainPlayerInf.experience = value.experience;
+					 mainPlayerInf.amountCrystal = value.amountCrystal;
+					 mainPlayerInf.statistics = {
+	 					kills: value.gamesWon,
+	 					battles: value.gamesTotal
+	 				}
+					mainPlayerInf.rank = value.rank;
+					mainPlayerInf.rankingPos = value.rankingPos;
+					mainPlayerInf.progress = value.progress;
+					mainPlayerInf.achievements = value.achivements
+					mainPlayerInf.purchasedItems = null;
+					session.isFirstEntry = value.isFirstLogin;
+					session.isFirstEntryToday = value.isFirstLoginToday;
+					session.howManyDays = "";
+					setInterface();
+				});
 			});
-
-			if(session.isFirstEntry){ //Если первый вход...
-				mainPlayerInf.nickName = snsPlayerInf.firstName + " " + snsPlayerInf.lastName;
-				mainPlayerInf.clan = "";
-				mainPlayerInf.element = "Земля"; //Должен быть на выбор
-				mainPlayerInf.lvl = 1;
-				mainPlayerInf.experience = 0;
-				mainPlayerInf.amountCrystal = 0;
-				statistics = {
-					kills: 0,
-					battles: 0,
-				}
-				/*Осталось задать:
-				rank
-				rankingPos
-				progress
-				achievements
-				purchasedItems
-				Данные сессии
-				*/
-			}
-			setInterface()
 			setRooms("set");
 		});
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) { //Получаем массив id Друзей
