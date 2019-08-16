@@ -268,6 +268,27 @@
 		document.querySelector("#experience div").style.width = (mainPlayerInf.experience /  Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5)) * 100 + "%";
 		document.querySelector("#experience p").innerHTML = mainPlayerInf.experience + "/" + Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5);
 	}
+	function setFriends(){
+		document.querySelector("#friends-list").innerHTML = "";
+		for(let i = 0; i < snsPlayerInf.friends.length; i++){
+			let li = document.createElement("li");
+			let p = document.createElement("p");
+			let text = document.createTextNode(snsPlayerInf.friends[i].firstName + " " + snsPlayerInf.friends[i].lastName);
+			p.appendChild(text);
+			li.appendChild(p);
+			let div = document.createElement("div");
+			div.classList.add("friend-ava");
+			let ava = document.createElement("img");
+			ava.setAttribute("width", "90px");
+			ava.setAttribute("src", snsPlayerInf.friends[i].avatar);
+			div.appendChild(ava);
+			li.appendChild(div);
+			p = document.createElement("p");
+			p.innerHTML = "Рейтинг: 1400";
+			li.appendChild(p);
+			document.querySelector("#friends-list").appendChild(li);
+		}
+	}
 	function createRoom(){
 		let nameRoom = document.querySelector("#createRoom input[type='text']").value.trim();
 		let passwordRoom = document.querySelector("#createRoom input[type='password']").value.trim();

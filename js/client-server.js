@@ -21,29 +21,6 @@ class PlayerInf {
 		console.log("В разработке " + ID);
 	}
 }
-for(let i = 0; i < 5; i++){
-	let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
-	let mode = ["DM", "TDM", "CTF", "CP"]
-	let randoms = [];
-	let name = "";
-	for(let j = 0; j <= 10; j++){
-		randoms.push(Math.floor(0 + Math.random() * (9 - 0 + 1)));
-	}
-	for(let j = 0; j <= randoms[10]; j++){
-		name += str[randoms[j]];
-	}
-	dataRooms[lastIdRoom++] = {
-		name: name,
-		password: "",
-		map: "TestMap"+ i,
-		mode: mode[randoms[10] % 4],
-		capacity: randoms[10] % 2 ? 10 : randoms[10] % 3 ? 12 : 14,
-		playersInRoom: randoms[10] + 1,
-		isBought: true,
-		isActive: true,
-		isClose: false
-	}
-}
 var snsPlayerInf = {
 	snsId: parseGet(window.location.href).user_id,
 	authKey: parseGet(window.location.href).auth_key,
@@ -177,6 +154,39 @@ if(session.snsName === "vk"){
 	alert("Зашли через fb с:")
 	//Сюда код от Ве
 }else{
+	for(let i = 0; i < 8; i++){
+		let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
+		let mode = ["DM", "TDM", "CTF", "CP"]
+		let randoms = [];
+		let name = "";
+		for(let j = 0; j <= 10; j++){
+			randoms.push(Math.floor(0 + Math.random() * (9 - 0 + 1)));
+		}
+		for(let j = 0; j <= randoms[10]; j++){
+			name += str[randoms[j]];
+		}
+		dataRooms[lastIdRoom++] = {
+			name: name,
+			password: "",
+			map: "TestMap"+ i,
+			mode: mode[randoms[10] % 4],
+			capacity: randoms[10] % 2 ? 10 : randoms[10] % 3 ? 12 : 14,
+			playersInRoom: randoms[10] + 1,
+			isBought: true,
+			isActive: true,
+			isClose: false
+		}
+		name = "";
+		for(let j = 0; j <= Math.min(6, randoms[10]); j++){
+			name += str[randoms[j]];
+		}
+		snsPlayerInf.friends[i] = {
+			firstName: name,
+			lastName: "",
+			avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png"
+		}
+	}
 	setInterface();
+	setFriends();
 	setRooms("set");
 }
