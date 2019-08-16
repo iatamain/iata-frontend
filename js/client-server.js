@@ -143,7 +143,7 @@ if(session.snsName === "vk"){
 		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){ //получение id друзей
 			if(data){
 					console.log(data);
-					FAPI.Client.call({"uids": data, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){ //Получение информации о друзьях
+					FAPI.Client.call({"uids": "data", "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){ //Получение информации о друзьях
 						if(data){
 								console.log(data);
 						} else {
