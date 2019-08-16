@@ -156,7 +156,7 @@ if(session.snsName === "vk"){
 	alert("Зашли через fb с:")
 	//Сюда код от Ве
 }else{
-	for(let i = 0; i < 8; i++){
+	for(let i = 0; i < 10; i++){
 		let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
 		let mode = ["DM", "TDM", "CTF", "CP"]
 		let randoms = [];

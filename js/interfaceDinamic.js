@@ -26,6 +26,7 @@
 		msg("Поддержка мобильных устройств в разработке", "closeAcces");
 	}
 	let countRooms = 0;
+	let countFriends = 0;
 	let countPlayers = 0;
 	let activeRadio = 0;
 	let activeSceneNum = 0;
@@ -39,6 +40,20 @@
 		y: 0,
 		dy: 1,
 		top: 0,
+		left: 0,
+		rect: 0,
+		stop: true
+	};
+	let listFriendssBody = {
+		elementHTML: document.querySelector("#friends"),
+		elementChildHTML: document.querySelector("#friends ul"),
+		sizeElement: 14.67,
+		elementsPerPage: 6,
+		x: 0,
+		y: 0,
+		dy: 1,
+		top: 0,
+		left: 0,
 		rect: 0,
 		stop: true
 	};
@@ -53,7 +68,17 @@
 	});
 	listRoomsBody.elementHTML.addEventListener("mouseenter", e => {
 		listRoomsBody.stop = false;
-
+	});
+	listFriendssBody.elementHTML.addEventListener("mousemove", e => {
+		listFriendssBody.rect = listFriendssBody.elementHTML.getBoundingClientRect();
+		listFriendssBody.x = e.clientX - listFriendssBody.rect.left;
+		listFriendssBody.y = e.clientY - listFriendssBody.rect.top;
+	});
+	listFriendssBody.elementHTML.addEventListener("mouseleave", e => {
+		listFriendssBody.stop = true;
+	});
+	listFriendssBody.elementHTML.addEventListener("mouseenter", e => {
+		listFriendssBody.stop = false;
 	});
 	let move = function(){
 		let now = Date.now();
@@ -70,10 +95,10 @@
 		let speed = 3;
 		if(!listRoomsBody.stop){
 			if(listRoomsBody.y > down){
-				if(listRoomsBody.top - (up - Math.abs(size - listRoomsBody.y)) * speed * dt>= -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0)){
+				if(listRoomsBody.top - (up - Math.abs(size - listRoomsBody.y)) * speed * dt>= -listRoomsBody.sizeElement * Math.max(countRooms - listRoomsBody.elementsPerPage, 0)){
 					listRoomsBody.top -= (up - Math.abs(size - listRoomsBody.y)) * speed * dt;
 				}else{
-					listRoomsBody.top = -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0);
+					listRoomsBody.top = -listRoomsBody.sizeElement * Math.max(countRooms - listRoomsBody.elementsPerPage, 0);
 				}
 			} else if (listRoomsBody.y < up){
 				if(listRoomsBody.top +  (up - listRoomsBody.y) * speed * dt <= 0){
@@ -83,6 +108,27 @@
 				}
 			}
 			listRoomsBody.elementChildHTML.style.top = listRoomsBody.top + "%";
+		}
+		size = listFriendssBody.elementHTML.offsetWidth;
+		border = size / 3;
+		down = size / 2 + border
+		up = size / 2 - border;
+		speed = 0.5;
+		if(!listFriendssBody.stop){
+			if(listFriendssBody.x > down){
+				if(listFriendssBody.left - (up - Math.abs(size - listFriendssBody.x)) * speed * dt >= -(listFriendssBody.sizeElement * Math.max(countFriends - listFriendssBody.elementsPerPage, 0) - 10)){
+					listFriendssBody.left -= (up - Math.abs(size - listFriendssBody.x)) * speed * dt;
+				}else{
+					listFriendssBody.top = -listFriendssBody.sizeElement * Math.max(countFriends - listFriendssBody.elementsPerPage, 0);
+				}
+			} else if (listFriendssBody.x < up){
+				if(listFriendssBody.left +  (up - listFriendssBody.x) * speed * dt <= 0){
+					listFriendssBody.left += (up - listFriendssBody.x) * speed * dt;
+				}else{
+				 	listFriendssBody.left = 0;
+				}
+			}
+			listFriendssBody.elementChildHTML.style.left = listFriendssBody.left + "%";
 		}
 	}
 	function changeCheckbox(){
@@ -287,6 +333,7 @@
 			p.innerHTML = "Рейтинг: 1400";
 			li.appendChild(p);
 			document.querySelector("#friends-list").appendChild(li);
+			countFriends++;
 		}
 	}
 	function createRoom(){
