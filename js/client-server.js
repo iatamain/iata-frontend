@@ -140,9 +140,9 @@ if(session.snsName === "vk"){
 			setRooms("set");
 		});
 		//Получение информации о друзьях и их списке
-		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){
+		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){	//получение id друзей
 			if(data){
-					FAPI.Client.call({"uids":data, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){
+					FAPI.Client.call({"uids":data, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){ //инициализация друзей
 						data.forEach(function(friend){
 							snsPlayerInf.friends.push({
 								friendPlayerInfo: new PlayerInf(),
@@ -160,7 +160,7 @@ if(session.snsName === "vk"){
 			} else {
 				processError(error, "okGetAppUsers");
 				console.log("Не удалось запросить uID друзей пользователя");
-			}
+			});
 		});
 	},	//Закрытие функции инициализации
 	function(error){
