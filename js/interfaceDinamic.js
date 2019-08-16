@@ -331,6 +331,10 @@
 			li.appendChild(div);
 			p = document.createElement("p");
 			p.innerHTML = "Рейтинг: 1400";
+			li.setAttribute("onclick", `msg('Разве должно было что-то произойти?)', 'confirm', () => {
+				msg("Ну окееей.-.");
+				window.open("${snsPlayerInf.friends[i].link}", '_blank');
+			})`);
 			li.appendChild(p);
 			document.querySelector("#friends-list").appendChild(li);
 			countFriends++;

@@ -185,7 +185,8 @@ if(session.snsName === "vk"){
 		snsPlayerInf.friends[i] = {
 			firstName: name,
 			lastName: "teeeeeeeest",
-			avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png"
+			avatar: "http://osh.advokatura.kg/sites/default/files/default-avatar.png",
+			link: "http://vk.com/id" + i
 		}
 	}
 	setInterface();
