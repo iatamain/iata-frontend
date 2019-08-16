@@ -145,16 +145,7 @@ if(session.snsName === "vk"){
 					console.log(data);
 					FAPI.Client.call({"uids": data, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){ //Получение информации о друзьях
 						if(data){
-							data.forEach(function(friends){
-								snsPlayerInf.friends.push({
-									friendPlayerInfo: new PlayerInf(),
-									firstName: friend.first_name,
-									lastName: friend.last_name,
-									avatar: friend.photo_200,
-									link: "https://ok.ru/profile/" + friend.id,
-									snsId: friend.id
-								})
-							});
+								console.log(data);
 						} else {
 							processError(error);
 							console.log("Не удалось получить данные о друзьях");
