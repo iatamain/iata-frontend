@@ -140,12 +140,12 @@ if(session.snsName === "vk"){
 			setRooms("set");
 		});
 		//Получение информации о друзьях и их списке
-		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status,data,error){ //получение id друзей
-			if(data){
-					console.log(data);
-					FAPI.Client.call({"uids": data, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status,data,error){ //Получение информации о друзьях
-						if(data){
-								console.log(data);
+		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status, idFriends,error){ //получение id друзей
+			if(idFriends){
+					console.log(idFriends);
+					FAPI.Client.call({"uids": idFriends, "fields": "first_name,last_name,pic_3,uid", "method": "users.getInfo"}, function(status, infoFriends, error){ //Получение информации о друзьях
+						if(infoFriends){
+								console.log(infoFriends);
 						} else {
 							processError(error);
 							console.log("Не удалось получить данные о друзьях");
