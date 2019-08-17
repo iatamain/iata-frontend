@@ -155,6 +155,7 @@ if(session.snsName === "vk"){
 										snsId: friend.uid
 									})
 								});
+								setFriends();
 						} else {
 							processError(error);
 							console.log("Не удалось получить данные о друзьях");
