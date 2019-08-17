@@ -154,6 +154,7 @@ if(session.snsName === "vk"){
 										link: "https://ok.ru/profile/" + friend.uid,
 										snsId: friend.uid
 									})
+								});
 						} else {
 							processError(error);
 							console.log("Не удалось получить данные о друзьях");
