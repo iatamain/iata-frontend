@@ -150,6 +150,7 @@ function msg(msg, type, callback, inputStyle){
 function closeMsg(){
 	document.querySelector("#modal").style.display = "none";
 }
+
 function processError(error, param){
 	switch (param) {
 		case "itracers.xyz":

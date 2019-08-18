@@ -8,6 +8,15 @@ body{
 	margin: 0;
 	background: var(--bg-color);
 }
+#preload{
+   position: relative;
+   min-width: 860px;
+   width: 900px;
+   height: 650px;
+   user-select: none;
+   overflow: hidden;
+   background: black;
+}
 #game{
 	position: relative;
 	min-width: 860px;

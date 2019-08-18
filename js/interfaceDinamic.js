@@ -1,4 +1,9 @@
 {
+	window.addEventListener("load", () =>{
+		document.querySelector("#game").style.display = "block";
+		document.querySelector("#preload").style.display = "none";
+		console.log("test");
+	});
 	document.querySelectorAll(".select").forEach((el)=> {
 		el.addEventListener("click", function (e){
 			if (e.target && e.target.matches(".option")) {
