@@ -1,8 +1,9 @@
 {
 	window.addEventListener("load", () =>{
-		document.querySelector("#game").style.display = "block";
-		document.querySelector("#preload").style.display = "none";
-		console.log("test");
+		setTimeout(()=>{
+			document.querySelector("#game").style.display = "block";
+			document.querySelector("#preload").style.display = "none";
+		}, 500);
 	});
 	document.querySelectorAll(".select").forEach((el)=> {
 		el.addEventListener("click", function (e){
@@ -413,7 +414,6 @@
 			msg("Она открыта, но играть еще нельзя:D")
 		}
 	}
-	setScene("rooms", 1);
 	setNews(dataNews);
 	let last = Date.now();
 	move();
