@@ -30,7 +30,7 @@
 	});
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
-		msg("Поддержка мобильных устройств в разработке", "closeAcces");
+		//msg("Поддержка мобильных устройств в разработке", "closeAcces");
 	}
 	let countRooms = 0;
 	let countFriends = 0;
