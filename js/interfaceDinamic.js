@@ -1,10 +1,9 @@
 {
 	window.addEventListener("load", () =>{
-		/*
 		setTimeout(()=>{
 			document.querySelector("#game").style.display = "block";
 			document.querySelector("#preload").style.display = "none";
-		}, 500); */
+		}, 500);
 	});
 	document.querySelectorAll(".select").forEach((el)=> {
 		el.addEventListener("click", function (e){
@@ -30,7 +29,7 @@
 	});
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
-		//msg("Поддержка мобильных устройств в разработке", "closeAcces");
+		msg("Поддержка мобильных устройств в разработке", "closeAcces");
 	}
 	let countRooms = 0;
 	let countFriends = 0;
