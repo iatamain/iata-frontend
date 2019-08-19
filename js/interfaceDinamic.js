@@ -1,9 +1,10 @@
 {
 	window.addEventListener("load", () =>{
+		/*
 		setTimeout(()=>{
 			document.querySelector("#game").style.display = "block";
 			document.querySelector("#preload").style.display = "none";
-		}, 500);
+		}, 500); */
 	});
 	document.querySelectorAll(".select").forEach((el)=> {
 		el.addEventListener("click", function (e){
