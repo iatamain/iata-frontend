@@ -7,7 +7,7 @@ function parseGet(getHref){
 			obj[arr[i][0]] = arr[i][1];
 		}
 		return obj;
-	}catch {
+	}catch (e){
 		return 0;
 	}
 }
