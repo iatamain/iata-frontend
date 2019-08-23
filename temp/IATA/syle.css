@@ -1,0 +1,21 @@
+
+
+body{	
+	background: linear-gradient(to top, #0000ff 0%, #00ff00 25%, #ff0000 50%,  #80c0ff 100%);
+	background: #000000;
+	overflow: hidden;
+}
+
+canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+	

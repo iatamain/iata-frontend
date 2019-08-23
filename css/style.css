@@ -7,7 +7,7 @@ element {
 body{
 	margin: 0;
 	background: var(--bg-color);
-   cursor: url(../images/GUI/cur116.cur), progress !important;
+   cursor: url(../images/GUI/cursor.cur), progress !important;
 }
 #preload{
    position: relative;
