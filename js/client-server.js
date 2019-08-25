@@ -172,7 +172,7 @@ if(session.snsName === "vk"){
 	});
 }else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
-	FB.init({
+	FB.init({															//Инициализация приложения
 	  appId      : '357318211878770',
 	  status     : true,
 	  xfbml      : true,
