@@ -172,7 +172,17 @@ if(session.snsName === "vk"){
 	});
 }else if(session.snsName === "fb"){
 	alert("Зашли через fb с:")
-	//Сюда код от Ве
+	FB.init({
+	  appId      : '357318211878770',
+	  status     : true,
+	  xfbml      : true,
+	  version    : 'v4.0'
+	});
+
+
+
+
+
 }else{
 	for(let i = 0; i < 3; i++){
 		let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
