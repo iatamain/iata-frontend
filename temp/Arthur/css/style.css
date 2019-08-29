@@ -1,0 +1,122 @@
+:root{
+	--redFirst: #E6071A;
+	--redSecond: #DE7AA0;
+	--snow: #E3ECF3;
+	--blueFirst: #8FCCE8;
+	--blueSecond: #1B8DCC;
+}
+body{
+	width: 100%; height: 100%;
+}
+h1{
+	margin: 0 0 5px 0;
+	color: var(--blueSecond)
+}
+#particles-js{
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	background: var(--blueFirst);
+}
+#main{
+	position: absolute;
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	justify-content: space-around;
+	left: 0; right: 0;
+	min-width: 350px;
+	width: 70%; height: auto;
+	margin: 50px auto; padding: 50px 5px;
+	background-color: var(--snow);
+	border: 1px solid var(--blueSecond);
+	border-radius: 1%;
+	-webkit-box-shadow: 7px 7px 17px -3px rgba(0,0,0,0.81);
+	-moz-box-shadow: 7px 7px 17px -3px rgba(0,0,0,0.81);
+	box-shadow: 7px 7px 17px -3px rgba(0,0,0,0.81);
+}
+nav li{
+	display: block;
+	position: relative;
+	padding: 2px 5px;
+	font-weight: bold;
+	cursor: pointer;
+}
+nav li:hover, nav li.active{
+	background: var(--snow);
+	outline: 1px solid var(--snow);
+	color: var(--blueSecond);
+	transition: 0.7s;
+}
+nav{
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 0 20px 0;
+	width: 90%;
+	border-radius: 7px;
+	color: var(--snow);
+	background: var(--blueSecond);
+}
+nav ul{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	align-content: center;
+	flex-flow: row wrap;
+	margin: 2px 0; padding-left: 10px;
+}
+#info ul{
+	display: flex;
+	flex-direction: column;
+	margin: 0; padding: 0;
+}
+#info li{
+	position: relative;
+	display: block;
+	margin: 10px; padding: 20px 10px 20px 60px;
+	min-height: 37px;
+	background: var(--blueSecond);
+	border-radius: 7px;
+	color: var(--snow);
+	font-weight: bold;
+}
+#info li:before{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	left: 10px;
+	width: 30px; height: 30px;
+	content: '✔';
+	font-size: 50px;
+	color: var(--redFirst);
+	border: 2px solid var(--redSecond);
+	border-radius:  7px;
+}
+#info{
+	width: 50%;
+}
+#notation{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#ava{
+	position: relative;
+	display: block;
+	border-radius: 100%;
+	width: 300px; height: 300px;
+	overflow: hidden;
+	border: 2px solid var(--blueSecond);
+}
+@media (max-width: 993px) {
+	#info{
+		order: 1;
+		width: 90%;
+	}
+
+}
