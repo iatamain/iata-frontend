@@ -52,6 +52,7 @@ nav li:hover, nav li.active{
 	transition: 0.7s;
 }
 nav{
+	user-select: none;
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -120,5 +121,7 @@ nav ul{
 		order: 1;
 		width: 90%;
 	}
-
+	nav ul{
+		flex-flow: column wrap;
+	}
 }
