@@ -4,11 +4,39 @@
 		<meta charset = "utf-8">
 		<title>Чисто Canvas</title>
 	</head>
-	<body>
+	<body bgcolor = "#002">
 		<div align = "center">
-			<canvas width = "800px" height = "600px" style = "border: 1px solid black"></canvas>
+			<canvas width = "800px" height = "600px" style = "border: 1px solid white"></canvas>
 		</div>
 		<script>
+let speed = 1;
+let dxMax = 60*speed, dxMin = -60*speed;
+let dyMax = 100*speed, dyMin = 20*speed;
+class snowBall{
+	constructor(start){
+		let dx = Math.floor(dxMin + Math.random() * (60 - dxMin + 1));
+		let dy = Math.floor(dyMin + Math.random() * (100 - dyMin + 1));
+		this.size = Math.floor(4 + Math.random() * (6 - 4 + 1));
+		this.x = Math.floor(0 + Math.random() * (800 - 0 + 1)),
+		this.y = start ? -10 : Math.floor(0 + Math.random() * (800 - 0 + 1)),
+		this.dx = dx,
+		this.dy = dy,
+		this.dxt = dx,
+		this.dyt = dy,
+		this.ddx = 60,
+		this.sizeX = 0.1,
+		this.sizeY = 0.1,
+		this.options = []
+		for(let i = 0; i < 5; i++){
+			this.options.push({
+				len: Math.floor(10 + Math.random() * (30 - 10 + 1)),
+				withS: Math.floor(7 + Math.random() * (10 - 7 + 1)),
+				y: Math.floor(10 + Math.random() * (70 - 10 + 1)),
+				cute: Math.floor(2 + Math.random() * (4 - 2 + 1))
+			})
+		}
+	}
+}
 let ctx = document.querySelector("canvas").getContext("2d"); //Получаем контекст
 var snowFail = [];
 var snowDown = [];
@@ -19,30 +47,15 @@ function play(){
 	let now = Date.now();
 	let dt = (now - last)/1000;
 	update(dt);
-	if(dt < 0.08) render(dt);
-	requestAnimFrame(play);
+	render(dt);
 	last = now;
+	requestAnimFrame(play);
 }
-let speed = 1;
-let dxMax = 60*speed, dxMin = -60*speed;
-let dyMax = 100*speed, dyMin = 20*speed;
 function preload(){
-	for(let i = 0; i < 25; i++){
-		let dx = Math.floor(dxMin + Math.random() * (60 - dxMin + 1));
-		let dy = Math.floor(dyMin + Math.random() * (100 - dyMin + 1));
-		snowFail.push({
-			x: Math.floor(0 + Math.random() * (800 - 0 + 1)),
-			y: Math.floor(0 + Math.random() * (800 - 0 + 1)),
-			dx: dx,
-			dy: dy,
-			dxt: dx,
-			dyt: dy,
-			ddx: 60,
-			sizeX: 0.1,
-			sizeY: 0.1
-		});
+	for(let i = 0; i < 30; i++){ //SnowFall
+		snowFail.push(new snowBall(false));
 	}
-	for(let i = 0; i <= 10; i++){
+	for(let i = 0; i <= 10; i++){ //SnowDown
 		let min = 10;
 		let max = 30;
 		let a = Math.floor(min + Math.random() * (max - min + 1));
@@ -54,7 +67,6 @@ function preload(){
 	}
 }
 function update(dt){
-	if(dt>0.07)console.log(dt);
 	allTime += dt;
 	for(i in snowFail){
 		snowFail[i].x += snowFail[i].dxt * dt;
@@ -71,17 +83,7 @@ function update(dt){
 			snowFail.splice(i, 1);
 			let dx = Math.floor(dxMin + Math.random() * (dxMax - dxMin + 1));
 			let dy = Math.floor(dyMin + Math.random() * (dyMax - dyMin + 1));
-			snowFail.push({
-			x: Math.floor(0 + Math.random() * (800 - 0 + 1)),
-			y:  -10,
-			dx: dx,
-			dy: dy,
-			dxt: dx,
-			dyt: dy,
-			ddx: 60,
-			sizeX: 0.1,
-			sizeY: 0.1
-		});
+			snowFail.push(new snowBall(true));
 		}
 	}
 	tempTime = Math.floor(allTime);
@@ -115,34 +117,18 @@ function render(){
 	ctx.fillStyle = "#fff"; //Снег, который падает
 	for(i in snowFail){
 		ctx.beginPath();
-		drawSnowflake(snowFail[i].x, snowFail[i].y, 7, ctx);
-		//ctx.arc(snowFail[i].x, snowFail[i].y, snowFail[i].sizeX, 0, 2*Math.PI);
+		drawSnowflake(snowFail[i].x, snowFail[i].y, snowFail[i].size, ctx, snowFail[i].options);
 		ctx.closePath();
 		ctx.fill();
 	}
 }
-function drawSnowflake(x, y, size, ctx){
-	size /= 100;
-	ctx.save();
-	ctx.translate(x, y);
-	ctx.fillStyle = "#fff";
-	ctx.beginPath(); //Круг
-	ctx.arc(0,0,20 * size,0,2*Math.PI);
-	ctx.fill();
-	ctx.closePath();
-	for(let i = 0; i < 6; i++){
-		let angle = 2*Math.PI/6;
-		let len = 100*size;
-		let withS = 7*size;
-		ctx.rotate(angle);
-		ctx.beginPath();
-		ctx.moveTo(-withS, 0);
-		ctx.lineTo(0, len);
-		ctx.lineTo(withS, 0);
-		ctx.fill();
-		ctx.closePath();
-		
-		let param = [
+function drawSnowflake(x, y, size, ctx, prm){
+	size/=100;
+	let param;
+	if(prm){
+		param = JSON.parse(JSON.stringify(prm));
+	}else{
+		param = [
 			{
 				len: 20,
 				withS: 10,
@@ -174,12 +160,32 @@ function drawSnowflake(x, y, size, ctx){
 				cute: 2
 			}
 		]
-		for(j in param){
-			for(k in param[j]){
-				if(k != "cute")
-				param[j][k]*=size;
-			}
+	}
+	for(j in param){
+		for(k in param[j]){
+			if(k != "cute")
+			param[j][k]*=size;
 		}
+	}
+	ctx.save();
+	ctx.translate(x, y);
+	ctx.fillStyle = "#fff";
+	ctx.beginPath(); //Круг
+	ctx.arc(0,0,20 * size,0,2*Math.PI);
+	ctx.fill();
+	ctx.closePath();
+	for(let i = 0; i < 6; i++){
+		let angle = 2*Math.PI/6;
+		let len = 100*size;
+		let withS = 7*size;
+		ctx.rotate(angle);
+		ctx.beginPath();
+		ctx.moveTo(-withS, 0);
+		ctx.lineTo(0, len);
+		ctx.lineTo(withS, 0);
+		ctx.fill();
+		ctx.closePath();
+		
 		for(j in param){
 			ctx.beginPath(); //Left midle1
 			ctx.moveTo(0, param[j].y + param[j].withS);
@@ -196,7 +202,6 @@ function drawSnowflake(x, y, size, ctx){
 		}
 		
 	}
-	ctx.rotate(2*Math.PI/12);
 	ctx.restore(); 
 }
 var requestAnimFrame = (function() {
