@@ -179,3 +179,42 @@ function processError(error, param){
 	//Ошибка подключения к серверам
 	//Ошибка подключения к websocket
 }
+function startGame(){
+	document.querySelector("#interface").style.display = "none";
+	document.querySelector("#canvasBack").style.display = "none";
+	document.querySelector("#canvasPlay").style.display = "block";
+	play.start();
+	bg.stop();
+}
+class Canvas {
+   constructor(selector, update, render){
+      this.ctx = document.querySelector(selector).getContext("2d");
+      this.update = update.bind(this);
+      this.render = render.bind(this);
+      this.isPlay = false;
+   }
+   play(){
+      this.now = Date.now();
+      this.dt = (this.now - this.last)/1000;
+      this.update(this.dt);
+      this.render();
+      this.last = this.now;
+      if(this.isPlay) requestAnimFrame(this.play.bind(this));
+   }
+   start(){
+		if(!this.isPlay){
+	      this.isPlay = true;
+	      this.last = Date.now();
+	      this.play();
+		}
+   }
+   stop(){
+      this.isPlay = false;
+   }
+	pause(){
+		
+	}
+	clear(){
+
+	}
+}

@@ -1,4 +1,9 @@
 var color = "#E6071A";
+function test(a){
+   return function (b){
+      return a+b;
+   }
+}
 particlesJS('particles-js',
   {
     "particles": {
@@ -28,7 +33,7 @@ particlesJS('particles-js',
         }
       },
       "opacity": {
-        "value": 0.5,
+        "value": 1,
         "random": true,
         "anim": {
           "enable": true,

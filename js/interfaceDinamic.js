@@ -411,7 +411,7 @@
 				}
 			});
 		}else{
-			msg("Она открыта, но играть еще нельзя:D")
+			startGame();
 		}
 	}
 	setNews(dataNews);

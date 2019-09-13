@@ -184,7 +184,7 @@ if(session.snsName === "vk"){
 
 
 }else{
-	for(let i = 0; i < 3; i++){
+	for(let i = 0; i < 100; i++){
 		let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
 		let mode = ["DM", "TDM", "CTF", "CP"]
 		let randoms = [];

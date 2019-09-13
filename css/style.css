@@ -9,6 +9,9 @@ body{
 	background: var(--bg-color);
    cursor: url(../images/GUI/cursor.cur), progress !important;
 }
+canvas{
+   background-color: #0ff;
+}
 #preload{
    position: relative;
    min-width: 860px;
@@ -150,6 +153,9 @@ body{
 	width: 100%;
 	height: 100%;
 	position: absolute;
+}
+#canvasPlay{
+   display: none;
 }
 #interface{
 	min-width: 860px;
