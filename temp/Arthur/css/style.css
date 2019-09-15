@@ -141,6 +141,7 @@ nav ul{
 	margin: 10px;
 	border: 1px solid var(--blueSecond);
 	border-radius: 10px;
+	overflow: hidden;
 }
 @media (max-width: 1022px) {
 	#info{
