@@ -7,16 +7,17 @@
 }
 body{
 	width: 100%; height: 100%;
+   background: #8FCCE8;
 }
 b{
 	display: block;
 	margin: 0 0 5px 0;
-	color: var(--blueSecond);
+	color: #1B8DCC;
 	font-size: 32px;
 	text-align: center;
 }
 p{
-	color: var(--blueSecond);
+	color: #1B8DCC;
 	text-shadow: 0px 0px 0px #000000;
 	padding: 0 40px;
 }
@@ -24,15 +25,15 @@ p{
 	position: fixed;
 	top: 0; left: 0;
 	width: 100%; height: 100%;
-	background: var(--blueFirst);
+	background: #8FCCE8;
 }
 .main{
 	left: 0; right: 0;
 	min-width: 350px;
 	width: 70%; height: auto;
 	margin: 50px auto; padding: 50px 5px;
-	background-color: var(--snow);
-	border: 1px solid var(--blueSecond);
+	background-color: #E3ECF3;
+	border: 1px solid #1B8DCC;
 	-webkit-border-radius: 7px;
 	   -moz-border-radius: 7px;
 	        border-radius: 7px;
@@ -71,8 +72,8 @@ nav li{
 	cursor: pointer;
 }
 nav li:hover, nav li.active{
-	background: var(--snow);
-	color: var(--blueSecond);
+	background: #E3ECF3;
+	color: #1B8DCC;
 	-webkit-transition: 0.7s;
 	-o-transition: 0.7s;
 	-moz-transition: 0.7s;
@@ -105,8 +106,8 @@ nav{
 	-webkit-border-radius: 7px;
 	   -moz-border-radius: 7px;
 	        border-radius: 7px;
-	color: var(--snow);
-	background: var(--blueSecond);
+	color: #E3ECF3;
+	background: #1B8DCC;
 }
 nav ul{
 	display: -webkit-box;
@@ -157,11 +158,11 @@ nav ul{
 	display: block;
 	margin: 10px; padding: 20px 10px 20px 60px;
 	min-height: 37px;
-	background: var(--blueSecond);
+	background: #1B8DCC;
 	-webkit-border-radius: 7px;
 	   -moz-border-radius: 7px;
 	        border-radius: 7px;
-	color: var(--snow);
+	color: #E3ECF3;
 	font-weight: bold;
 }
 #info li:before{
@@ -185,8 +186,8 @@ nav ul{
 	width: 30px; height: 30px;
 	content: '✔';
 	font-size: 50px;
-	color: var(--redFirst);
-	border: 2px solid var(--redSecond);
+	color: #E6071A;
+	border: 2px solid #DE7AA0;
 	-webkit-border-radius:  7px;
 	   -moz-border-radius:  7px;
 	        border-radius:  7px;
@@ -222,7 +223,7 @@ nav ul{
 	        border-radius: 100%;
 	width: 300px; height: 300px;
 	overflow: hidden;
-	border: 2px solid var(--blueSecond);
+	border: 2px solid #1B8DCC;
 }
 .photoBlocks{
 	width: 100%;
@@ -253,7 +254,7 @@ nav ul{
 	width: 270px;
 	height: 170px;
 	margin: 10px;
-	border: 1px solid var(--blueSecond);
+	border: 1px solid #1B8DCC;
 	-webkit-border-radius: 10px;
 	   -moz-border-radius: 10px;
 	        border-radius: 10px;
