@@ -33,7 +33,7 @@ p{
 	margin: 50px auto; padding: 50px 5px;
 	background-color: var(--snow);
 	border: 1px solid var(--blueSecond);
-	border-radius: 1%;
+	border-radius: 7px;
 	position: absolute;
 	display: flex;
 	align-items: flex-start;
