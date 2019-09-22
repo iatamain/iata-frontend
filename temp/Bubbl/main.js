@@ -7,6 +7,9 @@ let ctx2 = tempCanv.getContext("2d");
 let img = new Image();
 let circle = new Circle();
 let last;
+let type = parseGet(window.location.href).type || 0;
+let href = parseGet(window.location.href).href;
+let src = parseGet(window.location.href).src;
 document.querySelector("canvas").addEventListener("mousemove", e => {
    let rect = document.querySelector("canvas").getBoundingClientRect();
    let x = e.clientX - rect.left;
@@ -39,7 +42,14 @@ function play(){
 function preload(){
    last = Date.now();
    img.crossOrigin = "Anonymous";
-   img.src = "Max.jpg";
+   if(type == "h"){
+      img.src = "R.jpg";
+   }else{
+      img.src = src;
+   }
+   img.onerror = ()=>{
+      img.src = "cfu.png";
+   }
    img.onload = ()=>{
       ctx2.drawImage(img, 0, 0, 500, 500);
       //test(circle, 2);
