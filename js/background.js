@@ -1,16 +1,4 @@
 {
-	const ctx = document.querySelector("canvas").getContext("2d");
-	let currentScene = "main";
-	let canvHeight = 650;
-	let canvWidth = 900;
-	var gameObj = {
-			x: 0,
-			y: 0,
-			dx: 100,
-			dy: 100,
-			sizeX: 50,
-			sizeY: 50
-	}
 	function openFullscreen() {
 		var elem = document.querySelector("#game");
 		isFullScreen = true;
@@ -23,8 +11,8 @@
 		}else if(elem.msRequestFullscreen) { /* IE/Edge */
 			elem.msRequestFullscreen();
 		}
-		document.querySelector("canvas").setAttribute("width", screen.width);
-		document.querySelector("canvas").setAttribute("height", screen.height);
+		document.querySelector("#canvasBack").setAttribute("width", screen.width);
+		document.querySelector("#canvasBack").setAttribute("height", screen.height);
 		canvHeight = screen.height;
 		canvWidth = screen.width;
 	}
@@ -49,22 +37,22 @@
 	document.addEventListener('MSFullscreenChange', exitHandler);
 	function exitHandler() {
 	    if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
-	        canvHeight = 650;
+	      canvHeight = 650;
 			canvWidth = 900;
-			document.querySelector("canvas").setAttribute("width", canvWidth);
-			document.querySelector("canvas").setAttribute("height", canvHeight);
+			document.querySelector("#canvasBack").setAttribute("width", canvWidth);
+			document.querySelector("#canvasBack").setAttribute("height", canvHeight);
 	    }
 	}
-
-
-	let game = function(){
-		let now = Date.now();
-		let dt = (now - last)/1000;
-		update(dt);
-		render(currentScene);
-		last = now;
-
-		requestAnimFrame(game);
+	let currentScene = "main";
+	let canvHeight = 650;
+	let canvWidth = 900;
+	var gameObj = {
+			x: 0,
+			y: 0,
+			dx: 100,
+			dy: 100,
+			sizeX: 50,
+			sizeY: 50
 	}
 	let update = function(dt){
 		gameObj.x += gameObj.dx * dt;
@@ -88,11 +76,11 @@
 	}
 
 	let render = function(scene){
-		ctx.fillStyle = "#003A3C";
-		ctx.fillRect(0, 0, canvWidth, canvHeight);
-		ctx.fillStyle = "#03E6EF";
-		ctx.fillRect(gameObj.x - gameObj.sizeX / 2, gameObj.y - gameObj.sizeY / 2, gameObj.sizeX, gameObj.sizeY);
+		this.ctx.fillStyle = "#003A3C";
+		this.ctx.fillRect(0, 0, canvWidth, canvHeight);
+		this.ctx.fillStyle = "#03E6EF";
+		this.ctx.fillRect(gameObj.x - gameObj.sizeX / 2, gameObj.y - gameObj.sizeY / 2, gameObj.sizeX, gameObj.sizeY);
 	}
-	let last = Date.now();
-	game();
+	var bg = new Canvas("#canvasBack", update, render);
+	bg.start();
 }

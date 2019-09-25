@@ -1,0 +1,13 @@
+div.inputs{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	color: white;
+	display: block;
+}
+b{
+	position: relative;
+	top: -7px;
+	left: -7px;
+	padding: 0;
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>Чисто Canvas</title>
+		<link rel = "stylesheet" href = "style.css">
+		<script src = "interface.js" defer></script>
+		<script src = "dinamic.js" defer></script>
+	</head>
+	<body bgcolor = "#002">
+		<div align = "center">
+			<canvas width = "800px" height = "600px" style = "border: 1px solid white"></canvas>
+		</div>
+		<div class = "inputs">
+			<b>Размер:</b><input oninput = "chooseSize()" id = "size" min = "1" max = "50" value = "1" type = "range"><br>
+			<b>Пушистость:</b><input oninput = "chooseFurry()" id = "furry" min = "0" max = "40" value = "2" type = "range"><br>
+			<b>Количество:</b><input oninput = "chooseCount()" id = "count" min = "0" max = "100" value = "20" type = "range"><br>
+			<b>Скорость:</b><input oninput = "chooseSpeed()" id = "speed" step = "0.1" min = "0" max = "10" value = "1" type = "range"><br>
+		</div>
+	</body>
+</html>
