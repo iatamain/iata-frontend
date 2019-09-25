@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css" >
+  </head>
+  <body>
+    <input type="text" id="input" oninput="inputParse()">
+    <input type="button" value="click" onclick="clickButton()">
+    <div class="out">
+    </div>
+    <script type="text/javascript"> //JS
+      var input;
+      var output;
+      function inputParse(){
+        input = document.querySelector("input").value;
+        console.log(input);
+      }
+      function clickButton(){
+        output = document.querySelector(".out");
+        output.innerHTML = input;
+      }
+    </script>
+  </body>
+
+</html>

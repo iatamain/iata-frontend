@@ -1,0 +1,14 @@
+//var a = document.querySelector("Селектор");
+//и если правильно указал селектор на инпут, то в a помещается весь объект input
+//из него нужно взять значение
+//var a = a.value;
+
+-
+
+//Как через js изменить в нем содержимое?
+//var out = document.querySelector(".out");
+//out.innerHTML = "Или текст";
+//шоб в кнопочке было написано чет, эт атрибут value
+//value = "click me please"
+
+-
