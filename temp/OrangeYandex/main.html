@@ -4,129 +4,107 @@
     <link rel="stylesheet" type="text/css" href="style.css" >
   </head>
   <body>
+    Плюс
+    <input type="checkbox" value="+" id="plus">
+    Минус
+    <input type="checkbox" value="-" id="minus">
+    Делить
+    <input type="checkbox" value="/" id="miltyply">
+    Умножить
+    <input type="checkbox" value="*" id="share">
     <br>
-    <input type="button" value="1">
-    <input type="button" value="2">
-    <input type="button" value="3">
+    <input type="text" id="In_1">
     <br>
-    <input type="button" value="4">
-    <input type="button" value="5">
-    <input type="button" value="6">
+    <input type="text" id="In_2">
     <br>
-    <input type="button" value="7">
-    <input type="button" value="8">
-    <input type="button" value="9">
-    <br>
-    <input type="button" value="0">
-    <input type="button" value="+">
-    <input type="button" value="-">
-    <br>
-    <br>
-    <input type="button" value="=">
-    <br>
-    <div id="outputTEMP1"></div>
-    <div id="outputPorM"></div>
-    <div id="outputTEMP2"></div>
 
-    <div id="out"> </div>
+    <div id="output"></div>
+
     <script type="text/javascript"> //JS
+
       var inputArray = [];
-      var output = document.querySelector("#out");
-
-      var tempOutput_1 = document.querySelector("#outputTEMP1");
-      var tempOutput_2 = document.querySelector("#outputTEMP2");
-      var outputPorM = document.querySelector("#outputPorM");
-      var PorM = null; //Plus - true / Minus - false
-
-      inputArray = document.querySelectorAll('input')
+      inputArray = document.querySelectorAll('input') //Массив INPUT'ов
       console.log(inputArray);
 
-      for(var i = 0; i < inputArray.length; i++) {
-        inputArray[i].addEventListener('click',function(){
-          console.log(this.value);
-          if(this.value != '' && this.value != '+' && this.value != '-' && this.value != '=') {
-            if(PorM == null){
-              tempOutput_1.innerHTML += this.value;
-            } else {
-              tempOutput_2.innerHTML += this.value;
-            }
-            // output = document.querySelector("#out");
-            // output.innerHTML += this.value;
-            // console.log(output);
-          } else if(this.value == '+') {
-            PorM = true;
-            outputPorM.innerHTML = '+';
-          } else if(this.value == '-') {
-            PorM = false;
-            outputPorM.innerHTML = '-';
-          } else if(this.value == '=') {
-            if(PorM != null) {
-              if(PorM == true){
-                output.innerHTML = parseInt(outputTEMP1.innerHTML) + parseInt(outputTEMP2.innerHTML);
-              } else {
-                output.innerHTML = parseInt(outputTEMP1.innerHTML) - parseInt(outputTEMP2.innerHTML);
-              }
-            } else {
-              alert("Enter the + or - in value");
-            }
+      var plus = document.querySelector('#plus');
+      var minus = document.querySelector('#minus');
+      var miltyply = document.querySelector('#miltyply');
+      var share = document.querySelector('#share');
+
+      for(var i = 0; i < inputArray.length; i++){
+        inputArray[i].addEventListener('click', function(){
+          if(this.value == '+'){
+            checkValueBox = "+";
+            plus.checked = true;
+            minus.checked = false;
+            miltyply.checked = false;
+            share.checked = false;
+            Solve();
+          }
+          if(this.value == '-'){
+            checkValueBox = "-";
+            plus.checked = false;
+            minus.checked = true;
+            miltyply.checked = false;
+            share.checked = false;
+            Solve();
+          }
+          if(this.value == '/'){
+            checkValueBox = "/";
+            plus.checked = false;
+            minus.checked = false;
+            miltyply.checked = true;
+            share.checked = false;
+            Solve();
+          }
+          if(this.value == '*'){
+            checkValueBox = "*";
+            plus.checked = false;
+            minus.checked = false;
+            miltyply.checked = false;
+            share.checked = true;
+            Solve();
           }
         });
       }
-      // for(input in inputArr){
-      //
-      //   input.addEventListener('click',function(){
-      //     console.log(this.value);
-      //   });
-      // }
-      // inputTest[].addEventListener(
-      //     'click',
-      //     function(){
-      //       console.log(this.value);
-      //     }
-      // );
-      // function ButtonOne(){
-      //   input = 1;
-      //   addOn();
-      // }
-      // function ButtonTwo(){
-      //   input = 2;
-      //   addOn();
-      // }
-      // function ButtonThree(){
-      //   input = 3;
-      //   addOn();
-      // }
-      // function ButtonFour(){
-      //   input = 4;
-      //   addOn();
-      // }
-      // function ButtonFive(){
-      //   input = 5;
-      //   addOn();
-      // }
-      // function ButtonSix(){
-      //   input = 6;
-      //   addOn();
-      // }
-      // function ButtonSeven(){
-      //   input = 7;
-      //   addOn();
-      // }
-      // function ButtonEight(){
-      //   input = 8;
-      //   addOn();
-      // }
-      // function ButtonNine(){
-      //   input = 9;
-      //   addOn();
-      // }
-      //
-      // function Plus() {
-      //
-      // }
-      // function Minus(){
-      //
-      // }
+
+      var checkValueBox;
+
+      var input_1 = document.querySelector("#In_1");
+      var input_2 = document.querySelector("#In_2");
+
+      var inputs = [];
+
+
+
+      input_1.oninput = function() {
+        inputs[0] = input_1.value;
+        Solve();
+      };
+      input_2.oninput = function() {
+        inputs[1] = input_2.value;
+        Solve();
+      };
+
+      function Solve() {
+        console.log("Solve:"+inputs[0]+" / "+inputs[1]);
+        console.log("checkerbox" + checkValueBox);
+        var output = document.querySelector('#output');
+
+        if(checkValueBox == '+'){
+          output.innerHTML = parseInt(inputs[0]) + parseInt(inputs[1]);
+        }
+        if(checkValueBox == '-'){
+          output.innerHTML = parseInt(inputs[0]) - parseInt(inputs[1]);
+        }
+        if(checkValueBox == '/'){
+          output.innerHTML = parseInt(inputs[0]) / parseInt(inputs[1]);
+        }
+        if(checkValueBox == '*'){
+          output.innerHTML = parseInt(inputs[0]) * parseInt(inputs[1]);
+        }
+
+      }
     </script>
   </body>
 
