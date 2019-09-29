@@ -1,4 +1,3 @@
-var lastIdRoom = 0;
 var dataNews = [
    {
       header: "Каруселька, eee",
@@ -21,9 +20,6 @@ var dataNews = [
       img: "images/news/news00.jpg"
    }
 ];
-var dataRooms = {
-
-}
 var interfaceData = {
    main: {
       playerInfo: "deactive-left",

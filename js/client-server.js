@@ -41,7 +41,6 @@ var session = {
 	howManyDays: 42,
 }
 var mainPlayerInf = new PlayerInf();
-var test =2;
 if(session.snsName === "vk"){
 	console.log(parseGet(window.location.href));
 	VK.init(function() {
@@ -81,7 +80,7 @@ if(session.snsName === "vk"){
 					setInterface();
 				});
 			});
-			setRooms("set");
+			rooms.set("set");
 		});
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) { //Получаем массив id Друзей
 			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) { //Получаем инфу о каждом друге
@@ -137,7 +136,7 @@ if(session.snsName === "vk"){
 				console.log("Неудалось запросить данные текущего пользователя");
 			}
 			setInterface();
-			setRooms("set");
+			rooms.set("set");
 		});
 		//Получение информации о друзьях и их списке
 		FAPI.Client.call({"fields": "uid", "method": "friends.getAppUsers"}, function(status, idFriends,error){ //получение id друзей
@@ -178,11 +177,6 @@ if(session.snsName === "vk"){
 	  xfbml      : true,
 	  version    : 'v4.0'
 	});
-
-
-
-
-
 }else{
 	for(let i = 0; i < 100; i++){
 		let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
@@ -219,5 +213,5 @@ if(session.snsName === "vk"){
 	}
 	setInterface();
 	setFriends();
-	setRooms("set");
+	rooms.set("set");
 }
