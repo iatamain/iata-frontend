@@ -52,12 +52,18 @@ function update(dt){  //Просчитывание, столкнование и.
   } else {
     isGrounded = true;
   }
-  if(isDown(37)) { //Стрелочка влево
-    sqr.x -= speed * dt * 20;
+  if(sqr.x > 0){
+    if(isDown(37)) { //Стрелочка влево
+      sqr.x -= speed * dt * 20;
+    }
   }
-  if(isDown(39)) { //Стрелочка вправо
-    sqr.x += speed * dt * 20;
+
+  if(sqr.x < 750){
+    if(isDown(39)) { //Стрелочка вправо
+      sqr.x += speed * dt * 20;
+    }
   }
+
   if(isDown(32)) { //Прыжок
     if(isGrounded) {
       sqr.y -= speed * dt * 1000;
