@@ -2,13 +2,17 @@ let ctx = document.querySelector("canvas").getContext("2d");
 console.log(ctx);
 
 let lost; //Последнее время на отрисовку
+let lostDy; //Последнее время на DY
 
 let gravity = 250; // px/sec
 let speed = 10;
 
+let ddy = 0;
+
 let arrKey = [];
 
 let isGrounded;
+let isJumped;
 
 var sqr = {
   x: 800/2, //исправить
@@ -41,26 +45,24 @@ document.addEventListener("keydown", (event) => { //ES6 Callback function
 
 function play(){  //Вызов функций
   let now = Date.now();
+  let nowDy = sqr.y;
   let dt = (now - lost)/1000; //Дельта время
+  let dy = (nowDy - lostDy) * dt;
   update(dt);
   render();
   lost = now;
+  lostDy = nowDy;
+  jump(dt); //Вызов прыжка
   requestAnimFrame(play);
 }
 
-function update(dt){  //Просчитывание, столкнование и.т.п
-  // console.log(sqr.y)
-  // sqr.y += gravity * dt;
-
-  // console.log(isGrounded);
-
-
+function update(dt) {  //Просчитывание, столкнование и.т.п
   if(sqr.y < 550) {
+    sqr.y += gravity * dt;
     if(sqr.x > 250 && sqr.x < 400 && sqr.y > 450 && sqr.y < 500){
       console.log("Triggered");
       sqr.y = 450;
     }
-    sqr.y += gravity * dt;
     isGrounded = false;
   } else {
     isGrounded = true;
@@ -79,15 +81,12 @@ function update(dt){  //Просчитывание, столкнование и.
   }
 
   if(isDown(32)) { //Прыжок
-    if(isGrounded) {
-      sqr.y -= speed * dt * 1000;
-    }
+    // if(isGrounded) {
+    //   sqr.y -= speed * dt * 1000;
+    // }
+    isJumped = true;
+    ddy = 500;
   }
-  // if(isDown("")){
-  //   sqr.y -= speed * dt * 20;
-  // }
-
-  //----Platform Collision----//
 
 }
 
@@ -121,6 +120,14 @@ function isDown(key) {
     //     return false;
     // }
 }
+
+  function jump(dt){
+    if(ddy <= 500 && ddy > 0){
+      sqr.y -= ddy * dt;
+      ddy -= 10;
+      console.log("Прыжок: " + ddy);
+    }
+  }
 
 lost = Date.now();
 play();
