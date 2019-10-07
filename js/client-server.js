@@ -188,18 +188,17 @@ if(session.snsName === "vk"){
 		}
 		for(let j = 0; j <= randoms[10]; j++){
 			name += str[randoms[j]];
-		}
+		}/*
 		dataRooms[lastIdRoom++] = {
 			name: name,
 			password: "",
-			map: "TestMap"+ i,
+			mapId: "TestMap"+ i,
 			mode: mode[randoms[10] % 4],
 			capacity: randoms[10] % 2 ? 10 : randoms[10] % 3 ? 12 : 14,
 			playersInRoom: randoms[10] + 1,
 			isBought: true,
 			isActive: true,
-			isClose: false
-		}
+		}*/
 		name = "";
 		for(let j = 0; j <= Math.min(6, randoms[10]); j++){
 			name += str[randoms[j]];
@@ -213,5 +212,5 @@ if(session.snsName === "vk"){
 	}
 	setInterface();
 	setFriends();
-	rooms.set("set");
+	//rooms.set();
 }

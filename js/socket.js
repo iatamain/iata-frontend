@@ -1,12 +1,56 @@
+var socketStatus = "disconnected";
 var socket = io('ws://itracers.xyz:4000', {
-transports: ['websocket'],
-query: {
-   auth_key: "5cb788743808b2b92665b5e9eed204b1",
-   viewer_id: "135534097",
-   snsName: session.snsName}
+   transports: ['websocket'],
+   reconnection: true,
+   reconnectionDelay: 1000,
+   reconnectionDelayMax : 5000,
+   reconnectionAttempts: 5,
+   query: {
+      auth_key: "5cb788743808b2b92665b5e9eed204b1",
+      viewer_id: "135534097",
+      snsName: session.snsName
+   }
 });
 socket.on('connect', ()=>{
-   socket.on('/rooms/list', ()=>{})
-   //socket.emit('/rooms/create', "testName", 42, 1, "deathmatch", "");
+   socketStatus = "connected";
+   socket.on('/rooms/list', (answ)=>{
+      console.log(answ)
+      dataRooms = {};
+      for(i in answ){
+         dataRooms[i] = {
+   			name: answ[i].name,
+   			password: answ[i].password, //Проверять
+   			mapId: answ[i].mapId, //Убрать 0
+   			mode: answ[i].mode,
+   			capacity: 8,
+   			playersInRoom: answ[i].usersCount,
+   			isActive: true
+   		}
+      }
+      rooms.set();
+   });
+   socket.on('/rooms/create', (roomN, answ)=>{
+      console.log(roomN, answ);
+      rooms.add(roomN,{
+         name: answ.name,
+         password: answ.password, //Проверять
+         mapId: answ.mapId,
+         mode: answ.mode,
+         capacity: 8,
+         playersInRoom: 1,
+         isActive: true
+      });
+   })
    socket.emit('/rooms/list');
+   socket.on('');
+   //socket.emit('/rooms/connect', roomN, password(nullable))
+   // '/rooms/my'
+   // '/rooms/deleted'
+   // '/clientError'
+});
+socket.on('disconnect', ()=>{
+   socketStatus = "disconnected";
+});
+socket.on('error', ()=>{
+   socketStatus = "error";
 });

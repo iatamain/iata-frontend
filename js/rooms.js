@@ -1,5 +1,4 @@
 let countRooms = 0;
-let lastIdRoom = 0;
 let listRoomsBody = {
    elementHTML: document.querySelector("#listRoomsBody"),
    elementChildHTML: document.querySelector("#listRoomsBody ul"),
@@ -13,6 +12,7 @@ let listRoomsBody = {
    rect: 0,
    stop: true
 };
+let mapsNames = ["testMap"];
 let dataRooms = {}
 let rooms = {
    normalize: function(){
@@ -52,8 +52,8 @@ let rooms = {
       listRoomsBody.top = -listRoomsBody.sizeElement * Math.max(countRooms - 8, 0);
       this.normalize();
    },
-   add: function(room){
-      dataRooms[lastIdRoom++] = room;
+   add: function(roomN, room){
+      dataRooms[roomN] = room;
       this.set();
       this.search();
    },
@@ -76,7 +76,7 @@ let rooms = {
          li.appendChild(p);
          let p2 = document.createElement("p");
          p2.setAttribute("class", "typeRoom");
-         p2.innerHTML = `${dataRooms[i].mode}: ${dataRooms[i].map} ${dataRooms[i].isClose ? "(Закрытая)" : ""}`;
+         p2.innerHTML = `${dataRooms[i].mode}: ${mapsNames[dataRooms[i].mapId]} ${dataRooms[i].password ? "(Закрытая)" : ""}`;
          li.appendChild(p2);
          let p3 = document.createElement("p");
          p3.setAttribute("class", "playerInRoom");
@@ -92,28 +92,29 @@ let rooms = {
          countRooms++;
          countPlayers += dataRooms[i].playersInRoom;
       }
+      this.normalize();
    }
 }
 function createRoom(){
    let nameRoom = document.querySelector("#createRoom input[type='text']").value.trim();
    let passwordRoom = document.querySelector("#createRoom input[type='password']").value.trim();
    let modeRoom = document.querySelector("#createRoom .shown").innerHTML;
-   let mapRoom = "TestMap";
+   let mapRoom = 0;
    let isCloseRoom = document.querySelector("#createRoom input[type='checkbox']").checked;
    let isCreated = false;
    let isSelected = true;
    switch (modeRoom) {
       case "Каждый сам за себя":
-         modeRoom = "DM";
+         modeRoom = "dm";
          break;
       case "Командный бой":
-         modeRoom = "TDM";
+         modeRoom = "tdm";
          break;
       case "Захват флага":
-         modeRoom = "CTF";
+         modeRoom = "ctf";
          break;
       case "Захват точки":
-         modeRoom = "CP";
+         modeRoom = "cp";
          break;
       default:
          isSelected = false;
@@ -128,19 +129,14 @@ function createRoom(){
    }else if(!isSelected){
       msg("Выберите режим игры");
    }else{
-      msg("Комната успешно создана");
-      //socket.emit('/rooms/create', "testName", 42, 1, "deathmatch", "");
-      rooms.add({
+      let obj = {
          name: nameRoom,
-         password: passwordRoom,
+         mapId: mapRoom,
          mode: modeRoom,
-         map: mapRoom,
-         capacity: 14,//Вместимость (Хранится на серве)
-         playersInRoom: 0, //Вычисляется на серве
-         isBought: true, //Куплена ли комната (Хранится на серве)
-         isActive: true, //Только на фронте
-         isClose: isCloseRoom //Является ли комната запароленной
-      });
+         password: passwordRoom
+      }
+      if(socketStatus == "connected") socket.emit('/rooms/create', obj);
+      else msg("Ошибка подключения")
    }
 }
 function goToRoom(id){
