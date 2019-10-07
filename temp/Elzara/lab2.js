@@ -41,7 +41,13 @@ em.stroke();
 var k = 0;
 function grafic() {
 	em.fillStyle = "olive";
-	em.fillRect(x_1[k]*sc + mov, y_1[k]*sc + mov, 2, 2);
+	//x = x*cos() - y*sin(); y  = x * sin() + y * sos()
+	let x = x_1[k] * Math.cos(an) -  y_1[k] * Math.sin(an);
+	let y = x_1[k] * Math.sin(an) +  y_1[k] * Math.cos(an);
+	x = x*sc + mov;
+	y = y*sc + mov;
+	console.log(x, y);
+	em.fillRect(x, y, 2, 2);
 	k++;
 	if(k <= x_1.length) requestAnimationFrame(grafic)
 }
