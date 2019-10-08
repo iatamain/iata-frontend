@@ -52,7 +52,7 @@
             scale = parseFloat(document.querySelector("#scale").value);
             kef1 = parseFloat(document.querySelector("#kef1").value);
             kef2 = parseFloat(document.querySelector("#kef2").value);
-            if(flag)preload();
+            if(flag)preload(true);
          }
          function play(){
             let now = Date.now();
@@ -99,7 +99,7 @@
             ctx.stroke();
             ctx.restore();
          }
-         function preload(){
+         function preload(flag){
             func = [];
             let last = Date.now();
             for(let i = 0; i < 50* Math.PI; i+= 0.1){
@@ -108,7 +108,7 @@
                   y: 24.8*(Math.sin(i) - Math.sin(kef1 * i) / kef2)
                })
             }
-            play();
+            if(!flag)play();
          }
          preload();
       </script>
