@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title></title>
+      <style>
+         body{
+            margin: 0;
+            overflow-x: hidden;
+         }
+      </style>
+   </head>
+   <body>
+      <canvas width="500" height="500" style = "border: 1px solid black"></canvas>
+      <br />
+      <b>Размер: </b><input id = "scale" oninput = "change()" type = "range" min = "0.1" max = "20" value = "5" step = "0.1" style = "width:80%"/><br />
+      <b>Коэф. 1</b><input id = "kef1" oninput = "change(true)" type = "range" min = "-10" max = "10" value = "6.2" step = "0.001" style = "width:80%"/><br />
+      <b>Коэф. 2</b><input id = "kef2" oninput = "change(true)" type = "range" min = "1" max = "10" value = "6.2" step = "0.01" style = "width:80%"/><br />
+      <script>
+         let canvas = document.querySelector("canvas");
+         let ctx = canvas.getContext("2d");
+         let last = Date.now();
+         let movX = 0;
+         let movY = 0;
+         let scale = 5
+         let kef1 = 6.2
+         let kef2 = 6.2
+         let func = [];
+         let isDown = false;
+         let lastX = 0, lastY = 0;
+         let tempX = 0, tempY = 0;
+         document.querySelector("canvas").addEventListener("mousedown", e=>{
+            lastX = e.offsetX;
+            lastY = e.offsetY;
+            isDown = true;
+         })
+         document.querySelector("canvas").addEventListener("mousemove", e=>{
+            if(isDown){
+               tempX = e.offsetX - lastX;
+               tempY = e.offsetY - lastY;
+            }
+         })
+         document.querySelector("canvas").addEventListener("mouseup", e=>{
+            movX += tempX;
+            tempX = 0;
+            movY += tempY;
+            tempY = 0;
+            isDown = false;
+         })
+
+         function change(flag){
+            scale = parseFloat(document.querySelector("#scale").value);
+            kef1 = parseFloat(document.querySelector("#kef1").value);
+            kef2 = parseFloat(document.querySelector("#kef2").value);
+            if(flag)preload();
+         }
+         function play(){
+            let now = Date.now();
+            let dt = now - last;
+            update(dt);
+            render();
+            requestAnimationFrame(play);
+         }
+         function update(dt){
+            canvas.width = window.innerWidth;
+            ctx.save();
+            ctx.translate(canvas.width/2, canvas.height/2);
+         }
+         function render(){
+            ctx.fillStyle = "black";
+            ctx.fillRect(-canvas.width/2, -canvas.height/2, canvas.width, canvas.height);
+            ctx.fillStyle = "yellow";
+            ctx.strokeStyle = "yellow";
+            ctx.globalAlpha = 0.1;
+            ctx.beginPath();
+            for(let i = -Math.floor(canvas.width/100)*50; i < canvas.width/2; i+= 50){
+               ctx.moveTo(i,-canvas.height/2);
+               ctx.lineTo(i, canvas.height/2);
+            }
+            for(let i = -Math.floor(canvas.height/2); i < canvas.height/2; i+= 50){
+               ctx.moveTo(-canvas.width/2, i);
+               ctx.lineTo(canvas.width/2, i);
+            }
+            ctx.stroke();
+            ctx.globalAlpha = 0.2;
+            ctx.beginPath();
+            ctx.moveTo(0, -canvas.height/2);
+            ctx.lineTo(0, canvas.height/2);
+            ctx.moveTo(-canvas.width/2, 0);
+            ctx.lineTo(canvas.width/2, 0);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+            ctx.beginPath();
+            ctx.moveTo(func[0].x*scale+movX+tempX, func[0].y*scale+movY+tempY);
+            for(let i in func){
+               ctx.lineTo(func[i].x*scale+movX+tempX, func[i].y*scale+movY+tempY);
+            }
+            ctx.stroke();
+            ctx.restore();
+         }
+         function preload(){
+            func = [];
+            let last = Date.now();
+            for(let i = 0; i < 50* Math.PI; i+= 0.1){
+               func.push({
+                  x: 24.8*(Math.cos(i) + Math.cos(kef1 * i) / kef2),
+                  y: 24.8*(Math.sin(i) - Math.sin(kef1 * i) / kef2)
+               })
+            }
+            play();
+         }
+         preload();
+      </script>
+   </body>
+</html>
