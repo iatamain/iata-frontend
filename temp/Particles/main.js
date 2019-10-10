@@ -32,7 +32,7 @@ class Particle{
 		this.speed = speed || new Vector(0, 0);
 		this.acceleration = acceleration || new Vector(0, 0);
 		this.size = 1;
-		this.color = "#ff0";
+		this.color = "#00f";
 	}
 	move(){ //Двигать частицы
 		//Добавить ускорение к скорости
@@ -60,7 +60,7 @@ class Emitter{ //Излучатели частиц
 		this.position = point;
 		this.speed = speed;
 		this.spread = spread || Math.PI / 32; //Возможный угол = скорость +/- разброс.
-		this.color = "#70f";
+		this.color = "#00f";
 	}
 	emitParticle(){ //Создание новой частицы по параметрам излучателя
 		// Использование случайного угла для формирования потока частиц позволит нам получить своего рода "спрей";
@@ -83,7 +83,7 @@ class Field{
 	}
 	set mass(mass){ //Сеттер. Вызывается при попытке записать что-то в this.mass;
 		this.massValue = mass;
-		this.color = mass < 0 ? "#a00" : "#0a0";
+		this.color = mass < 0 ? "#a00" : "#aa0";
 	}
 	get mass(){ //Геттер. Вызывается при попытке получить значение из this.mass. В качестве значения отдаcт this.massValue
 		return this.massValue;
