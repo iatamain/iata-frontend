@@ -60,7 +60,7 @@ class Emitter{ //Излучатели частиц
 		this.position = point;
 		this.speed = speed;
 		this.spread = spread || Math.PI / 32; //Возможный угол = скорость +/- разброс.
-		this.color = "#70f";
+		this.color = "#00f";
 	}
 	emitParticle(){ //Создание новой частицы по параметрам излучателя
 		// Использование случайного угла для формирования потока частиц позволит нам получить своего рода "спрей";
@@ -83,7 +83,7 @@ class Field{
 	}
 	set mass(mass){ //Сеттер. Вызывается при попытке записать что-то в this.mass;
 		this.massValue = mass;
-		this.color = mass < 0 ? "#a00" : "#0a0";
+		this.color = mass < 0 ? "#a00" : "#aa0";
 	}
 	get mass(){ //Геттер. Вызывается при попытке получить значение из this.mass. В качестве значения отдаcт this.massValue
 		return this.massValue;
@@ -113,14 +113,14 @@ function play(){
 play();
 function update(){
 	addNewParticles(); //Заставляем сработать излучатели
-	plotParticles(canvas.width, canvas.height); //Обработка частиц вышедших за пределы холста
+	plotParticles(canvas.width, canvas.height); //Двигаем частицы
 	
 }
 function render(){
 	ctx.fillStyle = "black"
 	ctx.fillRect(0,0, canvas.width, canvas.height);
-	drawParticles();
-	drawEmitters();
+	drawParticles(); //От
+	drawEmitters();	
 	drawFields();
 }
 function addNewParticles(){
@@ -136,8 +136,7 @@ function plotParticles(boundX, boundY){
 	for(let i in particles){
 		let particle = particles[i];
 		let pos = particle.position;
-		//Если частица за пределами, то пропускаем ее и переходим к следующей.
-		let flag = false;
+		let flag = false; //Если частица за пределами или попала в одно из гравитационных полей, то пропускаем ее и переходим к следующей.
 		if(pos.x < 0 || pos.x > boundX || pos.y < 0 || pos.y > boundY) flag = true;
 		for(j in fields){
 			if(Math.abs(fields[j].position.x - particles[i].position.x) < 5 && Math.abs(fields[j].position.y - particles[i].position.y)< 5) flag = true;
