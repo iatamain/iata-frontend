@@ -173,7 +173,10 @@
 				get z(){ return this.tempZ; }
 				update(){
 					for(let i in this.world){
-						this.display[i] = this.world[i].rotate(this.degX, this.degY, this.degZ);
+						this.display[i] = this.world[i];
+						this.display[i] = this.display[i].move(0+this.x, -6.666+this.y, -36.666+this.z);
+						this.display[i] = this.display[i].rotate(this.degX, this.degY, this.degZ);
+						this.display[i] = this.display[i].move(0-this.x, 6.666-this.y, 36.666-this.z);
 						this.display[i] = this.display[i].scale(this.scale);
 						this.display[i] = this.display[i].move(this.x, this.y, this.z);
 						this.projection[i] = this.display[i].getProjection(500); //Получаем проекцию
