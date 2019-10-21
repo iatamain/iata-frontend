@@ -51,6 +51,7 @@ socket.on('connect', ()=>{
 socket.on('disconnect', ()=>{
    socketStatus = "disconnected";
 });
-socket.on('error', ()=>{
+socket.on('error', (e)=>{
    socketStatus = "error";
+   console.log("Ошибка подключения к сокету", e);
 });
