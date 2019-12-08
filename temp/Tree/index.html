@@ -1,0 +1,58 @@
+<html>
+	<canvas height="600" width='600' id='cnvs'></canvas><br />		 	
+	</canvas>
+	<script>		
+	var canvas = document.getElementById("cnvs"), ctx = canvas.getContext("2d");
+	var ang90 = Math.PI / 2; // Угол поворота на 90 градусов
+	var ang45 = Math.PI / 4; // Угол поворота на 45 градусов
+	var ang30 = Math.PI / 6; // Угол поворота на 30 градусов
+	var animAngle = ang90;
+	var dDeg = 0.002;
+	function play(){
+		update();
+		draw();
+		requestAnimationFrame(play);
+	}
+	function update(){
+		animAngle -= dDeg;
+		if(animAngle < -ang90)dDeg *= -1;
+		if(animAngle > ang90)dDeg *= -1;
+		
+	}
+	var Point = function(x, y) // Конструктор для точки
+	{
+		this.x = x;
+		this.y = y;
+	}
+	 
+	function drawLine(a, b) // Рисование линии
+	{ 
+		ctx.moveTo(a.x, a.y);
+		ctx.lineTo(b.x, b.y);
+	}
+	 
+	function drawTree(x, y, a, angle) // построение дерева Пифагора
+	{
+	   if (a > 0.5) 
+	   {
+			a *= 0.7; 
+			let nx = x + a * Math.cos(angle); // вычисление новых координат
+			let ny = y - a * Math.sin(angle);         
+			drawLine(new Point(3*x, 3*y), new Point(3*nx, 3*ny)); 
+			drawTree(nx, ny, a, angle + animAngle); // рекурсивный вызов для новых точек
+			drawTree(nx, ny, a, angle - animAngle); // под другими углами
+		}
+	}
+	 
+	function draw() // главная функция
+	{ 
+		ctx.clearRect(0, 0, 600, 600);
+		ctx.beginPath();   
+		ctx.strokeStyle = 'green';   
+		drawTree(100, 160, 60, ang90);
+		ctx.stroke();
+		ctx.closePath();    
+	}
+	play();
+	</script>
+</html>
