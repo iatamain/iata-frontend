@@ -1,20 +1,28 @@
 <html>
-	<canvas height="600" width='600' id='cnvs'></canvas><br />		 	
-	</canvas>
+	<canvas height="600" width='600' id='cnvs'></canvas>
+	<input type = "range" min = "0.25", max = "6" value = "0.5" step="0.01" oninput="change()">
 	<script>		
 	var canvas = document.getElementById("cnvs"), ctx = canvas.getContext("2d");
 	var ang90 = Math.PI / 2; // Угол поворота на 90 градусов
 	var ang45 = Math.PI / 4; // Угол поворота на 45 градусов
 	var ang30 = Math.PI / 6; // Угол поворота на 30 градусов
 	var animAngle = ang90;
-	var dDeg = 0.002;
+	var dDeg = 0.05;
+	var deep = 0.5;
+	function change(){
+		deep = parseFloat(document.querySelector("input").value);
+	}
+	let last = Date.now();
 	function play(){
-		update();
+		let now = Date.now();
+		let dt = (now - last)/1000;
+		update(dt);
 		draw();
+		last = now;
 		requestAnimationFrame(play);
 	}
-	function update(){
-		animAngle -= dDeg;
+	function update(dt){
+		animAngle -= dDeg * dt;
 		if(animAngle < -ang90)dDeg *= -1;
 		if(animAngle > ang90)dDeg *= -1;
 		
@@ -33,7 +41,7 @@
 	 
 	function drawTree(x, y, a, angle) // построение дерева Пифагора
 	{
-	   if (a > 0.5) 
+	   if (a > deep) 
 	   {
 			a *= 0.7; 
 			let nx = x + a * Math.cos(angle); // вычисление новых координат
