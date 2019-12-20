@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <style>
+      @font-face{
+         font-family: 'Redemption';
+         src: url('Redemption.ttf');
+      }
+      body{
+         display: flex;
+         align-items: center;
+         flex-direction: column;
+         background: black;
+      }
+      p{
+         color: red;
+         font-family: "Redemption";
+         font-size: 35px;
+         text-align: center;
+      }
+      .p2{
+         color: white;
+         font-size: 20px;
+      }
+      #box .p2{
+         font-size: 30px;
+      }
+      #box{
+         display: flex;
+         flex-wrap: wrap;
+      }
+      #hoverMain{
+         position: absolute;
+         top: 0;
+         left: 0;
+      }
+      .items{
+         position: relative;
+         width: 273px;
+         height: 390px;
+         background: yellow;
+         margin: 5px;
+         background: url('skill.png');
+         background-size: contain;
+         background-repeat: no-repeat;
+         background-position: center;
+         display: flex;
+         align-items: center;
+         flex-direction: column;
+      }
+      .items::before{
+         content: "";
+         position: absolute;
+         background: url('hover.png');
+         background-size: 100% 100%;
+         display: block;
+         width: 100%;
+         height: 100%;
+         opacity: 0;
+         transition: 0.5s;
+      }
+      .items:hover::before{
+         opacity: 1;
+         transition: 0.5s;
+      }
+      .items img{
+         opacity: 0.5;
+      }
+      .items:hover img{
+         opacity: 1;
+      }
+      .activeImg{
+         position: relative;
+         top: 30px;
+         transition: 0.5s;
+      }
+      .items:hover .activeImg{
+         position: relative;
+         top: 10px;
+         transition: 0.5s;
+      }
+      .platform{
+         position: absolute;
+         bottom: 4%;
+      }
+      #mainHover{
+         position: absolute;
+         left: 0;
+         opacity: 0;
+         transition: 0.5s;
+      }
+      #mainHover:hover{
+         opacity: 1;
+         transition: 0.5s;
+      }
+      </style>
+   </head>
+   <body>
+      <p>Профессия "программист"</p><br />
+      <div style = "width: 90vw; height: 40vw; position:relative">
+         <img id = "mainImg" width="100%" height = "100%" src="banner.png" />
+         <img id = "mainHover" width="100%" height="100%" src="hover.png" />
+      </div>
+      <p class = "p2">
+         Если вы думаете, что программист - компьютерщик, то это далеко не так.
+         Самое удивительное, что программист не обязательно работает на компьютере.
+         Он может писать код программы хоть на салфетке. А компьютер ему нужен, чтобы применить
+         этот код и протестировать.
+      </p>
+      <p>Преимущества</p>
+      <div id = "box">
+         <div class="items">
+            <p class = "p2">Высокий<br /> доход</p>
+            <img class = "activeImg" width = "70%"src = "icons/money.png"/>
+            <img class = "platform" width = "90%" height = "3%" src = "icons/banner.png"/>
+         </div>
+         <div class="items">
+            <p class = "p2">Свободный<br /> график</p>
+            <img class = "activeImg" width = "70%"src = "icons/free_time.png"/>
+            <img class = "platform" width = "90%" height = "3%" src = "icons/banner.png"/>
+         </div>
+         <div class="items">
+            <p class = "p2">Перспектива<br /> и рост</p>
+            <img class = "activeImg" width = "70%"src = "icons/up.png"/>
+            <img class = "platform" width = "90%" height = "3%" src = "icons/banner.png"/>
+         </div>
+         <div class="items">
+            <p class = "p2">Профессия<br /> будущего</p>
+            <img class = "activeImg" width = "70%"src = "icons/future.png"/>
+            <img class = "platform" width = "90%" height = "3%" src = "icons/banner.png"/>
+         </div>
+      </div>
+   </body>
+</html>

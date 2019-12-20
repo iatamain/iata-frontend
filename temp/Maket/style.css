@@ -1,0 +1,83 @@
+@font-face{
+   font-family: 'Redemption';
+   src: url('Redemption.ttf');
+}
+body{
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   background: black;
+}
+p{
+   color: red;
+   font-family: "Redemption";
+   font-size: 35px;
+   text-align: center;
+}
+.p2{
+   color: white;
+   font-size: 20px;
+}
+#box .p2{
+   font-size: 30px;
+}
+#box{
+   display: flex;
+   flex-wrap: wrap;
+}
+#hoverMain{
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+.items{
+   position: relative;
+   width: 273px;
+   height: 390px;
+   background: yellow;
+   margin: 5px;
+   background: url('skill.png');
+   background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+
+.items::before{
+   content: "";
+   position: absolute;
+   background: url('hover.png');
+   background-size: 100% 100%;
+   display: block;
+   width: 100%;
+   height: 100%;
+   opacity: 0;
+   transition: 0.5s;
+}
+.items:hover::before{
+   opacity: 1;
+   transition: 0.5s;
+}
+.items img{
+   opacity: 0.5;
+}
+.items:hover img{
+   opacity: 1;
+}
+.activeImg{
+   position: relative;
+   top: 30px;
+   transition: 0.5s;
+}
+.items:hover .activeImg{
+   position: relative;
+   top: 10px;
+   transition: 0.5s;
+}
+.platform{
+   position: absolute;
+   bottom: 4%;
+}
