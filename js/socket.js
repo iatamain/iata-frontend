@@ -1,13 +1,14 @@
 var socketStatus = "disconnected";
-var socket = io('ws://itracers.xyz:4000', {
+console.log(snsPlayerInf);
+var socket = io('wss://itracers.xyz:4443', {
    transports: ['websocket'],
    reconnection: true,
    reconnectionDelay: 1000,
    reconnectionDelayMax : 5000,
    reconnectionAttempts: 5,
    query: {
-      auth_key: "5cb788743808b2b92665b5e9eed204b1",
-      viewer_id: "135534097",
+      auth_key: snsPlayerInf.authKey, //|| "5cb788743808b2b92665b5e9eed204b1",
+      viewer_id: snsPlayerInf.snsId, //"135534097",
       snsName: session.snsName
    }
 });
