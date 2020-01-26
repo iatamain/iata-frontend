@@ -8,7 +8,7 @@ var socket = io('wss://itracers.xyz:4443', {
    reconnectionAttempts: 5,
    query: {
       auth_key: snsPlayerInf.authKey, //|| "5cb788743808b2b92665b5e9eed204b1",
-      viewer_id: snsPlayerInf.snsId, //"135534097",
+      viewer_id: snsPlayerInf.viewerId, //"135534097",
       snsName: session.snsName
    }
 });
