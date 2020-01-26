@@ -83,7 +83,7 @@ let rooms = {
          p3.innerHTML = `${dataRooms[i].playersInRoom}/${dataRooms[i].capacity}`;
          li.appendChild(p3);
          let div = document.createElement("div");
-         div.setAttribute("onclick", `goToRoom(${i})`);
+         div.setAttribute("onclick", `goToRoom("${i}")`);
          div.setAttribute("class", "smallButton goToRoom");
          div.innerHTML = "<span>В бой</span>";
          li.appendChild(div);
@@ -151,6 +151,6 @@ function goToRoom(id){
          }
       });
    }else{
-      startGame();
+      startGame(); //from functions.js
    }
 }
