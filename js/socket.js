@@ -21,7 +21,7 @@ socket.on('connect', ()=>{
          dataRooms[i] = {
    			name: answ[i].name,
    			password: answ[i].password, //Проверять
-   			mapId: answ[i].mapId, //Убрать 0
+   			mapId: answ[i].mapId,
    			mode: answ[i].mode,
    			capacity: 8,
    			playersInRoom: answ[i].usersCount,
@@ -31,7 +31,7 @@ socket.on('connect', ()=>{
       rooms.set();
    });
    socket.on('/rooms/create', (roomN, answ)=>{
-      console.log(roomN, answ);
+      console.log("Комната создана", roomN, answ);
       rooms.add(roomN,{
          name: answ.name,
          password: answ.password, //Проверять
@@ -43,11 +43,21 @@ socket.on('connect', ()=>{
       });
    })
    socket.emit('/rooms/list');
-   socket.on('');
    //socket.emit('/rooms/connect', roomN, password(nullable))
    // '/rooms/my'
-   // '/rooms/deleted'
-   // '/clientError'
+   socket.on('/rooms/my', (e)=>{
+     console.log("Моя комната", e);
+   })
+   socket.on('/rooms/connect', (e)=>{
+     console.log("Произошло подключение к комнате.", e);
+   })
+   socket.on('/rooms/deleted', (e)=>{
+     console.log("Комната удалена", e);
+     rooms.del(e);
+   })
+   socket.on('/clientError', (e)=>{
+     console.log("Возникла ошибка.", e);
+   });
 });
 socket.on('disconnect', ()=>{
    socketStatus = "disconnected";

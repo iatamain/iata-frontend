@@ -54,7 +54,10 @@ if(session.snsName === "vk"){
 			snsPlayerInf.birthDay = data.response[0].bdate; //Получаем дату др
 			snsPlayerInf.avatar = data.response[0].photo_200; //Получаем аву
 			snsPlayerInf.sex = data.response[0].sex; //1 -- Female, 2 -- Male;
-			snsPlayerInf.country = data.response[0].country.title; //Получаем страну
+			if(data.response[0].country)
+				snsPlayerInf.country = data.response[0].country.title; //Получаем страну
+			else
+				snsPlayerInf.country = null;
 			send(snsPlayerInf, "/api/user/update", "put", response=>{ //Отправляем данные на наш серв
 				let responseObj = response.json()
 				 responseObj.then(value => {

@@ -31,8 +31,7 @@
 		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 		msg("Поддержка мобильных устройств в разработке", "closeAcces");
 	}
-	let countFriends = 0;
-	let countPlayers = 0;
+	let countFriends = 0;	
 	let activeRadio = 0;
 	let activeSceneNum = 0;
 	let activeSceneName = "main";

@@ -26,6 +26,7 @@
 		<script src = "js/background.js" defer></script>
 		<script src = "js/play.js" defer></script>
 		<script src = "js/socket.js" defer></script>
+		<script src = "js/buttons.js" defer></script>
 	</head>
 	<body>
 	<!-- S1234_6789S -->
@@ -121,11 +122,11 @@
 						</div>
 						<div class = "rooms-notation">
 							<img height = "130" width = "350" src = "temp/testmap2.jpg" alt = ""/>
-							<div onclick = "msg('Карт еще нет с:')" class = "rooms-notation-hover">
+							<div id = "btn-chooseMap" class = "rooms-notation-hover">
 								<b>Выбрать карту</b>
 							</div>
 						</div>
-						<div onclick = "createRoom()" class = "smallButton"><span>Создать</span></div>
+						<div id = "btn-CreateRoom" class = "smallButton"><span>Создать</span></div>
 						<input type = "checkbox" id = "createRoom-checkbox"/><label onclick = "changeCheckbox()" for = "createRoom-checkbox">Закрытая комната</label>
 					</div>
 				</div>
@@ -170,7 +171,7 @@
 				<div id = "modal-message">
 					<p><!--Сообщение--></p>
 					<input type ="password" placeholder="Пароль от комнаты"/>
-					<div onclick = "closeMsg()" class = "smallButton prompt"><span>Ок</span></div>
+					<div id = "btn-closeMsg" class = "smallButton prompt"><span>Ок</span></div>
 				</div>
 			</div>
 			<div id = "version">

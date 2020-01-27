@@ -1,4 +1,5 @@
 let countRooms = 0;
+let countPlayers = 0;
 let listRoomsBody = {
    elementHTML: document.querySelector("#listRoomsBody"),
    elementChildHTML: document.querySelector("#listRoomsBody ul"),
@@ -136,7 +137,7 @@ function createRoom(){
          password: passwordRoom
       }
       if(socketStatus == "connected") socket.emit('/rooms/create', obj);
-      else msg("Ошибка подключения")
+      else msg("WebSocket не подключен")
    }
 }
 function goToRoom(id){
