@@ -1,5 +1,4 @@
 var socketStatus = "disconnected";
-console.log(snsPlayerInf);
 var socket = io('wss://itracers.xyz:4443', {
    transports: ['websocket'],
    reconnection: true,
