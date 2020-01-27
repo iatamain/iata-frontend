@@ -21,6 +21,7 @@ class PlayerInf {
 		console.log("В разработке " + ID);
 	}
 }
+console.log("URL", parseGet(window.location.href));
 var snsPlayerInf = {
 	snsId: parseGet(window.location.href).user_id,
 	authKey: parseGet(window.location.href).auth_key,
