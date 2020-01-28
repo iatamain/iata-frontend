@@ -40,7 +40,7 @@
 	canv.addEventListener('MSFullscreenChange', exitHandler);
 	document.addEventListener("keydown", (e) => {
 		if(e.code == "KeyP") openFullscreen();
-		if(e.code == "Tab") {
+		if(e.code == "Escape") {
 			msg("Вы действительно хотите выйти?", "confirm", exitFromRoom);
 		}
 	})
