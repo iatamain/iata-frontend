@@ -7,7 +7,6 @@ element {
 body{
 	margin: 0;
 	background: var(--bg-color);
-   cursor: url(../images/GUI/cursor.cur), progress !important;
 }
 canvas{
    background-color: #0ff;

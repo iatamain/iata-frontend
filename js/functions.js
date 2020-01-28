@@ -186,33 +186,40 @@ function startGame(){
 	play.start();
 	bg.stop();
 }
+function stopGame(){
+	document.querySelector("#interface").style.display = "block";
+	document.querySelector("#canvasBack").style.display = "block";
+	document.querySelector("#canvasPlay").style.display = "none";
+	play.stop();
+	bg.start();
+}
 class Canvas {
-   constructor(selector, update, render){
-      this.ctx = document.querySelector(selector).getContext("2d");
-      this.update = update.bind(this);
-      this.render = render.bind(this);
-      this.isPlay = false;
-   }
-   play(){
-      this.now = Date.now();
-      this.dt = (this.now - this.last)/1000;
-      this.update(this.dt);
-      this.render();
-      this.last = this.now;
-      if(this.isPlay) requestAnimFrame(this.play.bind(this));
-   }
-   start(){
+  constructor(selector, update, render){
+		this.ctx = document.querySelector(selector).getContext("2d");
+  	this.update = update.bind(this);
+  	this.render = render.bind(this);
+  	this.isPlay = false;
+	}
+	play(){
+		this.now = Date.now();
+		this.dt = (this.now - this.last)/1000;
+		this.update(this.dt);
+		this.render();
+  	this.last = this.now;
+		if(this.isPlay) requestAnimFrame(this.play.bind(this));
+	}
+	start(){
 		if(!this.isPlay){
-	      this.isPlay = true;
-	      this.last = Date.now();
-	      this.play();
+			this.isPlay = true;
+			this.last = Date.now();
+			this.play();
 		}
-   }
-   stop(){
-      this.isPlay = false;
-   }
+	}
+	stop(){
+		this.isPlay = false;
+	}
 	pause(){
-		
+
 	}
 	clear(){
 

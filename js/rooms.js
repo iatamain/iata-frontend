@@ -69,23 +69,23 @@ let rooms = {
       document.querySelector("#listRoomsBody ul").innerHTML = "";
       for(i in dataRooms){
          let li = document.createElement("li");
-         li.setAttribute("id", "roomN" + i);
+         li.id = "roomN" + i;
          let p = document.createElement("p");
-         p.setAttribute("class", "nameRoom");
+         p.className = "nameRoom";
          let text = document.createTextNode(dataRooms[i].name);
          p.appendChild(text);
          li.appendChild(p);
          let p2 = document.createElement("p");
-         p2.setAttribute("class", "typeRoom");
+         p2.className = "typeRoom";
          p2.innerHTML = `${dataRooms[i].mode}: ${mapsNames[dataRooms[i].mapId]} ${dataRooms[i].password ? "(Закрытая)" : ""}`;
          li.appendChild(p2);
          let p3 = document.createElement("p");
-         p3.setAttribute("class", "playerInRoom");
+         p3.className =  "playerInRoom";
          p3.innerHTML = `${dataRooms[i].playersInRoom}/${dataRooms[i].capacity}`;
          li.appendChild(p3);
          let div = document.createElement("div");
-         div.setAttribute("onclick", `goToRoom("${i}")`);
-         div.setAttribute("class", "smallButton goToRoom");
+         div.id = i;
+         div.className = "smallButton goToRoom";
          div.innerHTML = "<span>В бой</span>";
          li.appendChild(div);
          document.querySelector("#listRoomsBody ul").appendChild(li);
@@ -142,16 +142,17 @@ function createRoom(){
 }
 function goToRoom(id){
    if(dataRooms[id].isClose){
-      let password = 3;
-      msg("Введите пароль", "prompt", function testPass(arg){
-         password = arg;
-         if(password == dataRooms[id].password){
-            msg("Пароль верный");
-         }else{
-            msg("Пароль не верный", "prompt", testPass, "wrong");
-         }
+      msg("Введите пароль", "prompt", (password)=>{
+         if(socketStatus == "connected") socket.emit('/rooms/connect', id, password);
+         else msg("WebSocket не подключен")
+         //msg("Пароль не верный", "prompt", testPass, "wrong");
       });
    }else{
-      startGame(); //from functions.js
+     if(socketStatus == "connected") socket.emit('/rooms/connect', id);
+     else msg("WebSocket не подключен")
    }
+}
+function exitFromRoom(){
+  if(socketStatus == "connected") socket.emit('/rooms/leave');
+  else msg("Соединение Websocket разорвано.");
 }

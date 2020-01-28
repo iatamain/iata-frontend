@@ -8,5 +8,9 @@ document.querySelector("#btn-chooseMap").addEventListener("click", ()=>{
 document.querySelector("#btn-closeMsg").addEventListener("click", ()=>{
   closeMsg();
 })
-//Тут кнопочки "В бой" нет, но вы держитесь:D Она в roomsS
+document.querySelector("#listRoomsBody ul").addEventListener("click", (e)=>{
+  if(e.target.parentNode.classList.contains("goToRoom")){
+    goToRoom(e.target.parentNode.id);
+  }
+})
 //Кнопочка перехода по друзья в interfaceDinamic

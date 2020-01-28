@@ -49,3 +49,9 @@ var interfaceData = {
       rankingContainer: "deactive-bottom"
    }
 }
+var gameData = {
+  roomN: 0,
+  playersInRoom: [],
+  time: 0,
+  score: 0 //Общие убийства для dm, счет команд
+}

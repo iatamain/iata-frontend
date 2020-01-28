@@ -23,7 +23,7 @@ class PlayerInf {
 }
 console.log("URL", parseGet(window.location.href));
 var snsPlayerInf = {
-	snsId: parseGet(window.location.href).user_id,
+	snsId: parseGet(window.location.href).user_id || parseGet(window.location.href).logged_user_id,
 	authKey: parseGet(window.location.href).auth_key,
 	apiId: parseGet(window.location.href).api_id,
 	viewerId: parseGet(window.location.href).viewer_id,
@@ -43,7 +43,6 @@ var session = {
 }
 var mainPlayerInf = new PlayerInf();
 if(session.snsName === "vk"){
-	console.log(parseGet(window.location.href));
 	VK.init(function() {
 		VK.addCallback('onRequestFail', function (error){
             processError(error, "apivk");

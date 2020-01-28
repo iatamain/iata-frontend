@@ -31,7 +31,7 @@
 		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 		msg("Поддержка мобильных устройств в разработке", "closeAcces");
 	}
-	let countFriends = 0;	
+	let countFriends = 0;
 	let activeRadio = 0;
 	let activeSceneNum = 0;
 	let activeSceneName = "main";
@@ -147,6 +147,7 @@
 			let currentNews = document.createElement("div");
 			currentNews.setAttribute("id",  "news" + pad(i, 2));
 			currentNews.setAttribute("class", i == 0 ? "news-body active" : "news-body deactive-right");
+			setTimeout(1000, ()=>currentNews.style.display = i == 0 ? "block" : 'none');
 			let h1 = document.createElement("h1");
 			h1.setAttribute("align", "center");
 			h1.innerHTML = newsList[i].header;

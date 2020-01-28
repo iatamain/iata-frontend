@@ -46,7 +46,7 @@
 	let currentScene = "main";
 	let canvHeight = 650;
 	let canvWidth = 900;
-	var gameObj = {
+	let gameObj = {
 			x: 0,
 			y: 0,
 			dx: 100,

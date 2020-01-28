@@ -42,13 +42,27 @@ socket.on('connect', ()=>{
       });
    })
    socket.emit('/rooms/list');
+   socket.emit('/rooms/my');
+
    //socket.emit('/rooms/connect', roomN, password(nullable))
    // '/rooms/my'
    socket.on('/rooms/my', (e)=>{
+     if(e != "roomnull" && !play.isPlay) startGame();
      console.log("Моя комната", e);
    })
    socket.on('/rooms/connect', (e)=>{
+     e="self"
+     if(e == "self"){
+       startGame();
+     }
      console.log("Произошло подключение к комнате.", e);
+   })
+   socket.on('/rooms/leave', (e)=>{
+     e = "self"
+     if(e == "self"){
+       stopGame();
+     }
+     console.log("Кто-то вышел из комнаты.", e);
    })
    socket.on('/rooms/deleted', (e)=>{
      console.log("Комната удалена", e);
