@@ -77,7 +77,7 @@ let rooms = {
          li.appendChild(p);
          let p2 = document.createElement("p");
          p2.className = "typeRoom";
-         p2.innerHTML = `${dataRooms[i].mode}: ${mapsNames[dataRooms[i].mapId]} ${dataRooms[i].password ? "(Закрытая)" : ""}`;
+         p2.innerHTML = `${dataRooms[i].mode}: ${mapsNames[dataRooms[i].mapId]} ${dataRooms[i].isClosed ? "(Закрытая)" : ""}`;
          li.appendChild(p2);
          let p3 = document.createElement("p");
          p3.className =  "playerInRoom";
@@ -101,7 +101,7 @@ function createRoom(){
    let passwordRoom = document.querySelector("#createRoom input[type='password']").value.trim();
    let modeRoom = document.querySelector("#createRoom .shown").innerHTML;
    let mapRoom = 0;
-   let isCloseRoom = document.querySelector("#createRoom input[type='checkbox']").checked;
+   let isClosedRoom = document.querySelector("#createRoom input[type='checkbox']").checked;
    let isCreated = false;
    let isSelected = true;
    switch (modeRoom) {
@@ -134,20 +134,24 @@ function createRoom(){
          name: nameRoom,
          mapId: mapRoom,
          mode: modeRoom,
-         password: passwordRoom
+         password: passwordRoom,
+         isClosed: isClosedRoom
       }
       if(socketStatus == "connected") socket.emit('/rooms/create', obj);
       else msg("WebSocket не подключен")
    }
 }
-function goToRoom(id){
-   if(dataRooms[id].isClose){
+function goToRoom(id, inputStyle){
+  console.log("test:", dataRooms[id]);
+   if(dataRooms[id].isClosed){
+     console.log("test:", dataRooms[id]);
       msg("Введите пароль", "prompt", (password)=>{
          if(socketStatus == "connected") socket.emit('/rooms/connect', id, password);
          else msg("WebSocket не подключен")
          //msg("Пароль не верный", "prompt", testPass, "wrong");
-      });
+      }, inputStyle);
    }else{
+     console.log("Test2");
      if(socketStatus == "connected") socket.emit('/rooms/connect', id);
      else msg("WebSocket не подключен")
    }

@@ -1,26 +1,4 @@
-class PlayerInf {
-	constructor() {
-		this.nickName = "Temp";
-		this.clan = "Temp";
-		this.element = "Temp";
-		this.id = 42;
-		this.rank = 42;
-		this.rankingPos = 42;
-		this.lvl = 2;
-		this.experience = 42;
-		this.amountCrystal = 42;
-		this.progress = {};
-		this.achievements = {};
-		this.purchasedItems = {};
-		this.statistics = {
-			kills: 42,
-			battles: 42
-		}
-	}
-	getData(ID){
-		console.log("В разработке " + ID);
-	}
-}
+
 console.log("URL", parseGet(window.location.href));
 var snsPlayerInf = {
 	snsId: parseGet(window.location.href).user_id || parseGet(window.location.href).logged_user_id,
@@ -41,7 +19,24 @@ var session = {
 	snsName: parseGet(window.location.href).runner,
 	howManyDays: 42,
 }
-var mainPlayerInf = new PlayerInf();
+var mainPlayerInf =  {
+	nickName: "Temp",
+	clan: "Temp",
+	element: "Temp",
+	id: 1,
+	rank: 42,
+	rankingPos: 42,
+	lvl: 2,
+	experience: 42,
+	amountCrystal: 42,
+	progress: {},
+	achievements: {},
+	purchasedItems: {},
+	statistics: {
+		kills: 42,
+		battles: 42
+	}
+}
 if(session.snsName === "vk"){
 	VK.init(function() {
 		VK.addCallback('onRequestFail', function (error){
@@ -77,6 +72,7 @@ if(session.snsName === "vk"){
 					mainPlayerInf.progress = value.progress;
 					mainPlayerInf.achievements = value.achivements
 					mainPlayerInf.purchasedItems = null;
+					mainPlaterInf.id = value.id;
 					session.isFirstEntry = value.isFirstLogin;
 					session.isFirstEntryToday = value.isFirstLoginToday;
 					session.howManyDays = "";

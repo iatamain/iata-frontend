@@ -19,7 +19,7 @@ socket.on('connect', ()=>{
       for(i in answ){
          dataRooms[i] = {
    			name: answ[i].name,
-   			password: answ[i].password, //Проверять
+   			isClosed: answ[i].password, //Проверять
    			mapId: answ[i].mapId,
    			mode: answ[i].mode,
    			capacity: 8,
@@ -33,7 +33,7 @@ socket.on('connect', ()=>{
       console.log("Комната создана", roomN, answ);
       rooms.add(roomN,{
          name: answ.name,
-         password: answ.password, //Проверять
+         isClosed: answ.password,
          mapId: answ.mapId,
          mode: answ.mode,
          capacity: 8,
@@ -50,26 +50,27 @@ socket.on('connect', ()=>{
      if(e != "roomnull" && !play.isPlay) startGame();
      console.log("Моя комната", e);
    })
-   socket.on('/rooms/connect', (e)=>{
-     e="self"
-     if(e == "self"){
+   socket.on('/rooms/connect', (roomN, user)=>{
+     if(user.id == mainPlayerInf.id){
        startGame();
      }
-     console.log("Произошло подключение к комнате.", e);
+     console.log("Произошло подключение к комнате.", roomN, user);
    })
-   socket.on('/rooms/leave', (e)=>{
-     e = "self"
-     if(e == "self"){
+   socket.on('/rooms/leave', (roomN, user)=>{
+     if(user.id == mainPlayerInf.id){
        stopGame();
      }
-     console.log("Кто-то вышел из комнаты.", e);
+     console.log("Кто-то вышел из комнаты.", roomN, user);
    })
    socket.on('/rooms/deleted', (e)=>{
      console.log("Комната удалена", e);
      rooms.del(e);
    })
-   socket.on('/clientError', (e)=>{
-     console.log("Возникла ошибка.", e);
+   socket.on('clientError', (error, roomN)=>{
+     console.log("Возникла ошибка", error, roomN);
+     if(error == "Unauthorized"){
+       goToRoom(roomN, "wrong");
+     }
    });
 });
 socket.on('disconnect', ()=>{

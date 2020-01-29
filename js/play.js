@@ -43,6 +43,9 @@
 		if(e.code == "Escape") {
 			msg("Вы действительно хотите выйти?", "confirm", exitFromRoom);
 		}
+		if(e.code == "Tab"){
+			e.preventDefault();
+		}
 	})
 
 	let currentScene = "main";

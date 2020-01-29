@@ -71,7 +71,11 @@ function msg(msg, type, callback, inputStyle){
 		let input = document.createElement("input");
 		input.setAttribute("type", "password");
 		input.setAttribute("placeholder", "Пароль от комнаты");
-		if(inputStyle == "wrong") input.classList.add("wrong");
+		if(inputStyle == "wrong") {
+			input.classList.add("wrong");
+			p.innerHTML = "Неверный пароль";
+			p.style.color = "red";
+		}
 		div.appendChild(input);
 		let btn = document.createElement("div");
 		btn.classList.add("smallButton");
@@ -101,6 +105,8 @@ function msg(msg, type, callback, inputStyle){
 		});
 		input.addEventListener("click", function (e){
 			input.classList.remove("wrong");
+			p.innerHTML = msg;
+			p.style.color = "white";
 		});
 	}else if(type == "confirm"){
 		let div = document.querySelector("#modal-message");
