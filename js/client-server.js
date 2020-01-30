@@ -82,6 +82,7 @@ if(session.snsName === "vk"){
 					session.isFirstEntryToday = value.isFirstLoginToday;
 					session.howManyDays = "";
 					setInterface();
+					connectToSocket();
 				});
 			});
 			rooms.set("set");
