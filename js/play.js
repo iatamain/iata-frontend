@@ -65,7 +65,7 @@
 	class Player{
 		constructor(user){
 			this.x = Math.random()*(900 - 100) + 50;
-			this.y = (Math.random()*650 - 100) + 50;
+			this.y = (Math.random()*650 - 200) + 100;
 			this.dx = 0;
 			this.dy = 0;
 			this.sizeX = 50;
@@ -122,6 +122,7 @@
 		if(this.isPlay) requestAnimFrame(Game.main.bind(Game));
 	}
 	Game.update = function(dt){
+		console.log("Игроки в комнате:",this.players);
 		this.players[mainPlayerInf.id].dy = 0;
 		this.players[mainPlayerInf.id].dx = 0;
 		if(isDown('W') || isDown('Up')){
