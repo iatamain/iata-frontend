@@ -122,7 +122,6 @@
 		if(this.isPlay) requestAnimFrame(Game.main.bind(Game));
 	}
 	Game.update = function(dt){
-		console.log("Игроки в комнате:",this.players);
 		this.players[mainPlayerInf.id].dy = 0;
 		this.players[mainPlayerInf.id].dx = 0;
 		if(isDown('W') || isDown('Up')){
