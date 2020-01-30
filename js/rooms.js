@@ -18,8 +18,11 @@ let dataRooms = {}
 let rooms = {
    normalize: function(){
       document.querySelector(".activePlayers").innerHTML = "Игроков онлайн: " + countPlayers;
-      if(document.querySelector("#listRoomsHeader input").value == "") document.querySelector(".activeRooms").innerHTML = "Активных комнат: " + countRooms;
-      else  document.querySelector(".activeRooms").innerHTML = "Результатов поиска: " + countRooms;
+      if(document.querySelector("#listRoomsHeader input").value == ""){
+         document.querySelector(".activeRooms").innerHTML = "Активных комнат: " + countRooms;
+      } else  {
+         document.querySelector(".activeRooms").innerHTML = "Результатов поиска: " + countRooms;
+      }
       listRoomsBody.elementChildHTML.style.top = listRoomsBody.top + "%";
    },
    search: function(){
@@ -58,8 +61,8 @@ let rooms = {
       this.set();
       this.search();
    },
-   del: function(room){
-         delete dataRooms[room];
+   del: function(roomN){
+         delete dataRooms[roomN];
          this.set();
          this.search();
    },
@@ -93,6 +96,13 @@ let rooms = {
          countRooms++;
          countPlayers += dataRooms[i].playersInRoom;
       }
+      this.normalize();
+   },
+   update: function(roomN){
+      let list = document.querySelector("#listRoomsBody ul");
+      let room = list.querySelector("#roomN" + roomN);
+      let countPlayersInRoom = `${dataRooms[roomN].playersInRoom}/${dataRooms[roomN].capacity}`;
+      room.querySelector(".playerInRoom").innerHTML = countPlayersInRoom;
       this.normalize();
    }
 }
@@ -142,16 +152,13 @@ function createRoom(){
    }
 }
 function goToRoom(id, inputStyle){
-  console.log("test:", dataRooms[id]);
    if(dataRooms[id].isClosed){
      console.log("test:", dataRooms[id]);
       msg("Введите пароль", "prompt", (password)=>{
          if(socketStatus == "connected") socket.emit('/rooms/connect', id, password);
          else msg("WebSocket не подключен")
-         //msg("Пароль не верный", "prompt", testPass, "wrong");
       }, inputStyle);
    }else{
-     console.log("Test2");
      if(socketStatus == "connected") socket.emit('/rooms/connect', id);
      else msg("WebSocket не подключен")
    }
