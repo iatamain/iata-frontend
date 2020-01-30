@@ -64,8 +64,8 @@
 	var Game = [];
 	class Player{
 		constructor(user){
-			this.x = Math.random()*(900-100) + 20;
-			this.y = Math.random()*650-50;
+			this.x = Math.random()*(900 - 100) + 50;
+			this.y = (Math.random()*650 - 100) + 50;
 			this.dx = 0;
 			this.dy = 0;
 			this.sizeX = 50;
