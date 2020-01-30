@@ -65,7 +65,7 @@
 	class Player{
 		constructor(user){
 			this.x = Math.random()*(900 - 100) + 50;
-			this.y = (Math.random()*650 - 200) + 100;
+			this.y = Math.random()*(650 - 200) + 100;
 			this.dx = 0;
 			this.dy = 0;
 			this.sizeX = 50;
