@@ -1,4 +1,6 @@
 {
+	let canvas = document.querySelector("#canvasBack");
+	let ctx = canvas.getContext("2d");
 	function openFullscreen() {
 		var elem = document.querySelector("#game");
 		isFullScreen = true;
@@ -11,10 +13,8 @@
 		}else if(elem.msRequestFullscreen) { /* IE/Edge */
 			elem.msRequestFullscreen();
 		}
-		document.querySelector("#canvasBack").setAttribute("width", screen.width);
-		document.querySelector("#canvasBack").setAttribute("height", screen.height);
-		canvHeight = screen.height;
-		canvWidth = screen.width;
+		canvas.width = screen.width;
+		canvas.height = screen.height;
 	}
 	function closeFullscreen() {
 		isFullScreen = false;
@@ -37,16 +37,12 @@
 	document.addEventListener('MSFullscreenChange', exitHandler);
 	function exitHandler() {
 	    if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
-	      canvHeight = 650;
-			canvWidth = 900;
-			document.querySelector("#canvasBack").setAttribute("width", canvWidth);
-			document.querySelector("#canvasBack").setAttribute("height", canvHeight);
+			canvas.width = 900;
+			canvas.height = 650;
 	    }
 	}
-	let currentScene = "main";
-	let canvHeight = 650;
-	let canvWidth = 900;
-	let gameObj = {
+	var Background = {};
+	Background.gameObj = {
 			x: 0,
 			y: 0,
 			dx: 100,
@@ -54,33 +50,50 @@
 			sizeX: 50,
 			sizeY: 50
 	}
-	let update = function(dt){
-		gameObj.x += gameObj.dx * dt;
-		gameObj.y += gameObj.dy * dt;
-		if(gameObj.x +  gameObj.sizeX / 2 > canvWidth){
-			gameObj.x = canvWidth - gameObj.sizeX / 2;
-			gameObj.dx *= -1;
+	Background.start = function(){
+		if(!this.isPlay){
+			this.isPlay = true;
+			this.last = Date.now();
+			this.main();
 		}
-		if(gameObj.x - gameObj.sizeX / 2 < 0){
-			gameObj.x = gameObj.sizeX / 2;
-			gameObj.dx *= -1;
+	}
+	Background.stop = function(){
+		this.isPlay = false;
+	}
+	Background.main = function(){
+		this.now = Date.now();
+		this.dt = (this.now - this.last)/1000;
+		this.update(this.dt);
+		this.render();
+  		this.last = this.now;
+		if(this.isPlay) requestAnimFrame(this.main.bind(this));
+	}
+	Background.update = function(dt){
+		this.gameObj.x += this.gameObj.dx * dt;
+		this.gameObj.y += this.gameObj.dy * dt;
+		if(this.gameObj.x +  this.gameObj.sizeX / 2 > canvas.width){
+			this.gameObj.x = canvas.width - this.gameObj.sizeX / 2;
+			this.gameObj.dx *= -1;
 		}
-		if(gameObj.y + gameObj.sizeY / 2 > canvHeight){
-			gameObj.y = canvHeight - gameObj.sizeY / 2;
-			gameObj.dy *= -1;
+		if(this.gameObj.x - this.gameObj.sizeX / 2 < 0){
+			this.gameObj.x = this.gameObj.sizeX / 2;
+			this.gameObj.dx *= -1;
 		}
-		if(gameObj.y - gameObj.sizeY / 2 < 0){
-			gameObj.y = gameObj.sizeY / 2;
-			gameObj.dy *= -1;
+		if(this.gameObj.y + this.gameObj.sizeY / 2 > canvas.height){
+			this.gameObj.y = canvas.height - this.gameObj.sizeY / 2;
+			this.gameObj.dy *= -1;
+		}
+		if(this.gameObj.y - this.gameObj.sizeY / 2 < 0){
+			this.gameObj.y = this.gameObj.sizeY / 2;
+			this.gameObj.dy *= -1;
 		}
 	}
 
-	let render = function(scene){
-		this.ctx.fillStyle = "#003A3C";
-		this.ctx.fillRect(0, 0, canvWidth, canvHeight);
-		this.ctx.fillStyle = "#03E6EF";
-		this.ctx.fillRect(gameObj.x - gameObj.sizeX / 2, gameObj.y - gameObj.sizeY / 2, gameObj.sizeX, gameObj.sizeY);
+	Background.render = function(scene){
+		ctx.fillStyle = "#003A3C";
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.fillStyle = "#03E6EF";
+		ctx.fillRect(this.gameObj.x - this.gameObj.sizeX / 2, this.gameObj.y - this.gameObj.sizeY / 2, this.gameObj.sizeX, this.gameObj.sizeY);
 	}
-	var bg = new Canvas("#canvasBack", update, render);
-	bg.start();
+	Background.start();
 }

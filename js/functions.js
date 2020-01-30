@@ -234,50 +234,12 @@ function startGame(){
 	document.querySelector("#canvasPlay").style.display = "block";
 	Game.init();
 	Game.start();
-	bg.stop();
+	Background.stop();
 }
 function stopGame(){
 	document.querySelector("#interface").style.display = "block";
 	document.querySelector("#canvasBack").style.display = "block";
 	document.querySelector("#canvasPlay").style.display = "none";
 	Game.stop();
-	bg.start();
-}
-class Canvas {
-	constructor(selector, update, render, init){
-		this.canvas = document.querySelector(selector);
-		this.ctx = this.canvas.getContext("2d");
-		this.update = update.bind(this);
-		this.render = render.bind(this);
-		if(init){
-			this.init = init.bind(this);
-		}
-		this.isPlay = false;
-	}
-	init(){
-		if(this.init){
-			this.init();
-		}
-	}
-	play(){
-		this.now = Date.now();
-		this.dt = (this.now - this.last)/1000;
-		this.update(this.dt);
-		this.render();
-  		this.last = this.now;
-		if(this.isPlay) requestAnimFrame(this.play.bind(this));
-	}
-	start(){
-		if(!this.isPlay){
-			this.isPlay = true;
-			this.last = Date.now();
-			this.play();
-		}
-	}
-	stop(){
-		this.isPlay = false;
-	}
-	clear(){
-		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-	}
+	Background.start();
 }
