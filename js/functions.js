@@ -83,6 +83,14 @@ function send(data,  url, method, collback){
 		console.log('Request failed ', error );
 	});
 }
+let usedLog = [];
+function log(id, count, ...args){
+	usedLog[id] = usedLog[id] || 0;
+	if(usedLog[id] < count){
+		console.log(...args);
+		usedLog[id]++;
+	}
+}
 function msg(msg, type, callback, inputStyle){
 	if(type == "closeAcces"){
 		document.head.innerHTML = `

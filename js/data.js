@@ -53,3 +53,27 @@ var gameData = {
   roomN: 0,
   dataRoom: {}
 }
+class PlayerInf {
+	constructor() {
+		this.nickName = "Temp";
+		this.clan = "Temp";
+		this.element = "Temp";
+		this.id = 1;
+		this.rank = 42;
+		this.rankingPos = 42;
+		this.lvl = 2;
+		this.experience = 42;
+		this.amountCrystal = 42;
+		this.progress = {};
+		this.achievements = {};
+		this.purchasedItems = {};
+		this.statistics = {
+			kills: 42,
+			battles: 42
+		}
+	}
+	getData(ID){
+		console.log("В разработке " + ID);
+	}
+}
+var mainPlayerInf = new PlayerInf();

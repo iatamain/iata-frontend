@@ -99,6 +99,7 @@
 	}
 	Game.init = function(){
 		this.players = [];
+		console.log("Log1 play.js", gameData.dataRoom.users);
 		for(user of gameData.dataRoom.users){
 			this.players[user.id] = new Player(user);
 		}
@@ -122,7 +123,7 @@
 		if(this.isPlay) requestAnimFrame(Game.main.bind(Game));
 	}
 	Game.update = function(dt){
-		console.log(this.players, mainPlayerInf.id);
+		log(42, 1, "Log2 play.js", this.players, mainPlayerInf.id);
 		this.players[mainPlayerInf.id].dy = 0;
 		this.players[mainPlayerInf.id].dx = 0;
 		if(isDown('W') || isDown('Up')){

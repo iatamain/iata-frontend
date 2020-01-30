@@ -1,26 +1,4 @@
-class PlayerInf {
-	constructor() {
-		this.nickName = "Temp";
-		this.clan = "Temp";
-		this.element = "Temp";
-		this.id = 1;
-		this.rank = 42;
-		this.rankingPos = 42;
-		this.lvl = 2;
-		this.experience = 42;
-		this.amountCrystal = 42;
-		this.progress = {};
-		this.achievements = {};
-		this.purchasedItems = {};
-		this.statistics = {
-			kills: 42,
-			battles: 42
-		}
-	}
-	getData(ID){
-		console.log("В разработке " + ID);
-	}
-}
+
 console.log("URL", parseGet(window.location.href));
 var snsPlayerInf = {
 	snsId: parseGet(window.location.href).user_id || parseGet(window.location.href).logged_user_id,
@@ -41,7 +19,6 @@ var session = {
 	snsName: parseGet(window.location.href).runner,
 	howManyDays: 42,
 }
-var mainPlayerInf = new PlayerInf();
 if(session.snsName === "vk"){
 	VK.init(function() {
 		VK.addCallback('onRequestFail', function (error){
@@ -133,6 +110,7 @@ if(session.snsName === "vk"){
 						kills: 0,
 						battles: 0,
 					}
+					connectToSocket();
 				}
 				console.log(snsPlayerInf.firstName + " - " + snsPlayerInf.lastName + "\n" + snsPlayerInf.snsId + " - " + snsPlayerInf.authKey);
 				console.log(snsPlayerInf);
@@ -182,6 +160,7 @@ if(session.snsName === "vk"){
 	  xfbml      : true,
 	  version    : 'v4.0'
 	});
+	connectToSocket();
 }else{
 	for(let i = 0; i < 100; i++){
 		let str = ["ле", "на", "нас", "ба", "еб", "лу", "ла", "ка", "ми", "ну"];
@@ -193,17 +172,7 @@ if(session.snsName === "vk"){
 		}
 		for(let j = 0; j <= randoms[10]; j++){
 			name += str[randoms[j]];
-		}/*
-		dataRooms[lastIdRoom++] = {
-			name: name,
-			password: "",
-			mapId: "TestMap"+ i,
-			mode: mode[randoms[10] % 4],
-			capacity: randoms[10] % 2 ? 10 : randoms[10] % 3 ? 12 : 14,
-			playersInRoom: randoms[10] + 1,
-			isBought: true,
-			isActive: true,
-		}*/
+		}
 		name = "";
 		for(let j = 0; j <= Math.min(6, randoms[10]); j++){
 			name += str[randoms[j]];
@@ -217,5 +186,5 @@ if(session.snsName === "vk"){
 	}
 	setInterface();
 	setFriends();
-	//rooms.set();
+	connectToSocket();
 }

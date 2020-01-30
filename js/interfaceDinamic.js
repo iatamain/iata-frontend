@@ -1,9 +1,8 @@
 {
+	var domLoaded = false;
 	window.addEventListener("load", () =>{
-		setTimeout(()=>{
-			document.querySelector("#game").style.display = "block";
-			document.querySelector("#preload").style.display = "none";
-		}, 500);
+		domLoaded = true;
+		showContent();
 	});
 	document.querySelectorAll(".select").forEach((el)=> {
 		el.addEventListener("click", function (e){
@@ -27,6 +26,14 @@
 		el.value = "";
 		el.checked = false;
 	});
+	function showContent(){
+		if(domLoaded && socketStatus == "connected"){
+			setTimeout(()=>{
+				document.querySelector("#game").style.display = "block";
+				document.querySelector("#preload").style.display = "none";
+			}, 500);
+		}
+	}
 	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
 		//document.querySelector("#news-container").setAttribute("class", "news-container-mobile");
 		//msg("Поддержка мобильных устройств в разработке", "closeAcces");
@@ -147,7 +154,6 @@
 			let currentNews = document.createElement("div");
 			currentNews.setAttribute("id",  "news" + pad(i, 2));
 			currentNews.setAttribute("class", i == 0 ? "news-body active" : "news-body deactive-right");
-			setTimeout(1000, ()=>currentNews.style.display = i == 0 ? "block" : 'none');
 			let h1 = document.createElement("h1");
 			h1.setAttribute("align", "center");
 			h1.innerHTML = newsList[i].header;
