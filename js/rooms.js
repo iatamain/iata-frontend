@@ -153,7 +153,6 @@ function createRoom(){
 }
 function goToRoom(id, inputStyle){
    if(dataRooms[id].isClosed){
-     console.log("test:", dataRooms[id]);
       msg("Введите пароль", "prompt", (password)=>{
          if(socketStatus == "connected") socket.emit('/rooms/connect', id, password);
          else msg("WebSocket не подключен")

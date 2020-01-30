@@ -41,30 +41,40 @@ socket.on('connect', ()=>{
          isActive: true
       });
    })
-   socket.on('/rooms/my', (e, answ)=>{
-      if(e != "roomnull" && !play.isPlay){
+   socket.on('/rooms/my', (roomN, dataRoom)=>{
+      gameData.roomN = roomN;
+      gameData.dataRoom = dataRoom;
+      if(roomN != "roomnull" && !Game.isPlay){
          startGame();
       }
-      console.log("Моя комната", e, answ);
+      console.log("Моя комната", roomN, dataRoom);
    })
    socket.on('/rooms/connect', (roomN, user)=>{
       if(user.id == mainPlayerInf.id){
-         startGame();
+         socket.emit('/rooms/my');
       }else{
          dataRooms[roomN].playersInRoom++;
          countPlayers++;
          rooms.update(roomN);
       }
+      if(roomN == gameData.roomN){
+         Game.addPlayer(user);
+      }
       console.log("Произошло подключение к комнате.", roomN, user);
    })
    socket.on('/rooms/leave', (roomN, user)=>{
       if(user.id == mainPlayerInf.id){
+         socket.emit('/rooms/my');
          socket.emit('/rooms/list');
          stopGame();
       }else{
-         dataRooms[roomN].playersInRoom--;
-         countPlayers--;
-         rooms.update(roomN);
+         if(roomN == gameData.roomN){
+            Game.removePlayer(user);
+         }else{
+            dataRooms[roomN].playersInRoom--;
+            countPlayers--;
+            rooms.update(roomN);
+         }
       }
       console.log("Кто-то вышел из комнаты.", roomN, user);
    })

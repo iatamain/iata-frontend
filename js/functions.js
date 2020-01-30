@@ -1,3 +1,41 @@
+var pressedKeyscheck = false;
+var pressedKeys = {};
+function setKey(event, status) {
+	var code = event.keyCode;
+	var key;
+
+	switch(code) {
+		case 32:
+			key = 'SPACE'; break;
+		case 37:
+			key = 'LEFT'; break;
+		case 38:
+			key = 'UP'; break;
+		case 39:
+			key = 'RIGHT'; break;
+		case 40:
+			key = 'DOWN'; break;
+		default:
+			key = String.fromCharCode(code); // Convert ASCII codes to letters
+	}
+	pressedKeys[key] = status;
+}
+
+document.addEventListener('keydown', function(e) {
+	setKey(e, true);
+});
+
+document.addEventListener('keyup', function(e) {
+	setKey(e, false);
+});
+
+window.addEventListener('blur', function() {
+	pressedKeys = {};
+});
+
+function isDown(key){
+	return pressedKeys[key.toUpperCase()];
+}
 function parseGet(getHref){
 	try {
 		let arr = getHref.split("?")[1].split("&");
@@ -59,9 +97,10 @@ function msg(msg, type, callback, inputStyle){
 		div2.setAttribute("id", "modal");
 		div2.appendChild(div1);
 		document.body.appendChild(div2);
-		document.querySelector("#modal-message").innerHTML = `<p>${msg}</p>`;
 		document.querySelector("#modal").style.background = "#000";
 		document.querySelector("#modal").style.display = "block";
+		document.querySelector("#modal-message").style.display = "block";
+		document.querySelector("#modal-message").innerHTML = `<p>${msg}</p>`;
 	}else if(type == "prompt"){
 		let div = document.querySelector("#modal-message");
 		div.innerHTML = "";
@@ -93,6 +132,7 @@ function msg(msg, type, callback, inputStyle){
 		btnRed.appendChild(span);
 		div.appendChild(btnRed);
 		document.querySelector("#modal").style.display = "block";
+		document.querySelector("#modal-message").style.display = "block";
 		btn.addEventListener("click", () => {
 			closeMsg();
 			callback(input.value);
@@ -130,6 +170,7 @@ function msg(msg, type, callback, inputStyle){
 		btnRed.appendChild(span);
 		div.appendChild(btnRed);
 		document.querySelector("#modal").style.display = "block";
+		document.querySelector("#modal-message").style.display = "block";
 		btn.addEventListener("click", () => {
 			closeMsg();
 			callback();
@@ -151,9 +192,11 @@ function msg(msg, type, callback, inputStyle){
 		btn.appendChild(span);
 		div.appendChild(btn);
 		document.querySelector("#modal").style.display = "block";
+		document.querySelector("#modal-message").style.display = "block";
 	}
 }
 function closeMsg(){
+	document.querySelector("#modal-message").style.display = "none";
 	document.querySelector("#modal").style.display = "none";
 }
 
@@ -189,29 +232,39 @@ function startGame(){
 	document.querySelector("#interface").style.display = "none";
 	document.querySelector("#canvasBack").style.display = "none";
 	document.querySelector("#canvasPlay").style.display = "block";
-	play.start();
+	Game.init();
+	Game.start();
 	bg.stop();
 }
 function stopGame(){
 	document.querySelector("#interface").style.display = "block";
 	document.querySelector("#canvasBack").style.display = "block";
 	document.querySelector("#canvasPlay").style.display = "none";
-	play.stop();
+	Game.stop();
 	bg.start();
 }
 class Canvas {
-  constructor(selector, update, render){
-		this.ctx = document.querySelector(selector).getContext("2d");
-  	this.update = update.bind(this);
-  	this.render = render.bind(this);
-  	this.isPlay = false;
+	constructor(selector, update, render, init){
+		this.canvas = document.querySelector(selector);
+		this.ctx = this.canvas.getContext("2d");
+		this.update = update.bind(this);
+		this.render = render.bind(this);
+		if(init){
+			this.init = init.bind(this);
+		}
+		this.isPlay = false;
+	}
+	init(){
+		if(this.init){
+			this.init();
+		}
 	}
 	play(){
 		this.now = Date.now();
 		this.dt = (this.now - this.last)/1000;
 		this.update(this.dt);
 		this.render();
-  	this.last = this.now;
+  		this.last = this.now;
 		if(this.isPlay) requestAnimFrame(this.play.bind(this));
 	}
 	start(){
@@ -224,10 +277,7 @@ class Canvas {
 	stop(){
 		this.isPlay = false;
 	}
-	pause(){
-
-	}
 	clear(){
-
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
 }

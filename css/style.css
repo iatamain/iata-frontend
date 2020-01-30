@@ -294,9 +294,25 @@ canvas{
    background: rgba(0, 0, 0, 0.9);
 }
 #modal-message{
+   display: none;
    position: absolute;
    width: 30%;
    height: auto;
+   top:50%;
+   transform: translate(0, -50%);
+   left: 0;
+   right: 0;
+   margin: auto;
+   padding: 10px;
+   background: black;
+   border-radius: 7px;
+   border: 1px solid white;
+}
+#modal-playerList{
+   display: none;
+   position: absolute;
+   width: 75%;
+   height: 75%;
    top:50%;
    transform: translate(0, -50%);
    left: 0;
