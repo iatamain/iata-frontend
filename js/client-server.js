@@ -24,7 +24,7 @@ if(session.snsName === "vk"){
 		VK.addCallback('onRequestFail', function (error){
             processError(error, "apivk");
        });
-		 VK.api("users.get", {"user_ids": snsPlayerInf.viewerId, "fields": "photo_200,sex,bdate,country,screen_name,photo_id", "v":"5.101"}, function (data) {
+		 VK.api("users.get", {"user_ids": snsPlayerInf.viewerId, "fields": "photo_200,sex,bdate,country,screen_name,photo_id", "v":"5.103"}, function (data) {
 			console.log(data.response[0]);
 			snsPlayerInf.firstName = data.response[0].first_name; //Получаем имя
 			snsPlayerInf.lastName = data.response[0].last_name; //Получаем фамилию
@@ -64,10 +64,10 @@ if(session.snsName === "vk"){
 			});
 			rooms.set("set");
 		});
-		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) { //Получаем массив id Друзей
+		VK.api("friends.getAppUsers", {"v":"5.103"}, function (data) { //Получаем массив id Друзей
 			console.log(data);
 			for(var i = 0; i < data.response.length; i+=10){
-				VK.api("users.get", {"user_ids": data.response.slice(i, i+10), "fields": "photo_200,sex,country,verified,screen_name,photo_id", "v":"5.101"}, function (data) { //Получаем инфу о каждом друге
+				VK.api("users.get", {"user_ids": data.response.slice(i, i+10), "fields": "photo_200,sex,country,verified,screen_name,photo_id", "v":"5.103"}, function (data) { //Получаем инфу о каждом друге
 					console.log(data);
 					data.response.forEach(function(friend) {
 						snsPlayerInf.friends.push({
@@ -88,7 +88,7 @@ if(session.snsName === "vk"){
 	},
 	function() {
 		processError(error, "vk.com");
-	}, '5.101');
+	}, '5.103');
 }else if(session.snsName === "ok"){
 	console.log(parseGet(window.location.href));
 	var rParams = FAPI.Util.getRequestParameters();								//Параметры инициализации
