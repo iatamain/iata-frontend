@@ -236,6 +236,7 @@
 		document.querySelector("#experience p").innerHTML = mainPlayerInf.experience + "/" + Math.floor(Math.pow(mainPlayerInf.lvl + 1, 2.8) * 5 - 5);
 	}
 	function setFriends(){
+		countFriends=0;
 		document.querySelector("#friends-list").innerHTML = "";
 		for(let i = 0; i < snsPlayerInf.friends.length; i++){
 			let li = document.createElement("li");
