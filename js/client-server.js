@@ -24,7 +24,7 @@ if(session.snsName === "vk"){
 		VK.addCallback('onRequestFail', function (error){
             processError(error, "apivk");
        });
-		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": ["photo_200", "sex", "bdate", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) {
+		 VK.api("users.get", {"user_ids": [snsPlayerInf.viewerId], "fields": "photo_200,sex,bdate,country,verified,screen_name,photo_id", "v":"5.101"}, function (data) {
 			console.log(data.response[0]);
 			snsPlayerInf.firstName = data.response[0].first_name; //Получаем имя
 			snsPlayerInf.lastName = data.response[0].last_name; //Получаем фамилию
