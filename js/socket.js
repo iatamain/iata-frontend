@@ -23,7 +23,7 @@ function connectToSocket(){
          for(i in answ){
             dataRooms[i] = {
                name: answ[i].name,
-               isClosed: answ[i].password, //Проверять
+               isClosed: answ[i].password,
                mapId: answ[i].mapId,
                mode: answ[i].mode,
                capacity: 8,

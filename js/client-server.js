@@ -65,7 +65,11 @@ if(session.snsName === "vk"){
 			rooms.set("set");
 		});
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) { //Получаем массив id Друзей
+			console.log(data);
+			console.log(data.response);
 			VK.api("users.get", {"user_ids": data.response, "fields": ["photo_200", "sex", "country", "verified", "screen_name", "photo_id"], "v":"5.101"}, function (data) { //Получаем инфу о каждом друге
+				console.log(data);
+				console.log(data.response);
 				data.response.forEach(function(friend) {
 					snsPlayerInf.friends.push({
 						friendPlayerInfo: new PlayerInf(),
