@@ -67,7 +67,7 @@ if(session.snsName === "vk"){
 		VK.api("friends.getAppUsers", {"v":"5.101"}, function (data) { //Получаем массив id Друзей
 			console.log(data);
 			for(var i = 0; i < data.response.length; i+=10){
-				VK.api("users.get", {"user_ids": data.response.slice(i, i+10);, "fields": "photo_200,sex,country,verified,screen_name,photo_id", "v":"5.101"}, function (data) { //Получаем инфу о каждом друге
+				VK.api("users.get", {"user_ids": data.response.slice(i, i+10), "fields": "photo_200,sex,country,verified,screen_name,photo_id", "v":"5.101"}, function (data) { //Получаем инфу о каждом друге
 					console.log(data);
 					data.response.forEach(function(friend) {
 						snsPlayerInf.friends.push({
