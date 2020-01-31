@@ -46,14 +46,15 @@ function connectToSocket(){
          });
       })
       socket.on('/rooms/my', (roomN, dataRoom)=>{
+         console.log("Моя комната", roomN, dataRoom);
          gameData.roomN = roomN;
          gameData.dataRoom = dataRoom;
          if(roomN != "roomnull" && !Game.isPlay){
             startGame();
          }
-         console.log("Моя комната", roomN, dataRoom);
       })
       socket.on('/rooms/connect', (roomN, user)=>{
+         console.log("Произошло подключение к комнате.", roomN, user);
          if(user.id == mainPlayerInf.id){
             socket.emit('/rooms/my');
          }else{
@@ -64,9 +65,9 @@ function connectToSocket(){
          if(roomN == gameData.roomN){
             Game.addPlayer(user);
          }
-         console.log("Произошло подключение к комнате.", roomN, user);
       })
       socket.on('/rooms/leave', (roomN, user)=>{
+         console.log("Кто-то вышел из комнаты.", roomN, user);
          if(user.id == mainPlayerInf.id){
             socket.emit('/rooms/my');
             socket.emit('/rooms/list');
@@ -80,7 +81,6 @@ function connectToSocket(){
                rooms.update(roomN);
             }
          }
-         console.log("Кто-то вышел из комнаты.", roomN, user);
       })
       socket.on('/rooms/deleted', (roomN)=>{
          console.log("Комната удалена", roomN);
@@ -94,17 +94,25 @@ function connectToSocket(){
          if(error == "Room state is not lobby."){
             msg("В этой комнате уже идет игра");
          }
+         if(error.slice(0, 22) == "You're already in room"){
+            msg("Ваша битва еще не окончена.");
+            socket.emit('/rooms/my');
+         }
+      });
+      socket.on('/log', (...args)=>{
+         console.log(...args)
       });
       socket.emit('/rooms/list');
       socket.emit('/rooms/my');
    });
-   socket.on('disconnect', ()=>{
+   socket.on('disconnect', (...args)=>{
+      console.log("Соединение прервано", ...args);
       socketStatus = "disconnected";
       msg("Соединение прервано");
    });
    socket.on('error', (e)=>{
+      console.log("Ошибка подключения к сокету", e);
       socketStatus = "error";
       msg("Ошибка подключения к WebSocket");
-      console.log("Ошибка подключения к сокету", e);
    });
 }
