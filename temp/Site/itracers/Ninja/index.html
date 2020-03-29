@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="jquery.min.js"></script>
+	<meta charset = "utf-8">
+	<title>Ninja</title>
+	<style type="text/css">
+			#canvas{
+				background-color: lightblue;
+				margin: auto; 
+				position: absolute; 
+				top: 0; 
+				left: 0; 
+				bottom: 0; 
+				right: 0; 
+				display: block; 
+				padding: 0;
+			}
+			body{
+				overflow: hidden;
+				background: -webkit-linear-gradient(63deg, #151515 5px, transparent 5px) 0 5px,
+	            -webkit-linear-gradient(243deg, #151515 5px, transparent 5px) 10px 0px,
+	            -webkit-linear-gradient(63deg, #222 5px, transparent 5px) 0px 10px,
+	            -webkit-linear-gradient(243deg, #222 5px, transparent 5px) 10px 5px,
+	            -webkit-linear-gradient(0deg, #1b1b1b 10px, transparent 10px),
+	            -webkit-linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+				background: -moz-linear-gradient(63deg, #151515 5px, transparent 5px) 0 5px,
+				            -moz-linear-gradient(243deg, #151515 5px, transparent 5px) 10px 0px,
+				            -moz-linear-gradient(63deg, #222 5px, transparent 5px) 0px 10px,
+				            -moz-linear-gradient(243deg, #222 5px, transparent 5px) 10px 5px,
+				            -moz-linear-gradient(0deg, #1b1b1b 10px, transparent 10px),
+				            -moz-linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+				background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+				            linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+				            linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+				            linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+				            linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+				            linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+				background-size: 20px 20px;
+				background-color: #131313;
+			}
+			.game_lab{
+				font-family: "Avengeance Heroic Avenger", serif;
+				font-size: 20pt;
+				/*position: absolute;*/
+				color: green;
+				padding: 10px;
+				padding-left: 0; 
+				white-space: pre;
+			}
+			.replay{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				top: 60%;
+				left: 47.5%;
+			}
+	</style>
+
+</head>
+<body>
+		<canvas id="canvas" width="696" height="696" style="border: 2px solid grey; border-radius: 1%" class="canvas">Canvas не поддерживается</canvas>
+		<img src="replay.png" class = "replay" onclick="replay()">
+	
+		<script type="text/javascript">
+		
+		
+		function replay(){
+			var player = {
+					x: 0,
+					y: 0
+			};
+			var max_for_hods = 0;
+			var moves = 0;
+			var balls = 0;
+			var end = 80;
+			var theend = false;
+			var boolend = false;
+			var background = new Image();
+			background.src = "background.jpg";
+
+			var ninja = new Image();
+			ninja.src = "ninja.png";
+			$(".replay").hide();
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+			player.x = 0;
+			player.y = 0;
+
+			document.addEventListener('keydown', function(e) {
+				//console.log(e);
+				if(e.keyCode == 39){
+					if(player.x < 7){
+						//console.log("right")
+						player.x++;
+						balls += nums[player.y][player.x];
+						moves++;
+					}
+					
+				}
+				else if(e.keyCode == 40){
+					if(player.y < 7){
+						player.y++;
+						balls += nums[player.y][player.x];
+						moves++;
+					}
+				}
+				for (var i = moves, j = 0; i >= 0 && j < moves; i--, j++) {
+					if(way[i][j] > max_for_hods){
+							max_for_hods = way[i][j];
+					} 
+				}
+				//console.log(max_for_hods);
+			});
+
+			
+
+			context.strokeStyle = "black";
+			for(var i = 87; i < 696; i += 87){
+				 // (i % 2 == 0 ? "#ffffff" : "black")
+				context.beginPath();
+				context.moveTo (i, 0);
+				context.lineTo(i, 696);
+				context.stroke();
+				context.closePath();
+			}
+			for(var i = 87; i < 696; i += 87){
+				context.beginPath();
+				context.moveTo(0, i);
+				context.lineTo(696, i);
+				context.stroke();
+				context.closePath();
+			}
+			var nums = [];
+			for(var i = 0; i < 10; i++){
+				nums[i] = [];
+			}
+			for(var i = 0; i < 8; i++){
+				for(var j = 0; j < 8; j++){
+					var num = 0;
+					if(i != 0 || j != 0){
+						num = Math.floor(Math.random() * (10 - 1)) + 1;
+					}
+					nums[i][j] = num;
+				}
+			}
+			
+			//console.log(nums);
+			var way = [];
+			for(var i = 0; i < 100; i++){
+				way[i] = [];
+			}
+			for(var i = 0; i < 100; i++){
+				for(var j = 0; j < 100; j++){
+					way[i][j] = 0;
+				}
+			}
+			way[0][0] = nums[0][0];
+			for(var i = 1; i < 8; i++){
+				way[i][0] = way[i-1][0] + nums[i][0];
+			}
+			for(var j = 1; j < 8; j++){
+				way[0][j] = way[0][j-1] + nums[0][j];	
+			}
+			for(var i = 1; i < 8; i++){
+				for(var j = 1; j < 8; j++){
+					if(way[i-1][j] > way[i][j-1]){
+						way[i][j] =  way[i-1][j] + nums[i][j];
+					}
+					else{
+						way[i][j] = way[i][j-1] + nums[i][j];
+					}
+				}
+			}
+
+
+			//console.log(way);
+			
+
+			background.onload = function(){
+				last = Date.now();
+				game();
+			};
+
+
+			function game(){
+				
+				var now = Date.now();
+				var dt = (now - last)/1000;
+				if(end >= 3){
+					update(dt);
+					render();
+					last = now;
+					requestAnimFrame(game);
+				}
+				
+			}
+			
+			function update(dt){
+				//console.log(player.x,  player.y)
+				if(player.x == 7 && player.y == 7){
+					if(!boolend){
+						end++;
+						if(end >= 90){
+							boolend = true;
+						}
+					}
+					else{
+						if(end >= 3){
+							end-= 3;
+						}
+					}
+				}
+				console.log(max_for_hods);
+
+			}
+			function render() {
+				var width = window.innerWidth;
+				var height = window.innerHeight;
+				//console.log(width/height);
+				//console.log(700/500);
+				
+				if(width/height > 696 / 696){
+					$('canvas').css('height', height);
+					$('canvas').css('width', height / 696 * 696);
+				}
+				else{
+					$('canvas').css('width', width);
+					$('canvas').css('height', width / 696 * 696);
+				}
+
+				context.fillRect(0, 0, 87, 87);
+				for(var i = 0; i < 696; i += 87){
+					for (var j = 0; j < 696; j += 87) {
+							if(player.x * 87 == i && player.y * 87 + 87 == j || player.x * 87 + 87 == i && player.y * 87 == j){
+								context.fillStyle = ((i + j) % 2 == 0 ? "#e7504d" : "#690807");
+							}
+							else{
+								context.fillStyle = ((i + j) % 2 == 0 ? "white" : "black");
+							}
+							context.fillRect(i, j, 87, 87);
+						}
+				}
+
+
+				context.fillStyle = "yellow";
+				context.strokeStyle = "black";
+				context.lineWidth = 1;
+				for(var i = 43.5; i < 696; i += 87){
+					for(var j = 43.5; j < 696; j += 87){
+						if(i != 43.5 || j != 43.5){
+							if(i != player.x * 87 + 43.5 || j != player.y * 87 + 43.5){
+								context.beginPath();
+								context.arc(i, j, 20, 0, Math.PI*2, true);
+								context.fill();
+								context.stroke();
+								context.closePath();	
+							}
+						}
+					}
+				}
+				k = 0;
+				
+				context.fillStyle = "black";
+				context.font = "20pt Avengeance Heroic Avenger";
+				for(var i = 43.5; i < 696; i += 87){
+					l = 0;
+					for(var j = 43.5; j < 696; j += 87){
+						if(i != 43.5 || j != 43.5){
+							if(i != player.x * 87 + 43.5 || j != player.y * 87 + 43.5){
+								context.fillText(nums[l][k], i - 8, j + 10);
+							}
+						}
+						l++;
+					}
+					k++;
+				}	
+				context.fillStyle = "black";
+				context.fillRect(0, 0, 87 * player.x, 87 * 8);
+				context.fillRect(0, 0, 87 * 8, 87 * player.y);
+
+				//console.log(i);
+				if(player.x == 7 && player.y == 7){
+					context.fillRect(609, 609, 87, 87);
+				}
+
+				context.drawImage(ninja, 87 * player.x, 87 * player.y, end, end);
+				//console.log(end < 3);
+				if(end < 3){
+					context.fillStyle = "white";
+					context.font = "50pt Arial";
+					context.fillText("Ваши баллы: " + balls + "/" + way[7][7], 50, 350);
+					$(".replay").show();
+				//	console.log(end);
+					//alert();
+				}
+	    		$("#current_balls").html("Баллы:       " + balls);
+	    		$("#max_balls_at_current_check").html("Максимум баллов для текущей клетки:     " + way[player.y][player.x]);
+	    		$("#max_all").html("Максимум количество баллов:      " + way[7][7]);
+	    		if(moves == 1 || moves % 10 == 1 && moves > 20){
+	    			$("#max_balls_for_hods").html("Максимум баллов за  " + moves + "    ход:   " + way[player.y][player.x]);
+	    		}
+	    		else if(moves % 10 > 1 && moves % 10 < 5 && moves > 20 || moves % 10 > 1 && moves % 10 < 5 && moves < 10){
+	    			$("#max_balls_for_hods").html("Максимум баллов за  " + moves + "    хода:   " + way[player.y][player.x]);
+	    		}
+	    		else{
+	    			$("#max_balls_for_hods").html("Максимум баллов за  " + moves + "    ходов:   " + way[player.y][player.x]);
+	    		}
+
+
+
+			}
+			var requestAnimFrame = (function() {
+				return window.requestAnimationFrame ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||
+				function(callback) {
+					window.setTimeout(callback, 50);
+				};
+			})();
+		}
+		replay();
+	</script>
+	<label class="game_lab" id = "current_balls"></label><br>
+	<label class="game_lab" id = "max_balls_at_current_check"></label><br>
+	<label class="game_lab" id = "max_balls_for_hods"></label><br>
+	<label class="game_lab" id = "max_all"></label><br>
+</body>
+</html>

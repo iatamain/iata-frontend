@@ -1,0 +1,75 @@
+@font-face { 
+font-family: 'Foo'; 
+src: url('Foo.ttf'); 
+}
+::-webkit-scrollbar {
+	width: 0px;
+	}
+body {
+	background: #125D08;
+}
+html {
+	overflow:  hidden; 
+	}
+body{
+	cursor : url("cursor2.cur"), auto;
+	}
+a	{
+	cursor : url("cursor3.cur"), auto;
+	text-decoration: none;
+	text-align: center;
+	font-family: "Foo";
+	color: #FFD900;
+	}
+
+
+.button_container {
+	text-align: center;
+	margin: 40px auto;
+}
+.button_containerback {
+	text-align: center;
+	margin: 0px auto;
+}
+
+
+.button {
+	font-family: "Foo";
+	font-size: 32px;
+	padding: 15px 30px;
+	background: #125D20;
+	color: #FFD900;
+	border-top: 1px solid #FFD900;
+	border-left: 1px solid #FFD900;
+	text-shadow: 1px 2px 0 #125D08;
+	box-shadow: 
+				3.5px 3.5px 0 #FFD900, 1px 2px 0 #FFD900,
+				4px 4px 2px #000;
+	
+}
+.button2 {
+	font-family: "Foo";
+	font-size: 32px;
+	padding: 15px 30px;
+	background: #125D20;
+	color: #FFD900;
+	border-top: 1px solid #FFD900;
+	border-left: 1px solid #FFD900;
+	text-shadow: 1px 2px 0 #125D08;
+	box-shadow: 
+				3.5px 3.5px 0 #FFD900, 1px 2px 0 #FFD900,
+				4px 4px 2px #000;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+

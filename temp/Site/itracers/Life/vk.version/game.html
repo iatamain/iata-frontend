@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Life</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script type="text/javascript" src="life.js"></script>
+		<script type="text/javascript" src="life_figure.js"></script>
+		<link rel="shortcut icon" type="image/x-icon" href="../../img/system/favicon.ico">
+		<style type="text/css">
+				#canvas{
+					margin: auto; 
+					position: absolute; 
+					top: 50px; 
+					left: 100px; 
+				}
+				body{
+					background-color: black;
+				}
+				input{
+					background-color: Transparent;
+					color: yellow;
+					border: 0px;
+					padding: 0px;
+					margin: 0px; 
+				}
+		</style>
+	</head>
+	<body>
+		<div id = "lobbysene">
+		</div>
+		<div id = "gmscene">
+			<div>
+				<input class = "SpeedDown" type = "button" value = "Замедлить" onclick = "speed(0)">
+				<input class = "SpeedUp" type = "button" value = "Запустить" onclick = "play()">
+				<input type = "button" value = "Ускорить" onclick = "speed(1)">
+				<input type = "button" value = "Остановить" onclick = "stop()">
+				<input type = "button" value = "Карандаш" onclick = "pen()">
+				<input type = "button" value = "Стиль" onclick = "stylee()">
+				<input type = "button" value = "Поставить пушку" onclick = "setFigure('gun')">
+			</div>
+			<br>
+			<br>
+			<div>
+				<input type = "button" value = "Выделить" onclick = "selectt()"><br>
+				<input type = "button" value = "Вставить" onclick = "pastee()"><br>
+				<input type = "button" value = "Копировать" onclick = "copy()"><br>
+				<input type = "button" value = "Вырезать" onclick = "cut()"><br>
+			</div>
+		</div>
+		<canvas id="canvas" width="1000" height="1000" style="border: 1px solid grey;">Canvas не поддерживается</canvas>
+	</body>
+</html>
