@@ -37,7 +37,7 @@
 			let scale = 80;
 			let n = 2;
 			let nSmall = 2;
-			let method = 2;
+			let method = 0;
 			let isDown = false;
 			let lastX = 0, lastY = 0;
 			let tempX = 0, tempY = 0;
@@ -111,60 +111,16 @@
 				}
 				static randFlag = false;
 				static calculatePoints(arg){
-					if(Point.randFlag == false && arg == 3 || arg != 3){
-						points = [];
-					}
+					points = [];
 					if(arg == 0){
-						Point.randFlag = false;
-						for(let i = 0; i <= n; i++){
-							let h = 2/n;
-							let xi = -1 + i * h;
-							points.push(new Point(xi, 1/(1 + 16*xi*xi)));
+						for(let i = 0; i < n; i++){
+							points.push(new Point(Math.random(), Math.random()));
 						}
 					}
 					if(arg == 1){
-						Point.randFlag = false;
-						for(let i = 0; i <= n; i++){
-							let h = 2*(n + 1);
-							let xi = Math.cos((2 * i + 1)*Math.PI/h);
-							points.push(new Point(xi, 1/(1 + 16*xi*xi)));
-						}
-					}
-					if(arg == 2){
-						for(let i = points.length; i < n; i++){
-							points.push(new Point(Math.floor(Math.random()*10), Math.floor(Math.random()*10)));
-						}
-						if(points.length > n + 1){
-							points.splice(0, points.length - n - 1);
-						}
-					}
-					if(arg == 3){
-						Point.randFlag = false;
-						for(let i = 0; i <= n; i++){
-							let h = 2/n;
-							let xi = -1 + i * h;
-							points.push(new Point(xi, Math.abs(xi)));
-						}
-					}
-					if(arg == 4){
-						Point.randFlag = false;
-						for(let i = 0; i <= n; i++){
-							let h = 2/n;
-							let xi = -1 + i * h;
-							points.push(new Point(xi, xi**2));
-						}
-					}
-					if(arg == 5){
-						Point.randFlag = false;
-						for(let i = 0; i <= n; i++){
-							let h = 2/n;
-							let xi = -1 + i * h;
-							points.push(new Point(xi, Math.cos(Math.PI * xi / 2)));
-						}
-					}
-					if(arg == 6){
-						points.push(new Point(0.5, 1));
-						points.push(new Point(1, 0.5));
+						points.push(new Point(6, 8));
+						points.push(new Point(5, 9));
+						points.push(new Point(1, 8));
 					}
 				}
 			}
@@ -237,6 +193,8 @@
 				}
 			}
 			function preload(flag){
+				vectX = [];
+				vectY = [];
 				for(let i = 0; i < points.length; i++){
 					vectX[i] = points[i].x;
 					vectY[i] = points[i].y;

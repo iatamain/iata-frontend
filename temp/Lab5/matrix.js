@@ -6,6 +6,7 @@ var res = system.res;
 console.log(resolveSystem(matrix, res));
 */
 function getSystemForN(vectorX, vectorY, n){ //a + ax+bx^2...
+	console.log("Test", vectorX, vectorY, n)
 	var N = Math.min(vectorX.length, vectorY.length);
 	let resultMatrix = new Array(n).fill(1).map(val => new Array(n).fill(1));
 	for(let i = 0; i < n; i++){
@@ -31,7 +32,7 @@ function getSystemForN(vectorX, vectorY, n){ //a + ax+bx^2...
 	}
 }
 function getSystemForLog(vectorX, vectorY){ //a + ax+bx^2...
-	var N = Math.min(vectorX.length, vectorY.length);
+	let N = Math.min(vectorX.length, vectorY.length);
 	let resultMatrix = new Array(2).fill(1).map(val => new Array(2).fill(1));
 	for(let i = 0; i < 2; i++){
 		for(let j = 0; j < 2; j++){
@@ -46,7 +47,7 @@ function getSystemForLog(vectorX, vectorY){ //a + ax+bx^2...
 	for(let i = 0; i < 2; i++){
 		let sum = 0;
 		for(let j = 0; j < N; j++){
-			sum += vectorY[j]*Math.log(vectorX[j])**i;
+			sum += Math.log(vectorY[j])*Math.log(vectorX[j])**i;
 		}
 		resultRes[i] = sum;
 	}
