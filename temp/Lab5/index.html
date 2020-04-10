@@ -35,7 +35,7 @@
 			let movX = 0;
 			let movY = 0;
 			let scale = 80;
-			let n = 4;
+			let n = 2;
 			let nSmall = 2;
 			let method = 2;
 			let isDown = false;
@@ -151,7 +151,7 @@
 						for(let i = 0; i <= n; i++){
 							let h = 2/n;
 							let xi = -1 + i * h;
-							points.push(new Point(xi, xi**3));
+							points.push(new Point(xi, xi**2));
 						}
 					}
 					if(arg == 5){
@@ -161,6 +161,10 @@
 							let xi = -1 + i * h;
 							points.push(new Point(xi, Math.cos(Math.PI * xi / 2)));
 						}
+					}
+					if(arg == 6){
+						points.push(new Point(0.5, 1));
+						points.push(new Point(1, 0.5));
 					}
 				}
 			}
@@ -233,7 +237,7 @@
 				}
 			}
 			function preload(flag){
-				for(let i = 0; i < points.length; i++){ //Для func1
+				for(let i = 0; i < points.length; i++){
 					vectX[i] = points[i].x;
 					vectY[i] = points[i].y;
 				}
@@ -241,11 +245,14 @@
 				matrix = system.matrix;
 				res = system.res;
 				a = resolveSystem(matrix, res);
-				system2 = getSystemForLog(vectX, vectY);
-				matrix2 = system.matrix;
-				res2 = system.res;
-				a2 = resolveSystem(matrix, res);
 				
+				system2 = getSystemForLog(vectX, vectY);
+				matrix2 = system2.matrix;
+				res2 = system2.res;
+				a2 = resolveSystem(matrix2, res2);
+				console.log("Точки:", points);
+				console.log("Система:", system);
+				console.log("Решение:",a);
 				for(i in functions){
 					functions[i].generatePoints(-50, 50, 0.01);
 				}
@@ -267,16 +274,14 @@
 				let y = 0;
 				for(let i = 0; i < a.length; i++){
 					y += a[i]*(t**i);
-					
 				}
-				log(a, a[0]*t**2);
 				return {
 					x: t,
 					y: y,
 				}
 			}, "green"));
+			
 			functions.push(new Function((t)=>{
-				
 				let y = (Math.E**a2[0])*(t**a2[1]);
 				return {
 					x: t,
