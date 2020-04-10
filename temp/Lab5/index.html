@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css">
+		<script src="output.js"></script>
+		<script src="matrix.js"></script>
+   </head>
+   <body>
+		<canvas width="500" height="500" style="border: 1px solid black"></canvas>
+		<div id="inputs">
+
+			<div>
+				<b>N:</b>
+				<input id="n" oninput="change(2)" type="range" min="2" max="20" value="2" step="1" style="width:80%"/>
+				<b id="outN" style="margin-left: 5px; position: absolute; right: 2%;">2</b>
+			</div>
+			<div>
+				<b>n:</b>
+				<input id="nSmall" oninput="change(1)" type="range" min="1" max="8" value="2" step="1" style="width:80%"/>
+				<b id="outNSmall" style="margin-left: 5px; position: absolute; right: 2%;">2</b>
+			</div>
+			<div>
+				<b>Scale:</b>
+				<input id="scale" oninput="change(0)" type="range" min="1" max="1000" value="80" step="0.0001" style="width:80%"/>
+				<b id="outScale" style="margin-left: 5px; position: absolute; right: 2%;">1</b>
+			</div>
+		</div>
+		<script>
+			let canvas = document.querySelector("canvas");
+			let ctx = canvas.getContext("2d");
+			let last = Date.now();
+			let movX = 0;
+			let movY = 0;
+			let scale = 80;
+			let n = 4;
+			let nSmall = 2;
+			let method = 2;
+			let isDown = false;
+			let lastX = 0, lastY = 0;
+			let tempX = 0, tempY = 0;
+			document.querySelector("canvas").addEventListener("mousedown", e=>{
+				lastX = e.offsetX;
+				lastY = e.offsetY;
+				isDown = true;
+			})
+			document.querySelector("canvas").addEventListener("mousemove", e=>{
+				if(isDown){
+					tempX = e.offsetX - lastX;
+					tempY = e.offsetY - lastY;
+				}
+			})
+			document.querySelector("canvas").addEventListener("mouseup", e=>{
+				movX += tempX;
+				tempX = 0;
+				movY -= tempY;
+				tempY = 0;
+				isDown = false;
+			})
+			class Function{
+				constructor(f, color){
+					this.f = f;
+					this.arrPoints = [];
+					this.color = color || "yellow";
+				}
+				generatePoints(a, b, interval){
+					this.arrPoints = [];
+					for(let i = a; i <= b; i+= interval){
+						let f = this.f(i);
+						if(Number.isNaN(f.y)) f = {x: f.x, y:0};
+						f.y = Math.max(f.y, -(10**5));
+						f.y = Math.min(f.y, 10**5)
+						//f=1;
+						this.arrPoints.push(f);
+					}
+				}
+				render(){
+					ctx.strokeStyle = this.color;
+					ctx.globalAlpha = 1;
+					ctx.beginPath();
+					let x = this.arrPoints[0].x;
+					let y = this.arrPoints[0].y;
+					x = x*scale+movX+tempX;
+					y = y*scale+movY-tempY;
+					ctx.moveTo(x, y);
+					for(let i in this.arrPoints){
+						let x = this.arrPoints[i].x;
+						let y = this.arrPoints[i].y;
+						x = x * scale + movX + tempX;
+						y = y * scale + movY - tempY;
+						ctx.lineTo(x, y);
+					}
+					ctx.stroke();
+					ctx.closePath();
+				}
+			}
+			class Point{
+				constructor(x, y){
+					this.x = x;
+					this.y = y;
+				}
+				render(){
+					let x = this.x * scale + movX + tempX;
+					let y = this.y * scale + movY - tempY;
+					ctx.fillStyle = "#50d";
+					ctx.beginPath();
+					ctx.arc(x, y, 3, 0, Math.PI * 2);
+					ctx.fill();
+				}
+				static randFlag = false;
+				static calculatePoints(arg){
+					if(Point.randFlag == false && arg == 3 || arg != 3){
+						points = [];
+					}
+					if(arg == 0){
+						Point.randFlag = false;
+						for(let i = 0; i <= n; i++){
+							let h = 2/n;
+							let xi = -1 + i * h;
+							points.push(new Point(xi, 1/(1 + 16*xi*xi)));
+						}
+					}
+					if(arg == 1){
+						Point.randFlag = false;
+						for(let i = 0; i <= n; i++){
+							let h = 2*(n + 1);
+							let xi = Math.cos((2 * i + 1)*Math.PI/h);
+							points.push(new Point(xi, 1/(1 + 16*xi*xi)));
+						}
+					}
+					if(arg == 2){
+						for(let i = points.length; i < n; i++){
+							points.push(new Point(Math.random(), Math.random()));
+						}
+						if(points.length > n + 1){
+							points.splice(0, points.length - n - 1);
+						}
+					}
+					if(arg == 3){
+						Point.randFlag = false;
+						for(let i = 0; i <= n; i++){
+							let h = 2/n;
+							let xi = -1 + i * h;
+							points.push(new Point(xi, Math.abs(xi)));
+						}
+					}
+					if(arg == 4){
+						Point.randFlag = false;
+						for(let i = 0; i <= n; i++){
+							let h = 2/n;
+							let xi = -1 + i * h;
+							points.push(new Point(xi, xi**3));
+						}
+					}
+					if(arg == 5){
+						Point.randFlag = false;
+						for(let i = 0; i <= n; i++){
+							let h = 2/n;
+							let xi = -1 + i * h;
+							points.push(new Point(xi, Math.cos(Math.PI * xi / 2)));
+						}
+					}
+				}
+			}
+			var points = [];
+			var functions = [];
+			function change(arg){
+				scale = parseFloat(document.querySelector("#scale").value);
+				document.querySelector("#outScale").innerHTML = scale;
+				n = parseInt(document.querySelector("#n").value);
+				document.querySelector("#outN").innerHTML = n;
+				nSmall = parseInt(document.querySelector("#nSmall").value);
+				document.querySelector("#outNSmall").innerHTML = nSmall;
+				let rad = document.getElementsByName("met");
+				rad.forEach((val, i)=>{
+					console.log(i, typeof i);
+					if(val.checked){
+						method = i;
+					}
+				})
+				if(arg == 2) Point.calculatePoints(method);
+				if(arg)preload();
+			}
+			function play(){
+				let now = Date.now();
+				let dt = now - last;
+				update(dt);
+				render();
+				requestAnimationFrame(play);
+			}
+			function update(dt){
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				ctx.save();
+				ctx.translate(canvas.width/2, canvas.height/2);
+				ctx.scale(1, -1);
+			}
+			function render(){
+				ctx.fillStyle = "black";
+				ctx.fillRect(-canvas.width/2, -canvas.height/2, canvas.width, canvas.height);
+				ctx.fillStyle = "yellow";
+				ctx.strokeStyle = "yellow";
+				ctx.globalAlpha = 0.1;
+				ctx.beginPath();
+				let sizeCell = 1;
+				let countCell = 2000;
+				for(let i = -countCell*Math.abs(scale)*sizeCell; i <= countCell*Math.abs(scale)*sizeCell; i+=Math.abs(scale)*sizeCell){
+					ctx.moveTo(i+movX+tempX,-canvas.height/2);
+					ctx.lineTo(i+movX+tempX, canvas.height/2);
+				}
+				for(let i = -countCell*Math.abs(scale)*sizeCell; i <= countCell*Math.abs(scale)*sizeCell; i+= Math.abs(scale)*sizeCell){
+					ctx.moveTo(-canvas.width/2, i+movY-tempY);
+					ctx.lineTo(canvas.width/2, i+movY-tempY);
+				}
+				
+				ctx.stroke();
+				ctx.closePath();
+				ctx.globalAlpha = 0.2;
+				ctx.beginPath();
+				ctx.moveTo(movX+tempX, -canvas.height/2);
+				ctx.lineTo(movX+tempX, canvas.height/2);
+				ctx.moveTo(-canvas.width/2, movY-tempY);
+				ctx.lineTo(canvas.width/2, movY-tempY);
+				ctx.stroke();
+				ctx.closePath();
+				for(let i in functions){
+					functions[i].render();
+				}
+				for(let i in points){
+					points[i].render();
+				}
+			}
+			function preload(flag){
+				for(let i = 0; i < points.length; i++){ //Для func1
+					vectX[i] = points[i].x;
+					vectY[i] = points[i].y;
+				}
+				system = getSystemForN(vectX, vectY, nSmall);
+				matrix = system.matrix;
+				res = system.res;
+				a = resolveSystem(matrix, res);
+				system2 = getSystemForLog(vectX, vectY);
+				matrix2 = system.matrix;
+				res2 = system.res;
+				a2 = resolveSystem(matrix, res);
+				
+				for(i in functions){
+					functions[i].generatePoints(-50, 50, 0.01);
+				}
+				
+			}
+			/*
+			functions.push(new Function((t)=>{
+				return {
+					x: t,
+					y: 1/(1 + 16*t*t)
+				}
+			}));
+			*/
+			var vectX = [];
+			var vectY = [];
+			var system, matrix, res, a;
+			var system2, matrix2, res2, a2 ;
+			functions.push(new Function((t)=>{				
+				let y = 0;
+				for(let i = 0; i < a.length; i++){
+					y += a[i]*(t**i);
+					
+				}
+				log(a, a[0]*t**2);
+				return {
+					x: t,
+					y: y,
+				}
+			}, "green"));
+			functions.push(new Function((t)=>{
+				
+				let y = (Math.E**a2[0])*(t**a2[1]);
+				return {
+					x: t,
+					y: y,
+				}
+			}, "yellow"));
+			/*
+			functions.push(new Function((t)=>{
+				function newton(pts){
+					if(pts.length > 1){
+						return (newton(pts.slice(1, pts.length)) - newton(pts.slice(0, pts.length - 1)))/(pts[pts.length - 1].x - pts[0].x);
+					}else{
+						return pts[0].y;
+					}
+				}
+				let y = newton([points[0]])
+				for(let i = 0; i < points.length - 1; i++){
+					let s = 1;
+					for(let j = 0; j <= i; j++){
+						s*=(t - points[j].x);
+					}
+					s*=newton(points.slice(0, i + 2));
+					y+=s;
+				}
+				return {
+					x: t,
+					y: y
+				}
+			}, "red"));
+			*/
+			var logs = 0;
+			function log(...args){
+				if(logs <= 100){
+					console.log(...args);
+					logs++;
+				}
+			}
+			Point.calculatePoints(method);
+			preload();
+			play();
+      </script>
+   </body>
+</html>
