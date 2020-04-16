@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<title>Таймер</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="main.css">
+	</head>
+	<body>
+		<div id="container">
+			<input type = "text" class = "inputDigit" maxlength = "1" data-num = "0">
+			<input type = "text" class = "inputDigit" maxlength = "1" data-num = "1">
+			<input type = "text" class = "inputDigit" maxlength = "1" data-num = "2">
+			<input type = "text" class = "inputDigit" maxlength = "1" data-num = "3">
+			<div class="digit">
+				<div class="front">1</div>
+				<div class="back">1</div>
+			</div>
+			<div class="digit">
+				<div class="front">2</div>
+				<div class="back">2</div>
+			</div>
+			<div class="digit">
+				<div class="front">2</div>
+				<div class="back">2</div>
+			</div>
+			<div class="digit">
+				<div class="front">9</div>
+				<div class="back">9</div>
+			</div>
+		</div>
+		<div id = "nav">
+			<div class = "btn disable">Хееей</div>
+		</div>
+		<div id = "wrapper">
+			<img src = "heeey.png" title = "Всеволод Старозубов лалахей" alt = "всеволод старозубов лалахей">
+		</div>
+		
+		<script>
+			let inputPos = 0;
+			let inputs = document.querySelectorAll(".inputDigit");
+			let digits = document.querySelectorAll(".digit");
+			let digitsFront = document.querySelectorAll(".front");
+			let digitsBack = document.querySelectorAll(".back");
+			let button = document.querySelector(".btn");
+			let timerId = null, timerId2 = null;
+			let maxDigit = [5, 9, 5, 9];
+			let curDegs = [0, 0, 0, 0];
+			let curValues = [0, 0, 2, 9];
+			let stateFlip = [false, false, false, false];
+			var music = new Audio('lalala.mp3');
+			let anyFill = [...inputs].every((elem)=>{
+				return elem.value != ""
+			});
+			if(anyFill){
+				button.classList.remove("disable");
+			}
+			inputs[0].focus();
+			document.querySelector("#container").addEventListener("input", (e)=>{
+				if(/\d/.test(inputs[inputPos].value)){
+					inputs[inputPos].value = Math.min(maxDigit[inputPos], inputs[inputPos].value);
+					inputPos = Math.min(3, inputPos + 1);
+					inputs[inputPos].focus();
+				}else{
+					inputs[inputPos].value = "";
+				}
+				let anyFill = [...inputs].every((elem)=>{
+					return elem.value != ""
+				});
+				if(anyFill){
+					button.classList.remove("disable");
+				}
+			});
+			document.querySelector("#container").addEventListener("click", (e)=>{
+				if(typeof e.target.dataset.num == "string"){
+					inputPos = parseInt(e.target.dataset.num);
+					
+				}
+			});
+			document.querySelector("#container").addEventListener("keydown", (e)=>{
+				if(e.code == "Backspace"){
+					inputs[inputPos].value = "";
+					inputPos = Math.max(0, inputPos - 1);
+					inputs[inputPos].focus();
+					button.classList.add("disable");
+					e.preventDefault();
+				}
+				else if(e.code == "Tab"){
+					inputPos = Math.min(3, inputPos + 1);
+					inputs[inputPos].focus();
+					e.preventDefault();
+				}
+				else if(inputs[inputPos].value != ""){
+					inputPos = Math.min(3, inputPos + 1);
+					inputs[inputPos].focus();
+					e.preventDefault();
+				}
+			});
+			button.addEventListener("click", ()=>{
+				if(!button.classList.contains("disable")){
+					if(timerId == null){
+						start();
+					}else{
+						stop();
+					}
+				}
+			})
+			function stop(){
+				clearInterval(timerId); 
+				clearTimeout(timerId2);
+				timerId2 = timerId = null;
+				inputs.forEach((input)=>{input.style.display = "block"});
+				digits.forEach((digit)=>{digit.style.display = "none"});
+				button.innerHTML = "Хееей";
+				curDegs.fill(0);
+				stateFlip.fill(false);
+				digits.forEach((digit, i)=>{digit.style.transform = `rotateX(${curDegs[i]}deg)`});
+	
+				music.play();
+				document.querySelector("img").style.top = "-40px";
+			}
+			function start(){
+				music.currentTime = 0.0;
+				music.pause();
+				document.querySelector("img").style.top = "210px";
+				inputs.forEach((elem, i)=>{
+					curValues[i] = parseInt(elem.value);
+					digitsFront[i].innerHTML = elem.value;
+					digitsBack[i].innerHTML = elem.value;
+				})
+				inputs.forEach((input)=>{input.style.display = "none"});
+				digits.forEach((digit)=>{digit.style.display = "block"});
+				document.querySelector(".btn").innerHTML = "Стоп";
+				
+				function subtract(index){
+					if(curValues[index] == 0){
+						curValues[index] = maxDigit[index];
+					}else{
+						curValues[index]--;
+					}
+				}
+				
+				timerId = setInterval(()=>{
+					let flag = true;
+					for(let i = 3; i >= 0; i--){
+						if(flag){
+							subtract(i);
+							curDegs[i] -= 180;
+							digits[i].style.transform = `rotateX(${curDegs[i]}deg)`;
+						}
+						flag = flag && curValues[i] == maxDigit[i];
+						if(stateFlip[i]){
+							if(digitsBack[i].innerHTML != curValues[i]) stateFlip[i] = !stateFlip[i];
+							digitsFront[i].innerHTML = curValues[i];
+						}else{
+							if(digitsFront[i].innerHTML != curValues[i]) stateFlip[i] = !stateFlip[i];
+							digitsBack[i].innerHTML = curValues[i];
+						}
+						
+					}
+				}, 1000);
+				let sec = curValues[2]*10 + curValues[3];
+				let min = curValues[0]*10 + curValues[1];
+				timerId2 = setTimeout(() => { 
+					stop();
+				}, min * 60 * 1000 + sec * 1000 + 1000);
+			}
+		</script>
+	</body>
+</html>
