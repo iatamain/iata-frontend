@@ -39,13 +39,17 @@
 		<canvas id="c"></canvas>
 		
 		<script>
+			/*
+				Код писался с расчетом на то, что он не будет использоваться повторно. Даже не пытайтесь его читать, он ужасен. Вы потратите свое время и сломате себе глаза, но ради чего? Ничего интересного или полезного вы тут наверняка не найдете. Времени было очень мало, а качество кода в данной ситуации не имело какого-либо значения, так что сорьки:D Но багов почти нет, и вышло довольно красиво с:
+			*/
 			let inputPos = 0;
 			let inputs = document.querySelectorAll(".inputDigit");
 			let digits = document.querySelectorAll(".digit");
 			let digitsFront = document.querySelectorAll(".front");
 			let digitsBack = document.querySelectorAll(".back");
 			let button = document.querySelector(".btn");
-			let timerId = null, timerId2 = null;
+			let message = document.querySelector(".text");
+			let timerId = null, timerId2 = null, timerForText = null;
 			let maxDigit = [5, 9, 5, 9];
 			let curDegs = [0, 0, 0, 0];
 			let curValues = [0, 0, 2, 9];
@@ -118,9 +122,12 @@
 				
 				music.play();//Музычка
 				document.querySelector("img").style.top = "-40px";//Картиночка
-				let script = document.createElement("script");//Фейерверк
-				script.src = "fw.js";
-				document.head.appendChild(script);
+				if(flagForScript){
+					let script = document.createElement("script");//Фейерверк
+					script.src = "fw.js";
+					document.head.appendChild(script);
+					flagForScript = false;
+				}
 				document.querySelector(".text").style.display = "block"//Текст
 				writeText();
 			}
@@ -128,12 +135,9 @@
 			var curSubChar = 0;
 			var text = "Настюша, поздравляем тебя с юбилеем. Желаем, быть такой же харизматичной, как этот мужчина сверху:D Успехов во всех начинаниях и чтоб по жизни тебя окружали веселые и интересные люди,а токсичные какашки обходили тебя стороной. Чтоб на карантине не покидало вдохновение и лалахей сутки на пролет! :)";
 			var subText = "иконечнолюбви";
-			
+			var flagForScript = true;
 			function writeText(){
-				
-				let message = document.querySelector(".text");
-				
-				let timerId = setInterval(()=>{
+				timerForText = setInterval(()=>{
 				console.log("test");
 					if(text[curChar] == subText[curSubChar]){
 						message.innerHTML += `<font color = "#f00">${text[curChar]}</font>`
@@ -141,13 +145,19 @@
 					}else{
 						message.innerHTML += `<font color = "#ff0">${text[curChar]}</font>`
 					}
-					
 					curChar++;
-					if(curChar == text.length) clearInterval(timerId);
+					if(curChar >= text.length) clearInterval(timerForText);
 				}, 100)
 				
 			}
 			function start(){
+				if(timerForText != null){
+					clearInterval(timerForText);
+					timerForText = null;
+				}
+				message.innerHTML = "";
+				curChar = 0;
+				curSubChar = 0;
 				music.currentTime = 0.0;
 				music.pause();
 				document.querySelector("img").style.top = "210px";
