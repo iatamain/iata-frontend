@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf=8">
+		<title>Machine learning is easy</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/inputs.css">
+		<link rel="stylesheet" href="css/auth.css">
+		<link rel="stylesheet" href="css/netList.css">
+		<link rel="stylesheet" href="css/trainScene.css">
+		<script src="libs/brain.js" defer></script>
+		<script src="js/client-server.js" defer></script>
+		<script src="js/background.js" defer></script>
+		<script src="js/draw.js" defer></script>
+		<script src="js/interface.js" defer></script>
+	</head>
+	<body>
+		<canvas id = "background"></canvas>
+		<div id = "root">
+			<nav>
+				<ul>
+					<!--<li data-scene="scene1">Мои нейронки</li>-->
+					<li data-scene="scene2">Создать</li>
+					<li data-scene="scene3">Теория</li>
+					<li data-scene="logout">Выход</li>
+				</ul>
+			</nav>
+			<div class = "content" id = "scene1">
+				<h2>Мои нейронки</h2>
+				<ul id = "net_list">
+					<!--Тут список нейронок:)-->
+				</ul>
+			</div>
+			<div class = "content" id = "scene2">
+				<h2>Имя нейронной сети:</h2>
+				<input id = "name" type = "text" value = "Деревяшка" maxlength = "16"></input>
+				<h2 id = "difHeader">Я хочу, чтоб Деревяшка различала:</h2>
+				<form id = "train_objects">
+					<input type = "text" value = "Позитивный смайл" maxlength = "40" required>
+					<input type = "text" value = "Негативный смайл" maxlength = "40" required>
+					<input type = "submit"  class = 'content-nav' value = "Далее">
+				</form>
+				<div id = "plus-minus">
+					<input type = "button" id = "plus" value = "+">
+					<input type = "button" id = "minus" value = "-">
+				</div>
+			</div>
+			<div class = "content" id = "scene3">
+				<h2>Теория</h2>
+			</div>
+			<div class = "content" id = "scene4">
+				<h2 class = "name_label">Имя нейронки</h2>
+				<canvas id = "draw" width = "500" height = "500"></canvas>
+				<div class = "content-nav">
+					<input type = "button" id = "add_to_sample" value = "Добавить в выборку">
+					<input type = "button" value = "Спросить">
+					<input type = "button" id = "clear" value = "Очистить холст">
+				</div>
+				<!--Обучающая выборка-->
+				<div class = "content-nav">
+					<!--<input type = "button" value = "Обучить">-->
+					<input type = "button" value = "Выйти">
+				</div>
+			</div>
+		</div>
+		<div id = "auth">
+			<form id = "auth-form">
+				<span>Логин: <input type = "text" id = "login" required></span>
+				<span>Пароль: <input type = "password" id = "pass" required></span>
+				<div class = "buttons">
+					<input type = "submit" value = "Войти" formaction = "http://127.0.0.1:3000/login">
+					<input type = "submit" value = "Зарегистрироваться" formaction = "http://127.0.0.1:3000/reg">
+				</div>
+			</form>
+		</div>
+		<div id = "push_message-wrapper">
+			<!--Тут будут push-сообщения-->
+		</div>
+	</body>
+</html>

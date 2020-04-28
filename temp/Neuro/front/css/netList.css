@@ -1,0 +1,38 @@
+
+#net_list{
+   width: 100%;
+   margin: 0;
+}
+#net_list > li{
+   display: block;
+   width: calc(100% - 80px);
+   margin: 20px 0;
+   padding: 20px;
+   background: var(--blue1);
+
+   display: flex;
+   justify-content: space-between;
+   flex-direction: column;
+}
+#net_list .left_side{
+   display: flex;
+   justify-content: space-between;
+}
+#net_list h2{
+   margin: 5px;
+}
+#net_list .right_side ul{
+   width: calc(100% - 40px);
+   display: flex;
+   flex-wrap: wrap;
+}
+#net_list .right_side ul li{
+   display: block;
+   margin: 5px;
+   padding: 5px 10px;
+   border-radius: 5px;
+   background: var(--mainBlue);
+}
+#net_list .del{
+   background: #822;
+}

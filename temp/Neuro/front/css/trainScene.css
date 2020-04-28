@@ -1,0 +1,8 @@
+#scene4 canvas{
+   background: var(--blue1);
+}
+#scene4 .content-nav{
+   position: relative;
+   top: 0;
+   bottom: 0;
+}

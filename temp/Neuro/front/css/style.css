@@ -1,0 +1,112 @@
+:root{
+	--mainBlue:rgba(0, 0, 0, 0.6);
+	--blue1: #104;
+	--blue2: #04295E;
+	--blue3: #3582B9;
+	--white: #F5EBFF;
+	--yellow: #EBF02C;
+}
+body{
+	margin: 0;
+	height: 100vh;
+	background: var(--blue1);
+	overflow-x: hidden;
+}
+#background{
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+#root{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+#push_message-wrapper{
+	position: fixed;
+	bottom: 0px;
+	width: 120px;
+	height: calc(100% - 430px);
+	overflow: hidden;
+	color: var(--yellow);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 30px;
+}
+.push_message-content{
+	width: 80px;
+	height: 20px;
+	padding: 20px;
+	margin-top: 10px;
+	background: var(--mainBlue);
+	transition: 1s;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+#netList li{
+		width: 80%;
+}
+nav{
+	position: fixed;
+	top: 30px;
+	left: 30px;
+}
+nav ul{
+	margin: 0;
+	padding: 0;
+}
+nav ul li{
+	width: 80px;
+	height: 20px;
+	padding: 20px;
+	margin: 0;
+	margin-bottom: 10px;
+	cursor: pointer;
+	color: var(--yellow);
+	background: var(--mainBlue);
+	font-size: 18px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+nav ul li:hover, nav ul li.active{
+	background: rgba(0, 0, 0, 1);
+}
+.content{
+	position: absolute;
+	left: 180px;
+	width: calc(100% - 250px);
+	min-width: 500px;
+	min-height: calc(100% - 100px);
+	padding: 20px;
+	margin: 30px 0;
+	color: var(--yellow);
+	background: var(--mainBlue);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+.content:not(.active){
+	display: none;
+}
+.content-nav{
+	position: absolute;
+	bottom: 20px;
+	margin: 0 !important;
+}
+#scene2 #train_objects{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
