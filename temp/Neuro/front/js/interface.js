@@ -11,7 +11,7 @@
 		setInterface(list);
 	})
 	.catch((err)=>{
-		loginShow();
+		loginShow()
 		console.log(err.message)
 	});
 	const auth = document.querySelector("#auth"); //Регистрация и авторизация
@@ -111,7 +111,8 @@
 		let login = document.querySelector("#login").value;
 		let password = document.querySelector("#pass").value;
 		auth.style.display = "none";
-		goAuth(e.submitter.formAction, login, password)
+		let path = e.submitter.formAction.split("/").pop();
+		goAuth(path, login, password)
 		.then((msg)=>{
 			pushMessage(msg.message);
 			return getNetList()

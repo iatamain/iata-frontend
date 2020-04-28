@@ -89,7 +89,7 @@ async function fastFetch(path, method, body){
 	  }else{
 		  link = testPath + path;
 	  }
-      
+
    }
    return fetch(link, params);
 }
