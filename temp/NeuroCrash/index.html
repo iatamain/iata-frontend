@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>НС</title>
+
+	<script src="browser.min.js"></script>
+
+	<style>
+		body{
+			width: 100vw;
+			height: 100vh;
+			overflow: hidden;
+			margin: 0;
+			background-color: #FFFFFF;
+		}
+
+		#canv {
+			background-color: white;
+			border: 4px solid #081021;
+		}
+		.phoneFrame{
+			position: relative;
+			display: block;
+			width: 360px;
+			height: 567px;
+			background-color: #333;
+			background: url(net.jpg);
+			background-size: auto 100%;
+		}
+		.modal{
+			display: none;
+			position: absolute;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.8);
+		}
+		.modal-content{
+			background-color: #2023ff;
+			margin: 15% auto;
+			padding: 20px;
+			border: 5px solid #081031;
+			color: #081031;
+			border-radius: 20px;
+			width: 80%;
+			font-weight: bold;
+		}
+		.modal-close{
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			cursor:pointer;
+		}
+		.modal-close:hover{
+			font-size: 30px;
+		}
+		ul {
+			padding-left: 0px;
+		}
+		li{
+			cursor:pointer;
+			list-style-type: none;
+			text-align:center;
+			font-size:20px;
+			padding: 10px;
+			margin: 10px 10%;;
+			border: 5px solid #081021;
+			border-radius: 20px;
+		}
+		#scene1{
+			display: none;
+			height:100%;
+		}
+		#scene2{
+			display: none;
+			position:	absolute;
+			top: 0;
+			left: 0;
+		}
+		#scene3{
+			display: none;
+			position:	absolute;
+			top: 0;
+			left: 0;
+		}
+		#scene4{
+			display: block;
+			position:	absolute;
+			top: 0;
+			left: 0;
+		}
+		.main2{
+			background-color: #2023ff;
+			margin: 5% auto;
+			padding: 20px;
+			padding-top: 0px;
+			border: 5px solid #081031;
+			color: #081031;
+			border-radius: 20px;
+			width: 80%;
+			height: 500px;
+			font-weight: bold;
+			display: flex;
+			flex-direction: column;
+		}
+		.main3{
+			background-color: #2023ff;
+			margin: 5% auto;
+			margin-left: 20px;
+			padding: 20px;
+			padding-top: 0px;
+			border: 5px solid #081031;
+			color: #081031;
+			border-radius: 20px;
+			width: 100%;
+			height: 500px;
+			font-weight: bold;
+			display: flex;
+			flex-direction: column;
+		}
+		.main4{
+			background-color: #2023ff;
+			margin: 5% auto;
+			margin-left: 20px;
+			padding: 20px;
+			padding-top: 0px;
+			border: 5px solid #081031;
+			color: #081031;
+			border-radius: 20px;
+			width: 125%;
+			height: 500px;
+			font-weight: bold;
+			display: flex;
+			flex-direction: column;
+		}
+		.main1{
+			width: 100%;
+			height: 100%;
+			flex-direction: column;
+			display: flex;
+			position: absolute;
+			top: 0;
+			justify-content: space-between
+		}
+		h1{
+			top: 0;
+			font-size: 20px;
+			text-align: center;
+		}
+		.accept{
+			 margin-top: auto; 
+		}
+	</style>
+</head>
+<body>
+	<div class = "phoneFrame">
+		<div id = "scene1">
+			<div align = "center" class = "main1">
+				<div>
+					<canvas id="canv" width = "65200px" height = "300px">Ваш браузер устарел, обновитесь.</canvas><br>
+					<input type = "button" value = "Обучить" onclick = "callModal('train')"> 
+					<input type = "button" value = "Спросить" class = "test"> 
+					<input type = "button" value = "Очистить" onclick = "d.clear()">
+					<input type = "button" value = "Обнулить сеть" class = "clearNet"><br>
+				</div>
+				<div style = "margin-bottom: 10px">
+					<input type = "button" value = "Сохранить изменения" class = "accept" onclick = "NNS[activeNNS].save()">
+					<input type = "button" value = "Выйти" class = "accept" onclick = "exit()">
+				</div>
+			</div>
+		</div>
+		<div id = "scene2">
+			<div class = "main2">
+				<h1>Я хочу, чтоб моя нейронная сеть различала: </h1>
+				<input type = "text" value = "Позитивный смайлик" id = "differentObj0"><br>
+				<input type = "text" value = "Негативный смайлик" id = "differentObj1"><br>
+				<div align = "center" id = "buttons">
+					<input type = "button" value = "+" onclick = "addInput()">
+					<input type = "button" value = "-" onclick = "disInput()"><br><br>
+					<input type = "button" value = "Создать" class = "accept" onclick = "startNeuron()">
+				</div>
+				<input type = "button" value = "Назад" class = "accept" onclick = "exit()">
+	
+			</div>
+		</div>
+		<div id = "scene3">
+			<div class = "main3">
+				<h1>Мои нейронные сети: </h1>
+				<input type = "button" value = "Первая" id = "NNSObj0"><br>
+				<input type = "button" value = "Вторая" id = "NNSOnj1"><br>
+				<input type = "button" value = "Назад" class = "accept" id="backNeurons" onclick = "exit()">
+			</div>
+		</div>
+		<div id = "scene4">
+			<div class = "main4">
+				<h1>Меню </h1>
+				<input type = "button" value = "Мои нейронные сети" onclick = "MyNeurons()"><br>
+				<input type = "button" value = "Создать" onclick = "createNeuron()"><br>
+				<input type = "button" value = "Теория" onclick = "callModal('other', 'В разработке')"><br>
+				<input type = "button" value = "Обучение" onclick = "callModal('other', 'В разработке')"><br>
+				<input type = "button" value = "Очистить все" onclick = "clearAll()"><br>
+				<input type = "button" value = "Помощь проекту" class = "accept" onclick = "callModal('other', 'Оцените нас на 100 баллов:D')">
+			</div>
+		</div>
+		<div class = "modal">
+			<div class = "modal-content">
+			<span class = "modal-close" onclick = "closeModal()">&times;</span>
+			</div>
+		</div>
+	</div>
+	<script>
+		let is_mouse_down = false;
+		let x, y;
+		class DCanvas{
+			constructor(el){
+				this.ctx = el.getContext('2d');
+				this.pixel = 13;
+				this.paintColor = "green";
+				this.is_robot_look = false;
+				
+				el.addEventListener('mousedown', (e) => {
+					is_mouse_down = true;
+					x = e.offsetX;
+					y = e.offsetY;
+					if(this.is_robot_look) this.clear();
+					this.ctx.beginPath();
+					this.ctx.fillStyle = this.paintColor;
+					this.ctx.arc(x, y, this.pixel / 2, 0, Math.PI * 2);
+					this.ctx.fill();
+					this.ctx.closePath();
+					this.ctx.beginPath();
+					this.ctx.moveTo(x, y);
+				})
+
+				el.addEventListener('mouseup', function(e) {
+					is_mouse_down = false;
+				})
+
+				el.addEventListener('mousemove', (e) => {
+					if( is_mouse_down ){
+						//x = e.x;
+						//y = e.y;
+						x = e.offsetX;
+						y = e.offsetY;
+						this.ctx.lineWidth = this.pixel;
+						this.ctx.lineCap = "round"; 
+						this.ctx.strokeStyle = this.paintColor;
+						this.ctx.lineTo(x, y);
+						this.ctx.stroke();
+						this.ctx.closePath();
+						this.ctx.beginPath();
+						this.ctx.moveTo(x, y);
+					}
+				})
+			}
+			//canv.width = 500;
+			//canv.height = 500;
+
+			drawLine(x1, y1, x2, y2, color = 'gray') {
+				this.ctx.beginPath();
+				this.ctx.strokeStyle = color;
+				this.ctx.lineJoin = 'miter';
+				this.ctx.lineWidth = 1;
+				this.ctx.moveTo(x1, y1);
+				this.ctx.lineTo(x2, y2);
+				this.ctx.stroke();
+			}
+
+			drawCell(x, y, w, h) {
+				this.ctx.fillStyle = 'blue';
+				this.ctx.strokeStyle = 'blue';
+				this.ctx.lineJoin = 'miter';
+				this.ctx.lineWidth = 1;
+				this.ctx.rect(x, y, w, h);
+				this.ctx.fill();
+			}
+
+			clear() {
+				this.ctx.clearRect(0, 0, canv.width, canv.height);
+				this.is_robot_look = false;
+			}
+			drawGrid() {
+				const w = canv.width;
+				const h = canv.height;
+				const p = w / this.pixel;
+
+				const xStep = w / p;
+				const yStep = h / p;
+
+				for( let x = 0; x < w; x += xStep )
+				{
+					this.drawLine(x, 0, x, h);
+				}
+
+				for( let y = 0; y < h; y += yStep )
+				{
+					this.drawLine(0, y, w, y);
+				}
+			}
+
+			calculate(draw = false) {
+				const w = canv.width;
+				const h = canv.height;
+				const p = w / this.pixel;
+
+				const xStep = w / p;
+				const yStep = h / p;
+
+				const vector = [];
+				let __draw = [];
+
+				for(let x = 0; x < w; x += xStep )
+				{
+					for(let y = 0; y < h; y += yStep )
+					{
+						const data = this.ctx.getImageData(x, y, xStep, yStep);
+
+						let nonEmptyPixelsCount = 0;
+						for(let i = 0; i < data.data.length; i += 4)
+						{
+							const isEmpty = (data.data[i] === 0 && data.data[i + 1] === 0 && data.data[i + 2] === 0);
+
+							if(!isEmpty)
+							{
+								nonEmptyPixelsCount += 1;
+							}
+						}
+
+						if(nonEmptyPixelsCount > 1 && draw)
+						{
+							__draw.push([x, y, xStep, yStep]);
+						}
+
+						vector.push(nonEmptyPixelsCount > 1 ? 1 : 0);
+					}
+				}
+
+				if(draw)
+				{
+					this.clear();
+					__draw.forEach((val, _d)=>{
+						this.drawCell( __draw[_d][0], __draw[_d][1], __draw[_d][2], __draw[_d][3] );
+					})
+					this.drawGrid();
+					this.is_robot_look = true;
+				}
+				return vector;
+			}
+		}
+
+		
+		const d = new DCanvas(document.getElementById('canv'));
+		if(!localStorage.getItem("Neuron")){
+			localStorage.setItem('Neuron', JSON.stringify({
+				version: 1,
+				countNNS: 0,
+				NNS:[]
+			}))
+		}
+		var tempLocalStorage = JSON.parse(localStorage.getItem("Neuron"));
+		
+		function DNet(netParam = {}, trainParam = {log: true}, name = "Default"){
+			this.netParam = netParam;
+			this.trainParam = trainParam;
+			this.name = name;
+			this.vector = [];
+			this.net  = new brain.NeuralNetwork(this.netParam);
+			this.train_data = [];
+			this.train_objects = ["Позитивный смайл", "Негативный смайл"];
+			this.train = (learnObj, otherParam) => {
+				closeModal();
+				if(otherParam == "other"){
+					callModal("other", "Идет процесс восстановления...");
+					setTimeout(()=>{
+						this.net = new brain.NeuralNetwork(this.netParam);
+						this.net.train(this.train_data, this.trainParam);
+						closeModal();
+					}, 30);
+				}else{
+					callModal("other", "Идет процесс обучения...");
+					setTimeout(()=>{
+						let train_obj = {};
+						train_obj[learnObj] = 1;
+						this.vector = d.calculate(true);
+						this.train_data.push({
+							input: this.vector,
+							output: train_obj
+						});
+						this.net = new brain.NeuralNetwork(this.netParam);
+						this.net.train(this.train_data, this.trainParam);
+						closeModal();
+					}, 30);
+				}
+			}
+			this.test = () => {
+				if(!d.is_robot_look){
+					if(this.train_data.length){
+						const result = brain.likely(d.calculate(), this.net);
+						callModal("other", `Это ${this.train_objects[result].toLowerCase()}`);
+					}else{
+						callModal("other", "Сначала нейронную сеть нужно обучить");
+					}
+				}else{
+					callModal("other", "Это рисунок только что был использован для обучения. Пожалуйста, нарисуйте новый.");
+				}
+			}
+			this.clearNet = ()=>{
+				this.train_data = [];
+			}
+			this.save = (isCreate) => {
+				tempLocalStorage.NNS[activeNNS] = {
+					paramNet: this.netParam,
+					paramTrain: this.trainParam,
+					train_data: this.train_data,
+					name: this.name,
+					train_objects: this.train_objects
+				}
+				localStorage.setItem('Neuron', JSON.stringify(tempLocalStorage));
+				if(!isCreate){
+					callModal("oter", "Сохранено");
+				}
+			}
+		}
+		
+		
+		var NNS = [];
+		var startNNSObj = {};
+		var startTrainObj = {};
+		var activeNNS = 0;
+		var startName = "default" + tempLocalStorage.countNNS;
+		function callModal(type, info){
+			let modalContent = document.querySelector(".modal-content");
+			let newP = document.createElement('p');
+			if(type == "train"){
+				if(!d.is_robot_look){
+					newP.innerHTML = "Что это?)";
+					modalContent.appendChild(newP);
+					let newUl = document.createElement('ul');
+					for(i in NNS[activeNNS].train_objects){
+						let newLi = document.createElement('li');
+						newLi.setAttribute("onclick", `NNS[${activeNNS}].train(${i})`);
+						newLi.innerHTML = NNS[activeNNS].train_objects[i];
+						newUl.appendChild(newLi); 
+					}
+					newUl.setAttribute("class", "modal-list")
+					modalContent.appendChild(newUl);
+				}else{
+					callModal("other", "Это рисунок уже был использован для обучения. Пожалуйста, нарисуйте новый.");
+				}
+			}else{
+				newP.innerHTML = info;
+				modalContent.appendChild(newP);
+			}
+			document.querySelector(".modal").style.display = "block";
+		}
+		
+		function closeModal(){
+			document.querySelector(".modal").style.display = "none";
+			document.querySelector(".modal-content").innerHTML = '<span class = "modal-close" onclick = "closeModal()">&times;</span>';
+		}
+		
+		
+		let countInp = 1;
+		function addInput(){
+			if(countInp <= 7){
+				countInp++;
+				let div = document.querySelector(".main2");
+				let nextSibling = document.querySelector("#buttons");
+				let newInp = document.createElement('input');
+				newInp.setAttribute("type", "text");
+				newInp.setAttribute("id", "differentObj"+countInp);
+				div.insertBefore(newInp, nextSibling)
+				let newBr = document.createElement('br');
+				div.insertBefore(newBr, nextSibling)
+			}
+		}
+		function disInput(){
+			if(countInp >= 2){
+				let div = document.querySelector(".main2");
+				let elem = document.querySelector("#differentObj"+countInp);
+				div.removeChild(elem.nextSibling);
+				div.removeChild(elem);
+				countInp--;
+			}
+		}
+		
+		function startNeuron(){
+			if(tempLocalStorage.countNNS < 11){
+				activeNNS = tempLocalStorage.countNNS;
+				NNS[activeNNS] = new DNet(startNNSObj);
+				for(let i = 0; i <= countInp; i++){
+					NNS[activeNNS].train_objects[i] = document.querySelector("#differentObj"+i).value;
+				}
+				for(let i = countInp; i > 0; i--){
+					disInput();
+				}
+				document.querySelector("#scene1").style.display = "block";
+				document.querySelector("#scene2").style.display = "none";
+				document.querySelector("#scene3").style.display = "none";
+				document.querySelector("#scene4").style.display = "none";
+				tempLocalStorage.countNNS++
+				NNS[activeNNS].save(true);
+			}else{
+				callModal("other", "Вы уже создали слишком много нейронных сетей. Максимум: 11");
+			}
+		}
+		function createNeuron(){
+			document.querySelector("#scene1").style.display = "none";
+			document.querySelector("#scene2").style.display = "block";
+			document.querySelector("#scene3").style.display = "none";
+			document.querySelector("#scene4").style.display = "none";
+		}
+		function openNeuron(num){
+			activeNNS = num;
+			NNS[activeNNS] = new DNet(tempLocalStorage.NNS[activeNNS].paramNet);
+			NNS[activeNNS].train_objects = [...tempLocalStorage.NNS[activeNNS].train_objects];
+			NNS[activeNNS].train_data = [...tempLocalStorage.NNS[activeNNS].train_data];
+			d.clear()
+			NNS[activeNNS].train("", "other");
+			document.querySelector("#scene1").style.display = "block";
+			document.querySelector("#scene2").style.display = "none";
+			document.querySelector("#scene3").style.display = "none";
+			document.querySelector("#scene4").style.display = "none";
+		}
+		
+		function exit(){
+			document.querySelector("#scene1").style.display = "none";
+			document.querySelector("#scene2").style.display = "none";
+			document.querySelector("#scene3").style.display = "none";
+			document.querySelector("#scene4").style.display = "block";
+		}
+		function MyNeurons(){
+			document.querySelector("#scene1").style.display = "none";
+			document.querySelector("#scene2").style.display = "none";
+			document.querySelector("#scene3").style.display = "block";
+			document.querySelector("#scene4").style.display = "none";
+			document.querySelector(".main3").innerHTML= '<h1>Мои нейронные сети: </h1><input type = "button" value = "Назад" class = "accept" id="backNeurons" onclick = "exit()">'
+			if(tempLocalStorage.countNNS){
+				let nextSibling = document.querySelector("#backNeurons");
+				let parentElem = document.querySelector(".main3");
+				for(var i = 0; i < tempLocalStorage.countNNS; i++){
+					let elem = document.createElement("input");
+					elem.setAttribute("type", "button");
+					elem.setAttribute("onclick", `openNeuron(${i})`);
+					elem.setAttribute("value", `${tempLocalStorage.NNS[i].name} ${i + 1}`);
+					parentElem.insertBefore(elem, nextSibling);
+					elem = document.createElement("br");
+					parentElem.insertBefore(elem, nextSibling);
+				}
+			}else{
+				document.querySelector(".main3").innerHTML= '<h1>Мои нейронные сети: </h1><br><p align = "center">У вас еще нет нейронных сетей</p><input type = "button" value = "Назад" class = "accept" id="backNeurons" onclick = "exit()">'
+				document.querySelector(".main3").style.width = "90%";
+			}
+		}
+		function clearAll(){
+			delete localStorage["Neuron"];
+			localStorage.setItem('Neuron', JSON.stringify({
+				version: 1,
+				countNNS: 0,
+				NNS:[]
+			}))
+			tempLocalStorage = {
+				version: 1,
+				countNNS: 0,
+				NNS:[]
+			};
+			callModal("oter", "Очищено");
+		}
+		document.querySelector(".test").addEventListener("click",() => NNS[activeNNS].test());
+		document.querySelector(".clearNet").addEventListener("click",() => NNS[activeNNS].clearNet());
+		document.addEventListener('keypress', function(e) {
+			if( e.key.toLowerCase() == 'c' ) d.clear();
+			if( e.key.toLowerCase() == 'v' ) callModal();
+			if( e.key.toLowerCase() == 'b' ) NNS[activeNNS].test(); 
+		});
+		/*
+		{
+					NNSNet: 0,
+					paramNet: 0,
+					paramTrain: 0,
+					name: "Default"
+				}
+		*/
+	</script>
+</body>
+</html>
