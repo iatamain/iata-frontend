@@ -9,7 +9,7 @@ async function testToken(){
    	})
 }
 function deleteNet(id){
-	return fastFetch("deleteNet/"+id, "post")
+	return fastFetch("deleteNet/"+id, "delete")
 	.then((data)=>{
       if(data.ok){
          return data.json();
@@ -78,7 +78,7 @@ async function fastFetch(path, method, body){
    if(body){
       params.body = JSON.stringify(body);
    }
-   let testPath = "http://127.0.0.1:3000/";
+   let testPath = "http://127.0.0.1:3001/";
    let prodPath = "http://itracers.xyz:3001/"
    let link = null
    if(path.indexOf("http") == 0){

@@ -58,5 +58,6 @@ clearBtn.addEventListener("click", ()=>{
 let trainVector = [];
 let addToSampleBtn = document.querySelector("#add_to_sample");
 addToSampleBtn.addEventListener("click", ()=>{
-
+   console.log("test")
 })
+let exit = document.querySelector("#out_draw");

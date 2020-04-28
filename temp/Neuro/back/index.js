@@ -30,11 +30,11 @@ start();
 app.use(urlencodedParser, (req, res, next)=>{
 	res.header("Access-Control-Allow-Origin", "*");
 //	res.header("Access-Control-Allow-Headers", "Content-Type");
+	res.header("Access-Control-Allow-Methods", "*");
 	res.header("Access-Control-Allow-Headers", "*");
 	if(req.method == "OPTIONS"){
 		return res.status(200).send('ok');
 	}
-	const token = req.headers.authorization
 	next();
 })
 app.post('/test', (req, res) => {
@@ -147,7 +147,7 @@ app.post('/createNet', auth, (req, res)=>{
 		res.status(400).send({message: "Создать не удалось :с"})
 	})
 })
-app.post('/deleteNet/:id', auth, (req, res)=>{
+app.delete('/deleteNet/:id', auth, (req, res)=>{
 	console.log("Удаляем", req.params.id);
 	Net.deleteOne( {"_id": Types.ObjectId(req.params.id)})
 	.then((e)=>{
