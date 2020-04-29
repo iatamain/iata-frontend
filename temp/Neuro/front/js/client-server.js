@@ -79,7 +79,7 @@ async function fastFetch(path, method, body){
       params.body = JSON.stringify(body);
    }
    let testPath = "http://127.0.0.1:3075/";
-   let prodPath = "https://itracers.xyz:3075/"
+   let prodPath = "https://itracers.xyz:3705/"
    let link = null
    if(path.indexOf("http") == 0){
       link = path;
