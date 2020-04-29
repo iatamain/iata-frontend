@@ -1,5 +1,5 @@
 {
-	let netArray = {};
+	var netArray = {}; //Наполняется тут, используется в draw.js -> openNet();
 	testToken().then((val)=>{
 		return getNetList()
 	})
@@ -19,14 +19,6 @@
 	function loginShow(){
 		auth.style.display = "block";
 		root.style.display = "none";
-	}
-	function openNet(id){
-		let trainScene = document.querySelector("#scene4");
-		let lastActive = document.querySelector(".content.active");
-		lastActive.classList.remove("active");
-		trainScene.classList.add("active");
-		let name_label = trainScene.querySelector(".name_label");
-		name_label.innerHTML = netArray[id].name;
 	}
 	function setList(list, mode){
 		let netList = document.querySelector("#net_list");
@@ -221,7 +213,7 @@
 			});
 		}
 		if(e.target.className == "open"){ //Открытие нейронки
-			openNet(e.target.dataset.id)
+			openNet(e.target.dataset.id) //В draw.js
 		}
 	})
 }
