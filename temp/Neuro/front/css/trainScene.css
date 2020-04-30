@@ -6,3 +6,9 @@
    top: 0;
    bottom: 0;
 }
+#ask{
+   display:none;
+}
+#draw-nav{
+   display: none;
+}

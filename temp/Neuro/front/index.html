@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="css/inputs.css">
 		<link rel="stylesheet" href="css/auth.css">
 		<link rel="stylesheet" href="css/netList.css">
+		<link rel="stylesheet" href="css/popup.css">
 		<link rel="stylesheet" href="css/trainScene.css">
 		<script src="libs/brain.js" defer></script>
 		<script src="js/client-server.js" defer></script>
@@ -16,8 +17,8 @@
 		<script src="js/interface.js" defer></script>
 	</head>
 	<body>
-		<canvas id = "background"></canvas>
 		<div id = "root">
+			<canvas id = "background"></canvas>
 			<nav>
 				<ul>
 					<!--<li data-scene="scene1">Мои нейронки</li>-->
@@ -52,15 +53,15 @@
 			<div class = "content" id = "scene4">
 				<h2 class = "name_label">Имя нейронки</h2>
 				<canvas id = "draw" width = "500" height = "500"></canvas>
-				<div class = "content-nav">
+				<div id = "draw-nav" class = "content-nav">
 					<input type = "button" id = "add_to_sample" value = "Добавить в выборку">
-					<input type = "button" value = "Спросить">
 					<input type = "button" id = "clear" value = "Очистить холст">
+					<input type = "button" id = "ask" value = "Спросить">
 				</div>
 				<!--Обучающая выборка-->
 				<div class = "content-nav">
 					<!--<input type = "button" value = "Обучить">-->
-					<input type = "button" id = "out_draw" value = "Выйти">
+					<input type = "button" id = "out_draw" class = "del" value = "Назад">
 				</div>
 			</div>
 		</div>
@@ -76,6 +77,14 @@
 		</div>
 		<div id = "push_message-wrapper">
 			<!--Тут будут push-сообщения-->
+		</div>
+		<div id = "popup">
+			<div id = "popup-content">
+				<h1>Что это?:)</h1>
+				<input type="button" value="Позитивный смайлик">
+				<input type="button" value="Негативный смайлик">
+				<input type="button" class="del" value = "Отмена">
+			</div>
 		</div>
 	</body>
 </html>

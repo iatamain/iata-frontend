@@ -1,5 +1,6 @@
 {
 	var netArray = {}; //Наполняется тут, используется в draw.js -> openNet();
+	var curId = null;
 	testToken().then((val)=>{
 		return getNetList()
 	})
@@ -14,6 +15,27 @@
 		loginShow()
 		console.log(err.message)
 	});
+	function showPopup(type){
+		if(type == "objects"){
+			document.querySelector("#root").style.filter = "blur(20px)";
+			document.querySelector("#popup").style.display = "block";
+
+			document.querySelector("#popup-content").innerHTML = `
+				<h1>Что это?)</h1>
+				${
+					netArray[curId].trainObj.reduce((acc, trainElem)=>{
+						return acc + `<input type="button" value = "${trainElem}">`
+					}, '')
+				}
+				<input type="button" class="del" value = "Отмена">
+			`
+			document.querySelector("#popup-content").scrollTo(pageXOffset, 0);
+		}
+	}
+	function closePopup(){
+		document.querySelector("#root").style.filter = "blur(0px)";
+		document.querySelector("#popup").style.display = "none";
+	}
 	const auth = document.querySelector("#auth"); //Регистрация и авторизация
 	const root = document.querySelector("#root");
 	function loginShow(){
@@ -213,7 +235,14 @@
 			});
 		}
 		if(e.target.className == "open"){ //Открытие нейронки
+			curId = e.target.dataset.id;
 			openNet(e.target.dataset.id) //В draw.js
+		}
+	})
+	let popup = document.querySelector("#popup");
+	popup.addEventListener("click", (e)=>{
+		if(e.target.className == "del"){
+			closePopup();
 		}
 	})
 }

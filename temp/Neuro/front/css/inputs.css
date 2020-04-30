@@ -21,6 +21,9 @@ input[type="button"], input[type="submit"]{
 	min-width: 40px;
 	min-height: 40px;
 }
+input[type="button"].del, input[type="submit"].del{
+   background: var(--red);
+}
 
 input[type="button"]:hover, input[type="submit"]:hover{
 	transform: scale(1.1);

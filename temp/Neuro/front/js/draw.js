@@ -8,6 +8,7 @@ let isFirstClick = true;
 
 canvas.addEventListener("mousedown", (e)=>{
    if(isFirstClick){
+      document.querySelector("#draw-nav").style.display = "block";
       isFirstClick = false;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
    }
@@ -57,16 +58,21 @@ canvas.addEventListener("mousemove", (e)=>{
 })
 let clearBtn = document.querySelector("#clear");
 clearBtn.addEventListener("click", ()=>{
+   openNet(curId); //Обнулить все на сцене
    ctx.clearRect(0, 0, canvas.width, canvas.height);
 })
 
 let trainVector = [];
 let addToSampleBtn = document.querySelector("#add_to_sample");
 addToSampleBtn.addEventListener("click", ()=>{
-   console.log("test")
+   showPopup("objects");
 })
-let exit = document.querySelector("#out_draw");
-exit.addEventListener("click", ()=>{
+let askBtn = document.querySelector("#ask");
+askBtn.addEventListener("click",()=>{
+   alert("Сначала нужно обучить");
+});
+let outBtn = document.querySelector("#out_draw");
+outBtn.addEventListener("click", ()=>{
    ctx.clearRect(0, 0, canvas.width, canvas.height);
    let curScene = document.querySelector(".content.active");
    curScene.classList.remove("active");
@@ -75,6 +81,7 @@ exit.addEventListener("click", ()=>{
 })
 
 function openNet(id){
+   document.querySelector("#draw-nav").style.display = "none";
    let trainScene = document.querySelector("#scene4");
    let lastActive = document.querySelector(".content.active");
    lastActive.classList.remove("active");
