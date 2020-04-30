@@ -35,7 +35,7 @@
 				<h2>Имя нейронной сети:</h2>
 				<input id = "name" type = "text" value = "Деревяшка" maxlength = "16"></input>
 				<h2 id = "difHeader">Я хочу, чтоб Деревяшка различала:</h2>
-				<form id = "train_objects">
+				<form id = "train_objects" autocomplete="off">
 					<input type = "text" value = "Позитивный смайл" maxlength = "40" required>
 					<input type = "text" value = "Негативный смайл" maxlength = "40" required>
 					<input type = "submit"  class = 'content-nav' value = "Далее">
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<div id = "auth">
-			<form id = "auth-form">
+			<form id = "auth-form" autocomplete="on">
 				<span>Логин: <input type = "text" id = "login" required></span>
 				<span>Пароль: <input type = "password" id = "pass" required></span>
 				<div class = "buttons">
