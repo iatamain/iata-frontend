@@ -65,11 +65,11 @@
 		</div>
 		<div id = "auth">
 			<form id = "auth-form" autocomplete="on">
-				<span>Логин: <input type = "text" id = "login" required></span>
-				<span>Пароль: <input type = "password" id = "pass" required></span>
+				<span>Логин: <input type = "text" id = "login" autocomplete="username" required></span>
+				<span>Пароль: <input type = "password" id = "pass" autocomplete="current-password" required></span>
 				<div class = "buttons">
-					<input type = "submit" value = "Войти" formaction = "./login" autocomplete="username">
-					<input type = "submit" value = "Зарегистрироваться" formaction = "./reg" autocomplete="current-password">
+					<input type = "submit" value = "Войти" formaction = "./login" >
+					<input type = "submit" value = "Зарегистрироваться" formaction = "./reg">
 				</div>
 			</form>
 		</div>
