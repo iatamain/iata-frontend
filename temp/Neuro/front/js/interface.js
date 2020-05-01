@@ -24,7 +24,7 @@
 				<h1>Что это?)</h1>
 				${
 					netArray[curId].trainObj.reduce((acc, trainElem)=>{
-						return acc + `<input type="button" value = "${trainElem}">`
+						return acc + `<input type="button" data-obj = "${trainElem}" value = "${trainElem}">`
 					}, '')
 				}
 				<input type="button" class="del" value = "Отмена">
@@ -32,7 +32,7 @@
 			document.querySelector("#popup-content").scrollTo(pageXOffset, 0);
 		}
 	}
-	function closePopup(){
+	function hidePopup(){
 		document.querySelector("#root").style.filter = "blur(0px)";
 		document.querySelector("#popup").style.display = "none";
 	}
@@ -242,7 +242,7 @@
 	let popup = document.querySelector("#popup");
 	popup.addEventListener("click", (e)=>{
 		if(e.target.className == "del"){
-			closePopup();
+			hidePopup();
 		}
 	})
 }

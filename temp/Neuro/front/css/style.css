@@ -73,14 +73,17 @@ nav ul li{
 	color: var(--yellow);
 	background: var(--mainBlue);
 	font-size: 18px;
-
+	transition: 0.5s;
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+
 }
 nav ul li:hover, nav ul li.active{
 	background: rgba(0, 0, 0, 1);
+	transition: 0.5s;
 }
 .content{
 	position: absolute;

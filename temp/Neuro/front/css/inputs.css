@@ -20,16 +20,20 @@ input[type="button"], input[type="submit"]{
 	cursor: pointer;
 	min-width: 40px;
 	min-height: 40px;
+	transform: scale(1);
+	transition: 0.2s;
 }
 input[type="button"].del, input[type="submit"].del{
    background: var(--red);
 }
 
 input[type="button"]:hover, input[type="submit"]:hover{
-	transform: scale(1.1);
+	transform: scale(1.05);
+	transition: 0.2s;
 }
 input[type="button"]:active, input[type="submit"]:active{
-	transform: scale(1.15);
+	transform: scale(1.1);
+	transition: 0.2s;
 }
 input[type="button"]:focus, input[type="submit"]:focus{
 	outline: none;

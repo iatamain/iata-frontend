@@ -6,9 +6,36 @@
    top: 0;
    bottom: 0;
 }
+#data_container{
+   display: none; 
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+#data_container .wrapper{
+   position: relative;
+   margin: 10px;
+}
+#data_container .del{
+   position: absolute;
+   top: 0;
+   right: 0;
+   margin: 0;
+   padding: 0;
+   min-width: 20px;
+   min-height: 20px;
+   border-bottom-left-radius: 5px;
+   display: none;
+}
+#data_container .wrapper:hover .del{
+   display: inline-block;
+}
 #ask{
    display:none;
 }
 #draw-nav{
+   display: none;
+}
+#train{
    display: none;
 }

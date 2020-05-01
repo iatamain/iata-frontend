@@ -3,18 +3,19 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Machine learning is easy</title>
-		<link rel="icon" href="favicon.ico">
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="css/inputs.css">
-		<link rel="stylesheet" href="css/auth.css">
-		<link rel="stylesheet" href="css/netList.css">
-		<link rel="stylesheet" href="css/popup.css">
-		<link rel="stylesheet" href="css/trainScene.css">
-		<script src="libs/brain.js" defer></script>
-		<script src="js/client-server.js" defer></script>
-		<script src="js/background.js" defer></script>
-		<script src="js/draw.js" defer></script>
-		<script src="js/interface.js" defer></script>
+		<link rel = "icon" href="favicon.ico">
+		<link rel = "stylesheet" href="css/style.css">
+		<link rel = "stylesheet" href="css/inputs.css">
+		<link rel = "stylesheet" href="css/auth.css">
+		<link rel = "stylesheet" href="css/netList.css">
+		<link rel = "stylesheet" href="css/popup.css">
+		<link rel = "stylesheet" href="css/trainScene.css">
+		<script src = "libs/brain.js" defer></script>
+		<script src = "js/color.js" defer></script>
+		<script src = "js/client-server.js" defer></script>
+		<script src = "js/background.js" defer></script>
+		<script src = "js/draw.js" defer></script>
+		<script src = "js/interface.js" defer></script>
 	</head>
 	<body>
 		<div id = "root">
@@ -22,9 +23,9 @@
 			<nav>
 				<ul>
 					<!--<li data-scene="scene1">Мои нейронки</li>-->
-					<li data-scene="scene2">Создать</li>
-					<li data-scene="scene3">Теория</li>
-					<li data-scene="logout">Выход</li>
+					<li data-scene = "scene2">Создать</li>
+					<li data-scene = "scene3">Теория</li>
+					<li data-scene = "logout">Выход</li>
 				</ul>
 			</nav>
 			<div class = "content" id = "scene1">
@@ -58,9 +59,12 @@
 					<input type = "button" id = "clear" value = "Очистить холст">
 					<input type = "button" id = "ask" value = "Спросить">
 				</div>
-				<!--Обучающая выборка-->
+				<h2 id = "label_data_container">Обучающая выборка:</h2>
+				<div id = "data_container">
+					<!--[<div><img><input></div>]-->
+				</div>
 				<div class = "content-nav">
-					<!--<input type = "button" value = "Обучить">-->
+					<input type = "button" id = "train"  value = "Обучить">
 					<input type = "button" id = "out_draw" class = "del" value = "Назад">
 				</div>
 			</div>
