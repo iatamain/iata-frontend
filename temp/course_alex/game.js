@@ -45,6 +45,15 @@ let maps = {
     _Vanna: false
 }
 
+let interior = {
+    apple: './image/Interer/apple.png',
+    collander: './image/Interer/Colander.png',
+    toilet: './image/Interer/Toilet.png',
+    bed: './image/Interer/Bed.png',
+    table: './image/Interer/Table.png',
+    lamp: './image/Interer/lamp.png'
+}
+
 
 //Mouse pictures
 let mousePictures = [
@@ -169,7 +178,7 @@ function start() {
     // photo.src = localStorage.url;
     // let parrent = document.querySelector('body');
     // parrent.appendChild(photo);
-    
+
 
 
     mouse.src = localStorage.url;
@@ -214,20 +223,54 @@ function playGame() {
     }
     
     function render(){     
-        console.log('Start render');
+       // console.log('Start render');
 
         // let photo = document.querySelector('#photo');
         let map_now = new Image();
 
         if(maps._Spalnia) {
             map_now.src = maps.map_Spalnia_base;
+            let bed = new Image();
+            let table = new Image();
+            let lamp = new Image();
+
+            lamp.src = interior.lamp;
+            table.src = interior.table;
+            bed.src = interior.bed;
+
+            ctx.drawImage(map_now, 0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(bed, 100 , player.y - 95, 350, 350);
+            ctx.drawImage(table, 450 , player.y - 50, 350, 350);
+            ctx.drawImage(lamp, 550 , player.y, 150, 150);
         } else if(maps._Vanna) {
             map_now.src = maps.map_Vanna;
+            let collander = new Image();
+            let toilet = new Image();
+
+            collander.src = interior.collander;
+            toilet.src = interior.toilet;
+
+            ctx.drawImage(map_now, 0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(collander, 100 , player.y - 250, 200, 200);
+            ctx.drawImage(toilet, canvas.width - 300 , player.y - 75, 350, 350);
         } else if(maps._Kuhnya) {
             map_now.src = maps.map_Kuhnya;
+            let table = new Image();
+            let food = new Image();
+
+            table.src = interior.table;
+            food.src = interior.apple;
+
+            ctx.drawImage(map_now, 0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(food, canvas.width - 400 , player.y + 40, 100, 100);
+            ctx.drawImage(table, canvas.width - 500 , player.y - 50, 350, 350);
+
         }
 
-        ctx.drawImage(map_now, 0, 0, canvas.width, canvas.height);
+        
         ctx.drawImage(mouse, player.x, player.y, player.size, player.size);
 
 
