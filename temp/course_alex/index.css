@@ -1,0 +1,50 @@
+h1{
+	text-align:center;
+	font-size:50px;
+	color:#790018;
+}
+body{
+	background-image: url(image/Interer/Fon.jpg);
+}
+button{
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 300px;
+	height:100px;
+	font-size:45px;
+	font-family: Times New Roman;
+	border-radius: 20px;
+	border:2px solid #BF306F;
+	text-transform: uppercase;
+	margin: 205px 0 0 0px;
+	
+	color:#3D1575;
+}
+button:hover{
+	border:40px solid wite;
+	color: #897D6D;
+}
+#description {
+	color:white;
+	font-size:40px;
+	width: 500px;
+	height:200px;
+	text-align:center;
+	margin: 50px 0 0 500px;
+	
+	display: flex;
+	flex-direction:column;
+	
+	align-items:center;
+	
+	height:20vh;
+	margin-left:34%;
+	margin-right:0%;
+	
+	border: 2px solid black;
+	background-color: black;
+	opacity: 0.5;
+	
+	font-family: Vetka;
+}
