@@ -8,6 +8,19 @@ async function testToken(){
          }
    	})
 }
+async function ask(data){
+	return fastFetch("ask", "post", data)
+	.then((data)=>{
+      return data.json();
+      if(data.ok){
+         return data.json();
+      } else if(data.status == 401){
+         throw {message:"Не авторизован"};
+      } else {
+         throw {message:"Возникла ошибка"};
+      }
+	})
+}
 async function train(id){
 	return fastFetch("train", "put", id)
 	.then((data)=>{

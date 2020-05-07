@@ -76,13 +76,22 @@ addToSampleBtn.addEventListener("click", ()=>{
 
 const askBtn = document.querySelector("#ask");
 askBtn.addEventListener("click",()=>{
-   alert("Сначала нужно обучить");
+   const data = processImage();
+   drawGrid(ctx, data);
+   isFirstClick = true;
+   showPopup("Идет обработка, нужно немного подождать.");
+   ask({_id: curId, data: data.input.flat()})
+   .then((ans)=>{
+      showPopup(`Вероятно, нарисован ${ans.message}.`);
+      console.log(ans);
+   })
+   .catch((err)=>{
+      console.log(err.message);
+      pushMessage(err.message);
+   });
 });
-
 const outBtn = document.querySelector("#out_draw"); //Выход из режима обучения
 outBtn.addEventListener("click", ()=>{
-   ctx.fillStyle = bgColor;
-   ctx.fillRect(0, 0, canvas.width, canvas.height);
    const curScene = document.querySelector(".content.active");
    curScene.classList.remove("active");
    const newScene = document.querySelector("#scene1")
@@ -92,7 +101,11 @@ outBtn.addEventListener("click", ()=>{
 const popupContent = document.querySelector("#popup-content");
 popupContent.addEventListener("click", (e)=>{
    if(e.target.dataset.obj){
-      processImage(e.target.dataset.obj);
+      const trainData = processImage(e.target.dataset.obj);
+      hidePopup();
+      drawGrid(ctx, trainData);
+      addTrainData(trainData);
+      isFirstClick = true;
    }
 })
 
@@ -125,9 +138,10 @@ delDataBtn.addEventListener("click", (e)=>{
 const trainBtn = document.querySelector("#train");
 trainBtn.addEventListener("click", ()=>{
    setState(6);
-   pushMessage("Идет процесс обучения...")
+   showPopup("Процесс обучения начат, нужно немного подождать.");
    train({_id: curId})
    .then((ans)=>{
+      showPopup("Нейронная сеть обучена. Теперь вы можете поставить ей задачу распознавания.");
       netArray[curId].isTrain = true;
       pushMessage(ans.message);
    })
@@ -163,10 +177,7 @@ function processImage(trainObj){
          [trainObj]: 1
       },
    }
-   hidePopup();
-   drawGrid(ctx, trainData);
-   addTrainData(trainData);
-   isFirstClick = true;
+   return trainData;
 }
 function addTrainData(data){
    sendTrainData({
@@ -177,7 +188,9 @@ function addTrainData(data){
       setState(4);
       document.querySelector("#data_container").innerHTML += `
       <div class = "wrapper">
-         <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${Object.keys(data.output)[0]}" title = "${Object.keys(data.output)[0]}">
+         <a download="${Object.keys(data.output)[0]}.png" href="${canvas.toDataURL().replace("image/png", "image/octet-stream")}">
+            <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${Object.keys(data.output)[0]}" title = "${Object.keys(data.output)[0]}">
+         </a>
          <input type = "button" class = "del" data-id = "${netArray[curId].trainData.length}" value = "x">
       </div>`;
       netArray[curId].trainData.push(data);
@@ -187,6 +200,11 @@ function addTrainData(data){
       console.log(err.message);
       pushMessage(err.message);
    })
+
+}
+function debugBase64(base64URL){
+    var win = window.open();
+    win.document.write(`<iframe src="${base64URL}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
 
 }
 function setImages(){
@@ -199,7 +217,9 @@ function setImages(){
       drawGrid(ctx, data);
       document.querySelector("#data_container").innerHTML  += `
          <div class = "wrapper">
-            <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${Object.keys(data.output)[0]}" title = "${Object.keys(data.output)[0]}">
+            <a download="${Object.keys(data.output)[0]}.png" href="${canvas.toDataURL().replace("image/png", "image/octet-stream")}">
+               <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${Object.keys(data.output)[0]}" title = "${Object.keys(data.output)[0]}">
+            </a>
             <input type = "button" class = "del" data-id = "${i}" value = "x">
          </div>
       `
@@ -250,6 +270,8 @@ function openNet(id){
    trainScene.classList.add("active");
    const name_label = trainScene.querySelector(".name_label");
    name_label.innerHTML = netArray[id].name;
+   ctx.fillStyle = bgColor;
+   ctx.fillRect(0, 0, canvas.width, canvas.height);
    ctx.fillStyle = lineColor;
    ctx.font = "italic 30pt Arial";
    ctx.fillText("Клик", canvas.width/2 - 30, canvas.height/2 - 0);

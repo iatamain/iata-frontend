@@ -19,7 +19,6 @@
 		if(type == "objects"){
 			document.querySelector("#root").style.filter = "blur(20px)";
 			document.querySelector("#popup").style.display = "block";
-
 			document.querySelector("#popup-content").innerHTML = `
 				<h1>Что это?)</h1>
 				${
@@ -30,6 +29,14 @@
 				<input type="button" class="del" value = "Отмена">
 			`
 			document.querySelector("#popup-content").scrollTo(pageXOffset, 0);
+		}else{
+			let msg = type;
+			document.querySelector("#root").style.filter = "blur(20px)";
+			document.querySelector("#popup").style.display = "block";
+			document.querySelector("#popup-content").innerHTML = `
+				<h1 align="center">${msg}</h1>
+				<input type="button" class="close" value = "Ок">
+			`
 		}
 	}
 	function hidePopup(){
@@ -241,7 +248,7 @@
 	})
 	let popup = document.querySelector("#popup");
 	popup.addEventListener("click", (e)=>{
-		if(e.target.className == "del"){
+		if(e.target.className == "del" || e.target.className == "close"){
 			hidePopup();
 		}
 	})

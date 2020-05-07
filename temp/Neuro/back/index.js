@@ -152,6 +152,9 @@ app.delete('/deleteNet/:id', auth, (req, res)=>{
 	console.log("Удаляем", req.params.id);
 	Net.deleteOne( {"_id": Types.ObjectId(req.params.id)})
 	.then((e)=>{
+		return JsonNet.deleteOne( {"ownerNet": Types.ObjectId(req.params.id)})
+	})
+	.then(()=>{
 		res.status(200).send({message: "Удалено!"});
 	})
 	.catch((err)=>{
@@ -225,6 +228,24 @@ app.put('/train', auth, (req, res)=>{
 	})
 	.catch((err)=>{
 		//сonsole.log("Ошибка: ", err);
+		console.log("Ошибочка", err)
+		res.status(400).send({message: err});
+	})
+})
+app.post('/ask', auth, (req, res)=>{
+	const {_id, data} = req.body;
+	JsonNet.findOne({ownerNet: _id, ownerUser: req.user.userId})
+	.then((jsonNet)=>{
+			if(jsonNet){
+				jsonNet = JSON.parse(jsonNet.net);
+				const net = new brain.NeuralNetwork();
+				net.fromJSON(jsonNet);
+				res.status(200).send({message: brain.likely(data, net), info: net.run(data)});
+			}else{
+				throw {message: "Сеть не обучена"};
+			}
+	})
+	.catch((err)=>{
 		console.log("Ошибочка", err)
 		res.status(400).send({message: err});
 	})
