@@ -12,8 +12,6 @@ const app = express();
 const {Types} = mongoose;
 const urlencodedParser = bodyParser.json();
 
-
-
 async function start(){
 	mongoose.connect(mongoUrl, {
 		useNewUrlParser: true,
@@ -184,14 +182,13 @@ app.delete('/removeTrainData', auth, (req, res)=>{
 })
 app.post('/train', auth, (req, res)=>{
 	let {_id} = req.body;
-	console.log(_id, req.body) //Убрать
 	const net = new brain.NeuralNetwork();
 	Net.findOne({_id, owner: req.user.userId})
 	.then((foundNet)=>{
 		//Начинаем обучать
 		let trainData = foundNet.trainData;
 		trainData.forEach((val, i)=>{
-			trainData[i].input = trainData[i].input.flat();
+			trainData[i].input = trainData[i].input.reduce((acc, val)=>acc.concat(val), []);
 		})
 		return net.trainAsync(trainData);
 	})
