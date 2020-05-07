@@ -32,6 +32,7 @@ const schema = new Schema({
 	trainData: {type: Array, default: []}, //Нормализованные данные
    trainObj: {type: Array}, //То, что будет различать нейронка
    isTrain: {type: Boolean, default: false},
+	jsonNet: {type: Types.ObjectId, ref: 'jsonNet'}, //Обученная сеть
    name: {type: String},
    owner: {type: Types.ObjectId, ref: 'User'}
 })

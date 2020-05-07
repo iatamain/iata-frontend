@@ -128,7 +128,7 @@ trainBtn.addEventListener("click", ()=>{
    pushMessage("Идет процесс обучения...")
    train({_id: curId})
    .then((ans)=>{
-      setState(7);
+      netArray[curId].isTrain = true;
       pushMessage(ans.message);
    })
    .catch((err)=>{
@@ -240,6 +240,9 @@ function drawGrid(ctx, data){
 }
 function openNet(id){
    setState(1);
+   if(netArray[id].isTrain){
+      setState(7);
+   }
    setImages();
    const trainScene = document.querySelector("#scene4");
    const lastActive = document.querySelector(".content.active");
@@ -258,6 +261,7 @@ function setState(state){
       document.querySelector("#label_data_container").style.display = "none";
       document.querySelector("#data_container").style.display = "none";
       document.querySelector("#train").style.display = "none";
+      document.querySelector("#ask").style.display = "none";
    }
    if(state == 2){ //При очистке холста
       document.querySelector("#draw-nav").style.display = "none";
@@ -265,13 +269,16 @@ function setState(state){
    if(state == 3){ //При первом клике на канвас
       document.querySelector("#draw-nav").style.display = "block";
       document.querySelector("#add_to_sample").style.display = "inline-block";
+      if(netArray[curId].isTrain){
+         document.querySelector("#ask").style.display = "inline-block";
+      }
    }
    if(state == 4){ //Добавили в выборку рисунок
       document.querySelector("#add_to_sample").style.display = "none";
       document.querySelector("#label_data_container").style.display = "block";
       document.querySelector("#data_container").style.display = "flex";
       document.querySelector("#train").style.display = "inline-block";
-
+      document.querySelector("#ask").style.display = "none";
    }
    if(state == 5){ //При удалении последнего trainData
       document.querySelector("#label_data_container").style.display = "none";

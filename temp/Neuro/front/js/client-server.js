@@ -11,6 +11,7 @@ async function testToken(){
 async function train(id){
 	return fastFetch("train", "put", id)
 	.then((data)=>{
+      return data.json();
       if(data.ok){
          return data.json();
       } else if(data.status == 401){

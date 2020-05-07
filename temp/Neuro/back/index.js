@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const brain = require("./brain-browser.min.js");
 const User = require('./models/User');
 const Net = require('./models/Net');
+const JsonNet = require('./models/JsonNet');
 const auth = require('./middleware/auth.middleware')
 const {jwtSecret, mongoUrl, port} = require('./config');
 const app = express();
@@ -190,16 +191,41 @@ app.put('/train', auth, (req, res)=>{
 		trainData.forEach((val, i)=>{
 			trainData[i].input = trainData[i].input.reduce((acc, val)=>acc.concat(val), []);
 		})
-		return net.trainAsync(trainData);
+		return net.trainAsync(trainData, {log: true});
 	})
 	.then((ans)=>{
-		console.log("Обучена", ans);
-		//net.toJSON(); Доделать
-		res.status(200).send({message: "Обучили! Теперь можно спросить."});
+		return Net.updateOne({_id, owner: req.user.userId}, {
+			$set: {
+				isTrain: true,
+			}
+		})
+	})
+	.then(()=>{
+		return JsonNet.findOne({ownerNet: _id, ownerUser: req.user.userId})
+	})
+	.then((res)=>{
+		if(!res){
+			let jsonNet = new JsonNet({
+				ownerNet: _id,
+				ownerUser: req.user.userId,
+				net: JSON.stringify(net.toJSON())
+			})
+			return jsonNet.save()
+		}else{
+			return res.updateOne({ownerNet: _id, ownerUser: req.user.userId}, {
+				$set: {
+					net: JSON.stringify(net.toJSON())
+				}
+			})
+		}
+	})
+	.then(()=>{
+		console.log("Обучили нейронку и сохранили");
+		res.status(200).send({message: "Обучили!"});
 	})
 	.catch((err)=>{
-		console.log("Ошибка: ", err);
-		res.status(400).send({message: "Обучить не удалось :с"});
+		//сonsole.log("Ошибка: ", err);
+		console.log("Ошибочка", err)
+		res.status(400).send({message: err});
 	})
-	//Net.update({_id, owner: req.user.userId}, {$set: {}})
 })
