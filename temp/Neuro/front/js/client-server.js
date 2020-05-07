@@ -9,7 +9,7 @@ async function testToken(){
    	})
 }
 async function train(id){
-	return fastFetch("train", "post", id)
+	return fastFetch("train", "put", id)
 	.then((data)=>{
       if(data.ok){
          return data.json();

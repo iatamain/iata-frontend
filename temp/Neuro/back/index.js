@@ -180,7 +180,7 @@ app.delete('/removeTrainData', auth, (req, res)=>{
 		res.status(400).send({message: "Удалить не удалось :с"});
 	})
 })
-app.post('/train', auth, (req, res)=>{
+app.put('/train', auth, (req, res)=>{
 	let {_id} = req.body;
 	const net = new brain.NeuralNetwork();
 	Net.findOne({_id, owner: req.user.userId})
@@ -201,6 +201,5 @@ app.post('/train', auth, (req, res)=>{
 		console.log("Ошибка: ", err);
 		res.status(400).send({message: "Обучить не удалось :с"});
 	})
-
 	//Net.update({_id, owner: req.user.userId}, {$set: {}})
 })

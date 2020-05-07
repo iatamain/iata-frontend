@@ -159,9 +159,10 @@ function processImage(trainObj){
    }
    trainData = {
       input: trainData,
-		output: {},
+		output: {
+         [trainObj]: 1
+      },
    }
-   trainData.output[trainObj] = 1;
    hidePopup();
    drawGrid(ctx, trainData);
    addTrainData(trainData);
@@ -176,7 +177,7 @@ function addTrainData(data){
       setState(4);
       document.querySelector("#data_container").innerHTML += `
       <div class = "wrapper">
-         <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${data.trainObj}" title = "${data.trainObj}">
+         <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${Object.keys(data.output)[0]}" title = "${Object.keys(data.output)[0]}">
          <input type = "button" class = "del" data-id = "${netArray[curId].trainData.length}" value = "x">
       </div>`;
       netArray[curId].trainData.push(data);
@@ -198,7 +199,7 @@ function setImages(){
       drawGrid(ctx, data);
       document.querySelector("#data_container").innerHTML  += `
          <div class = "wrapper">
-            <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${data.trainObj}" title = "${data.trainObj}">
+            <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${Object.keys(data.output)[0]}" title = "${Object.keys(data.output)[0]}">
             <input type = "button" class = "del" data-id = "${i}" value = "x">
          </div>
       `
