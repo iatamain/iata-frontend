@@ -8,7 +8,43 @@ async function testToken(){
          }
    	})
 }
-function deleteNet(id){
+async function train(id){
+	return fastFetch("train", "post", id)
+	.then((data)=>{
+      if(data.ok){
+         return data.json();
+      } else if(data.status == 401){
+         throw {message:"Не авторизован"};
+      } else {
+         throw {message:"Ошибка обучения"};
+      }
+	})
+}
+async function removeTrainData(data){
+	return fastFetch("removeTrainData", "delete", data)
+	.then((data)=>{
+      if(data.ok){
+         return data.json();
+      } else if(data.status == 401){
+         throw {message:"Не авторизован"};
+      } else {
+         throw {message:"Ошибка удаления"};
+      }
+	})
+}
+async function sendTrainData(data){
+	return fastFetch("addTrainData", "put", data)
+	.then((data)=>{
+      if(data.ok){
+         return data.json();
+      } else if(data.status == 401){
+         throw {message:"Не авторизован"};
+      } else {
+         throw {message:"Ошибка добавления"};
+      }
+	})
+}
+async function deleteNet(id){
 	return fastFetch("deleteNet/"+id, "delete")
 	.then((data)=>{
       if(data.ok){
@@ -20,7 +56,7 @@ function deleteNet(id){
       }
 	})
 }
-function createNet(data){
+async function createNet(data){
 	return fastFetch("createNet", "post", data)
 	.then((data)=>{
       if(data.ok){
@@ -34,15 +70,15 @@ function createNet(data){
 }
 async function getNetList(){
    return fastFetch("netList", "get")
-   	.then((data)=>{
-         if(data.ok){
-            return data.json();
-         } else if(data.status == 401){
-            throw {message:"Не авторизован"};
-         } else {
-            throw {message:"Ошибка получения списка"};
-         }
-   	})
+	.then((data)=>{
+      if(data.ok){
+         return data.json();
+      } else if(data.status == 401){
+         throw {message:"Не авторизован"};
+      } else {
+         throw {message:"Ошибка получения списка"};
+      }
+	})
 }
 async function goAuth(path, login, password){
    let status = null;

@@ -2,7 +2,7 @@ const canvas = document.querySelector("#draw");
 const ctx = canvas.getContext("2d");
 const lineColor = new Color("#EBF02C");
 const bgColor = new Color("#104");
-const countPixels = 50;
+const countPixels = 25;
 const lineSize = canvas.width / countPixels;
 let isMouseDown = false;
 let isFirstClick = true;
@@ -64,6 +64,7 @@ canvas.addEventListener("mousemove", (e)=>{
 const clearBtn = document.querySelector("#clear");
 clearBtn.addEventListener("click", ()=>{
    setState(2);
+   isFirstClick = true;
    ctx.fillStyle = bgColor;
    ctx.fillRect(0, 0, canvas.width, canvas.height);
 })
@@ -99,20 +100,42 @@ const delDataBtn = document.querySelector("#data_container");
 delDataBtn.addEventListener("click", (e)=>{
    const id = e.target.dataset.id;
    if(id){
-      netArray[curId].trainData.splice(id, 1);
-      e.target.parentNode.remove();
-      const trainDataList = document.querySelectorAll("#data_container div");
-      trainDataList.forEach((elem, i)=>{
-         console.log(elem);
-         elem.querySelector(".del").dataset.id = i;
-      });
-      //Удалять и на серве
-      if(!netArray[curId].trainData.length){
-         setState(5);
-      }
+      removeTrainData({
+         _id: curId,
+         trainData: netArray[curId].trainData[id]
+      })
+      .then((msg)=>{
+         netArray[curId].trainData.splice(id, 1);
+         e.target.parentNode.remove();
+         const trainDataList = document.querySelectorAll("#data_container div");
+         trainDataList.forEach((elem, i)=>{
+            elem.querySelector(".del").dataset.id = i;
+         });
+         if(!netArray[curId].trainData.length){
+            setState(5);
+         }
+         pushMessage(msg.message);
+      })
+      .catch((err)=>{
+         console.log(err.message);
+         pushMessage(err.message);
+      })
    }
 })
-
+const trainBtn = document.querySelector("#train");
+trainBtn.addEventListener("click", ()=>{
+   setState(6);
+   pushMessage("Идет процесс обучения...")
+   train({_id: curId})
+   .then((ans)=>{
+      setState(7);
+      pushMessage(ans.message);
+   })
+   .catch((err)=>{
+      console.log(err)
+      pushMessage(err.message);
+   });
+})
 function processImage(trainObj){
    let trainData = [];
    for(let i = 0; i < countPixels; i++){
@@ -136,23 +159,34 @@ function processImage(trainObj){
    }
    trainData = {
       input: trainData,
-		output: trainObj
+		output: {},
    }
+   trainData.output[trainObj] = 1;
    hidePopup();
    drawGrid(ctx, trainData);
    addTrainData(trainData);
-   pushMessage("Продолжай рисовать!:)")
    isFirstClick = true;
 }
 function addTrainData(data){
-   setState(4);
-   document.querySelector("#data_container").innerHTML += `
-   <div class = "wrapper">
-      <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${data.output}" title = "${data.output}">
-      <input type = "button" class = "del" data-id = "${netArray[curId].trainData.length}" value = "x">
-   </div>`;
-   netArray[curId].trainData.push(data);
-   //Отправить на серв еще над:D
+   sendTrainData({
+      _id: curId,
+      trainData: data
+   })
+   .then((msg)=>{
+      setState(4);
+      document.querySelector("#data_container").innerHTML += `
+      <div class = "wrapper">
+         <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${data.trainObj}" title = "${data.trainObj}">
+         <input type = "button" class = "del" data-id = "${netArray[curId].trainData.length}" value = "x">
+      </div>`;
+      netArray[curId].trainData.push(data);
+      pushMessage(msg.message);
+   })
+   .catch((err)=>{
+      console.log(err.message);
+      pushMessage(err.message);
+   })
+
 }
 function setImages(){
    document.querySelector("#data_container").innerHTML = "";
@@ -164,7 +198,7 @@ function setImages(){
       drawGrid(ctx, data);
       document.querySelector("#data_container").innerHTML  += `
          <div class = "wrapper">
-            <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${data.output}" title = "${data.output}">
+            <img width = "100" height = "100" src = "${canvas.toDataURL()}" alt = "${data.trainObj}" title = "${data.trainObj}">
             <input type = "button" class = "del" data-id = "${i}" value = "x">
          </div>
       `
@@ -175,7 +209,6 @@ function setImages(){
 }
 function drawGrid(ctx, data){
    const arr = data.input;
-   console.log(arr, data);
    const stepX = canvas.width / countPixels;//Ищем непустые пиксели
    const stepY = canvas.height / countPixels;
    ctx.fillStyle = bgColor;//Рисуем квадратики
@@ -244,5 +277,11 @@ function setState(state){
       document.querySelector("#data_container").style.display = "none";
       document.querySelector("#train").style.display = "none";
 
+   }
+   if(state == 6){//В процессе обучения
+      document.querySelector("#train").style.display = "none";
+   }
+   if(state == 7){//Обучилась
+      document.querySelector("#train").style.display = "inline-block";
    }
 }

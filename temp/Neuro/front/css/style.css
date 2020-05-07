@@ -40,7 +40,7 @@ body{
 }
 .push_message-content{
 	width: 80px;
-	height: 20px;
+	min-height: 20px;
 	padding: 20px;
 	margin-top: 10px;
 	background: var(--mainBlue);
@@ -74,7 +74,7 @@ nav ul li{
 	background: var(--mainBlue);
 	font-size: 18px;
 	transition: 0.5s;
-	
+
 	display: flex;
 	justify-content: center;
 	align-items: center;

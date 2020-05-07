@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
+const brain = require("./brain-browser.min.js");
 const User = require('./models/User');
 const Net = require('./models/Net');
 const auth = require('./middleware/auth.middleware')
@@ -123,7 +124,8 @@ app.get('/netList', auth, (req, res)=>{
 		res.status(200).send(nets);
 	})
 	.catch((err)=>{
-		console.log("Ошибка: ", + e);
+		console.log("Ошибка: ", e);
+		res.status(400).send({message: e});
 	})
 })
 app.get('/testToken', auth, (req, res)=>{
@@ -157,4 +159,51 @@ app.delete('/deleteNet/:id', auth, (req, res)=>{
 		console.log("Не получилось:с", e);
 		res.status(400).send({message: "Удалить не удалось :с"});
 	})
+})
+app.put('/addTrainData', auth, (req, res)=>{
+	let {_id, trainData} = req.body;
+	Net.updateOne({_id, owner: req.user.userId}, { $push: {trainData} })
+	.then((net)=>{
+		res.status(200).send({message: "Добавлено к выборке!:)"});
+	})
+	.catch((err)=>{
+		console.log("Ошибка: ", e);
+		res.status(400).send({message: "Добавить не удалось :с"});
+	})
+})
+app.delete('/removeTrainData', auth, (req, res)=>{
+	let {_id, trainData} = req.body;
+	Net.updateOne({_id, owner: req.user.userId}, { $pull: {trainData} })
+	.then((net)=>{
+		res.status(200).send({message: "Удалено!"});
+	})
+	.catch((err)=>{
+		console.log("Ошибка: ", e);
+		res.status(400).send({message: "Удалить не удалось :с"});
+	})
+})
+app.post('/train', auth, (req, res)=>{
+	let {_id} = req.body;
+	console.log(_id, req.body) //Убрать
+	const net = new brain.NeuralNetwork();
+	Net.findOne({_id, owner: req.user.userId})
+	.then((foundNet)=>{
+		//Начинаем обучать
+		let trainData = foundNet.trainData;
+		trainData.forEach((val, i)=>{
+			trainData[i].input = trainData[i].input.flat();
+		})
+		return net.trainAsync(trainData);
+	})
+	.then((ans)=>{
+		console.log("Обучена", ans);
+		//net.toJSON(); Доделать
+		res.status(200).send({message: "Обучили! Теперь можно спросить."});
+	})
+	.catch((err)=>{
+		console.log("Ошибка: ", err);
+		res.status(400).send({message: "Обучить не удалось :с"});
+	})
+
+	//Net.update({_id, owner: req.user.userId}, {$set: {}})
 })
