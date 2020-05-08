@@ -8,7 +8,7 @@ let isMouseDown = false;
 let isFirstClick = true;
 ctx.lineCap = "round";
 
-document.addEventListener('touchstart', (e) => {
+canvas.addEventListener('touchstart', (e) => {
    e.preventDefault();
    e.stopPropagation();
    if(isFirstClick){
@@ -23,7 +23,7 @@ document.addEventListener('touchstart', (e) => {
    ctx.beginPath();
    ctx.moveTo(x, y);
 }, true);
-document.addEventListener("touchend", (e)=>{
+canvas.addEventListener("touchend", (e)=>{
    e.preventDefault();
    e.stopPropagation();
    isMouseDown = false;
