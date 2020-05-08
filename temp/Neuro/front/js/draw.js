@@ -226,7 +226,8 @@ function debugBase64(base64URL){
 }
 function setImages(){
    document.querySelector("#data_container").innerHTML = "";
-   netArray[curId].trainData.forEach((data, i) => {
+   for(let i = Math.max(netArray[curId].trainData.length - 50, 0); i < netArray[curId].trainData.length; i++){
+      let data = netArray[curId].trainData[i];
       const canvas = document.createElement('canvas');
       canvas.width = 500;
       canvas.height = 500;
@@ -240,7 +241,7 @@ function setImages(){
             <input type = "button" class = "del" data-id = "${i}" value = "x">
          </div>
       `
-   });
+   };
    if(netArray[curId].trainData.length){
       setState(4);
    }
