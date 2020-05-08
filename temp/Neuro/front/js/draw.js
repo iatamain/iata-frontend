@@ -6,6 +6,41 @@ const countPixels = 25;
 const lineSize = canvas.width / countPixels;
 let isMouseDown = false;
 let isFirstClick = true;
+ctx.lineCap = "round";
+
+canvas.addEventListener('touchstart', (e) => {
+   if(isFirstClick){
+      setState(3);
+      isFirstClick = false;
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+   }
+   const x = e.changedTouches[e.changedTouches.length - 1].clientX - e.target.offsetLeft - e.target.parentNode.offsetLeft ;
+	const y = e.changedTouches[e.changedTouches.length - 1].clientY - e.target.offsetTop - e.target.parentNode.offsetTop;
+   console.log(e,x,y);
+   isMouseDown = true;
+   ctx.beginPath();
+   ctx.moveTo(x, y);
+});
+document.addEventListener("touchend", (e)=>{
+   isMouseDown = false;
+   ctx.closePath();
+})
+canvas.addEventListener("touchmove", (e)=>{
+
+   const x = e.changedTouches[e.changedTouches.length - 1].clientX - e.target.offsetLeft - e.target.parentNode.offsetLeft ;
+	const y = e.changedTouches[e.changedTouches.length - 1].clientY - e.target.offsetTop - e.target.parentNode.offsetTop;
+   if(isMouseDown){
+      ctx.lineJoin = "round";
+      ctx.lineWidth = lineSize;
+      ctx.strokeStyle = lineColor;
+      ctx.fillStyle = lineColor;
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+   }
+})
 
 canvas.addEventListener("mousedown", (e)=>{
    if(isFirstClick){
@@ -18,28 +53,12 @@ canvas.addEventListener("mousedown", (e)=>{
    const y = e.offsetY;
    isMouseDown = true;
    ctx.beginPath();
-   ctx.fillStyle = lineColor;
-   ctx.arc(x, y, lineSize/2, 0, Math.PI * 2);
-   ctx.fill();
-   ctx.closePath();
-   ctx.beginPath();
    ctx.moveTo(x, y);
 })
-
 document.addEventListener("mouseup", (e)=>{
-   if(isMouseDown){
-      const x = e.offsetX;
-      const y = e.offsetY;
       isMouseDown = false;
       ctx.closePath();
-      ctx.beginPath();
-      ctx.fillStyle = lineColor;
-      ctx.arc(x, y, lineSize/2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.closePath();
-   }
 })
-
 canvas.addEventListener("mousemove", (e)=>{
    const x = e.offsetX;
    const y = e.offsetY;
@@ -50,12 +69,6 @@ canvas.addEventListener("mousemove", (e)=>{
       ctx.fillStyle = lineColor;
       ctx.lineTo(x, y);
       ctx.stroke();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.fillStyle = lineColor;
-      ctx.arc(x, y, lineSize/2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.closePath();
       ctx.beginPath();
       ctx.moveTo(x, y);
    }
