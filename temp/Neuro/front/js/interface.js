@@ -129,28 +129,32 @@
 	const authForm = document.querySelector("#auth-form"); //Логин или регистрация
 	authForm.addEventListener("submit", (e)=>{
 		e.preventDefault();
-		let login = document.querySelector("#login").value;
-		let password = document.querySelector("#pass").value;
-		auth.style.display = "none";
-		let path = e.submitter.formAction.split("/").pop();
-		goAuth(path, login, password)
-		.then((msg)=>{
-			pushMessage(msg.message);
-			return getNetList()
-		})
-		.then((list)=>{
-			list.forEach((val)=>{
-				netArray[val._id] = val;
-			})
-			setInterface(list);
-			console.log(list);
-		})
-		.catch((err)=>{
-			loginShow();
-			pushMessage(err.message);
-			console.log(err.message);
-		});
 	});
+	authForm.addEventListener("click", (e)=>{
+		if(e.target.type == "submit"){
+			let login = document.querySelector("#login").value;
+			let password = document.querySelector("#pass").value;
+			auth.style.display = "none";
+			let path = e.target.formAction.split("/").pop();
+			goAuth(path, login, password)
+			.then((msg)=>{
+				pushMessage(msg.message);
+				return getNetList()
+			})
+			.then((list)=>{
+				list.forEach((val)=>{
+					netArray[val._id] = val;
+				})
+				setInterface(list);
+				console.log(list);
+			})
+			.catch((err)=>{
+				loginShow();
+				pushMessage(err.message);
+				console.log(err.message);
+			});
+		}
+	})
 
 	const nav = document.querySelector("nav"); //Переход по главным сценам
 	nav.addEventListener("click", (e)=>{

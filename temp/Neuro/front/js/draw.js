@@ -80,7 +80,7 @@ askBtn.addEventListener("click",()=>{
    drawGrid(ctx, data);
    isFirstClick = true;
    showPopup("Идет обработка, нужно немного подождать.");
-   ask({_id: curId, data: data.input.flat()})
+   ask({_id: curId, data: data.input.reduce((acc, val)=>acc.concat(val), [])})
    .then((ans)=>{
       showPopup(`Вероятно, нарисован ${ans.message}.`);
       console.log(ans);
