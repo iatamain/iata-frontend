@@ -9,27 +9,31 @@ let isFirstClick = true;
 ctx.lineCap = "round";
 
 canvas.addEventListener('touchstart', (e) => {
+   e.preventDefault();
+   e.stopPropagation();
    if(isFirstClick){
       setState(3);
       isFirstClick = false;
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
    }
-   const x = e.changedTouches[e.changedTouches.length - 1].clientX - e.target.offsetLeft - e.target.parentNode.offsetLeft ;
-	const y = e.changedTouches[e.changedTouches.length - 1].clientY - e.target.offsetTop - e.target.parentNode.offsetTop;
-   console.log(e,x,y);
+   const x = e.changedTouches[0].clientX - e.target.offsetLeft - e.target.parentNode.offsetLeft ;
+	const y = e.changedTouches[0].clientY - e.target.offsetTop - e.target.parentNode.offsetTop;
    isMouseDown = true;
    ctx.beginPath();
    ctx.moveTo(x, y);
-});
+}, true);
 document.addEventListener("touchend", (e)=>{
+   e.preventDefault();
+   e.stopPropagation();
    isMouseDown = false;
    ctx.closePath();
-})
+}, true)
 canvas.addEventListener("touchmove", (e)=>{
-
-   const x = e.changedTouches[e.changedTouches.length - 1].clientX - e.target.offsetLeft - e.target.parentNode.offsetLeft ;
-	const y = e.changedTouches[e.changedTouches.length - 1].clientY - e.target.offsetTop - e.target.parentNode.offsetTop;
+   e.preventDefault();
+   e.stopPropagation();
+   const x = e.changedTouches[0].clientX - e.target.offsetLeft - e.target.parentNode.offsetLeft ;
+	const y = e.changedTouches[0].clientY - e.target.offsetTop - e.target.parentNode.offsetTop;
    if(isMouseDown){
       ctx.lineJoin = "round";
       ctx.lineWidth = lineSize;
@@ -40,7 +44,7 @@ canvas.addEventListener("touchmove", (e)=>{
       ctx.beginPath();
       ctx.moveTo(x, y);
    }
-})
+}, true)
 
 canvas.addEventListener("mousedown", (e)=>{
    if(isFirstClick){
