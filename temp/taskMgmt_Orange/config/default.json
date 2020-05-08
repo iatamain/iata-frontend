@@ -1,0 +1,5 @@
+{
+    "port" : 5000,
+    "jwtSecret" : "orange itracers",
+    "mongoUrl" : "mongodb+srv://orange:Vetel12312@cluster0-wd4my.azure.mongodb.net/test?retryWrites=true&w=majority"
+}
