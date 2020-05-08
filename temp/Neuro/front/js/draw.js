@@ -8,7 +8,7 @@ let isMouseDown = false;
 let isFirstClick = true;
 ctx.lineCap = "round";
 
-canvas.addEventListener('touchstart', (e) => {
+document.addEventListener('touchstart', (e) => {
    e.preventDefault();
    e.stopPropagation();
    if(isFirstClick){
