@@ -1,0 +1,170 @@
+<html>
+	<head>
+		<meta chatset = "utf-8">
+		<link href = "Style.css" rel = "stylesheet">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<title>Игра цветов</title>
+	</head>
+	<body>
+		<div class = "grad">
+			<br>
+			<font color="red">R:</font><input class = "R" type="range" min="0" max="255" step="1" value = "255" oninput = "color()">
+			<b class = "R">100%</b>
+			<br>
+			<font color="green">G:</font><input class = "G" type="range" min="0" max="255" step="1" value = "255" oninput = "color()">
+			<b class = "G">100%</b>
+			<br>
+			<font color="blue">B:</font><input class = "B" type="range" min="0" max="255" step="1" value = "255" oninput = "color()">
+			<b class = "B">100%</b>
+			<br><br> 
+			HEX: <b class = "hex">#ffffff</b><br> 
+			RGB: <b class = "rgb">255, 255, 255</b><br> 
+			HSL: <b class = "hsl">0, 0%, 100%</b><br> 
+			<input type = "button" value = "Random" onclick = "random()"><br>
+			HslRainbow:  <input class = "HSL" type="range" min="0" max="360" step="1" value = "0" oninput = "clearr(parseInt($('input.HSL').val()), 100, 50)">
+			<input type = "button" value = "-" onclick = "dic('HSL', false)">
+			<input type = "button" value = "+" onclick = "dic('HSL', true)">
+			<br>
+			HexRainbow 1:<input width = "300px" class = "HEX" type="range" min="0" max="16777215" step="1" value = "0" oninput = "clearr2($('input.HEX').val())">
+			<input type = "button" value = "-" onclick = "dic('HEX', false)">
+			<input type = "button" value = "+" onclick = "dic('HEX', true)">
+			<br>	
+		
+		</div>
+		<br>
+		<div class = "grad">
+			<div class = "box Left"> </div>
+			<div class = "box Right"> </div>
+		</div>
+		
+	
+		<script>	
+		
+			function dic(a, b){
+				if(b){
+					$("input." + a).val(parseInt($("input." + a).val())+10);
+					if(a == 'HSL'){
+						clearr(parseInt($('input.HSL').val()), 100, 50)
+					}else{
+						clearr2($('input.HEX').val())
+					}
+				}else{
+					$("input." + a).val(parseInt($("input." + a).val())-10);
+					if(a == 'HSL'){
+						clearr(parseInt($('input.HSL').val()), 100, 50)
+					}else{
+						clearr2($('input.HEX').val())
+					}
+				}
+			}
+		
+			function rgbToHsl(r, g, b){
+				r /= 255, g /= 255, b /= 255;
+				var max = Math.max(r, g, b), min = Math.min(r, g, b);
+				var h, s, l = (max + min) / 2;
+
+				if(max == min){
+					h = s = 0; // achromatic
+				}else{
+					var d = max - min;
+					s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+					switch(max){
+						case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+						case g: h = (b - r) / d + 2; break;
+						case b: h = (r - g) / d + 4; break;
+					}
+
+				}
+				h = Math.round(h * 60);
+				s = Math.round(s * 100);
+				l = Math.round(l * 100);
+				return [h, s, l];
+			}
+			
+			
+			function color(R, G, B){
+				var R, G, B;
+				$("b.R").html(Math.round($("input.R").val() / 255 * 100) + "%");
+				$("b.G").html(Math.round($("input.G").val() / 255 * 100) + "%");
+				$("b.B").html(Math.round($("input.B").val() / 255 * 100) + "%");
+				R = parseInt($("input.R").val()).toString(16);
+				G = parseInt($("input.G").val()).toString(16);
+				B = parseInt($("input.B").val()).toString(16);
+				gogogo(R, G, B);
+			}
+			
+			function random(){
+				var R, G, B;
+				R = Math.random().toString(16).slice(2, 4);
+				G = Math.random().toString(16).slice(2, 4);
+				B = Math.random().toString(16).slice(2, 4);
+				$("input.R").val(parseInt(R, 16))
+				$("input.G").val(parseInt(G, 16))
+				$("input.B").val(parseInt(B, 16))
+				$("b.R").html(Math.round($("input.R").val() / 255 * 100) + "%");
+				$("b.G").html(Math.round($("input.G").val() / 255 * 100) + "%");
+				$("b.B").html(Math.round($("input.B").val() / 255 * 100) + "%");
+				gogogo(R, G, B);
+			}
+			
+			function gogogo(R, G, B){
+				var invR = (parseInt(R, 16) ^ 0xFF | 0x100).toString(16).substring(1);
+				var invG = (parseInt(G, 16) ^ 0xFF | 0x100).toString(16).substring(1);
+				var invB = (parseInt(B, 16) ^ 0xFF | 0x100).toString(16).substring(1);
+				R = (parseInt(invR, 16) ^ 0xFF | 0x100).toString(16).substring(1);
+				G = (parseInt(invG, 16) ^ 0xFF | 0x100).toString(16).substring(1);
+				B = (parseInt(invB, 16) ^ 0xFF | 0x100).toString(16).substring(1);
+				var UnInvColor = "#" + R + G + B; //hex 1
+				var InvColor = "#" + invR + invG + invB; //hex 2
+				var hsl = rgbToHsl(parseInt(R, 16), parseInt(G, 16), parseInt(B, 16))
+				$("b.hex").html("#" + R + G + B);
+				$("b.rgb").html(parseInt(R, 16) + ", " + parseInt(G, 16) + ", " + parseInt(B, 16));
+				
+				HSL(hsl[0], hsl[1], hsl[2])
+			}
+			
+			function clearr(h, s, l){
+				$("b.hex").html("");
+				$("b.rgb").html("");
+				$("input.HEX").val(0);
+				HSL(h, s,l)
+			}
+			function clearr2(heh){
+				$("b.hsl").html("");
+				$("b.rgb").html("");
+				$("input.HSL").val(0);
+				HEX(heh)
+			}
+			
+			function HSL(h, s, l){
+
+				$("b.hsl").html(h + ", " + s + "%, " + l + "%");
+				
+				var UnInvColor = "hsl(" + h + ", " + s + "%, " + l + "%)"; //hsl 1
+				var InvColor = "hsl(" + (h+180)%360 + ", " + s + "%, " + (100 - l) + "%)"; //hsl 2
+				
+				console.log(UnInvColor + " " + InvColor)
+				
+				$("body").css("background", "linear-gradient(90deg, " + UnInvColor + " 0%, " + UnInvColor + " 50%, " + InvColor + " 50%,  " + InvColor + " 100%)");
+				$("div.grad").css("background", "linear-gradient(90deg, " + UnInvColor + " 0%, " + InvColor + " 100%)");
+				$(".Left").css("background-color", UnInvColor);
+				$(".Right").css("background-color", InvColor);
+			}
+			
+			function HEX(heh){
+				var heh2 = (parseInt(heh)).toString(16)
+				console.log(heh2.toString(16))
+				var invheh = (parseInt(heh2, 16) ^ 0xFFFFFF | 0x1000000).toString(16).substring(1);
+				heh2 = (parseInt(invheh, 16) ^ 0xFFFFFF | 0x1000000).toString(16).substring(1);
+				var UnInvColor = "#" + heh2; //hex 1
+				var InvColor = "#" + invheh; //hex 2
+				$("b.hex").html(UnInvColor);
+				console.log(UnInvColor + " " + InvColor)
+				$("body").css("background", "linear-gradient(90deg, " + UnInvColor + " 0%, " + UnInvColor + " 50%, " + InvColor + " 50%,  " + InvColor + " 100%)");
+				$("div.grad").css("background", "linear-gradient(90deg, " + UnInvColor + " 0%, " + InvColor + " 100%)");
+				$(".Left").css("background-color", UnInvColor);
+				$(".Right").css("background-color", InvColor);
+			}
+		</script>
+	</body>
+</html>

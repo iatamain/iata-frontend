@@ -1,0 +1,28 @@
+body{
+	background: linear-gradient(90deg, #ffffff 0%, #ffffff 50%, #000000 50%,  #000000 100%);
+}
+div.grad{
+	background: linear-gradient(90deg, #ffffff 0%, #000000 100%);
+	width: 50%;
+	
+}
+
+
+.box{
+	border: 2px solid gray;
+	display: inline-table;
+	text-align: center;
+	margin: auto;
+	width: 100px;
+	height: 135px;
+	margin: 30px;
+	margin-left: 130px;
+}
+
+.Left{
+	background-color: #ffffff;
+}
+
+.Right{
+	background-color: #000000;
+}
