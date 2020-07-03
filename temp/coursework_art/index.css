@@ -1,0 +1,72 @@
+body {
+    background-image: url("./images/theatre.jpg");
+    background-size: 100%;
+}
+
+#root {
+}
+
+#top {
+    text-align: center;
+    font-size: 24pt;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    color: white
+}
+
+.sessions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.theater-session {
+    width:300px;
+    padding: 40px;
+    background: #191919;
+    text-align: center;
+    opacity: 0.8;
+
+    margin-left: 20px;
+}
+
+.content-0 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    color: white;
+}
+
+.content-1 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    color: white;
+}
+
+.content-2 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    color: white;
+}
+
+.content-3 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    color: white;
+}
+
+.button-submit {
+    
+}
+
+.name {
+    font-size: 23pt;
+}
