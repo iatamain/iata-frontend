@@ -1,0 +1,49 @@
+* {margin: 0; padding: 0;}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.game {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+}
+
+    .game .header {
+        height: 20vmin;
+        width: 80vmin;
+        font-size: 10vmin;
+        background-color: white;
+        border-bottom: 1px solid black;
+    }
+
+    .game .field {
+        height: 80vmin;
+        width: 80vmin;
+        background-color: white;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+        .game .field .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10vmin;
+
+            height: 18vmin;
+            width: 18vmin;
+            padding: 1vmin;
+            box-sizing: border-box;
+            border: 2px solid green;
+            margin: 1vmin;
+            border-radius: 2vmin;
+        }
