@@ -119,6 +119,6 @@ function rm_render(){
     )
 
     //gl.uniformMatrix4fv(u_camera_matrix_loc, false, CAMERA_MATRIX.getLow())
-    gl.drawArrays(primitive, 0, vertexArray.length/3)
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
     gl.deleteBuffer(positionsBuffer)
 }
