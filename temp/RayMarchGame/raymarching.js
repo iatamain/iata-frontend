@@ -99,7 +99,7 @@ function rm_initialWebGL(gl, then_function){
 	rm_gl.clearColor(0.2 , 0.2, 0.2, 1)
 	rm_gl.enable(rm_gl.DEPTH_TEST)
 
-  rm_getAllShader.then(then_function())
+  rm_getAllShader().then(then_function)
 }
 
 function rm_render(){
