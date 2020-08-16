@@ -13,36 +13,38 @@ const SHADER_PROGRAMS = {
   "main": undefined,
 }
 
+var rm_gl = undefined
+
 //low functions
 function rm_compileShader(vertexShaderSource,fragmentShaderSource){
   function createShader( type, source){
-		let shader = gl.createShader(type)
-		gl.shaderSource(shader, source)
-		gl.compileShader(shader)
-		let success = gl.getShaderParameter(shader, gl.COMPILE_STATUS)
+		let shader = rm_gl.createShader(type)
+		rm_gl.shaderSource(shader, source)
+		rm_gl.compileShader(shader)
+		let success = rm_gl.getShaderParameter(shader, rm_gl.COMPILE_STATUS)
 		if(success){
 			return shader
 		}
-		console.log(gl.getShaderInfoLog(shader))
+		console.log(rm_gl.getShaderInfoLog(shader))
     console.log(source)
-		gl.deleteShader(shader)
+		rm_gl.deleteShader(shader)
 	}
 
 	function createProgram( vertexShader, fragmentShader){
-		let program = gl.createProgram()
-		gl.attachShader(program, vertexShader)
-		gl.attachShader(program, fragmentShader)
-		gl.linkProgram(program)
-		let success = gl.getProgramParameter(program, gl.LINK_STATUS)
+		let program = rm_gl.createProgram()
+		rm_gl.attachShader(program, vertexShader)
+		rm_gl.attachShader(program, fragmentShader)
+		rm_gl.linkProgram(program)
+		let success = rm_gl.getProgramParameter(program, rm_gl.LINK_STATUS)
 		if(success){
 			return program
 		}
-		console.log(gl.getProgramInfo)
+		console.log(rm_gl.getProgramInfo)
 
 	}
 
-	let vertexShader = createShader( gl.VERTEX_SHADER, vertexShaderSource)
-	let fragmentShader = createShader( gl.FRAGMENT_SHADER, fragmentShaderSource)
+	let vertexShader = createShader( rm_gl.VERTEX_SHADER, vertexShaderSource)
+	let fragmentShader = createShader( rm_gl.FRAGMENT_SHADER, fragmentShaderSource)
 
   if(vertexShader==undefined || fragmentShader==undefined){
     console.log(vertexShaderSource)
@@ -90,35 +92,37 @@ function rm_getAllShader(){
 
 
 
-function rm_initialWebGL(then_function){
-  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
-	gl.clearColor(0.2 , 0.2, 0.2, 1)
-	gl.enable(gl.DEPTH_TEST)
+function rm_initialWebGL(gl, then_function){
+  rm_gl = gl
+
+  rm_gl.viewport(0, 0, rm_gl.canvas.width, rm_gl.canvas.height)
+	rm_gl.clearColor(0.2 , 0.2, 0.2, 1)
+	rm_gl.enable(rm_gl.DEPTH_TEST)
 
   rm_getAllShader.then(then_function())
 }
 
 function rm_render(){
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+    rm_gl.clear(rm_gl.COLOR_BUFFER_BIT | rm_gl.DEPTH_BUFFER_BIT)
 
     let shader_programm = SHADER_PROGRAMS["main"]
 
     //const u_camera_matrix_loc = gl.getUniformLocation(shader_programm,"u_cameraMatrix")
-    const a_position_loc = gl.getAttribLocation( shader_programm, "a_position")
-    const positionsBuffer = gl.createBuffer()
+    const a_position_loc = rm_gl.getAttribLocation( shader_programm, "a_position")
+    const positionsBuffer = rm_gl.createBuffer()
 
 
-    gl.useProgram(shader_programm)
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionsBuffer)
-    gl.bufferData(gl.ARRAY_BUFFER, SCREEN_COORDS, gl.STREAM_DRAW)
+    rm_gl.useProgram(shader_programm)
+    rm_gl.bindBuffer(rm_gl.ARRAY_BUFFER, positionsBuffer)
+    rm_gl.bufferData(rm_gl.ARRAY_BUFFER, SCREEN_COORDS, rm_gl.STREAM_DRAW)
 
-    gl.enableVertexAttribArray(a_position_loc)
-    gl.vertexAttribPointer(
+    rm_gl.enableVertexAttribArray(a_position_loc)
+    rm_gl.vertexAttribPointer(
       a_position_loc, 2,
-      gl.FLOAT, false, 0, 0
+      rm_gl.FLOAT, false, 0, 0
     )
 
     //gl.uniformMatrix4fv(u_camera_matrix_loc, false, CAMERA_MATRIX.getLow())
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-    gl.deleteBuffer(positionsBuffer)
+    rm_gl.drawArrays(rm_gl.TRIANGLE_STRIP, 0, 4)
+    rm_gl.deleteBuffer(positionsBuffer)
 }
