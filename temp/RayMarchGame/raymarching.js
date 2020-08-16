@@ -1,21 +1,38 @@
 /*
 Procedural library for rendering with ray marching
 */
-const SHADER_PATH = "shaders/"
-const SCREEN_COORDS = new Float32Array([
+const RM_SHADER_PATH = "shaders/"
+const RM_SCREEN_COORDS = new Float32Array([
   -1,-1,
   -1,1,
   1,-1,
   1,1
 ])
 
-const SHADER_PROGRAMS = {
+const RM_SHADER_PROGRAMS = {
   "main": undefined,
 }
 
 var rm_gl = undefined
 
-//low functions
+//support functions
+function rm_loadTextResources(url){
+    return new Promise(function(resolve, reject){
+        const request = new XMLHttpRequest()
+
+        request.open('GET', url, true)
+        request.onload = function(){
+            if (request.status >=200 && request.status < 300){
+              resolve(request.responseText)
+            }else{
+              reject("Error: HTTP-status - " + request.status + " on resource " + url)
+            }
+        }
+        request.responseType = 'text'
+        request.send()
+    })
+}
+
 function rm_compileShader(vertexShaderSource,fragmentShaderSource){
   function createShader( type, source){
 		let shader = rm_gl.createShader(type)
@@ -60,18 +77,18 @@ function rm_compileShader(vertexShaderSource,fragmentShaderSource){
 
 function rm_getShaderTo(name,shaderClass = undefined){
     if(!shaderClass)shaderClass = name
-    let urlVert = SHADER_PATH + name+".vert"
-    let urlFrag = SHADER_PATH + name+".frag"
+    let urlVert = RM_SHADER_PATH + name+".vert"
+    let urlFrag = RM_SHADER_PATH + name+".frag"
 
-    return loadTextResources(urlVert)
+    return rm_loadTextResources(urlVert)
     .then(function(result){
         vertexShaderSource = result
-        return loadTextResources(urlFrag)
+        return rm_loadTextResources(urlFrag)
     })
     .then(function(result){
         let fragmentShaderSource = result
         console.log("Resources shader(",name,") downloaded. Compiling...")
-        SHADER_PROGRAMS[shaderClass] = rm_compileShader(vertexShaderSource,fragmentShaderSource)
+        RM_SHADER_PROGRAMS[shaderClass] = rm_compileShader(vertexShaderSource,fragmentShaderSource)
         console.log("Resources shader(",name,") compiled successfull.")
         return true
     })
@@ -82,7 +99,7 @@ function rm_getShaderTo(name,shaderClass = undefined){
 
 function rm_getAllShader(){
   let promise = new Promise((resolve, reject)=>{resolve()})
-  for(let key in SHADER_PROGRAMS){
+  for(let key in RM_SHADER_PROGRAMS){
       promise = promise.then((result)=>{
         return rm_getShaderTo(key)
       })
@@ -105,7 +122,7 @@ function rm_initialWebGL(gl, then_function){
 function rm_render(){
     rm_gl.clear(rm_gl.COLOR_BUFFER_BIT | rm_gl.DEPTH_BUFFER_BIT)
 
-    let shader_programm = SHADER_PROGRAMS["main"]
+    let shader_programm = RM_SHADER_PROGRAMS["main"]
 
     //const u_camera_matrix_loc = gl.getUniformLocation(shader_programm,"u_cameraMatrix")
     const a_position_loc = rm_gl.getAttribLocation( shader_programm, "a_position")
@@ -114,7 +131,7 @@ function rm_render(){
 
     rm_gl.useProgram(shader_programm)
     rm_gl.bindBuffer(rm_gl.ARRAY_BUFFER, positionsBuffer)
-    rm_gl.bufferData(rm_gl.ARRAY_BUFFER, SCREEN_COORDS, rm_gl.STREAM_DRAW)
+    rm_gl.bufferData(rm_gl.ARRAY_BUFFER, RM_SCREEN_COORDS, rm_gl.STREAM_DRAW)
 
     rm_gl.enableVertexAttribArray(a_position_loc)
     rm_gl.vertexAttribPointer(
