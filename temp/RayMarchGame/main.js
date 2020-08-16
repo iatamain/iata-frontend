@@ -25,10 +25,12 @@ function frame(){
 }
 
 function start_game(){
+	console.log("Start frame loop.")
 	requestAnimationFrame(frame)
 }
 
 document.addEventListener("load", ()=>{
+		console.log("Initial WebGL...")
 		var canvas = document.getElementById("viewport")
 		var gl = canvas.getContext('webgl2') ||
 							canvas.getContext('webgl') ||
