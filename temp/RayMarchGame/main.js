@@ -29,7 +29,7 @@ function start_game(){
 	requestAnimationFrame(frame)
 }
 
-document.addEventListener("load", ()=>{
+document.addEventListener("DOMContentLoaded", ()=>{
 		console.log("Initial WebGL...")
 		var canvas = document.getElementById("viewport")
 		var gl = canvas.getContext('webgl2') ||
