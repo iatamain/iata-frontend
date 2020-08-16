@@ -28,9 +28,11 @@ function start_game(){
 	requestAnimationFrame(frame)
 }
 
-var canvas = document.getElementById("viewport")
-var gl = canvas.getContext('webgl2') ||
-					canvas.getContext('webgl') ||
-        	canvas.getContext('experimental-webgl')
-if(!gl) alert("WebGL is Not Found!")
-rm_initialWebGL(start_game)
+document.addEventListener("load", ()=>{
+		var canvas = document.getElementById("viewport")
+		var gl = canvas.getContext('webgl2') ||
+							canvas.getContext('webgl') ||
+		        	canvas.getContext('experimental-webgl')
+		if(!gl) alert("WebGL is Not Found!")
+		rm_initialWebGL(start_game)
+})
