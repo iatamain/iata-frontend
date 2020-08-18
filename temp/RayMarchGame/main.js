@@ -32,9 +32,6 @@ function start_game(){
 document.addEventListener("DOMContentLoaded", ()=>{
 		console.log("Initial WebGL...")
 		let canvas = document.getElementById("viewport")
-		let gl = canvas.getContext('webgl2') ||
-							canvas.getContext('webgl') ||
-		        	canvas.getContext('experimental-webgl')
-		if(!gl) alert("WebGL is Not Found!")
-		rm_initialWebGL(gl, start_game)
+		rm_initialWebGL(canvas, start_game)
+		game_event_listener_init(canvas)
 })

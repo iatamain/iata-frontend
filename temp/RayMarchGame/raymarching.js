@@ -2,10 +2,12 @@
 Procedural library for rendering with ray marching
 */
 const RM_SHADER_PATH = "shaders/"
+const RM_CAMERA_DIR = new Float32Array([0,0,1])
+const RM_CAMERA_POS = new Float32Array([0,5,0])
 const RM_SCREEN_COORDS = new Float32Array([
   -1,-1,
-  -1,1,
   1,-1,
+  -1,1,
   1,1
 ])
 
@@ -13,6 +15,7 @@ const RM_SHADER_PROGRAMS = {
   "main": undefined,
 }
 
+var rm_debugMode = 0
 var rm_gl = undefined
 
 //support functions
@@ -80,13 +83,16 @@ function rm_getShaderTo(name,shaderClass = undefined){
     let urlVert = RM_SHADER_PATH + name+".vert"
     let urlFrag = RM_SHADER_PATH + name+".frag"
 
+    let vertexShaderSource = undefined
+    let fragmentShaderSource = undefined
+
     return rm_loadTextResources(urlVert)
-    .then(function(result){
+    .then((result)=>{
         vertexShaderSource = result
         return rm_loadTextResources(urlFrag)
     })
-    .then(function(result){
-        let fragmentShaderSource = result
+    .then((result)=>{
+        fragmentShaderSource = result
         console.log("Resources shader(",name,") downloaded. Compiling...")
         RM_SHADER_PROGRAMS[shaderClass] = rm_compileShader(vertexShaderSource,fragmentShaderSource)
         console.log("Resources shader(",name,") compiled successfull.")
@@ -109,22 +115,27 @@ function rm_getAllShader(){
 
 
 
-function rm_initialWebGL(gl, then_function){
-  rm_gl = gl
-
+function rm_initialWebGL(canvas, then_function){
+  rm_gl = canvas.getContext('webgl2')
+  if(!rm_gl) alert("WebGL2 is Not Found! Your browser is to old.\nOr this Internet Explorer browser.\nOr this Safari browser")
+  console.log(rm_gl.canvas.width, rm_gl.canvas.height)
   rm_gl.viewport(0, 0, rm_gl.canvas.width, rm_gl.canvas.height)
-	rm_gl.clearColor(0.2 , 0.2, 0.2, 1)
-	rm_gl.enable(rm_gl.DEPTH_TEST)
+	rm_gl.clearColor(0, 0, 0, 1)
+	//rm_gl.enable(rm_gl.DEPTH_TEST)
 
   rm_getAllShader().then(then_function)
 }
 
 function rm_render(){
-    rm_gl.clear(rm_gl.COLOR_BUFFER_BIT | rm_gl.DEPTH_BUFFER_BIT)
+    rm_gl.clear(rm_gl.COLOR_BUFFER_BIT)
 
     let shader_programm = RM_SHADER_PROGRAMS["main"]
 
     //const u_camera_matrix_loc = gl.getUniformLocation(shader_programm,"u_cameraMatrix")
+    const u_cameraDirection_loc = rm_gl.getUniformLocation( shader_programm, "u_cameraDirection")
+    const u_cameraPosition_loc = rm_gl.getUniformLocation( shader_programm, "u_cameraPosition")
+    const u_debugMode_loc = rm_gl.getUniformLocation( shader_programm, "u_debugMode")
+
     const a_position_loc = rm_gl.getAttribLocation( shader_programm, "a_position")
     const positionsBuffer = rm_gl.createBuffer()
 
@@ -140,6 +151,10 @@ function rm_render(){
     )
 
     //gl.uniformMatrix4fv(u_camera_matrix_loc, false, CAMERA_MATRIX.getLow())
+    rm_gl.uniform3fv(u_cameraDirection_loc, RM_CAMERA_DIR)
+    rm_gl.uniform3fv(u_cameraPosition_loc, RM_CAMERA_POS)
+    rm_gl.uniform1ui(u_debugMode_loc, rm_debugMode)
+
     rm_gl.drawArrays(rm_gl.TRIANGLE_STRIP, 0, 4)
     rm_gl.deleteBuffer(positionsBuffer)
 }
