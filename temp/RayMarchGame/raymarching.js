@@ -3,7 +3,8 @@ Procedural library for rendering with ray marching
 */
 const RM_SHADER_PATH = "shaders/"
 const RM_CAMERA_DIR = new Float32Array([0,0,1])
-const RM_CAMERA_POS = new Float32Array([0,5,0])
+const RM_CAMERA_POS = new Float32Array([0,10,-10])
+const RM_WORLD_LIGHT_DIR = new Float32Array(normalize([0,-1,0]))
 const RM_SCREEN_COORDS = new Float32Array([
   -1,-1,
   1,-1,
@@ -15,8 +16,22 @@ const RM_SHADER_PROGRAMS = {
   "main": undefined,
 }
 
+const RM_SPHERE_ARRAY_POS = new Float32Array([0,7,0,5])
+const RM_SPHERE_ARRAY_COL = new Float32Array([0.2,0.2,0.2,0])
+
+const RM_LIGHTNING_ARRAY_POS = new Float32Array([10,10,20,0,30,15,-5,0,-5,5,-5,0])
+const RM_LIGHTNING_ARRAY_COL = new Float32Array([0,0.8,0,50,0.7,0,0.9,70,0.9,0.2,0.05,60])
+
 var rm_debugMode = 0
 var rm_gl = undefined
+
+//math functions
+function normalize(v){
+    let norm = 0
+    for(let i = 0; i<v.length;i++)norm += v[i]*v[i]
+    let length = Math.sqrt(norm)
+    return v.map((vi)=>{return vi/length})
+}
 
 //support functions
 function rm_loadTextResources(url){
@@ -135,6 +150,15 @@ function rm_render(){
     const u_cameraDirection_loc = rm_gl.getUniformLocation( shader_programm, "u_cameraDirection")
     const u_cameraPosition_loc = rm_gl.getUniformLocation( shader_programm, "u_cameraPosition")
     const u_debugMode_loc = rm_gl.getUniformLocation( shader_programm, "u_debugMode")
+    const u_worldLightDir_loc = rm_gl.getUniformLocation( shader_programm, "u_worldLightDir")
+
+    const u_sphereArrayLen_loc = rm_gl.getUniformLocation( shader_programm, "u_sphereArray.len")
+    const u_sphereArrayPos_loc = rm_gl.getUniformLocation( shader_programm, "u_sphereArray.pos")
+    const u_sphereArrayCol_loc = rm_gl.getUniformLocation( shader_programm, "u_sphereArray.col")
+
+    const u_lightningArrayLen_loc = rm_gl.getUniformLocation( shader_programm, "u_lightningArray.len")
+    const u_lightningArrayPos_loc = rm_gl.getUniformLocation( shader_programm, "u_lightningArray.pos")
+    const u_lightningArrayCol_loc = rm_gl.getUniformLocation( shader_programm, "u_lightningArray.col")
 
     const a_position_loc = rm_gl.getAttribLocation( shader_programm, "a_position")
     const positionsBuffer = rm_gl.createBuffer()
@@ -154,6 +178,15 @@ function rm_render(){
     rm_gl.uniform3fv(u_cameraDirection_loc, RM_CAMERA_DIR)
     rm_gl.uniform3fv(u_cameraPosition_loc, RM_CAMERA_POS)
     rm_gl.uniform1ui(u_debugMode_loc, rm_debugMode)
+    rm_gl.uniform3fv(u_worldLightDir_loc, RM_WORLD_LIGHT_DIR)
+
+    rm_gl.uniform1ui(u_sphereArrayLen_loc, RM_SPHERE_ARRAY_POS.length/4)
+    rm_gl.uniform4fv(u_sphereArrayPos_loc, RM_SPHERE_ARRAY_POS)
+    rm_gl.uniform4fv(u_sphereArrayCol_loc, RM_SPHERE_ARRAY_COL)
+
+    rm_gl.uniform1ui(u_lightningArrayLen_loc, RM_LIGHTNING_ARRAY_POS.length/4)
+    rm_gl.uniform4fv(u_lightningArrayPos_loc, RM_LIGHTNING_ARRAY_POS)
+    rm_gl.uniform4fv(u_lightningArrayCol_loc, RM_LIGHTNING_ARRAY_COL)
 
     rm_gl.drawArrays(rm_gl.TRIANGLE_STRIP, 0, 4)
     rm_gl.deleteBuffer(positionsBuffer)
