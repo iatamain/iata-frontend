@@ -4,7 +4,7 @@ Procedural library for rendering with ray marching
 const RM_SHADER_PATH = "shaders/"
 const RM_CAMERA_DIR = new Float32Array([0,0,1])
 const RM_CAMERA_POS = new Float32Array([0,10,-10])
-const RM_WORLD_LIGHT_DIR = new Float32Array(normalize([0,-1,0]))
+const RM_WORLD_LIGHT_DIR = new Float32Array(normalize([0,-1,0.5]))
 const RM_SCREEN_COORDS = new Float32Array([
   -1,-1,
   1,-1,
@@ -16,11 +16,11 @@ const RM_SHADER_PROGRAMS = {
   "main": undefined,
 }
 
-const RM_SPHERE_ARRAY_POS = new Float32Array([0,7,0,5])
+const RM_SPHERE_ARRAY_POS = new Float32Array([0,0,0,3])
 const RM_SPHERE_ARRAY_COL = new Float32Array([0.2,0.2,0.2,0])
 
-const RM_LIGHTNING_ARRAY_POS = new Float32Array([10,10,20,0,30,15,-5,0,-5,5,-5,0])
-const RM_LIGHTNING_ARRAY_COL = new Float32Array([0,0.8,0,50,0.7,0,0.9,70,0.9,0.2,0.05,60])
+const RM_LIGHTNING_ARRAY_POS = new Float32Array([-10,10,10,4])
+const RM_LIGHTNING_ARRAY_COL = new Float32Array([0,0.7,0.8,100])
 
 var rm_debugMode = 0
 var rm_gl = undefined

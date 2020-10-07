@@ -106,45 +106,47 @@ function game_event_listener_init(game_window){
 }
 
 function update(dt){
-    if(PRESSED_KEYS[ KEY_W ]){
-        RM_CAMERA_POS[0] += RM_CAMERA_DIR[0]*moveSpeed
-        RM_CAMERA_POS[2] += RM_CAMERA_DIR[2]*moveSpeed
-    }else if(PRESSED_KEYS[ KEY_S ]){
-        RM_CAMERA_POS[0] -= RM_CAMERA_DIR[0]*moveSpeed
-        RM_CAMERA_POS[2] -= RM_CAMERA_DIR[2]*moveSpeed
-    }
+    if(mouseIsLock){
+        if(PRESSED_KEYS[ KEY_W ]){
+            RM_CAMERA_POS[0] += RM_CAMERA_DIR[0]*moveSpeed
+            RM_CAMERA_POS[2] += RM_CAMERA_DIR[2]*moveSpeed
+        }else if(PRESSED_KEYS[ KEY_S ]){
+            RM_CAMERA_POS[0] -= RM_CAMERA_DIR[0]*moveSpeed
+            RM_CAMERA_POS[2] -= RM_CAMERA_DIR[2]*moveSpeed
+        }
 
-    if(PRESSED_KEYS[ KEY_A ]){
-        RM_CAMERA_POS[0] += -RM_CAMERA_DIR[2]*moveSpeed
-        RM_CAMERA_POS[2] += RM_CAMERA_DIR[0]*moveSpeed
-    }
-    if(PRESSED_KEYS[ KEY_D ]){
-        RM_CAMERA_POS[0] -= -RM_CAMERA_DIR[2]*moveSpeed
-        RM_CAMERA_POS[2] -= RM_CAMERA_DIR[0]*moveSpeed
-    }
+        if(PRESSED_KEYS[ KEY_A ]){
+            RM_CAMERA_POS[0] += -RM_CAMERA_DIR[2]*moveSpeed
+            RM_CAMERA_POS[2] += RM_CAMERA_DIR[0]*moveSpeed
+        }
+        if(PRESSED_KEYS[ KEY_D ]){
+            RM_CAMERA_POS[0] -= -RM_CAMERA_DIR[2]*moveSpeed
+            RM_CAMERA_POS[2] -= RM_CAMERA_DIR[0]*moveSpeed
+        }
 
-    if(PRESSED_KEYS[KEY_SPACE]){
-        RM_CAMERA_POS[1] += moveSpeed
-    }else if(PRESSED_KEYS[KEY_SHIFT]){
-        RM_CAMERA_POS[1] -= moveSpeed
-    }
+        if(PRESSED_KEYS[KEY_SPACE]){
+            RM_CAMERA_POS[1] += moveSpeed
+        }else if(PRESSED_KEYS[KEY_SHIFT]){
+            RM_CAMERA_POS[1] -= moveSpeed
+        }
 
 
-    if(ONCE_PRESSED_KEYS.has(KEY_ONE)){
-        rm_debugMode = 1
-        console.log(rm_debugMode)
-    }
-    if(ONCE_PRESSED_KEYS.has(KEY_TWO)){
-        rm_debugMode = 2
-        console.log(rm_debugMode)
-    }
-    if(ONCE_PRESSED_KEYS.has(KEY_THREE)){
-        rm_debugMode = 3
-        console.log(rm_debugMode)
-    }
-    if(ONCE_PRESSED_KEYS.has(KEY_ZERO)){
-        rm_debugMode = 0
-        console.log(rm_debugMode)
+        if(ONCE_PRESSED_KEYS.has(KEY_ONE)){
+            rm_debugMode = 1
+            console.log(rm_debugMode)
+        }
+        if(ONCE_PRESSED_KEYS.has(KEY_TWO)){
+            rm_debugMode = 2
+            console.log(rm_debugMode)
+        }
+        if(ONCE_PRESSED_KEYS.has(KEY_THREE)){
+            rm_debugMode = 3
+            console.log(rm_debugMode)
+        }
+        if(ONCE_PRESSED_KEYS.has(KEY_ZERO)){
+            rm_debugMode = 0
+            console.log(rm_debugMode)
+        }
     }
 
     ONCE_PRESSED_KEYS.clear()
