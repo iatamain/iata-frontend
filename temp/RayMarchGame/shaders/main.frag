@@ -73,7 +73,7 @@ float getDist(in vec3 point){
 		dist = min(dist, sdFloor(point));
 
 */
-		float dist = sdFloor(point);
+		dist = min(dist, sdFloor(point));
 		for(uint i=0u; i<u_sphereArray.len; i++){
 			dist = min(dist, sdSphere(point, u_sphereArray.pos[i]));
 		}//*/
