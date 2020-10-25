@@ -1,0 +1,49 @@
+:root{
+   --secondColor:  #2C0E62;
+   --mainColor: #534781;
+}
+.collapse{ /*Сворачиваемая компонента*/
+   margin-bottom: 20px;
+   width: 100%;
+}
+.collapse_face{ /*Верхняя и нижняя часть компоненты */
+   padding-top: 10px;
+   color: white;
+   width: 100%;
+   height: 35px;
+   background: var(--mainColor);
+}
+.collapse-end{ /*Нижняя часть компоненты*/
+   color: white;
+   width: 100%;
+   height: 10px;
+   background: var(--mainColor);
+   cursor: pointer;
+   transition: 0.2s;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding-bottom: 10px;
+}
+.collapse-end:hover{
+   background: var(--secondColor);
+   transition: 0.2s;
+}
+.collapse_content{ /*Содержимое компоненты*/
+   width: 100%;
+   box-sizing: border-box;
+   border: 2px solid var(--mainColor);
+   max-height: 0px;
+   overflow: hidden;
+   transition: 0.5s;
+   padding: 0px;
+}
+.collapse_content img, .collapse_content iframe{ /*Картинки и видео в содержимом компоненты */
+   display: block;
+   position: relative;
+   width: 80%;
+   left: 10%;
+}
+.collapse h2{ /*Для верхней части компоненты */
+   margin: 0;
+}

@@ -1,0 +1,65 @@
+:root{
+   --secondColor:  #2C0E62;
+   --mainColor: #534781;
+}
+#slider1{ /*Компонента слайдера*/
+   width: 100%;
+   height: 400px;
+   display: flex;
+}
+#slider1_elements{ /*Блок с элементами слайдера*/
+   width: calc(100% - 100px);
+   height: 100%;
+   overflow: hidden;
+   position: relative;
+}
+#slider1_wrapper{ /*Блок скрывающий лишние элементы*/
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   overflow: hidden;
+   justify-content: flex-start;
+}
+.slider1_element{ /*Элемент слайдера*/
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   display: flex;
+   align-items: center;
+   position: absolute;
+   top: 0;
+   left: 0;
+   opacity: 0;
+   transition: 1s;
+}
+.slider1_element img{ /*Элемент слайдера, фотка*/
+   width: 100%;
+   height: auto;
+}
+#slider1 .active{
+   opacity: 1;
+}
+#slider1_left, #slider1_right{ /*Стрелки влево и вправо*/
+   width: 50px;
+   height: 100%;
+   background: var(--mainColor);
+   opacity: 1;
+   color: white;
+   font-size: 50px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: 0.2s;
+   cursor: pointer;
+}
+#slider1_left:hover, #slider1_right:hover{
+   background: var(--secondColor);
+   transition: 0.2s;
+}
+#slider1_left::after{ /*Стрелка влево*/
+   content: "\276E";
+}
+#slider1_right::after{ /*Стрелка вправо*/
+   content: "\276F";
+}
