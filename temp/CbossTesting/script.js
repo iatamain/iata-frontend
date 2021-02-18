@@ -11,3 +11,4 @@ console.log(code.code);
         'Access-Control-Allow-Origin': 'http://testKsi/'
         }
         })
+console.log('version 0.2');
