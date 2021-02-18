@@ -1,17 +1,6 @@
-try{
-    let code = window.location.search.substring(1);
-    code = JSON.parse('{"' + decodeURI(code).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-    console.log(code.code);
-    }catch(error){
-        console.log(error);
-    }
-    fetch('https://oauth.mail.ru/token', {
-        method: 'POST',
-        mode: 'cors',
-        body: 'code=' + code.code, // данные могут быть 'строкой' или {объектом}!
-        headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://testKsi/'
-        }
-        })
-console.log('version 0.3');
+mailru.loader.require('api', mailAPI);
+mailru.connect.init('783355', '7774e351cde9807b2ab9de47394a8f9f');
+function mailAPI(){
+    alert(1);
+}
+console.log('version 0.4');
