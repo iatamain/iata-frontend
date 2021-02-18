@@ -38,3 +38,4 @@ console.log(code.code);
         'Access-Control-Request-Method': 'POST'
         }
         })
+console.log('version - 0.1');
