@@ -34,7 +34,7 @@ console.log(code.code);
         mode: 'cors',
         body: 'code=' + code.code, // данные могут быть 'строкой' или {объектом}!
         headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://testKsi/'
+        'Access-Control-Allow-Origin': 'http://itracers.xyz/temp/CbossTesting/index.html',
+        'Access-Control-Request-Method': 'POST'
         }
         })
