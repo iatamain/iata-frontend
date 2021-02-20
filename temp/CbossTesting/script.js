@@ -7,5 +7,5 @@ mailru.loader.require('api', function(){
       }, '123');
 });
 
-console.log('version 0.4');
+console.log('version 0.4 test');
 
