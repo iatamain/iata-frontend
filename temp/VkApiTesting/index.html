@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset = 'utf-8'>
+        <title> TESTING </title>
+
+        
+        <script src="https://vk.com/js/api/openapi.js?168" type="text/javascript"></script>
+    </head>
+
+    <body>
+
+        <script type="text/javascript" defer>
+            const APIKEY = 7764869
+            const GROUP_ID = 193164579
+            const ACCESS_TOKEN = "42cd62a3471d51678ec56c22efd44fbf63bf50ff3d24ce63dc2916b2c986050945524d8200cec014fe2eb"
+
+            VK.init({
+                apiId: APIKEY
+            });
+
+            VK.Api.call('messages.send',
+            {
+                access_token: ACCESS_TOKEN,
+                user_id: 129069015,
+                group_id: 193164579,
+                v:"5.130",
+                random_id: 0,
+                message: "Test"
+            }, 
+            function(res) {
+                console.log(res)
+                if(res.response) {
+                    console.log(r);
+                }
+            });
+        </script>
+    </body>
+</html>
