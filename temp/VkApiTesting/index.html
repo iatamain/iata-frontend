@@ -15,28 +15,22 @@
 
 
         <script type="text/javascript" defer>
-            const APIKEY = 7764869
+            const DEV_ID = 7764869
+
             const GROUP_ID = 193164579
             const ACCESS_TOKEN = "42cd62a3471d51678ec56c22efd44fbf63bf50ff3d24ce63dc2916b2c986050945524d8200cec014fe2eb"
 
-            // VK.init({
-            //     apiId: APIKEY
-            // });
 
-            // VK.Api.call('messages.send',
-            // {
-            //     user_id: 129069015,
-            //     group_id: ACCESS_TOKEN,
-            //     v:"5.130",
-            //     random_id: 0,
-            //     message: "Test"
-            // }, 
-            // function(res) {
-            //     console.log(res)
-            //     if(res.response) {
-            //         console.log(r);
-            //     }
-            // });
+            VK.init(function() {
+                console.log("INIT")
+            }, function() {
+                console.log("FAILED")
+            }, '5.130');
+            // https://oauth.vk.com/authorize?client_id=7764869&display=popup&redirect_uri=https://itracers.xyz/temp/VkApiTesting/index.html&scope=friends&response_type=token&v=5.130
+
+        
         </script>
     </body>
 </html>
+
+
