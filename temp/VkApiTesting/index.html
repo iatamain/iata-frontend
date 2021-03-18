@@ -20,12 +20,15 @@
             const GROUP_ID = 193164579
             const ACCESS_TOKEN = "42cd62a3471d51678ec56c22efd44fbf63bf50ff3d24ce63dc2916b2c986050945524d8200cec014fe2eb"
 
+            window.onload = () => {
+                VK.init(function() {
+                    console.log("INIT")
+                }, function() {
+                    console.log("FAILED")
+                }, '5.130');
+            }
+            
 
-            VK.init(function() {
-                console.log("INIT")
-            }, function() {
-                console.log("FAILED")
-            }, '5.130');
             // https://oauth.vk.com/authorize?client_id=7764869&display=popup&redirect_uri=https://itracers.xyz/temp/VkApiTesting/index.html&scope=friends&response_type=token&v=5.130
 
         
@@ -34,3 +37,40 @@
 </html>
 
 
+https://api.vk.com/method/messages.send?user_id=129069015&message=123123&title=123123&access_token=42cd62a3471d51678ec56c22efd44fbf63bf50ff3d24ce63dc2916b2c986050945524d8200cec014fe2eb&v=5.130&random_id=0
+
+let obj = {
+    user_id: 129069015,
+    message: 123123,
+    title: 123123,
+    access_token: "42cd62a3471d51678ec56c22efd44fbf63bf50ff3d24ce63dc2916b2c986050945524d8200cec014fe2eb",
+    v: "5.130",
+    random_id: 0
+}
+
+function bodyCompiller() {
+    let url = "" +
+        "user_id=" + obj.user_id + "&" +
+        "message=" + obj.message + "&" +
+        "title=" + obj.title + "&" +
+        "access_token=" + obj.access_token + "&" +
+        "v=" + obj.v + "&" +
+        "random_id=" + obj.random_id ;
+
+    console.log("SEND ON: " + url);
+    
+    return url;
+}
+
+fetch("https://api.vk.com/method/messages.send?" + bodyCompiller(), {
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    },
+    method: "POST",
+    mode: "no-cors",
+}).then( (res) => {
+    console.log(res)
+}).catch ( (e) => {
+    console.log(e)
+})

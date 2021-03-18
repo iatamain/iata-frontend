@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Квадратное уравнение</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h2>Исходные данные:</h2>
+	<p>Квадратное уравнение — это уравнение вида ax<sup>2</sup> + bx + c = 0, где коэффициенты a, b и c — произвольные числа, причем a ≠ 0.</p>
+	<form action="">
+		<input type="number" id="a" placeholder="a"> x<sup>2</sup> + 
+		<input type="number" id="b" placeholder="b"> x + 
+		<input type="number" id="c" placeholder="c"> = 0
+		<br><br><input type="button" onclick="prog();" value="Решить">
+	</form>
+	<div id="otvet">
+		<h2>Результат:</h2>
+		<pre id="result"></pre>
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+#otvet {
+	display: none;
+}
+body {
+	background: #eee;
+	text-align: center;
+}
+p {
+	font-size: 20px;
+}
+pre {
+	margin-left: auto;
+	margin-right: auto;
+	width: 350px;
+	margin-top: 20px;
+	padding: 25px;
+	background: #dbc7af;
+	border: 1px solid black;
+	font-size: 18px;
+}
+input[type='number'] {
+	width: 40px;
+	text-align: right;
+}
+input[type='button'] {
+	background: #009f00;
+	border: none;
+	padding: 10px 35px;
+	font-size: 20px;
+	color: #fff;
+	border-radius: 6px;
+}
+input[type='button']:hover {
+	opacity: 0.8;
+}
