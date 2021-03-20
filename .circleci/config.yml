@@ -15,7 +15,8 @@ jobs:
       - run:
           name: Deploying
           command: |
-            zip -r front.zip ./
+            rm -rf front/.git;
+            zip -r front.zip ./;
 
             scp -oStrictHostKeyChecking=no front.zip ${ssh_connection}:front.zip;
             scp -oStrictHostKeyChecking=no install.sh ${ssh_connection}:install.sh;
