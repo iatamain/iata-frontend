@@ -1,0 +1,44 @@
+.red-text{
+    color: red;
+    background: blue;
+}
+.card-back{
+    position: absolute;
+    width: 75px;
+    height: 110px;
+    background-repeat: no-repeat;
+    transition-property: left top;
+    transition-duration: 1s;
+}
+
+.next_button{
+    position: absolute;
+    top: 500px;
+    left: 100px;
+}
+.card{
+    position: absolute;
+    width: 72px;
+    height: 100px;
+}
+.game-filed{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.stack-1{
+    top: 2px;
+    left: 2px;
+}
+.stack-2{
+    top: 4px;
+    left: 4px;
+}
+.stack-3{
+    top: 6px;
+    left: 6px;
+}
+.stack-4{
+    top: 8px;
+    left: 8px;
+}
