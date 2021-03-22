@@ -195,10 +195,12 @@
             if (getKind(currentCardId)===getKind(prevCardId)) {
                 return (currentCardId > prevCardId);
             }else{
+              //TODO: need to check main kind
               return getKind(currentCardId)===mainKind;   
             }    
         } else {
-          return isValidValue(currentCardId); 
+          //TODO: check same kind and main kind
+          return isValidValue(currentCardId); //for test only, remove later
         }
     }
 

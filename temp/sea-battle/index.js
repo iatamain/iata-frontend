@@ -1,11 +1,6 @@
-/**
- * IE 8 poliffil
- */
 if (!Function.prototype.bind) {
     Function.prototype.bind = function(oThis) {
         if (typeof this !== 'function') {
-            // closest thing possible to the ECMAScript 5
-            // internal IsCallable function
             throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
         }
 
@@ -28,10 +23,8 @@ if (!Function.prototype.bind) {
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD: import SeeBattle from "sea-battle";
         define(['sea-battle'], factory);
     } else {
-        // globals: window.SeeBattle
         root.SeeBattle = factory();
     }
 }(typeof self !== 'undefined' ? self : this, function () {
@@ -80,10 +73,6 @@ if (!Function.prototype.bind) {
     }
 
     SeeBattle.prototype = {
-        /**
-         * Вызывает функции, которые вставляют базовую html разметку
-         * нужную для игры
-         */
         run: function(){
             this.createToolbar();
             this.createGameFields();
@@ -166,10 +155,6 @@ if (!Function.prototype.bind) {
                     pcPointBlock.onclick = function(e){
                         this.userFire(e);
                     }.bind(this);
-                    // если нужно отобразить корабли компбютера
-                    /*if(this._pcShipsMap[yPoint][xPoint] === this.CELL_WITH_SHIP){
-                        pcPointBlock.setAttribute('class', 'ship');
-                    }*/
 
                     var userPointBlock = this.getOrCreatePointBlock(yPoint, xPoint, 'user');
                     if(this._userShipsMap[yPoint][xPoint] === this.CELL_WITH_SHIP){
@@ -246,14 +231,8 @@ if (!Function.prototype.bind) {
             return map;
         },
 
-        /**
-         * Генерирует массив содержащий информацию о том есть или нет корабля
-         * @return {Array}
-         */
         generateRandomShipMap: function(){
             var map = [];
-            // генерация карты расположения, вклчающей отрицательный координаты
-            // для возможности размещения у границ
             for(var yPoint=-1;yPoint<(this.gameFieldBorderY.length+1); yPoint++){
                 for(var xPoint=-1;xPoint<(this.gameFieldBorderX.length+1); xPoint++){
                     if(!map[yPoint]){
@@ -281,9 +260,6 @@ if (!Function.prototype.bind) {
                     }else{
                         continue;
                     }
-
-                    // обоновление настроек кораблей, если цикл не был пропущен
-                    // и корабль стало быть расставлен
                     shipsConfiguration[0].maxShips--;
                     if(shipsConfiguration[0].maxShips < 1){
                         shipsConfiguration.splice(0, 1);
