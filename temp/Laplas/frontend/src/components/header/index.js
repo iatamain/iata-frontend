@@ -39,6 +39,7 @@ class Header extends Component {
 	}
 	render() {
 		this.currentKey = window.location.pathname.slice(1) || "main";
+		let classNav = this.currentKey === "main" ? "in_top" : "";
 		let style = {};
 		if (this.state.elem) {
 			 style = {
@@ -52,7 +53,7 @@ class Header extends Component {
       style.width = "0px";
     }
 		return (
-			<nav>
+			<nav className = {classNav}>
 				<ul>
 					<li>
 						<img src={bird} alt="Laplas" width="70" />

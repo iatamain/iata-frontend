@@ -1,0 +1,94 @@
+#first_main {
+	position: relative;
+	z-index: 0;
+	width: 100%;
+	height: 100vh;
+  min-height: 400px;
+	background: rgb(171, 219, 226);
+	background: linear-gradient(
+		120deg,
+		rgb(156, 218, 228) 0%,
+		rgba(1, 174, 195, 1) 50%,
+		rgba(2, 166, 188, 1) 55%,
+		rgba(6, 145, 169, 1) 65%,
+		rgba(21, 112, 140, 1) 75%,
+		rgba(31, 73, 105, 1) 85%,
+		rgba(31, 37, 74, 1) 95%
+	);
+  padding-right: -40px;
+}
+#first_main #laplas {
+	position: absolute;
+	top: calc(50% - 70px);
+	left: 12%;
+	transform: translate(0, -50%);
+}
+#laplas h1{
+  margin-right: 40px;
+}
+#first_main #button {
+  width: 270px;
+  height: 50px;
+  border: 2px solid #F5F5F7;
+  border-radius: 25px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  cursor: pointer;
+}
+#circles{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+svg{
+  margin: -90px;
+  position: relative;
+  bottom: 200px;
+}
+circle{
+  transform-origin: center;
+  animation: rotate 3s linear infinite;
+}
+@keyframes rotate{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+@keyframes revertRotate{
+  0%{
+    transform: rotate(360deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}
+#second_main {
+	width: 100%;
+	min-height: 100vh;
+	background: linear-gradient(
+		60deg,
+		rgb(156, 218, 228) 0%,
+		rgba(1, 174, 195, 1) 50%,
+		rgba(2, 166, 188, 1) 55%,
+		rgba(6, 145, 169, 1) 65%,
+		rgba(21, 112, 140, 1) 75%,
+		rgba(31, 73, 105, 1) 85%,
+		rgba(31, 37, 74, 1) 95%
+	);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 70px;
+}
+#second_main p{
+  width: 90%;
+  color: #F5F5F7;
+  font-size: 20px;
+}
