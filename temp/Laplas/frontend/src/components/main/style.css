@@ -16,6 +16,7 @@
 		rgba(31, 37, 74, 1) 95%
 	);
   padding-right: -40px;
+  overflow: hidden;
 }
 #first_main #laplas {
 	position: absolute;
@@ -87,6 +88,7 @@ circle{
   text-align: center;
   box-sizing: border-box;
   padding-top: 70px;
+  overflow-x: hidden;
 }
 #second_main p{
   width: 90%;

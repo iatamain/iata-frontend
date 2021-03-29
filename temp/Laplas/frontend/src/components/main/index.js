@@ -24,7 +24,7 @@ const Main = () => {
 	if (window.scrollY < window.innerHeight && position === "bottom") {
 		scrollTo(0);
 	} else if (window.scrollY > 0 && position === "top") {
-		scrollTo(window.innerHeight);
+		scrollTo(window.innerHeight + 40);
 	}
 	return (
 		<Fragment>
