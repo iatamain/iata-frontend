@@ -1,80 +1,74 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "./style.css";
 import bird from "./bird.svg";
 import { Link } from "react-router-dom";
 
-class Header extends Component {
-	constructor(props) {
-		super(props);
-		this.curNavRef = React.createRef();
-		this.timer = null;
-		this.state = { elem: null };
-		this.navElements = [
-			{ title: "Главная", key: "main" },
-			{ title: "Курсы", key: "course" },
-			{ title: "Индивидуальные занятия", key: "lessons" },
-			{ title: "Услуги", key: "services" },
-			{ title: "Контакты", key: "contacts" },
-		];
-		this.currentKey = window.location.pathname.slice(1) || "main";
-    this.lastStyleUnderline = {
-      left: 0,
-      width: 0
-    };
+let Header = () => {
+	let curNavRef = React.createRef(); //ref фкладки от текущей страницы
+	let [currNav, setCurrNav] = useState(curNavRef.current);
+	let timer = null; //Шоб полосочка возвращалась не сразу:D
+	let navElements = [
+		{ title: "Главная", key: "main" },
+		{ title: "Курсы", key: "course" },
+		{ title: "Индивидуальные занятия", key: "lessons" },
+		{ title: "Услуги", key: "services" },
+		{ title: "Контакты", key: "contacts" },
+	];
+	let currentKey = window.location.pathname.slice(1) || "main"; //key вкладки от текущей страницы
+	let lastStyleUnderline = {
+		left: 0,
+		width: 0,
+	};
+	let classNav = currentKey === "main" && window.scrollY <= 10 ? "in_top" : "";
+	let style = {};
+	if (currNav) {
+		style = {
+			left: currNav.getBoundingClientRect().left + "px",
+			width: currNav.getBoundingClientRect().width + "px",
+		};
+		lastStyleUnderline.left = parseInt(style.left);
+		lastStyleUnderline.width = parseInt(style.width);
+	} else {
+		style.left = lastStyleUnderline.left + lastStyleUnderline.width / 2 + "px";
+		style.width = "0px";
 	}
-	handleMouseOut(event) {
-		this.timer = setTimeout(() => {
-			this.timer = null;
-			this.setState({ elem: this.curNavRef.current });
+	function handleMouseOut(event) {
+		timer = setTimeout(() => {
+			timer = null;
+			setCurrNav(curNavRef.current);
 		}, 500);
 	}
-	handleMouseOver(event) {
-		clearTimeout(this.timer);
-		this.setState({ elem: event.target });
+	function handleMouseOver(event) {
+		clearTimeout(timer);
+		setCurrNav(event.target);
 	}
-	componentDidMount() {
+	useEffect(() => {
 		setTimeout(() => {
-			this.setState({ elem: this.curNavRef.current });
-		}, 100); //Чтобы шрифт успел прогрузиться
-	}
-	render() {
-		this.currentKey = window.location.pathname.slice(1) || "main";
-		let classNav = this.currentKey === "main" ? "in_top" : "";
-		let style = {};
-		if (this.state.elem) {
-			 style = {
-				left: this.state.elem.getBoundingClientRect().left + "px",
-				width: this.state.elem.getBoundingClientRect().width + "px",
-			};
-      this.lastStyleUnderline.left = parseInt(style.left);
-      this.lastStyleUnderline.width = parseInt(style.width);
-		}else{
-      style.left = this.lastStyleUnderline.left + this.lastStyleUnderline.width/2 + "px";
-      style.width = "0px";
-    }
-		return (
-			<nav className = {classNav}>
-				<ul>
-					<li>
-						<img src={bird} alt="Laplas" width="70" />
-					</li>
-					{this.navElements.map((elem) => {
-						return (
-							<li
-								key={elem.key}
-								ref={elem.key === this.currentKey ? this.curNavRef : null}
-								className={elem.key === this.currentKey ? "current" : ""}
-								onMouseOver={this.handleMouseOver.bind(this)}
-								onMouseOut={this.handleMouseOut.bind(this)}
-							>
-								<Link to={"/" + elem.key}>{elem.title}</Link>
-							</li>
-						);
-					})}
-				</ul>
-				<div style={style} className="underline" />
-			</nav>
-		);
-	}
-}
+			setCurrNav(curNavRef.current);
+		}, 100)
+	}, [currentKey]);
+	return (
+		<nav className={classNav}>
+			<ul>
+				<li>
+					<img src={bird} alt="Laplas" width="70" />
+				</li>
+				{navElements.map((elem) => {
+					return (
+						<li
+							key={elem.key}
+							ref={elem.key === currentKey ? curNavRef : null}
+							className={elem.key === currentKey ? "current" : ""}
+							onMouseOver={handleMouseOver}
+							onMouseOut={handleMouseOut}
+						>
+							<Link to={"/" + elem.key}>{elem.title}</Link>
+						</li>
+					);
+				})}
+			</ul>
+			<div style={style} className="underline" />
+		</nav>
+	);
+};
 export { Header };

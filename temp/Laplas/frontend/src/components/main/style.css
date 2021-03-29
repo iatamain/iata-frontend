@@ -85,6 +85,7 @@ circle{
   align-items: center;
   justify-content: center;
   text-align: center;
+  box-sizing: border-box;
   padding-top: 70px;
 }
 #second_main p{

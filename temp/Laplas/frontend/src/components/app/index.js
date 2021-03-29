@@ -16,16 +16,20 @@ const App = () => {
 	const setDemension = React.useState({
 		width: window.innerWidth,
 		height: window.innerHeight,
+		scrollY: window.scrollY
 	})[1];
 	React.useEffect(() => {
 		const debouncedHandleResize = debounce(function handleResize() {
 			setDemension({
 				width: window.innerWidth,
 				height: window.innerHeight,
+				scrollY: window.scrollY
 			});
-		}, 0);
+		}, 16);
+		window.addEventListener("scroll", debouncedHandleResize);
 		window.addEventListener("resize", debouncedHandleResize);
 		return () => {
+			window.removeEventListener("scroll", debouncedHandleResize)
 			window.removeEventListener("resize", debouncedHandleResize);
 		};
 	});
