@@ -9,3 +9,10 @@ body::-webkit-scrollbar {
 	width: 0px;
 	
 }
+@font-face {
+	font-family: "Montserrat-Regular";
+	src: url(./../../fonts/Montserrat-Regular.ttf);
+}
+*{
+    font-family: Montserrat-Regular;
+}

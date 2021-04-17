@@ -9,12 +9,12 @@ function scrollTo(y) {
 		window.scroll(0, y);
 		timerScroll = setTimeout(() => {
 			timerScroll = null;
-			if (y  >=  window.innerHeight) {
+			if (y >= window.innerHeight) {
 				position = "bottom";
-			}else{
-				position  = "top";
+			} else {
+				position = "top";
 			}
-			console.log(position)
+			console.log(position);
 		}, 1000);
 	}
 }
@@ -35,7 +35,11 @@ const Main = () => {
 						<br />
 						НАЧНИ С LAPLAS!
 					</h1>
-					<div><Link id="button" to="/course" >Выбрать курс</Link></div>
+					<div>
+						<Link id="button" to="/course">
+							Выбрать курс
+						</Link>
+					</div>
 				</div>
 				<div id="circles">
 					{Array(5)

@@ -1,0 +1,70 @@
+[
+	{
+		"title": "Дифференциальные уравнения. Практический курс",
+		"duration": "4-6 месяцев",
+		"img": "diff_equations_bg.svg",
+    "link": ""
+	},
+	{
+		"title": "Абстрактная алгебра",
+		"duration": "8-10 месяцев",
+		"img": "abstract_algebra_bg.svg",
+		"link": ""
+	},
+  {
+		"title": "Высшая математика",
+		"duration": "4-6 месяцев",
+		"img": "abstract_algebra_bg.svg",
+		"link": ""
+	},
+  {
+		"title": "Элементы топологии",
+		"duration": "3-5 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "Алгебра",
+		"duration": "10-12 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "English для технарей",
+		"duration": "3-5 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "Математика и физика: история формул",
+		"duration": "10-12 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "Геометрия",
+		"duration": "10-12 месяцев",
+		"img": "geom_bg.svg"
+	},
+  {
+		"title": "Теория вероятностей & статистика",
+		"duration": "10-12 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "Программирование",
+		"duration": "10-12 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "Физика",
+		"duration": "10-12 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "Алгоритмика",
+		"duration": "10-12 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	},
+  {
+		"title": "Дискретная математика &<br/>мат. логика",
+		"duration": "3-5 месяцев",
+		"img": "abstract_algebra_bg.svg"
+	}
+]

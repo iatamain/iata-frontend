@@ -21,6 +21,7 @@ nav {
 	font-family: Montserrat-Regular;
 	transition: 1s;
 	z-index: 1;
+	top: 0;
 }
 nav.in_top {
 	background: rgba(31, 37, 74, 0);
@@ -55,8 +56,4 @@ nav li.current {
 	top: 40px;
 	/*left: calc(24% + 15px);*/
 	transition: 0.5s;
-}
-@font-face {
-	font-family: "Montserrat-Regular";
-	src: url(./Montserrat-Regular.ttf);
 }
