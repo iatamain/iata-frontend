@@ -14,28 +14,28 @@
   {
 		"title": "Высшая математика",
 		"duration": "4-6 месяцев",
-		"img": "abstract_algebra_bg.svg",
+		"img": "higher_mathematics_bg.svg",
 		"link": ""
 	},
   {
 		"title": "Элементы топологии",
 		"duration": "3-5 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "topology_bg.svg"
 	},
   {
 		"title": "Алгебра",
 		"duration": "10-12 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "algebra_bg.svg"
 	},
   {
 		"title": "English для технарей",
 		"duration": "3-5 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "english_bg.svg"
 	},
   {
 		"title": "Математика и физика: история формул",
 		"duration": "10-12 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "formula_history_bg.svg"
 	},
   {
 		"title": "Геометрия",
@@ -45,26 +45,26 @@
   {
 		"title": "Теория вероятностей & статистика",
 		"duration": "10-12 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "probability_theory_bg.svg"
 	},
   {
 		"title": "Программирование",
 		"duration": "10-12 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "programming_bg.svg"
 	},
   {
 		"title": "Физика",
 		"duration": "10-12 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "physics_bg.svg"
 	},
   {
 		"title": "Алгоритмика",
 		"duration": "10-12 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "algorithmics_bg.svg"
 	},
   {
 		"title": "Дискретная математика &<br/>мат. логика",
 		"duration": "3-5 месяцев",
-		"img": "abstract_algebra_bg.svg"
+		"img": "discrete_mathematics_bg.svg"
 	}
 ]
