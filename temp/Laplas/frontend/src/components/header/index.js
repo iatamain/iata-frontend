@@ -45,7 +45,7 @@ let Header = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setCurrNav(curNavRef.current);
-		}, 100)
+		}, 200)
 	}, [currentKey]);
 	return (
 		<nav className={classNav}>

@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   background-image: url(./images/course_bg.svg);
   background-attachment: fixed;
@@ -14,14 +15,16 @@
 }
 #course .wrapper{
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   position: relative;
 }
 #course ul{
   position: relative;
   padding: 0;
-  margin: 20px;
+  margin: 0;
+  width: 570px;
+  min-width: 270px;
+  overflow: hidden;
 }
 #course h1{
   align-self:flex-start;
@@ -29,26 +32,29 @@
   left: 20px;
   top: -80px;
 }
+#course ul:nth-child(2n){
+  margin-right: 40px;
+}
 #course ul:nth-child(2n - 1){
   top: 120px;
+  margin-bottom: 120px;
 }
 #course li{
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
-  padding-left: 67px;
-  padding-bottom: 26px;
-  padding-top: 36px;
+  padding: 36px 0px 26px  67px;
+  margin-right: 0;
   margin-bottom: 70px;
-  color: #F5F5F7;
-  width: 570px;
+  width: 100%;
   height: 225px;
+  color: #F5F5F7;
   border-radius: 5px;
   background:#424F6F;
-  list-style: none;
-  transition: 0.5s;
   background-size: 145%;
   background-position: 50% 50%;
+  list-style: none;
+  transition: 0.5s;
 }
 #course li:nth-child(2n){
   background-color:#1F254A;
@@ -60,6 +66,39 @@
 #course li p{
   position: absolute;
   bottom: 10px;
+}
+@media (max-width: 1220px) {
+  #course .wrapper{
+    flex-direction: column;
+    align-items: center;
+  }
+  #course ul:nth-child(2n){
+    margin-right: 0px;
+  }
+  #course ul:nth-child(2n - 1){
+    top: 0;
+    margin-bottom: 0;
+  }
+}
+@media(max-width: 600px){
+  #course ul h2{
+    font-size: 120%;
+  }
+  #course li{
+    padding-left: 40px;
+  }
+  #course ul{
+    width: 90%;
+  }
+}
+@media(max-width: 340px){
+  #course ul h2{
+    font-size: 110%;
+  }
+  #course li{
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
 }
 .arrow{
   position: absolute;
