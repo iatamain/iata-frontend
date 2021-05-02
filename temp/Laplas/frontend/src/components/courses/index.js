@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import courses from "./courses.json";
+import { Link } from "react-router-dom";
 
 function importAll(r) {
 	let images = {};
@@ -24,30 +25,32 @@ const Courses = () => (
 								backgroundImage: `url(${images[course.img]})`,
 							}}
 						>
-							<h2 dangerouslySetInnerHTML={{ __html: course.title }}></h2>
-							<p>{course.duration}</p>
-							<div className="arrow"></div>
+							<Link to=	{`courses/${course.localName}`}>
+								<h2 dangerouslySetInnerHTML={{ __html: course.title }}></h2>
+								<p>{course.duration}</p>
+								<div className="arrow"></div>
+							</Link>
 						</li>
 					);
 				})}
 			</ul>
 			<ul>
-				{courses
-					.slice(Math.ceil(courses.length / 2))
-					.map((course, i) => {
-						return (
-							<li
-								key={i}
-								style={{
-									backgroundImage: `url(${images[course.img]})`,
-								}}
-							>
+				{courses.slice(Math.ceil(courses.length / 2)).map((course, i) => {
+					return (
+						<li
+							key={i}
+							style={{
+								backgroundImage: `url(${images[course.img]})`,
+							}}
+						>
+							<Link to=	{`courses/${course.localName}`}>
 								<h2 dangerouslySetInnerHTML={{ __html: course.title }}></h2>
 								<p>{course.duration}</p>
 								<div className="arrow"></div>
-							</li>
-						);
-					})}
+							</Link>
+						</li>
+					);
+				})}
 			</ul>
 		</div>
 	</div>

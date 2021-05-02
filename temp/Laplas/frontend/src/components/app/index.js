@@ -7,6 +7,7 @@ import {
 	Lessons,
 	Services,
 	Contacts,
+	Course
 } from "../../components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./style.css";
@@ -16,29 +17,33 @@ const App = () => {
 	const setDemension = React.useState({
 		width: window.innerWidth,
 		height: window.innerHeight,
-		scrollY: window.scrollY
+		scrollY: window.scrollY,
 	})[1];
 	React.useEffect(() => {
 		const debouncedHandleResize = debounce(function handleResize() {
 			setDemension({
 				width: window.innerWidth,
 				height: window.innerHeight,
-				scrollY: window.scrollY
+				scrollY: window.scrollY,
 			});
 		}, 16);
 		window.addEventListener("scroll", debouncedHandleResize);
 		window.addEventListener("resize", debouncedHandleResize);
 		return () => {
-			window.removeEventListener("scroll", debouncedHandleResize)
+			window.removeEventListener("scroll", debouncedHandleResize);
 			window.removeEventListener("resize", debouncedHandleResize);
 		};
 	});
 	return (
 		<Fragment>
 			<Router>
-				<Route path="/" component={Header} />
+				<Switch>
+					<Route exact path="/courses/:course" />
+					<Route path="/" component={Header} />
+				</Switch>
 				<Switch>
 					<Route exact path={["/", "/main"]} component={Main} />
+					<Route exact path="/courses/:course"><Course /></Route>
 					<Route exact path="/courses" component={Courses} />
 					<Route exact path="/lessons" component={Lessons} />
 					<Route exact path="/services" component={Services} />
