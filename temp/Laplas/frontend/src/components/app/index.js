@@ -3,7 +3,7 @@ import {
 	Header,
 	Main,
 	Footer,
-	Course,
+	Courses,
 	Lessons,
 	Services,
 	Contacts,
@@ -39,7 +39,7 @@ const App = () => {
 				<Route path="/" component={Header} />
 				<Switch>
 					<Route exact path={["/", "/main"]} component={Main} />
-					<Route exact path="/course" component={Course} />
+					<Route exact path="/courses" component={Courses} />
 					<Route exact path="/lessons" component={Lessons} />
 					<Route exact path="/services" component={Services} />
 					<Route exact path="/contacts" component={Contacts} />

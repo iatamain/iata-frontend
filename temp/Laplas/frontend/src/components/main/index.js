@@ -36,7 +36,7 @@ const Main = () => {
 						НАЧНИ С LAPLAS!
 					</h1>
 					<div>
-						<Link id="button" to="/course">
+						<Link id="button" to="/courses">
 							Выбрать курс
 						</Link>
 					</div>

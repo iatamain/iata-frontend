@@ -9,7 +9,7 @@ let Header = () => {
 	let timer = null; //Шоб полосочка возвращалась не сразу:D
 	let navElements = [
 		{ title: "Главная", key: "main" },
-		{ title: "Курсы", key: "course" },
+		{ title: "Курсы", key: "courses" },
 		{ title: "Индивидуальные занятия", key: "lessons" },
 		{ title: "Услуги", key: "services" },
 		{ title: "Контакты", key: "contacts" },

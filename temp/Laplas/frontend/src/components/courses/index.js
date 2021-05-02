@@ -11,8 +11,8 @@ function importAll(r) {
 }
 const images = importAll(require.context("./images", false, /\.svg$/));
 
-const Course = () => (
-	<div id="course">
+const Courses = () => (
+	<div id="courses">
 		<div className="wrapper">
 			<h1>Курсы</h1>
 			<ul>
@@ -52,4 +52,4 @@ const Course = () => (
 		</div>
 	</div>
 );
-export { Course };
+export { Courses };
