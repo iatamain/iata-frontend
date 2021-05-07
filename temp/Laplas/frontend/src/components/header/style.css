@@ -1,12 +1,8 @@
-a {
+nav a {
 	all: inherit;
 	height: 100%;
 }
-a:visited {
-	color: #f5f5f7;
-}
-
-img {
+nav img {
 	left: calc(7% - 35px);
 }
 nav {

@@ -1,7 +1,16 @@
 import React from "react";
 import "./style.css";
-import courses from "./courses.json";
+import courses from "../../data/courses.json";
 import { Link } from "react-router-dom";
+import { ArrowBtn } from "../../components/arrowBtn";
+import styled from "styled-components";
+
+const NewArrowBtn = styled(ArrowBtn)`
+	position: absolute;
+	right: 25px;
+	top: 50%;
+	transform: translate(0, -50%);
+`;
 
 function importAll(r) {
 	let images = {};
@@ -25,10 +34,10 @@ const Courses = () => (
 								backgroundImage: `url(${images[course.img]})`,
 							}}
 						>
-							<Link to=	{`courses/${course.localName}`}>
+							<Link to={`courses/${course.localName}`}>
 								<h2 dangerouslySetInnerHTML={{ __html: course.title }}></h2>
 								<p>{course.duration}</p>
-								<div className="arrow"></div>
+								<NewArrowBtn />
 							</Link>
 						</li>
 					);
@@ -43,10 +52,10 @@ const Courses = () => (
 								backgroundImage: `url(${images[course.img]})`,
 							}}
 						>
-							<Link to=	{`courses/${course.localName}`}>
+							<Link to={`courses/${course.localName}`}>
 								<h2 dangerouslySetInnerHTML={{ __html: course.title }}></h2>
 								<p>{course.duration}</p>
-								<div className="arrow"></div>
+								<NewArrowBtn />
 							</Link>
 						</li>
 					);

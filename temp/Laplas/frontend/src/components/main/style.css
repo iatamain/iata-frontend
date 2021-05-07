@@ -24,6 +24,10 @@
 	left: 12%;
 	transform: translate(0, -50%);
 }
+#first_main a{
+  all: inherit;
+  height: 100%;
+}
 #laplas h1{
   margin-right: 40px;
 }
