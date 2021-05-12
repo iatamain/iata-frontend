@@ -59,14 +59,14 @@
   background-size: 145%;
   background-position: 50% 50%;
   list-style: none;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 #courses li:nth-child(2n){
   background-color:#1F254A;
 }
 #courses li:hover{
   border-radius: 50px;
-  transition: 0.5s;
+  transition: 0.1s;
 }
 #courses li p{
   position: absolute;

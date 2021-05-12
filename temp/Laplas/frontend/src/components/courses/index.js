@@ -34,7 +34,7 @@ const Courses = () => (
 								backgroundImage: `url(${images[course.img]})`,
 							}}
 						>
-							<Link to={`courses/${course.localName}`}>
+							<Link to={`courses/${course.localName}`} onClick = {()=>{window.scrollTo(0, 0)}}>
 								<h2 dangerouslySetInnerHTML={{ __html: course.title }}></h2>
 								<p>{course.duration}</p>
 								<NewArrowBtn />
@@ -52,7 +52,7 @@ const Courses = () => (
 								backgroundImage: `url(${images[course.img]})`,
 							}}
 						>
-							<Link to={`courses/${course.localName}`}>
+							<Link to={`courses/${course.localName}`} onClick = {()=>{window.scrollTo(0, 0)}}>
 								<h2 dangerouslySetInnerHTML={{ __html: course.title }}></h2>
 								<p>{course.duration}</p>
 								<NewArrowBtn />
