@@ -14,8 +14,8 @@ const NewArrowBtn = styled(ArrowBtn)`
 
 function importAll(r) {
 	let images = {};
-	r.keys().map((item, index) => {
-		images[item.replace("./", "")] = r(item).default;
+	r.keys().map((item) => {
+		return images[item.replace("./", "")] = r(item).default;
 	});
 	return images;
 }

@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
-import bird from "./bird.svg";
+import bird from "../../images/bird.svg";
 import { Link } from "react-router-dom";
 
 let Header = () => {
@@ -10,8 +10,8 @@ let Header = () => {
 	let navElements = [
 		{ title: "Главная", key: "main" },
 		{ title: "Курсы", key: "courses" },
-		{ title: "Индивидуальные занятия", key: "lessons" },
-		{ title: "Услуги", key: "services" },
+		//{ title: "Индивидуальные занятия", key: "lessons" },
+	//	{ title: "Услуги", key: "services" },
 		{ title: "Контакты", key: "contacts" },
 	];
 	let currentKey = window.location.pathname.slice(1) || "main"; //key вкладки от текущей страницы
@@ -46,7 +46,7 @@ let Header = () => {
 		setTimeout(() => {
 			setCurrNav(curNavRef.current);
 		}, 200)
-	}, [currentKey]);
+	}, []);
 	return (
 		<nav className={classNav}>
 			<ul>

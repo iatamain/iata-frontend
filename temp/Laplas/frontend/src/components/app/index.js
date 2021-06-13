@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import {
@@ -64,7 +64,7 @@ const App = () => {
 		height: window.innerHeight,
 		scrollY: window.scrollY,
 	})[1];
-	React.useEffect(() => {
+	useEffect(() => {
 		const debouncedHandleResize = debounce(function handleResize() {
 			setDemension({
 				width: window.innerWidth,
@@ -78,7 +78,7 @@ const App = () => {
 			window.removeEventListener("scroll", debouncedHandleResize);
 			window.removeEventListener("resize", debouncedHandleResize);
 		};
-	});
+	}, []);
 	return (
 		<Fragment>
 			<GlobalStyle/>

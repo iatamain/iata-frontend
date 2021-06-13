@@ -2,14 +2,20 @@ import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import courses from "../../data/courses.json";
 import { ArrowBtn } from "../../components/arrowBtn";
-
+import { Header } from "./components/header/index.js";
+import { CourseSections } from "./components/courseSections/index.js";
+import { HowGoesCourse } from "./components/howGoesCourse";
+import { Footer } from "./components/footer";
 const NewArrowBtn = styled(ArrowBtn)`
 	position: absolute;
-	top: 20px;
-	left: 28px;
+	top: 1.3vw;
+	left: 1.8vw;
 	transform: rotate(180deg);
+	transition: 1s;
+	@media (max-width: 900px) {
+		transform: scale(0.7) rotate(180deg);
+	}
 `;
-
 const Container = styled.div`
 	width: 100%;
 	min-height: 100vh;
@@ -17,86 +23,27 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 0 215px;
+	padding: 0 14vw 50px 14vw;
 	box-sizing: border-box;
-`;
-const H1 = styled.h1`
-	margin: 300px 0 0 0;
-	width: 600px;
-	color: white;
-	text-align: center;
-	text-transform: uppercase;
-	font-family: Montserrat;
-	font-weight: 700;
-	font-size: 48px;
-	z-index: 1;
-`;
-const Circle = styled.div`
-	position: absolute;
-	left: -40px;
-	border: 1px solid #fff;
-	width: 100%;
-	height: 100%;
-	border-radius: 100%;
-`;
-const Header = styled.div`
-	position: relative;
-	width: 800px;
-	height: 800px;
-	background: radial-gradient(
-		63% 63% at 25% 19%,
-		#546ca4 0%,
-		#0691a9 55%,
-		#1f254a 135%
-	);
-	border-radius: 100%;
-	margin-top: -165px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: column;
-	& div{
-		margin-bottom: 120px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+	@media (max-width: 900px) {
+		padding: 0 5vw 50px 5vw;
 	}
 `;
-const SingUpBtn = styled.a`
-  width: 270px;
-  height: 47px;
-  border: 1px solid #F5F5F7;
-  border-radius: 25px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-	font-weight: 700;
-	z-index: 1;
-`
-const StartCourse = styled.p`
-	font-size: 15px;
-	font-weight: 700;
-	margin-top: 40px;
-	color: white;
-	font-size: 18px;
-	font-weight: 700;
-`
 const About = styled.p`
-	font-size: 24px;
-	color: white;
-	width: 870px;
+	font-size: calc(14px + (24 - 14) * ((100vw - 600px) / (1524 - 600)));
+	color: #f5f5f7;
+	width: 80vw;
+	max-width: 870px;
 	align-self: flex-start;
-	padding: 115px 0;
-	& p{
+	padding: 7vw 0;
+	& p {
 		display: inline-block;
 		margin: 0;
 		padding: 5px;
-		border: 1px solid white;
+		border: 1px solid #f5f5f7;
 		border-radius: 50px;
 	}
-`
+`;
 const Course = () => {
 	const { course } = useParams();
 	const currentCourse = courses.find((el) => el.localName === course);
@@ -106,15 +53,11 @@ const Course = () => {
 			<Link to="/courses">
 				<NewArrowBtn />
 			</Link>
-			<Header>
-				<Circle />
-				<H1 dangerouslySetInnerHTML={{ __html: currentCourse.title }} />
-				<div>
-					<SingUpBtn href = "https://vk.me/laplas.official">Записаться</SingUpBtn>
-					<StartCourse>{currentCourse.start}</StartCourse>
-				</div>
-			</Header>
-			<About  dangerouslySetInnerHTML={{ __html: currentCourse.about }} />
+			<Header startDate={currentCourse.start} title={currentCourse.title} />
+			<About dangerouslySetInnerHTML={{ __html: currentCourse.about }} />
+			<CourseSections courseSections={currentCourse.courseSections} />
+			<HowGoesCourse howGoesCourse={currentCourse.howGoesCourse} />
+			<Footer price = {currentCourse.price}/>
 		</Container>
 	);
 };
