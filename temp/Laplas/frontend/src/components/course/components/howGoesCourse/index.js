@@ -26,7 +26,7 @@ const Section = styled.div`
 	font-size: calc(12px + (20 - 12) * ((100vw - 600px) / (1524 - 600)));
 	color: #f5f5f5;
 	font-weight: 700;
-	& div{
+	& div {
 		margin-bottom: 30px;
 		font-weight: 700;
 		margin-right: 80px;
@@ -45,13 +45,18 @@ const HowGoesCourse = ({ howGoesCourse }) => {
 	let content = [];
 	for (let i = 0; i < howGoesCourse.length; i++) {
 		content.push(
-			<Section key = {i} dangerouslySetInnerHTML={{ __html: howGoesCourse[i] }} />
+			<Section key={i} dangerouslySetInnerHTML={{ __html: howGoesCourse[i] }} />
 		);
+
 		if (i === 4) {
 			content.push(
-				<Section key = "other">
-					<div>Отзывы о курсе: <Img src={chatImg} /></div>
-					<div>Отзывы о<br/> преподавателе: <Img src={feedback} /></div>
+				<Section key="other">
+					<div>
+						<a href="https://vk.com/board187177326" target="_blank">
+							Отзывы:{" "}
+						</a>
+						<Img src={chatImg} />
+					</div>
 				</Section>
 			);
 		}

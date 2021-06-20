@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import bird from "../../images/bird.svg";
 import { Link } from "react-router-dom";
-
+import cursorPointer from "../../images/cursorPointer.svg";
+let lastStyleUnderline = {
+	left: 0,
+	width: 0,
+};
 let Header = () => {
 	let curNavRef = React.createRef(); //ref фкладки от текущей страницы
 	let [currNav, setCurrNav] = useState(curNavRef.current);
@@ -11,14 +15,10 @@ let Header = () => {
 		{ title: "Главная", key: "main" },
 		{ title: "Курсы", key: "courses" },
 		//{ title: "Индивидуальные занятия", key: "lessons" },
-	//	{ title: "Услуги", key: "services" },
+		//{ title: "Услуги", key: "services" },
 		{ title: "Контакты", key: "contacts" },
 	];
 	let currentKey = window.location.pathname.slice(1) || "main"; //key вкладки от текущей страницы
-	let lastStyleUnderline = {
-		left: 0,
-		width: 0,
-	};
 	let classNav = currentKey === "main" && window.scrollY <= 10 ? "in_top" : "";
 	let style = {};
 	if (currNav) {
@@ -29,8 +29,10 @@ let Header = () => {
 		lastStyleUnderline.left = parseInt(style.left);
 		lastStyleUnderline.width = parseInt(style.width);
 	} else {
-		style.left = lastStyleUnderline.left + lastStyleUnderline.width / 2 + "px";
-		style.width = "0px";
+		//style.left = lastStyleUnderline.left + lastStyleUnderline.width / 2 + "px";
+		//style.width = "0px";
+		style.left = lastStyleUnderline.left;
+		style.width = lastStyleUnderline.width;
 	}
 	function handleMouseOut(event) {
 		timer = setTimeout(() => {
@@ -46,7 +48,7 @@ let Header = () => {
 		setTimeout(() => {
 			setCurrNav(curNavRef.current);
 		}, 200)
-	}, []);
+	}, [currentKey]);
 	return (
 		<nav className={classNav}>
 			<ul>

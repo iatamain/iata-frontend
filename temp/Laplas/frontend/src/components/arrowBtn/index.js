@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import cursorPointer from "../../images/cursorPointer.svg";
 
 const ArrowBtn = styled.div`
 	width: 45px;
@@ -7,7 +8,7 @@ const ArrowBtn = styled.div`
 	border: 1px solid #f5f5f7;
 	display: flex;
 	align-items: center;
-  cursor: pointer;
+  cursor:  url(${cursorPointer}), pointer;
 	&::before {
 		content: "";
 		display: block;

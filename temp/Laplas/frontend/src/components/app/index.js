@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import cursorDefault from "./../../images/cursorDefault.svg";
+import cursorPointer from "./../../images/cursorPointer.svg";
 import {
 	Header,
 	Main,
@@ -10,12 +12,14 @@ import {
 	Services,
 	Contacts,
 	Course,
+	Cursor,
 } from "../../components";
 import { NotFound } from "../notfound";
 
 const GlobalStyle = createGlobalStyle`
 	html{
 			scroll-behavior: smooth;
+			cursor:  url(${cursorDefault}), default;
 	}
 	body{
 			margin: 0;
@@ -24,11 +28,11 @@ const GlobalStyle = createGlobalStyle`
 	}
 	body::-webkit-scrollbar {
 		width: 0px;
-		
 	}
 	a{
 		text-decoration: none;
 		cursor: pointer;
+		cursor:  url(${cursorPointer}), pointer;
 	}
 	a:visited {
 		color: #f5f5f7;
@@ -81,7 +85,8 @@ const App = () => {
 	}, []);
 	return (
 		<Fragment>
-			<GlobalStyle/>
+			<GlobalStyle />
+			<Cursor />
 			<Router>
 				<Switch>
 					<Route exact path="/courses/:course" />
@@ -98,8 +103,8 @@ const App = () => {
 					<Route exact path="/contacts" component={Contacts} />
 					<Route path="/" component={NotFound} />
 				</Switch>
+				<Footer />
 			</Router>
-			<Footer />
 		</Fragment>
 	);
 };
