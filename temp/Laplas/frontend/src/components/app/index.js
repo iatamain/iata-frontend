@@ -29,13 +29,11 @@ const GlobalStyle = createGlobalStyle`
 	body::-webkit-scrollbar {
 		width: 0px;
 	}
-	a{
+	a, a:active, a:visited{
+		color: #f5f5f7;
 		text-decoration: none;
 		cursor: pointer;
 		cursor:  url(${cursorPointer}), pointer;
-	}
-	a:visited {
-		color: #f5f5f7;
 	}
 	@font-face{
 		font-family: "Montserrat";
