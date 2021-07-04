@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import bird from "../../images/bird.svg";
 import { Link } from "react-router-dom";
-import cursorPointer from "../../images/cursorPointer.svg";
 let lastStyleUnderline = {
 	left: 0,
 	width: 0,
@@ -63,6 +62,7 @@ let Header = () => {
 							className={elem.key === currentKey ? "current" : ""}
 							onMouseOver={handleMouseOver}
 							onMouseOut={handleMouseOut}
+							className = "cursorPointer"
 						>
 							<Link to={"/" + elem.key}>{elem.title}</Link>
 						</li>

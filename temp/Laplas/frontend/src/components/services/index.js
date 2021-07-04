@@ -24,7 +24,6 @@ const RedBtn = styled.div`
 	border-radius: 50px;
 	color: #9b256e;
 	margin-right: 20px;
-  cursor: pointer;
 `;
 const AboutIT = styled.p`
 	position: relative;
@@ -59,8 +58,8 @@ const Services = () => {
 		<Container>
 			<H1>Услуги</H1>
 			<Nav>
-				<RedBtn>IT</RedBtn>
-				<RedBtn>Дизайн</RedBtn>
+				<RedBtn className = "cursorPointer">IT</RedBtn>
+				<RedBtn className = "cursorPointer">Дизайн</RedBtn>
 			</Nav>
 			<AboutIT>
 				Веб-студия LAPLAS воплотит ваши идеи в стильном и современном виде!

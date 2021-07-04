@@ -5,7 +5,6 @@ import facebookImg from "../../images/facebook.svg";
 import telegramImg from "../../images/telegram.svg";
 import instagramImg from "../../images/instagram.svg";
 import vkImg from "../../images/vk.svg";
-import cursorPointer from "../../images/cursorPointer.svg";
 import { Link } from "react-router-dom";
 const Container = styled.div`
 	background: #1f254a;
@@ -44,9 +43,6 @@ const Social = styled.div`
 	justify-content: space-between;
 	width: 130px;
 	margin-top: 60px;
-	& img {
-		cursor: url(${cursorPointer}), pointer;
-	}
 	@media (max-width: 750px) {
 		margin: 20px 0px;
 		width: 30vw;
@@ -64,13 +60,11 @@ const H3 = styled.h3`
 	color: #f5f5f7;
 	font-size: calc(10px + (16 - 10) * ((100vw - 300px) / (1524 - 300)));
 	font-weight: 600;
-	cursor: url(${cursorPointer}), pointer;
 `;
 const Elem = styled.p`
 	color: #f5f5f7;
 	font-size: calc(8px + (14 - 8) * ((100vw - 300px) / (1524 - 300)));
 	font-weight: 400;
-	cursor: url(${cursorPointer}), pointer;
 `;
 const Logo = styled.img`
 	margin-top: 15px;
@@ -97,67 +91,67 @@ const Footer = () => {
 							href="https://www.facebook.com/groups/laplas.official"
 							target="_blank"
 						>
-							<img src={facebookImg} />
+							<img className = "cursorPointer" src={facebookImg} />
 						</a>
 						<a href="https://t.me/laplasoffical" target="_blank">
-							<img src={telegramImg} />
+							<img className = "cursorPointer" src={telegramImg} />
 						</a>
 						<a href="https://www.instagram.com/laplas.adm/" target="_blank">
-							<img src={instagramImg} />
+							<img className = "cursorPointer" src={instagramImg} />
 						</a>
 						<a href="https://vk.com/laplas.official" target="_blank">
-							<img src={vkImg} />
+							<img className = "cursorPointer" src={vkImg} />
 						</a>
 					</Social>
 				</SocialBlock>
 				<Column>
-					<H3>
+					<H3 className = "cursorPointer">
 						<Link to="/courses">Курсы</Link>
 					</H3>
-					<Elem><Link to="/courses/higher_mathematics">Высшая математика</Link></Elem>
-					<Elem><Link to="/courses/diff_equations">Дифференциальные уравнения</Link></Elem>
-					<Elem><Link to="/courses/algorithmics">Алгоритмика</Link></Elem>
-					<Elem><Link to="/courses/abstract_algebra">Абстрактная алгебра</Link></Elem>
-					<Elem><Link to="/courses/english">English для технарей</Link></Elem>
-					<Elem><Link to="/courses/tfcv">ТФКП</Link></Elem>
-					<Elem><Link to="/courses/physics">Физика</Link></Elem>
+					<Elem className = "cursorPointer"><Link to="/courses/higher_mathematics">Высшая математика</Link></Elem>
+					<Elem className = "cursorPointer"><Link to="/courses/diff_equations">Дифференциальные уравнения</Link></Elem>
+					<Elem className = "cursorPointer"><Link to="/courses/algorithmics">Алгоритмика</Link></Elem>
+					<Elem className = "cursorPointer"><Link to="/courses/abstract_algebra">Абстрактная алгебра</Link></Elem>
+					<Elem className = "cursorPointer"><Link to="/courses/english">English для технарей</Link></Elem>
+					<Elem className = "cursorPointer"><Link to="/courses/tfcv">ТФКП</Link></Elem>
+					<Elem className = "cursorPointer"><Link to="/courses/physics">Физика</Link></Elem>
 				</Column>
 				<Column>
-					<H3>
+					<H3 className = "cursorPointer">
 						<a href="https://vk.me/laplas.official" target="_blank">
 							Индивидуальные занятия
 						</a>
 					</H3>
-					<Elem>
+					<Elem className = "cursorPointer">
 						<a href="https://vk.me/laplas.official" target="_blank">
 							Университет
 						</a>
 					</Elem>
-					<Elem>
+					<Elem className = "cursorPointer">
 						<a href="https://vk.me/laplas.official" target="_blank">
 							Школа
 						</a>
 					</Elem>
 				</Column>
 				<Column>
-					<H3>
+					<H3 className = "cursorPointer">
 						<a href="https://vk.me/laplas.official" target="_blank">
 							Услуги
 						</a>
 					</H3>
-					<Elem>
+					<Elem className = "cursorPointer">
 						<a href="https://vk.me/laplas.official" target="_blank">
 							IT
 						</a>
 					</Elem>
-					<Elem>
+					<Elem className = "cursorPointer">
 						<a href="https://vk.me/laplas.official" target="_blank">
 							Графический дизайн
 						</a>
 					</Elem>
 				</Column>
 				<Column>
-					<H3>
+					<H3 className = "cursorPointer">
 						<Link to="/contacts">Контакты</Link>
 					</H3>
 				</Column>

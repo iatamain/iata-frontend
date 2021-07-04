@@ -30,7 +30,6 @@ nav ul {
 	padding: 0 10%;
 }
 nav li {
-	cursor:  url("../../images/cursorPointer.svg"), pointer;
 	display: flex;
 	align-items: center;
 	text-align: center;

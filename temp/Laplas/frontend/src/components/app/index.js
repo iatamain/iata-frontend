@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import cursorDefault from "./../../images/cursorDefault.svg";
-import cursorPointer from "./../../images/cursorPointer.svg";
+//import cursorDefault from "./../../images/cursorDefault.svg";
+//import cursorPointer from "./../../images/cursorPointer.svg";
 import {
 	Header,
 	Main,
@@ -19,7 +19,7 @@ import { NotFound } from "../notfound";
 const GlobalStyle = createGlobalStyle`
 	html{
 			scroll-behavior: smooth;
-			cursor:  url(${cursorDefault}), default;
+			cursor: none;
 	}
 	body{
 			margin: 0;
@@ -32,8 +32,7 @@ const GlobalStyle = createGlobalStyle`
 	a, a:active, a:visited{
 		color: #f5f5f7;
 		text-decoration: none;
-		cursor: pointer;
-		cursor:  url(${cursorPointer}), pointer;
+		cursor: none;
 	}
 	@font-face{
 		font-family: "Montserrat";

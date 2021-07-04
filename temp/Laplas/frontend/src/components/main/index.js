@@ -36,7 +36,7 @@ const Main = () => {
 						НАЧНИ С LAPLAS!
 					</h1>
 					<div>
-						<Link id="button" to="/courses">
+						<Link id="button" to="/courses" className = "cursorPointer">
 							Выбрать курс
 						</Link>
 					</div>

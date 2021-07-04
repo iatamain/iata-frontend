@@ -51,7 +51,7 @@ const Course = () => {
 	return (
 		<Container>
 			<Link to="/courses">
-				<NewArrowBtn />
+				<NewArrowBtn className = "cursorPointer"/>
 			</Link>
 			<Header startDate={currentCourse.start} title={currentCourse.title} />
 			<About dangerouslySetInnerHTML={{ __html: currentCourse.about }} />
