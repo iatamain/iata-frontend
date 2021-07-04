@@ -18,7 +18,9 @@ const Cursor = () => {
 		canvas.height = window.innerHeight;
 		const ctx = canvas.getContext("2d");
 		const handleVisible = () => {
-			cursor.isVisible = true;
+			if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)){
+				cursor.isVisible = true;
+			}
 		};
 		const handleHidden = () => {
 			cursor.isVisible = false;
