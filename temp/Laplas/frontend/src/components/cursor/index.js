@@ -1,5 +1,22 @@
-import { useEffect, createRef } from "react";
+import { useEffect, createRef, useState } from "react";
 import styled from "styled-components";
+
+const cursor = {
+	x: -20,
+	y: -20,
+	toX: -20,
+	toY: -20,
+	dx: 0,
+	dy: 0,
+	dr: 0,
+	r: 5,
+	maxR: 10,
+	maxRForActive: 25,
+	minR: 5,
+	isActive: false,
+	isHover: false,
+	isVisible: true,
+};
 
 const Canvas = styled.canvas`
 	position: fixed;
@@ -12,6 +29,7 @@ const Canvas = styled.canvas`
 `;
 const Cursor = () => {
 	const canvasRef = createRef();
+	const [locationState, setLocationState] = useState();
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		canvas.width = window.innerWidth;
@@ -27,11 +45,9 @@ const Cursor = () => {
 		};
 		const handleMouseEnter = () => {
 			cursor.isHover = true;
-			console.log("test");
 		};
 		const handleMouseLeave = () => {
 			cursor.isHover = false;
-			console.log("test2");
 		};
 		const handleMouseDown = () => {
 			cursor.dr = 35;
@@ -41,6 +57,7 @@ const Cursor = () => {
 			cursor.isActive = false;
 		};
 		const handleMouseMove = (event) => {
+			cursor.isVisible = true;
 			const x = event.clientX;
 			const y = event.clientY;
 			cursor.toX = x;
@@ -51,22 +68,6 @@ const Cursor = () => {
 			}
 			cursor.dx = (cursor.toX - cursor.x) * 10;
 			cursor.dy = (cursor.toY - cursor.y) * 10;
-		};
-		const cursor = {
-			x: -20,
-			y: -20,
-			toX: -20,
-			toY: -20,
-			dx: 0,
-			dy: 0,
-			dr: 0,
-			r: 5,
-			maxR: 10,
-			maxRForActive: 25,
-			minR: 5,
-			isActive: false,
-			isHover: false,
-			isVisible: false,
 		};
 		let id = 0;
 		let last = Date.now();
@@ -79,6 +80,7 @@ const Cursor = () => {
 			last = now;
 		}
 		function update(dt) {
+			dt = Math.min(dt, 0.5);
 			const dist = Math.sqrt(
 				(cursor.x - cursor.toX) ** 2 + (cursor.y - cursor.toY) ** 2
 			);
@@ -122,6 +124,10 @@ const Cursor = () => {
 				ctx.fill();
 			}
 		}
+		window.onpopstate = function(event) {
+			setLocationState(window.location);
+			console.log(event, "teeest");
+		}
 		window.addEventListener("mousemove", handleMouseMove);
 		window.addEventListener("mousedown", handleMouseDown);
 		window.addEventListener("mouseup", handleMouseUp);
@@ -129,7 +135,6 @@ const Cursor = () => {
 		document.addEventListener("mouseleave", handleHidden);
 		const listPointerElem = document.querySelectorAll(".cursorPointer");
 		listPointerElem.forEach((value) => {
-			console.log(value);
 			value.addEventListener("mouseenter", handleMouseEnter);
 			value.addEventListener("mouseleave", handleMouseLeave);
 		});
@@ -144,7 +149,7 @@ const Cursor = () => {
 			});
 			cancelAnimationFrame(id);
 		};
-	}, [window.innerWidth, window.innerHeight]);
+	});
 	return <Canvas ref={canvasRef}></Canvas>;
 };
 export { Cursor };

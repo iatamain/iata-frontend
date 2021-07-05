@@ -83,7 +83,6 @@ const App = () => {
 	return (
 		<Fragment>
 			<GlobalStyle />
-			<Cursor />
 			<Router>
 				<Switch>
 					<Route exact path="/courses/:course" />
@@ -101,6 +100,7 @@ const App = () => {
 					<Route path="/" component={NotFound} />
 				</Switch>
 				<Footer />
+				<Route path="/" component={Cursor} />
 			</Router>
 		</Fragment>
 	);

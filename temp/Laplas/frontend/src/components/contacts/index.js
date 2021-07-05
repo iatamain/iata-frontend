@@ -86,19 +86,19 @@ const Contacts = () => (
 			</Block>
 			<Block>
 				<Label>Телефон</Label>
-				<Content><a href = "tel:+7(978) 715-97-17">+7 (978) 715-97-17</a></Content>
+				<Content><a className = "cursorPointer" href = "tel:+7(978) 715-97-17">+7 (978) 715-97-17</a></Content>
 				<Label>Почта</Label>
-				<Content><a href = "mailto:LAPLAS.ADM@GMAIL.COM">laplas.adm@gmail.com</a></Content>
+				<Content><a className = "cursorPointer" href = "mailto:LAPLAS.ADM@GMAIL.COM">laplas.adm@gmail.com</a></Content>
 			</Block>
 			<Social>
 				<Label>Facebook</Label>
-				<Content><a href = "https://www.facebook.com/groups/laplas.official" target="_blank">@laplas.adm</a></Content>
+				<Content><a className = "cursorPointer" href = "https://www.facebook.com/groups/laplas.official" target="_blank">@laplas.adm</a></Content>
 				<Label>Instagram</Label>
-				<Content><a href = "https://www.instagram.com/laplas.adm/" target="_blank">@laplas.adm</a></Content>
+				<Content><a className = "cursorPointer" href = "https://www.instagram.com/laplas.adm/" target="_blank">@laplas.adm</a></Content>
 				<Label>Telegram</Label>
-				<Content><a href = "https://t.me/laplasoffical" target="_blank">@laplasoffical</a></Content>
+				<Content><a className = "cursorPointer" href = "https://t.me/laplasoffical" target="_blank">@laplasoffical</a></Content>
 				<Label>Вконтакте</Label>
-				<Content><a href = "https://vk.com/laplas.official" target="_blank">laplas.offical</a></Content>
+				<Content><a className = "cursorPointer" href = "https://vk.com/laplas.official" target="_blank">laplas.offical</a></Content>
 			</Social>
 		</Blocks>
 	</Container>
