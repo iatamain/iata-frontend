@@ -1,0 +1,28 @@
+body{
+   background: #fff;
+   margin: 0;
+   width: 100vw;
+   height: 90vh;
+}
+#game{
+   width: 90vmin;
+   height: 90vmin;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background: #ccc;
+   display: flex;
+   flex-wrap: wrap;
+   align-content: flex-start;
+   border: 1px solid #eee;
+}
+.cell{
+}
+.live{
+   background: radial-gradient(#77E 0, #EEE 30%);
+   box-shadow: 0 0 5px 3px rgba(243, 243, 250, 0.8) inset;
+}
+.death{
+   background: #fff;
+}
