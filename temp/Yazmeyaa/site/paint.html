@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="source/css/main.css">
+    <link rel="stylesheet" href="source/css/paint.css">
     <script src="source/js/paint.js" defer> </script>
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    
-    <canvas id="canvas" style="display:block;">Not works.</canvas>
-
+<body>   
+    <canvas id="canvas" style = "display: block;">Not works.</canvas>
+    <input class = "clearButton"type="button" value="Reset canvas.">
+    <input class = "bSize" 
+        type = "range" 
+        min = "2" 
+        max = "50" 
+        value="4"
+        aria-label="Brush size is: ">
+        <span class = "bSizeOut"> 4 </span> 
 </body>
 </html>
