@@ -22,9 +22,9 @@ const Main = () => {
 	let vmid = (window.innerWidth + window.innerHeight) / 300;
 	let r = Math.round(Math.min(17 * vmid, window.innerWidth / 9));
 	if (window.scrollY < window.innerHeight && position === "bottom") {
-		scrollTo(0);
+		// scrollTo(0);
 	} else if (window.scrollY > 0 && position === "top") {
-		scrollTo(window.innerHeight + 40);
+		// scrollTo(window.innerHeight + 40);
 	}
 	return (
 		<Fragment>

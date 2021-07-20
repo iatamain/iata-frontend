@@ -59,7 +59,7 @@ const Footer = ({price}) => (
 	<Container>
 		<Circle />
     <CirclePrice>стоимость одного занятия {price}₽</CirclePrice>
-		<SingUpBtn href="https://vk.me/laplas.official">Записаться</SingUpBtn>
+		<SingUpBtn href="https://vk.me/laplas.official" className = "cursorPointer">Записаться</SingUpBtn>
 	</Container>
 );
 export { Footer };

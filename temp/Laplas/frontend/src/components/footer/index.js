@@ -12,7 +12,7 @@ const Container = styled.div`
 	border-top: 1px solid #f5f5f7;
 	display: flex;
 	justify-content: center;
-	@media (max-width: 750px) {
+	@media (max-width: 2750px) {
 		justify-content: flex-start;
 	}
 `;
@@ -22,7 +22,7 @@ const Table = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding-bottom: 10px;
-	@media (max-width: 750px) {
+	@media (max-width: 2750px) {
 		padding-left: 20px;
 		flex-direction: column;
 		justify-content: space-around;
@@ -31,7 +31,7 @@ const Table = styled.div`
 `;
 const Column = styled.div`
 	margin: 0 10px;
-	@media (max-width: 750px) {
+	@media (max-width: 2750px) {
 		display: none;
 	}
 `;
@@ -43,15 +43,16 @@ const Social = styled.div`
 	justify-content: space-between;
 	width: 130px;
 	margin-top: 60px;
-	@media (max-width: 750px) {
+	@media (max-width: 2750px) {
 		margin: 20px 0px;
 		width: 30vw;
 		min-width: 200px;
+		max-width: 225px;
 	}
 `;
 const Contacts = styled.div`
 	display: none;
-	@media (max-width: 750px) {
+	@media (max-width: 2750px) {
 		display: block;
 		color: #f5f5f7;
 	}
@@ -105,55 +106,6 @@ const Footer = () => {
 					</Social>
 				</SocialBlock>
 				<Column>
-					<H3 className = "cursorPointer">
-						<Link to="/courses">Курсы</Link>
-					</H3>
-					<Elem className = "cursorPointer"><Link to="/courses/higher_mathematics">Высшая математика</Link></Elem>
-					<Elem className = "cursorPointer"><Link to="/courses/diff_equations">Дифференциальные уравнения</Link></Elem>
-					<Elem className = "cursorPointer"><Link to="/courses/algorithmics">Алгоритмика</Link></Elem>
-					<Elem className = "cursorPointer"><Link to="/courses/abstract_algebra">Абстрактная алгебра</Link></Elem>
-					<Elem className = "cursorPointer"><Link to="/courses/english">English для технарей</Link></Elem>
-					<Elem className = "cursorPointer"><Link to="/courses/tfcv">ТФКП</Link></Elem>
-					<Elem className = "cursorPointer"><Link to="/courses/physics">Физика</Link></Elem>
-				</Column>
-				<Column>
-					<H3 className = "cursorPointer">
-						<a href="https://vk.me/laplas.official" target="_blank">
-							Индивидуальные занятия
-						</a>
-					</H3>
-					<Elem className = "cursorPointer">
-						<a href="https://vk.me/laplas.official" target="_blank">
-							Университет
-						</a>
-					</Elem>
-					<Elem className = "cursorPointer">
-						<a href="https://vk.me/laplas.official" target="_blank">
-							Школа
-						</a>
-					</Elem>
-				</Column>
-				<Column>
-					<H3 className = "cursorPointer">
-						<a href="https://vk.me/laplas.official" target="_blank">
-							Услуги
-						</a>
-					</H3>
-					<Elem className = "cursorPointer">
-						<a href="https://vk.me/laplas.official" target="_blank">
-							IT
-						</a>
-					</Elem>
-					<Elem className = "cursorPointer">
-						<a href="https://vk.me/laplas.official" target="_blank">
-							Графический дизайн
-						</a>
-					</Elem>
-				</Column>
-				<Column>
-					<H3 className = "cursorPointer">
-						<Link to="/contacts">Контакты</Link>
-					</H3>
 				</Column>
 			</Table>
 		</Container>
