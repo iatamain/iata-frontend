@@ -6,6 +6,7 @@ let lastStyleUnderline = {
 	left: 0,
 	width: 0,
 };
+let a;
 let Header = () => {
 	let curNavRef = React.createRef(); //ref фкладки от текущей страницы
 	let [currNav, setCurrNav] = useState(curNavRef.current);
