@@ -37,6 +37,8 @@ render: function () {
 
 }
 
+let bingo;
+
 const enemies = [];
 
 const player = {
