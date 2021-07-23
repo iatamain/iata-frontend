@@ -37,7 +37,7 @@ render: function () {
 
 }
 
-let bingo;
+//COMMENT
 
 const enemies = [];
 
