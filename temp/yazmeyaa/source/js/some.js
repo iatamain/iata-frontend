@@ -32,12 +32,12 @@ points : 0,
 render: function () {
     ctx.fillStyle = 'white';
     ctx.font = '24px Gouranga';
-    ctx.fillText(`SCORE IS: ${this.points}.`, canvas.width - 160, 26);
+    ctx.fillText(`SCORE IS: ${this.points}.`, canvas.width / 2, percent(canvas.height, 10));
 },
 
 }
 
-//COMMENT
+
 
 const enemies = [];
 
@@ -84,8 +84,24 @@ let bulletTimer = 0;
 
 let last = Date.now();
 
+let isOver = false;
+
+
+function restart() {
+    isOver = false;
+    score.points = 0;
+    player.x = canvas.width / 2;
+    player.y = canvas.height / 2;
+    play();
+enemies.splice(0, enemies.length);
+bullets.splice(0, bullets.length);
+}
+
 addEventListener('keydown', function(event) {
     keys[event.code] = true;
+    if(keys['KeyR']){
+        restart();
+    };
 });
 
 
@@ -173,6 +189,21 @@ class enemy{
 };
 
 
+function gameOver() {
+    for(i = 0; i < enemies.length; i++){
+            if((enemies[i].x > player.x - 20 && enemies[i].x < player.x + 20 ) 
+            &&
+             (enemies[i].y > player.y - 20 && enemies[i].y < player.y + 20)){
+                ctx.fillStyle = "black";
+                ctx.fillRect(0,0, canvas.width, canvas.height);
+                ctx.fillStyle = 'white';
+                ctx.font = '24px Gouranga';
+                ctx.fillText('Game Over', canvas.width / 2, canvas.height / 2);
+                isOver = true;
+                console.log('isOver:', isOver);
+            }
+        }
+}
 
 function clear(){
     ctx.fillStyle = "black";
@@ -195,6 +226,7 @@ function update(dt) {
             };
     };
     destroy();
+    gameOver();
 };
 
 function destroy(){
@@ -213,11 +245,6 @@ function destroy(){
     }
 }
 
-function gameOver() {
-    if (isOver){
-        startGame = false;
-    }
-}
 
 function render() {
     clear();
@@ -269,8 +296,14 @@ function play(){
     update((now-last)/1000);
     render();
     last = now;
-    requestAnimationFrame(play);
+    cancelAnimationFrame(play);
+        if(!isOver){
+        requestAnimationFrame(play);
+        }
     };
 
-
-        play();
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    ctx.font = '24px Gouranga';
+    ctx.fillText('Press "R" to start...', canvas.width / 2, canvas.height / 2);
