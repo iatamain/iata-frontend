@@ -194,13 +194,13 @@ function gameOver() {
             if((enemies[i].x > player.x - 20 && enemies[i].x < player.x + 20 ) 
             &&
              (enemies[i].y > player.y - 20 && enemies[i].y < player.y + 20)){
-                ctx.fillStyle = "black";
-                ctx.fillRect(0,0, canvas.width, canvas.height);
+                clear();
+                isOver = true;
+                console.log('isOver:', isOver);
                 ctx.fillStyle = 'white';
                 ctx.font = '24px Gouranga';
                 ctx.fillText('Game Over', canvas.width / 2, canvas.height / 2);
-                isOver = true;
-                console.log('isOver:', isOver);
+            
             }
         }
 }
@@ -212,6 +212,7 @@ function clear(){
 
 
 function update(dt) {
+    gameOver();
     timers(dt);
     player.update(dt);
     for(i = 0; i < bullets.length; i++){
@@ -226,7 +227,6 @@ function update(dt) {
             };
     };
     destroy();
-    gameOver();
 };
 
 function destroy(){
