@@ -44,11 +44,12 @@ const enemies = [];
 const player = {
     x : canvas.width / 2,
     y : canvas.height / 2,
+    radius: 10,
     render : function() {
         ctx.strokeStyle = "white";
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fillStyle = "yellow";
         ctx.fill();
@@ -139,12 +140,13 @@ class bullet{
         this.vectLength = vectLength(this.vectX, this.vectY);
         this.vectNormalX = this.vectX / this.vectLength;
         this.vectNormalY = this.vectY / this.vectLength;
+        this.radius = 2;
     };
     render(){
         ctx.strokeStyle = "white";
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fillStyle = "white";
         ctx.fill();
@@ -162,17 +164,18 @@ class enemy{
         this. y = rand(0, canvas.height);
         this.x1;
         this.y1;
-        this.speed = rand(350, 700);
+        this.speed = rand(50, 100);
         this.vectX;
         this.vectY;
         this.vectLength;
+        this.radius = 10;
     };
 
     render(){
         ctx.strokeStyle = "black";
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fillStyle = "red";
         ctx.fill();
@@ -191,16 +194,13 @@ class enemy{
 
 function gameOver() {
     for(i = 0; i < enemies.length; i++){
-            if((enemies[i].x > player.x - 20 && enemies[i].x < player.x + 20 ) 
-            &&
-             (enemies[i].y > player.y - 20 && enemies[i].y < player.y + 20)){
+            if(vectLength(vect(player.x, enemies[i].x), vect(player.y, enemies[i].y)) <= player.radius + enemies[i].radius){
                 clear();
-                isOver = true;
                 console.log('isOver:', isOver);
                 ctx.fillStyle = 'white';
                 ctx.font = '24px Gouranga';
                 ctx.fillText('Game Over', canvas.width / 2, canvas.height / 2);
-            
+                isOver = true;
             }
         }
 }
@@ -213,6 +213,7 @@ function clear(){
 
 function update(dt) {
     gameOver();
+    destroy();
     timers(dt);
     player.update(dt);
     for(i = 0; i < bullets.length; i++){
@@ -226,21 +227,16 @@ function update(dt) {
                 };
             };
     };
-    destroy();
 };
 
 function destroy(){
     for(i = 0; i < bullets.length; i++){
-        for(j = 0; j < enemies.length; j++){
-            if(enemies[i] && bullets[i]){
-                if((bullets[i].x > enemies[j].x - 20 && bullets[i].x < enemies[j].x + 20)
-                &&
-                (bullets[i].y > enemies[j].y - 20 && bullets[i].y < enemies[j].y + 20)){
+        for(j = 0; j < enemies.length ; j++){
+                if(vectLength(vect(enemies[j]?.x, bullets[i]?.x), vect(enemies[j]?.y, bullets[i]?.y)) <= enemies[j]?.radius + bullets[i]?.radius){
                     enemies.splice(j, 1);
                     bullets.splice(i, 1);
                     score.points++;
                 }
-            }
         }
     }
 }
