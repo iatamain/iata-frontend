@@ -164,7 +164,7 @@ class enemy{
         this. y = rand(0, canvas.height);
         this.x1;
         this.y1;
-        this.speed = rand(50, 100);
+        this.speed = rand(450, 800);
         this.vectX;
         this.vectY;
         this.vectLength;
