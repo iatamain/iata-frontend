@@ -281,7 +281,7 @@ function timers(delta){
 
 
     let audio = new Audio('source/sounds/main.mp3');
-    audio.volume = 0.3;
+    audio.volume = 0.1;
     setTimeout(function(){
         audio.play();
     }, 3000);
