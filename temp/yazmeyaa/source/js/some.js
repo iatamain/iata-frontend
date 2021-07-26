@@ -159,12 +159,12 @@ class bullet{
 };
 
 class enemy{
-    constructor(dt){
-        this.x = rand(0, canvas.width);
-        this. y = rand(0, canvas.height);
+    constructor(){
+        this.x = 0;
+        this. y = 0;
         this.x1;
         this.y1;
-        this.speed = rand(450, 800);
+        this.speed = rand(350, 550);
         this.vectX;
         this.vectY;
         this.vectLength;
@@ -189,6 +189,34 @@ class enemy{
         this.x -= (this.speed * dt) * (this.vectX / this.vectLength);
         this.y -= (this.speed * dt) * (this.vectY / this.vectLength);
     };
+
+    
+    randomSpawn(temp){
+        temp = rand(0, 3);
+        switch (temp){
+            case 0:
+                //LEFT
+                this.x = 0;
+                this.y = rand(0,canvas.height);
+                break;
+            case 1:
+                //TOP
+                this.x = rand(0,canvas.width);
+                this.y = 0;
+                break;
+            case 2:
+                //RIGHT
+                this.x = canvas.width;
+                this.y = rand(0, canvas.height);
+                break;
+            case 3:
+                //BOTTOM
+                this.x = rand(0,canvas.width);
+                this.y = canvas.height;
+                break;
+        };
+
+    }
 };
 
 
@@ -236,6 +264,8 @@ function destroy(){
                     enemies.splice(j, 1);
                     bullets.splice(i, 1);
                     score.points++;
+                    i--;
+                    j--;
                 }
         }
     }
@@ -266,6 +296,7 @@ function timers(delta){
     if (enemyTimer >= 0.5 && enemies.length < 5){
         enemies.push(new enemy);
         enemyTimer = 0;
+        enemies[enemies.length - 1].randomSpawn();
     };
     enemyTimer += delta;
 
@@ -281,10 +312,10 @@ function timers(delta){
 
 
     let audio = new Audio('source/sounds/main.mp3');
-    audio.volume = 0.1;
+    audio.volume = 0.05;
     setTimeout(function(){
         audio.play();
-    }, 3000);
+    }, 2000);
 
 
 function play(){
@@ -303,3 +334,4 @@ function play(){
     ctx.fillStyle = 'white';
     ctx.font = '24px Gouranga';
     ctx.fillText('Press "R" to start...', canvas.width / 2, canvas.height / 2);
+
