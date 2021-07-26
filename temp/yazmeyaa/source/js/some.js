@@ -264,8 +264,6 @@ function destroy(){
                     enemies.splice(j, 1);
                     bullets.splice(i, 1);
                     score.points++;
-                    i--;
-                    j--;
                 }
         }
     }
