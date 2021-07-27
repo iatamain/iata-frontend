@@ -1,32 +1,32 @@
 //by yazmeyaa
+function rand(mn, mx) {
+    return Math.floor(mn + Math.random() * (mx - mn + 1));
+};
+function percent(value, percent) {
+    return (value / 100) * percent;
+};
+function vect(Ax, Bx) {
+    return Ax - Bx;
+};
+function vectLength(a, b) {
+    return Math.sqrt(a ** 2 + b ** 2);
+};
+function arrPop(arr, i) {
+    [arr[arr.length - 1], arr[i]] = [arr[i], arr[arr.length - 1]];
+    arr.pop();
+}
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
-function rand(mn, mx) {
-    return Math.floor(mn + Math.random() * (mx - mn + 1));
-};
-
-function percent(value, percent) {
-    return (value / 100) * percent;
-};
-
-function vect(Ax, Bx) {
-    return Ax - Bx;
-};
-
-
-function vectLength(a, b) {
-    return Math.sqrt(a ** 2 + b ** 2);
-};
 //Tophead
+
+
 
 let mouse = {
     x: 0,
     y: 0,
 };
-
 const score = {
     points: 0,
     render: function () {
@@ -36,11 +36,7 @@ const score = {
     },
 
 }
-
-
-
-const enemies = [];
-
+const _ENEMIES = [];
 const player = {
     x: canvas.width / 2,
     y: canvas.height / 2,
@@ -70,21 +66,13 @@ const player = {
         }
     }
 };
-
-let enemyTimer = 0;
-
-const bullets = [];
-
+let EnemyTimer = 0;
+const _BULLETS = [];
 let keys = [];
-
 let startGame = false;
-
 let startBullet = false;
-
-let bulletTimer = 0;
-
+let BulletTimer = 0;
 let last = Date.now();
-
 let isOver = false;
 
 
@@ -94,8 +82,8 @@ function restart() {
     player.x = canvas.width / 2;
     player.y = canvas.height / 2;
     play();
-    enemies.splice(0, enemies.length);
-    bullets.splice(0, bullets.length);
+    _ENEMIES.splice(0, _ENEMIES.length);
+    _BULLETS.splice(0, _BULLETS.length);
 }
 
 addEventListener('keydown', function (event) {
@@ -114,9 +102,9 @@ addEventListener('keyup', function (event) {
 addEventListener('pointerdown', function (event) {
     mouse.x = event.layerX;
     mouse.y = event.layerY;
-    if (bulletTimer == 0) {
+    if (BulletTimer == 0) {
         startBullet = true;
-        bullets.push(new bullet);
+        _BULLETS.push(new Bullet);
     };
 
 });
@@ -124,14 +112,14 @@ addEventListener('pointerdown', function (event) {
 addEventListener('pointerpressed', function (event) {
     mouse.x = event.layerX;
     mouse.y = event.layerY;
-    if (bulletTimer == 0) {
+    if (BulletTimer == 0) {
         startBullet = true;
-        bullets.push(new bullet);
+        _BULLETS.push(new Bullet);
     };
 
 });
 
-class bullet {
+class Bullet {
     constructor() {
         this.x = player.x;
         this.y = player.y;
@@ -158,13 +146,13 @@ class bullet {
     };
 };
 
-class enemy {
+class Enemy {
     constructor() {
         this.x = 0;
         this.y = 0;
         this.x1;
         this.y1;
-        this.speed = rand(350, 550);
+        this.speed = rand(100, 150);
         this.vectX;
         this.vectY;
         this.vectLength;
@@ -229,11 +217,12 @@ function preloader() {
 }
 
 function gameOver() {
-    for (i = 0; i < enemies.length; i++) {
-        if (vectLength(vect(player.x, enemies[i].x), vect(player.y, enemies[i].y)) <= player.radius + enemies[i].radius) {
+    for (i = 0; i < _ENEMIES.length; i++) {
+        if (vectLength(vect(player.x, _ENEMIES[i].x), vect(player.y, _ENEMIES[i].y)) <= player.radius + _ENEMIES[i].radius) {
             ctx.fillStyle = 'black';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             isOver = true;
+            console.log(isOver);
         }
     }
 }
@@ -244,23 +233,6 @@ function clear() {
 };
 
 
-function update(dt) {
-    player.update(dt);
-    for (i = 0; i < bullets.length; i++) {
-        if (bullets[i]) {
-            bullets[i].update(dt);
-            if (bullets[i].x < 0 ||
-                bullets[i].x > canvas.width ||
-                bullets[i].y < 0 ||
-                bullets[i].y > canvas.height) {
-                bullets.splice(i, 1);
-            };
-        };
-    };
-    destroy();
-    gameOver();
-    timers(dt);
-};
 
 function endScreen() {
     ctx.fillStyle = "black";
@@ -271,77 +243,111 @@ function endScreen() {
 };
 
 function destroy() {
-    for (i = 0; i < bullets.length; i++) {
-        for (j = 0; j < enemies.length; j++) {
-            if (vectLength(vect(enemies[j].x, bullets[i].x), vect(enemies[j].y, bullets[i].y)) <= enemies[j].radius + bullets[i].radius && i < bullets.length) {
-                [enemies[enemies.length - 1], enemies[j]] = [enemies[j], enemies[enemies.length - 1]];
-                enemies.pop();
-                [bullets[bullets.length - 1], bullets[i]] = [bullets[i], bullets[bullets.length - 1]];
-                bullets.pop();
-                score.points++;
-                console.log(JSON.stringify(bullets))
-                console.log("___________________________");
-                console.log(i);
+    for(j = 0; j < _ENEMIES.length; j++){
+        for(i = 0; i < _BULLETS.length; i++){
+            if (vectLength(vect(_ENEMIES[j].x, _BULLETS[i].x), vect(_ENEMIES[j].y, _BULLETS[i].y)) <= _ENEMIES[j].radius + _BULLETS[i].radius) {
+            arrPop(_BULLETS, i);
+            arrPop(_ENEMIES, j);
+            console.log("WORK");
+            break;
             }
         }
-    }
+    }        
+    
 }
-
-
-function render() {
-    clear();
-    player.render();
-    for (i = 0; i < enemies.length; i++) {
-        enemies[i].render();
-    }
-
-    for (i = 0; i < bullets.length; i++) {
-        if (bullets[i]) {
-            bullets[i].render();
-        };
-    };
-
-    score.render();
-};
 
 function timers(delta) {
 
-    for (i = 0; i < enemies.length; i++) {
-        enemies[i].update(delta);
+
+
+    if (EnemyTimer >= 0.5 && _ENEMIES.length < 5) {
+        _ENEMIES.push(new Enemy);
+        EnemyTimer = 0;
+        _ENEMIES[_ENEMIES.length - 1].randomSpawn();
     };
-    if (enemyTimer >= 0.5 && enemies.length < 5) {
-        enemies.push(new enemy);
-        enemyTimer = 0;
-        enemies[enemies.length - 1].randomSpawn();
-    };
-    enemyTimer += delta;
+    EnemyTimer += delta;
 
     if (startBullet) {
-        bulletTimer += delta;
-        if (bulletTimer >= 0.1) {
-            bulletTimer = 0;
+        BulletTimer += delta;
+        if (BulletTimer >= 0.1) {
+            BulletTimer = 0;
             startBullet = false;
         };
     };
 
 };
 
-
-let audio = new Audio('source/sounds/main.mp3');
+function BGplay() {
+    let audio = new Audio('source/sounds/main.mp3');
 audio.volume = 0.05;
 setTimeout(function () {
     audio.play();
 }, 2000);
+}
 
+function update(dt) {
+    destroy();
+    timers(dt);
+    for (i = 0; i < _ENEMIES.length; i++) {
+        _ENEMIES[i].update(dt);
+    };
+    player.update(dt);
+    for (i = 0; i < _BULLETS.length; i++) {
+            _BULLETS[i].update(dt);
+            if (_BULLETS[i].x < 0 ||
+                _BULLETS[i].x > canvas.width ||
+                _BULLETS[i].y < 0 ||
+                _BULLETS[i].y > canvas.height) {
+                    arrPop(_BULLETS, i);
+            };
+    };
+    gameOver();
+};
+
+function render() {
+    if(!isOver){
+    clear();
+    player.render();
+    for (i = 0; i < _ENEMIES.length; i++) {
+        _ENEMIES[i].render();
+    }
+
+    for (i = 0; i < _BULLETS.length; i++) {
+        if (_BULLETS[i]) {
+            _BULLETS[i].render();
+        };
+    };
+
+    score.render();
+} else{
+    endScreen();
+}
+
+};
 
 function play() {
+    if(!isOver){
     let now = Date.now();
     update((now - last) / 1000);
     render();
     last = now;
-    cancelAnimationFrame(play);
-    if (!isOver) {
-        requestAnimationFrame(play);
-    } else { endScreen() };
+    requestAnimationFrame(play);
+    }
 };
 
+BGplay();
+/*
+Один кадр:
+1. Обновление всех переменных. update();
+2. Проверка на попадание пули.
+3. Проверка на смерть игрока.
+4. Рендер.
+*/
+
+/*
+Считывание попадание пули:
+1.  Циклом проверить расстояние от пули до противника.
+2.  Если пуля расстояние от пули до противника меньше или 
+равно сумме радиусов, то удалить из массива объект пули
+ и противника.
+*/
