@@ -1,0 +1,45 @@
+body {
+	background: black;
+}
+#container{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  display: none;
+}
+#messages {
+  height: 200px;
+  width: 50%;
+  border-radius: 3px;
+  margin: 10px;
+  background-color: black;
+  border: 1px solid yellow;
+}
+.message{
+  display: flex;
+  color: yellow;
+}
+.name{
+  margin: 5px;
+}
+.text{
+  margin: 5px;
+}
+input#msg{
+  width: 50%;
+  margin: 10px;
+  border-radius: 3px;
+  background-color: black;
+  border: 1px solid yellow;
+  color: yellow;
+}
+#authorization{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: yellow;
+}
+#authorization *{
+  margin: 5px;
+}
