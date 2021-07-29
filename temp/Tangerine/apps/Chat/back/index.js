@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const urlencodedParser = bodyParser.json();
 
-app.listen(8088, () => console.log(`Слушаем порт!`));
+app.listen(8085, () => console.log(`Слушаем порт 8085!`));
 
 app.use(urlencodedParser, (req, res, next)=>{
 	res.header("Access-Control-Allow-Origin", "*");

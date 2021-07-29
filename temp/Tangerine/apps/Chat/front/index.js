@@ -10,7 +10,7 @@ userNameInput.addEventListener("keydown", (event) => {
 		const msgContainer = document.querySelector("#messages");
 		msgInput.addEventListener("keydown", (event) => {
 			if (event.key == "Enter") {
-				fetch("http://127.0.0.1:8088/sendMsg", {
+				fetch("http://itracers.xyz:8085/sendMsg", {
 					method: "post",
 					headers: {
 						"Content-type": "application/json;charset=utf-8",
@@ -25,7 +25,7 @@ userNameInput.addEventListener("keydown", (event) => {
 		});
 
 		setInterval(() => {
-			fetch("http://127.0.0.1:8088/getMessages", {
+			fetch("http://itracers.xyz:8085/getMessages", {
 				method: "get",
 				headers: {
 					"Content-type": "application/json;charset=utf-8",
