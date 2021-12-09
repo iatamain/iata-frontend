@@ -39,7 +39,7 @@ class snowFlake{
         ctx.stroke()
     }
     update(dt){
-        this.yPos += this.size <= 6 ? ( this.speed * dt ) * .5 : this.speed * dt
+        this.yPos += this.size <= 6 ? ( this.speed * dt ) * .2 : ( this.speed * dt ) * .7
         this.xPos += ( ( ( canvas.width / 2 )- mouse.XPos ) * dt ) * .4
         if(this.yPos > canvas.height){
             this.yPos = 0
