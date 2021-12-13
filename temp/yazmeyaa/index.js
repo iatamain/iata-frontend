@@ -96,7 +96,12 @@ function drawBackground(){
 
             ctx.fillStyle = 'black'
             ctx.fillRect(xPos, canvas.height, size, -height )
-            
+            drawCurve(
+                xPos, canvas.height - height,
+                xPos - xPos * ( padding / 100 ),
+                 ( canvas.height + height ) / 1.8,
+                 xPos + canvas.width * (padding / 100),
+                  canvas.height - height)
         }
     }
 
