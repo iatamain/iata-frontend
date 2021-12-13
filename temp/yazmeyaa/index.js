@@ -74,7 +74,34 @@ const snowFlakes = new Array()
 function drawBackground(){
     ctx.fillStyle = '#09172e'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
-}
+
+    function drawCurve(x1, y1, x2, y2, x3, y3){
+        let cX, cY, x, y
+        for(let t = 0; t < 1; t += 0.01){
+
+            cX =( Math.pow( 1 - t , 2 ) * x1 ) + ( 2 * (1 - t ) * t * x2 ) + (Math.pow(t, 2) * x3)
+
+            cY = ( Math.pow( 1 - t , 2 ) * y1 ) + ( 2 * (1 - t ) * t * y2 ) + (Math.pow(t, 2) * y3) 
+
+            ctx.beginPath()
+            ctx.moveTo
+            ctx.fillStyle = 'red'
+            ctx.fillRect(cX, cY, 5, 5)
+        }
+    }
+
+    function drawColumns(xStart, size, height, padding){
+
+        for(let xPos = xStart; xPos < canvas.width; xPos += canvas.width * ( padding / 100 ) ){
+
+            ctx.fillStyle = 'black'
+            ctx.fillRect(xPos, canvas.height, size, -height )
+            
+        }
+    }
+
+    drawColumns(0, 8, 400, 20)
+    }
 
 function snowFlakeGenerator(SFCount){
 
