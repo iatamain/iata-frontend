@@ -4,10 +4,24 @@ const ctx = canvas.getContext('2d')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
+
+if(typeof document.hidden !== 'undefined'){
+    hidden = 'hidden'
+    visibilityChange = 'visibilitychange'
+} else if (typeof document.msHidden !== 'undefined'){
+    hidden = 'msHidden'
+    visibilityChange = 'msvisibilitychange'
+} else if (typeof document.webkitHidden !== 'undefined'){
+    hidden = 'webkitHidden';
+    visibilityChange = 'webkitvisibilitychange'
+}
+
 window.addEventListener('resize', ()=>{
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
 })
+
+
 
 const mouse = {
     XPos: 0,
@@ -43,14 +57,15 @@ class snowFlake{
         ctx.stroke()
     }
     update(dt){
-        this.yPos += this.size <= this.sizeBorder ? ( this.speed * dt ) * .5 : this.speed * dt 
-        this.xPos += ( ( ( ( canvas.width / 2 )- mouse.XPos ) * dt ) * .4 ) + this.xOffset * dt
-        if(this.yPos > canvas.height + 500){
-            this.yPos = 0
-            this.xPos = randomInt(-600, canvas.width + 600)
-            this.speed = randomInt(180,240)
-            this.size = randomInt(2,6)
-        }
+        dt = Math.min(1, dt)
+            this.yPos += this.size <= this.sizeBorder ? ( this.speed * dt ) * .5 : this.speed * dt 
+            this.xPos += ( ( ( ( ( canvas.width / 2 ) - mouse.XPos ) * dt ) + this.xOffset * dt) * .4 )
+            if(this.yPos > canvas.height + 400){
+                this.yPos = randomInt(-400, 0)
+                this.xPos = randomInt(-600, canvas.width + 600)
+                this.speed = randomInt(180,240)
+                this.size = randomInt(2,6)
+            }
     }
 }
 
@@ -97,10 +112,15 @@ function timeUntilNewYear(){
     }
     const NewYear2022 = calculateNextYear(Date.now())
     ctx.textAlign = "center"
-    ctx.font = `${( (canvas.width - 320) / (1280 - 320) * (38 - 18) + 18 )}px Verdana`
+    ctx.font = `${( (canvas.width - 320) / (1280 - 320) * (48 - 20) + 20 )}px Verdana`
     ctx.fillStyle = 'white'
     let now = new Date(Date.now())
-    ctx.fillText(`До нового года осталось:`, canvas.width / 2, canvas.height / 2)
+    const gradient = ctx.createLinearGradient(canvas.width  / 2 - 100, canvas.height / 2 - 200, canvas.width / 2 + 200, canvas.height / 2 + 200)
+    gradient.addColorStop(0, 'red')
+    gradient.addColorStop(0.5, 'green')
+    gradient.addColorStop(1, 'red')
+    ctx.fillStyle = gradient 
+    ctx.fillText('До нового года осталось:', canvas.width / 2, canvas.height / 2)
     ctx.font = `${( (canvas.width - 320) / (1280 - 320) * (38 - 20) + 20 )}px Verdana`
     ctx.fillText(`${ Math.floor( ( NewYear2022 - Date.now() ) / 1000 / 60 / 60 / 24 ) } д, ${ 23 - now.getHours() } ч., ${60 - now.getMinutes()} мин., ${ 60 - now.getSeconds()} сек.`, canvas.width / 2, (canvas.height / 2) + 60)
     ctx.stroke()
