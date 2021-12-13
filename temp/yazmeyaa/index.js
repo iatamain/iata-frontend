@@ -89,29 +89,22 @@ function snowFlakeGenerator(SFCount){
         })
 }
 
+
 function timeUntilNewYear(){
     function calculateNextYear(currentTime){
         let currentYear = new Date(currentTime)
-        currentYear.setFullYear(currentYear.getFullYear() + 1)
-        currentYear.setDate(1)
-        currentYear.setMonth(0)
-        currentYear.setHours(0)
-        currentYear.setMinutes(0)
-        currentYear.setSeconds(0)
-        return currentYear
+        return new Date(currentYear.getFullYear() + 1, 0, 0 )
     }
     const NewYear2022 = calculateNextYear(Date.now())
     ctx.textAlign = "center"
     ctx.font = `${( (canvas.width - 320) / (1280 - 320) * (38 - 18) + 18 )}px Verdana`
     ctx.fillStyle = 'white'
-    let now = new Date
+    let now = new Date(Date.now())
     ctx.fillText(`До нового года осталось:`, canvas.width / 2, canvas.height / 2)
     ctx.font = `${( (canvas.width - 320) / (1280 - 320) * (38 - 20) + 20 )}px Verdana`
     ctx.fillText(`${ Math.floor( ( NewYear2022 - Date.now() ) / 1000 / 60 / 60 / 24 ) } д, ${ 23 - now.getHours() } ч., ${60 - now.getMinutes()} мин., ${ 60 - now.getSeconds()} сек.`, canvas.width / 2, (canvas.height / 2) + 60)
     ctx.stroke()
 }
-
-
 
 function update(dt){
     snowFlakeGenerator(snowFlakesCountValue.value)
