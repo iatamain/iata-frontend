@@ -52,6 +52,7 @@ class snowFlake{
         ctx.strokeStyle = 'black'
         ctx.beginPath()
         ctx.arc(this.xPos, this.yPos, this.size, 0, 2 * Math.PI, false)
+        ctx.lineWidth = .5
         ctx.closePath()
         ctx.fill()
         ctx.stroke()
@@ -71,41 +72,92 @@ class snowFlake{
 
 const snowFlakes = new Array()
 
+const lampTimer = {
+    timer: new Number(0),
+    currentColor: new Number(0),
+    incraseTimerCount(dt){
+        this.timer += dt
+        if(this.timer >= 2){
+            console.log(this.currentColor)
+            this.timer = 0
+            this.currentColor++
+            if(this.currentColor > 5){
+                this.currentColor = 0
+                switch(this.currentColor){
+                    case 0:
+                        return 'red'
+                }
+            }
+        }
+    }
+}
+
 function drawBackground(){
     ctx.fillStyle = '#09172e'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     function drawCurve(x1, y1, x2, y2, x3, y3){
-        let cX, cY, x, y
+        let cX, cY, x = x1, y = y1
+        function lamps(cX, cY, color, dt){
+                ctx.beginPath()
+                ctx.fillStyle = `${color}`
+                ctx.arc(cX, cY, 2, 0, 2 * Math.PI)
+                ctx.closePath()
+                ctx.fill()
+        }
+
         for(let t = 0; t < 1; t += 0.01){
 
             cX =( Math.pow( 1 - t , 2 ) * x1 ) + ( 2 * (1 - t ) * t * x2 ) + (Math.pow(t, 2) * x3)
 
             cY = ( Math.pow( 1 - t , 2 ) * y1 ) + ( 2 * (1 - t ) * t * y2 ) + (Math.pow(t, 2) * y3) 
 
+
             ctx.beginPath()
-            ctx.moveTo
-            ctx.fillStyle = 'red'
-            ctx.fillRect(cX, cY, 5, 5)
+            ctx.moveTo(x,y)
+            ctx.lineTo(cX, cY)
+            ctx.closePath()
+            ctx.strokeStyle = 'black'
+            ctx.lineWidth = 2
+            ctx.stroke()
+            if( t.toPrecision(10) == 0.15 ){
+                lamps(cX, cY, 'red')
+            } else if(t.toPrecision(10) == 0.30 ){
+                lamps(cX, cY, 'green')
+            } else if(t.toPrecision(10) == 0.45){
+                lamps(cX, cY, 'blue')
+            } else if( t.toPrecision(10) == 0.6){
+                lamps(cX, cY, 'yellow')
+            } else if(t.toPrecision(10) == 0.75){
+                lamps(cX, cY, 'purple')
+            } else if(t.toPrecision(10) == 0.9){
+                lamps(cX, cY, 'cyan')
+            }
+
+            x = cX
+            y = cY
         }
     }
 
     function drawColumns(xStart, size, height, padding){
 
         for(let xPos = xStart; xPos < canvas.width; xPos += canvas.width * ( padding / 100 ) ){
-
+            let nextPos = xPos + canvas.width * ( padding / 100 )
             ctx.fillStyle = 'black'
             ctx.fillRect(xPos, canvas.height, size, -height )
+
             drawCurve(
-                xPos, canvas.height - height,
-                xPos - xPos * ( padding / 100 ),
-                 ( canvas.height + height ) / 1.8,
-                 xPos + canvas.width * (padding / 100),
-                  canvas.height - height)
+                xPos,
+                canvas.height - height,
+                (xPos + nextPos) / 2 ,
+                canvas.height - ( height / 1.4 ),
+                nextPos,
+                canvas.height - height
+                )
         }
     }
 
-    drawColumns(0, 8, 400, 20)
+    drawColumns(0, 8, canvas.height * 0.3, 20)
     }
 
 function snowFlakeGenerator(SFCount){
@@ -163,10 +215,11 @@ function update(dt){
     snowFlakes.map((item)=>{
         item.update(dt)
     })
+    lampTimer.incraseTimerCount(dt)
 }
 
-function render(){
-    drawBackground()
+function render( dt ){
+    drawBackground( dt )
     snowFlakes.map((item)=>{
         item.render()
     })
@@ -176,8 +229,9 @@ function render(){
 let last = Date.now()
 function play(){
     let now = Date.now()
-    update( (now - last) / 1000 )
-    render()
+    let dt = (now - last) / 1000
+    update( dt )
+    render( dt )
     requestAnimationFrame(play)
     last = now 
 }
