@@ -4,24 +4,12 @@ const ctx = canvas.getContext('2d')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
-
-if(typeof document.hidden !== 'undefined'){
-    hidden = 'hidden'
-    visibilityChange = 'visibilitychange'
-} else if (typeof document.msHidden !== 'undefined'){
-    hidden = 'msHidden'
-    visibilityChange = 'msvisibilitychange'
-} else if (typeof document.webkitHidden !== 'undefined'){
-    hidden = 'webkitHidden';
-    visibilityChange = 'webkitvisibilitychange'
-}
-
 window.addEventListener('resize', ()=>{
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight
 })
 
-
+const snowFlakes = new Array()
 
 const mouse = {
     XPos: 0,
@@ -70,8 +58,6 @@ class snowFlake{
     }
 }
 
-const snowFlakes = new Array()
-
 const lampTimer = {
     timer: new Number(0),
     currentColor: new Number(0),
@@ -111,7 +97,6 @@ function drawBackground(){
             cX =( Math.pow( 1 - t , 2 ) * x1 ) + ( 2 * (1 - t ) * t * x2 ) + (Math.pow(t, 2) * x3)
 
             cY = ( Math.pow( 1 - t , 2 ) * y1 ) + ( 2 * (1 - t ) * t * y2 ) + (Math.pow(t, 2) * y3) 
-
 
             ctx.beginPath()
             ctx.moveTo(x,y)
@@ -235,4 +220,5 @@ function play(){
     requestAnimationFrame(play)
     last = now 
 }
+
 play()
