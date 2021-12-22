@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link rel="stylesheet" href="index.css"></link>
+  </head>
+  <body>
+<script>
+function b64_to_utf8( str ) {
+  return decodeURIComponent(escape(window.atob(str)));
+}
+document.addEventListener('DOMContentLoaded', () => {document.getElementById('receiver').innerText=b64_to_utf8(document.location.href.split('?r=')[1])})
+</script>
+    <div class="card">
+      <h2>Secret Santa</h2>
+      <img src="santa.png"></img>
+      <p id="receiver"/>
+
+      <p><a href="congrats.html" target="_blank">Click here :D</a></p>
+    </div>
+  </body>
+</html>

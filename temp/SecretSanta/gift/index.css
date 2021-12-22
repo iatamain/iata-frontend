@@ -1,0 +1,36 @@
+body {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: verdana;
+}
+
+div.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: grey 1px 1px 5px;
+}
+
+img {
+  width: 100%;
+  max-width: 40rem;
+}
+
+h2 {
+  font-size: 20pt;
+}
+
+p {
+  font-size: 16pt;
+}
+
+a {
+  font-size: 16pt;
+  color: black;
+}
+
+@media only screen and (max-width: 400px){
+  .card { height: 100vh; justify-content: center; }
+}
