@@ -9,6 +9,8 @@ window.addEventListener('resize', ()=>{
         canvas.height = window.innerHeight
 })
 
+//asd
+
 const snowFlakes = new Array()
 
 const mouse = {
