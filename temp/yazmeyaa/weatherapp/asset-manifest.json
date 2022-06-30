@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/static/js/main.fe2d8edd.js",
-    "static/media/Armata-Regular.ttf": "/static/media/Armata-Regular.d421c2a581801667b825.ttf",
-    "static/media/Coda-Regular.ttf": "/static/media/Coda-Regular.05aabe256be008921463.ttf",
-    "index.html": "/index.html",
-    "main.fe2d8edd.js.map": "/static/js/main.fe2d8edd.js.map"
+    "main.js": "/temp/yazmeyaa/weatherapp/static/js/main.278d4bac.js",
+    "static/media/Armata-Regular.ttf": "/temp/yazmeyaa/weatherapp/static/media/Armata-Regular.d421c2a581801667b825.ttf",
+    "static/media/Coda-Regular.ttf": "/temp/yazmeyaa/weatherapp/static/media/Coda-Regular.05aabe256be008921463.ttf",
+    "index.html": "/temp/yazmeyaa/weatherapp/index.html",
+    "main.278d4bac.js.map": "/temp/yazmeyaa/weatherapp/static/js/main.278d4bac.js.map"
   },
   "entrypoints": [
-    "static/js/main.fe2d8edd.js"
+    "static/js/main.278d4bac.js"
   ]
 }
