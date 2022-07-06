@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "./static/js/main.2e67b58c.js",
+    "main.js": "./static/js/main.a3613d4c.js",
     "static/js/1048.9eba1816.chunk.js": "./static/js/1048.9eba1816.chunk.js",
     "static/js/8647.b0e1973c.chunk.js": "./static/js/8647.b0e1973c.chunk.js",
     "static/js/6881.732f826d.chunk.js": "./static/js/6881.732f826d.chunk.js",
@@ -152,9 +152,9 @@
     "static/media/Moon-Last-Quarter.svg": "./static/media/Moon-Last-Quarter.284c03057716a8d934c6.svg",
     "static/media/Moon-New.svg": "./static/media/Moon-New.b9d242149032e2d94024.svg",
     "index.html": "./index.html",
-    "main.2e67b58c.js.map": "./static/js/main.2e67b58c.js.map"
+    "main.a3613d4c.js.map": "./static/js/main.a3613d4c.js.map"
   },
   "entrypoints": [
-    "static/js/main.2e67b58c.js"
+    "static/js/main.a3613d4c.js"
   ]
 }
