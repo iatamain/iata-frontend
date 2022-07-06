@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkweather_app=self.webpackChunkweather_app||[]).push([[2424],{2424:function(e,p,s){e.exports=s.p+"static/media/Cloud-Refresh.8b38d6e90067b1052dc2.svg"}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkweather_app=self.webpackChunkweather_app||[]).push([[4746],{4746:function(e,p,a){e.exports=a.p+"static/media/Sun-Low.9740223c5c3f34739092.svg"}}]);

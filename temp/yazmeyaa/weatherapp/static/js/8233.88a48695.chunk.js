@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkweather_app=self.webpackChunkweather_app||[]).push([[8233],{8233:function(e,a,p){e.exports=p.p+"static/media/Tornado.00d3ce939e74691ba4fe.svg"}}]);

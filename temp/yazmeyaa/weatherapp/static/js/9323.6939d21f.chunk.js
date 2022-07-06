@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkweather_app=self.webpackChunkweather_app||[]).push([[9323],{9323:function(e,a,p){e.exports=p.p+"static/media/Compass-North.1998cc776c4d59ae4059.svg"}}]);
