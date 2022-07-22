@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkweather_app=self.webpackChunkweather_app||[]).push([[7921],{7921:function(e,a,p){e.exports=p.p+"static/media/Sunrise.a2f9ec15aab740757b77.svg"}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkweather_app=self.webpackChunkweather_app||[]).push([[6232],{6232:function(e,a,p){e.exports=p.p+"static/media/Cloud-Snow.4bc1efa36c8bf5b888a2.svg"}}]);

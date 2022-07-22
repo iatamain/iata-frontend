@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkweather_app=self.webpackChunkweather_app||[]).push([[8465],{8465:function(e,a,s){e.exports=s.p+"static/media/Degrees-Celcius.f81fba1ed0a5cbe8fe4a.svg"}}]);
