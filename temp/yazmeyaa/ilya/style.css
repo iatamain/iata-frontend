@@ -37,7 +37,7 @@ body {
     border: none;
 }
 
-#button:not(:disabled):hover{
+#button:not(:disabled):hover {
     color: #255784;
     background-color: #2196f3;
     box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 10px #2196f3;
@@ -45,7 +45,7 @@ body {
 }
 
 #button:disabled {
-    color: #2195f33e; 
+    color: #2195f33e;
 }
 
 .text_container {
