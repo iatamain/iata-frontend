@@ -50,6 +50,7 @@ body {
 
 .text_container {
     width: 50vw;
+    min-width: 320px;
     padding: 14px;
     word-wrap: break-word;
 }
