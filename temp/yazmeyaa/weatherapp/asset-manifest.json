@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "./static/js/main.c8cc72d1.js",
+    "main.js": "./static/js/main.3e9cf4c7.js",
     "static/media/Armata-Regular.ttf": "./static/media/Armata-Regular.d421c2a581801667b825.ttf",
     "static/media/Coda-Regular.ttf": "./static/media/Coda-Regular.05aabe256be008921463.ttf",
     "index.html": "./index.html",
-    "main.c8cc72d1.js.map": "./static/js/main.c8cc72d1.js.map"
+    "main.3e9cf4c7.js.map": "./static/js/main.3e9cf4c7.js.map"
   },
   "entrypoints": [
-    "static/js/main.c8cc72d1.js"
+    "static/js/main.3e9cf4c7.js"
   ]
 }
