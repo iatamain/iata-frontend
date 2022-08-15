@@ -1,12 +1,20 @@
 {
   "files": {
-    "main.js": "./static/js/main.fd261df2.js",
+    "main.js": "./static/js/main.d46adcd3.js",
+    "static/media/Inter.ttf": "./static/media/Inter.aadb65ac45347ff46699.ttf",
+    "static/media/Roboto-Regular.ttf": "./static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/clearsky.jpg": "./static/media/clearsky.172addfcc0aeb1c7e11f.jpg",
     "static/media/Armata-Regular.ttf": "./static/media/Armata-Regular.d421c2a581801667b825.ttf",
     "static/media/Coda-Regular.ttf": "./static/media/Coda-Regular.05aabe256be008921463.ttf",
+    "static/media/Sun.svg": "./static/media/Sun.975d77760957b7fd67de217edda8897c.svg",
+    "static/media/Cloud-Sun.svg": "./static/media/Cloud-Sun.ea3f3d36d8891781eda70ba31a196d39.svg",
+    "static/media/Cloud-Hail-Alt.svg": "./static/media/Cloud-Hail-Alt.13c1c20d7db98d7741dec0fb8bd4aa6a.svg",
+    "static/media/Cloud-Snow.svg": "./static/media/Cloud-Snow.4bc1efa36c8bf5b888a236ddd69c13ec.svg",
+    "static/media/Cloud-Lightning.svg": "./static/media/Cloud-Lightning.dd651300079e9de7e43810042370e6c1.svg",
     "index.html": "./index.html",
-    "main.fd261df2.js.map": "./static/js/main.fd261df2.js.map"
+    "main.d46adcd3.js.map": "./static/js/main.d46adcd3.js.map"
   },
   "entrypoints": [
-    "static/js/main.fd261df2.js"
+    "static/js/main.d46adcd3.js"
   ]
 }
