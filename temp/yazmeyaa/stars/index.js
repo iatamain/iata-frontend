@@ -16,7 +16,7 @@ function getRandomInt(min = 0, max = 1) {
 function spawnNStars(count = 0) {
     if (stars.length >= count) return;
 
-        stars.push(new Star())
+    stars.push(new Star())
 }
 
 //*__________
@@ -171,7 +171,8 @@ let last = Date.now()
 
 function play() {
     const now = Date.now()
-    const dt = (now - last) / 1000
+    let dt = (now - last) / 1000
+    if (dt > 1) dt = 1
     last = now
     render()
     update(dt)
