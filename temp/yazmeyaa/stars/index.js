@@ -82,24 +82,29 @@ class Vector {
 }
 
 class Star {
+    #angle = getRandomInt(0, 360)
     #position = {
-        x: canvas.width / 2,
-        y: canvas.height / 2
+        x: 20 * Math.cos(this.#angle) + canvas.width / 2,
+        y: 20 * Math.sin(this.#angle) + canvas.height / 2
     }
     #direction = {
-        x: getRandomInt(0, canvas.width),
-        y: getRandomInt(0, canvas.height)
+        x: new Vector(canvas.width / 2, this.#position.x),
+        y: new Vector(canvas.height / 2, this.#position.y)
     }
-    #speed = getRandomInt(50, 80)
+    #speed = getRandomInt(150, 400)
     #color = colors[getRandomInt(0, colors.length - 1)]
     #size = 1
 
-    resetXPos() {
-        this.#position.x = canvas.width / 2
-    }
-
-    resetYPos() {
-        this.#position.y = canvas.height / 2
+    #reset() {
+        this.#angle = getRandomInt(0, 360)
+        this.#position.x = 20 * Math.cos(this.#angle) + canvas.width / 2
+        this.#position.y = 20 * Math.sin(this.#angle) + canvas.height / 2
+        this.#direction = {
+            x: new Vector(canvas.width / 2, this.#position.x),
+            y: new Vector(canvas.height / 2, this.#position.y)
+        }
+        this.#size = 1
+        this.#speed = getRandomInt(150, 400)
     }
 
     render() {
@@ -117,17 +122,13 @@ class Star {
             ||
             (this.#position.y <= 0 - this.#size || this.#position.y >= canvas.height + this.#size)
         ) {
-            this.resetXPos()
-            this.resetYPos()
-            this.#size = 1
-            this.#speed = getRandomInt(50, 80)
+            this.#reset()
         }
-        const xVector = new Vector(this.#position.x, this.#direction.x)
-        const yVector = new Vector(this.#position.y, this.#direction.y)
-        this.#position.x += xVector.normalisedVector * (dt * this.#speed)
-        this.#position.y += yVector.normalisedVector * (dt * this.#speed)
-        this.#size += 1.2 * dt
-        this.#speed += 300 * dt
+        this.#position.x -= (this.#direction.x.normalisedVector) * (dt * this.#speed)
+        this.#position.y -= (this.#direction.y.normalisedVector) * (dt * this.#speed)
+
+        this.#size += 2 * dt
+        this.#speed += 15000 * dt
     }
 }
 
@@ -172,7 +173,7 @@ let last = Date.now()
 function play() {
     const now = Date.now()
     let dt = (now - last) / 1000
-    if (dt > 1) dt = 1
+    if (dt > 1) dt = 0.2
     last = now
     render()
     update(dt)
