@@ -39,6 +39,11 @@ canvas.innerHTML = "Enable JavaScript to run this app!"
 
 body.appendChild(canvas)
 
+window.addEventListener('resize', () => {
+    canvas.height = window.innerHeight
+    canvas.width = window.innerWidth
+})
+
 //*__________
 
 // /////////////////////////////////////////////////////////
