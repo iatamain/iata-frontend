@@ -128,7 +128,7 @@ class Star {
         this.#position.y -= (this.#direction.y.normalisedVector) * (dt * this.#speed)
 
         this.#size += 2 * dt
-        this.#speed += 15000 * dt
+        this.#speed += 20000 * dt
     }
 }
 
@@ -164,7 +164,7 @@ function render() {
 
 
 function update(dt = 0) {
-    spawnNStars(100)
+    spawnNStars(350)
     stars.forEach(item => item.update(dt))
 }
 
