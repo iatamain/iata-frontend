@@ -64,6 +64,7 @@ li {
     margin: 0px auto;
     max-width: 1440px;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
     box-shadow: 6px 6px 12px 6px #00000040;
