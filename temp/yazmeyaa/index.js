@@ -1,7 +1,7 @@
 // @ts-ignore
-import { cards } from './route_projects.js'
 const navigationLinks = document.querySelectorAll('.link')
 navigationLinks.forEach(link => link.addEventListener('click', handleLinkClick))
+window.location.hash = 'projects'
 const root = document.getElementById('root')
 
 function handleLinkClick(event) {
@@ -10,10 +10,5 @@ function handleLinkClick(event) {
     window.location.hash = path
 }
 
-window.addEventListener('hashchange', (event) => {
-    switch(window.location.hash) {
-        case('#projects'): {
-            return cards.forEach(card => root?.appendChild(card.container))
-        }
-    }
-})
+import('./route_projects.js')
+                .then(item => item.cards.forEach(card => root?.appendChild(card.container)))

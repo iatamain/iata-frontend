@@ -40,7 +40,6 @@ class CardProject {
                     imageSource.srcset = event.target.result
                 }
                 reader.readAsDataURL(blob)
-                console.log(blob)
             })
         this.imageElement.appendChild(imageSource)
         this.container.appendChild(this.imageElement)
@@ -68,22 +67,28 @@ class CardProject {
 
 const cards = [
     new CardProject({
+        name: 'Aita GameBot',
+        description: 'Игровой бот в Telegram, написанный на node-telegram-bot-api, MySQL, Redis',
+        href: 'https://t.me/aitagame_bot',
+        previewImage: './assets/img/aita_bot.png'
+    }),
+    new CardProject({
+        name: 'Погода',
+        description: 'Получение текущей погоды и прогноза с использованием ReactJS и ExpressJS',
+        href: 'https://itracers.xyz/temp/yazmeyaa/weatherapp/',
+        previewImage: './assets/img/weather.png'
+    }),
+    new CardProject({
         name: 'Скринер',
         description: 'Получение случайных изображений с интервалом',
         href: 'https://itracers.xyz/temp/yazmeyaa/screens/',
         previewImage: 'https://picsum.photos/200'
     }),
     new CardProject({
-        name: 'Погода',
-        description: 'Получение текущей погоды и прогноза с использованием ReactJS и ExpressJS',
-        href: 'https://itracers.xyz/temp/yazmeyaa/weatherapp/',
-        previewImage: 'https://picsum.photos/200'
-    }),
-    new CardProject({
         name: 'Звёзды',
         description: 'Симуляция полёта через звёзды на canvasAPI',
         href: 'https://itracers.xyz/temp/yazmeyaa/stars/',
-        previewImage: 'https://picsum.photos/200'
+        previewImage: './assets/img/stars.png'
     }),
     new CardProject({
         name: 'Кубики',
@@ -95,7 +100,7 @@ const cards = [
         name: 'Таймер до Нового года',
         description: 'Небольшая сцена на canvasAPI с отсчётом времени до Нового года',
         href: 'https://itracers.xyz/temp/yazmeyaa/snowflake/',
-        previewImage: 'https://picsum.photos/200'
+        previewImage: './assets/img/newYear.png'
     })
 ]
 
