@@ -52,7 +52,7 @@ table img {
   width: auto;
   height: 100px;
   border-radius: 10px;
-  cursor: ponter;
+  cursor: pointer;
 }
 
 table tr:nth-child(even) {
