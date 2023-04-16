@@ -20,17 +20,19 @@ const fetchGoogleSheetData = async (range) => {
 // arg: [["ru", "en"]]
 // res: [{ru: "ru", en: "en"}]
 function translator(data) {
-	return data.map((el, i) => {
-		return {
-			ru: el[1],
-			en: el[0],
-			key: i,
-		};
-	});
+	return data
+		.map((el, i) => {
+			return {
+				ru: el[2] || el[1],
+				en: el[0],
+				key: i,
+			};
+		})
+		.filter((el) => !!el.ru && !!el.en);
 }
 
 async function getWords() {
-	const RANGE = "Words!A3:B100";
+	const RANGE = "Words!A3:C1000";
 	const data = await fetchGoogleSheetData(RANGE);
 	return translator(shuffle(data.values));
 }
