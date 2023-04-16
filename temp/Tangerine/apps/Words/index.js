@@ -5,11 +5,18 @@ const WordState = Object.freeze({
 	CORRECT: "correct",
 });
 
+let errors = 0, correcntess = 0;
+const divStats = {
+	errors: document.querySelector(".stats_errors"),
+	correcntess: document.querySelector(".stats_correctness"),
+	all: document.querySelector(".stats_all"),
+};
+
 (async function App() {
 	const words = await getWords();
 	const scene = new Scene(words);
 	const divContainer = document.querySelector(".container");
-
+	divStats.all.innerHTML = `Всего слов: ${words.length}`;
 	divContainer.addEventListener("click", handleContainerClick);
 	function handleContainerClick(e) {
 		const targetWordDiv = e.target.closest(".word");
@@ -32,14 +39,14 @@ const WordState = Object.freeze({
 
 class Scene {
 	constructor(words) {
-		this.allWords = words;
+		this.allWords = [...words];
 		this.freeCells = {
 			en: [],
 			ru: [],
 		};
 		this.en = [];
 		this.ru = [];
-		const tempWords = this.allWords.splice(0, 5);
+		const tempWords = this.allWords.splice(0, 6);
 		tempWords.forEach((word) => {
 			this.en.push(new Word(word.en, word.key, "en"));
 			this.ru.push(new Word(word.ru, word.key, "ru"));
@@ -58,6 +65,8 @@ class Scene {
 			activeEnWord.setState(state);
 			activeRuWord.setState(state);
 			if (isCorrect) {
+				correcntess++;
+				divStats.correcntess.innerHTML = `Правильных ответов: ${correcntess}`;
 				const newFreeCellEn = this.en.indexOf(activeEnWord);
 				const newFreeCellRu = this.ru.indexOf(activeRuWord);
 				this.freeCells.en.push(newFreeCellEn);
@@ -67,6 +76,9 @@ class Scene {
 				} else {
 					this.timer.setTimer(this.updateWords.bind(this), 5000);
 				}
+			}else{
+				errors++;
+				divStats.errors.innerHTML = `Ошибок: ${errors}`;
 			}
 		}
 		activeEnWord = this.en.find((el) => el.getState() === WordState.ACTIVE);
