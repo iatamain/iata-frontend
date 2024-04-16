@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Триангуляция</title>
+		<style>
+			body{
+				background: black;
+			}
+			canvas{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+	</head>
+	<body>
+		<canvas width="500" height="500"></canvas>
+		<script>
+			var canvas = document.querySelector("canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			ctx.fillStyle = "yellow";
+			ctx.strokeStyle = "yellow";
+			ctx.font = "48px serif";
+			ctx.fillText("Click", canvas.width/2-50, canvas.height/2 + 20);
+			ctx.font = "20px serif";
+			ctx.fillText("ЛКМ -- Поставить вершину многоугольника", canvas.width/2-200, canvas.height/2 + canvas.height/2.9);
+			ctx.fillText("ПКМ -- закрасить треугольник", canvas.width/2-200, canvas.height/2 + canvas.height/2.5);
+			var polygon = [];
+			var triangles = [];
+			canvas.addEventListener("click", (e)=>{ //Обработка клика
+				let point = new Vector(e.offsetX, e.offsetY)
+				polygon.push(point);
+				triangulation();
+				render();
+				console.log(e.offsetX, e.offsetY, e);
+			});
+			canvas.addEventListener("contextmenu", (e)=>{
+				
+				let point = new Vector(e.offsetX, e.offsetY)
+				let currentTriangle;
+				let inTriangle = false;
+				for(triangle of triangles){
+					if(triangle.pointInTriangle(point)){
+						currentTriangle = triangle;
+						inTriangle = true;
+					}
+				}
+				if(inTriangle){
+					currentTriangle.render(true);
+				}
+				e.preventDefault();
+			})
+			class Vector{
+				constructor(x, y){
+					this.x = x;
+					this.y = y;
+				}
+				copy(){
+					return new Vector(this.x, this.y);
+				}
+				isEquival(vector){ //Метод для проверки эквивалентности векторов
+					return this.x == vector.x && this.y == vector.y;
+				}
+				static obMultiple(n, a, b){ //Косое произведение векторов, тут подробнее https://habr.com/ru/post/147691/
+					let x1 = a.x - n.x;
+					let x2 = b.x - n.x;
+					let y1 = a.y - n.y;
+					let y2 = b.y - n.y;
+					return x1 * y2 - x2 * y1;
+				}
+			}
+			class Triangle{
+				constructor(a, b, c){
+					this.a = a;
+					this.b = b;
+					this.c = c;
+				}
+				render(isFill){ //Метод для отрисовки текущего треугольника, применяется в глобальной функции render
+					ctx.strokeStyle = "#40f";
+					ctx.fillStyle = "#" + Math.random().toString(16).slice(2, 8);
+					ctx.beginPath()
+					ctx.moveTo(this.a.x, this.a.y);
+					ctx.lineTo(this.b.x, this.b.y);
+					ctx.lineTo(this.c.x, this.c.y);
+					ctx.closePath();
+					if(isFill){
+						console.log(this)
+						ctx.fill();
+					}else{
+						ctx.stroke();
+					}
+				}
+				pointInTriangle(point){ //Проверка на принадлежность точке к текущему треугольнику
+					let multypleForPoint1 = Vector.obMultiple(this.a, this.b, point);
+					let multypleForPoint2 = Vector.obMultiple(this.a, this.c, point);
+					let multypleForPoint3 = Vector.obMultiple(this.b, this.c, point);
+					let multiple1 = Vector.obMultiple(this.a, this.b, this.c);
+					let multiple2 = Vector.obMultiple(this.a, this.c, this.b);
+					let multiple3 = Vector.obMultiple(this.b, this.c, this.a);
+					let firstEdge = (multypleForPoint1 >= 0 && multiple1 >= 0) || (multypleForPoint1 <= 0 && multiple1 <= 0);
+					let secondEdge = (multypleForPoint2 >= 0 && multiple2 >= 0) || (multypleForPoint2 <= 0 && multiple2 <= 0);
+					let thirdEdge = (multypleForPoint3 >= 0 && multiple3 >= 0) || (multypleForPoint3 <= 0 && multiple3 <= 0);
+					let isThisTriangle =  point.isEquival(this.a) ||  point.isEquival(this.b) ||  point.isEquival(this.c);
+					return (firstEdge && secondEdge && thirdEdge) && !isThisTriangle;
+				}
+			}
+			function render(){ //Отрисовка всего:D
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				for(triangle of triangles){
+					triangle.render(false);
+				}
+				ctx.strokeStyle = "#ff0";
+				if(polygon.length > 1){
+					ctx.beginPath();
+					ctx.moveTo(polygon[0].x, polygon[0].y);
+					for(vector of polygon){
+						ctx.lineTo(vector.x, vector.y);
+					}
+					ctx.closePath()
+					ctx.stroke();
+				}else if(polygon.length == 1){
+					ctx.fillStyle = "#ff0";
+					ctx.beginPath();
+					ctx.arc(polygon[0].x, polygon[0].y, 1, 0, 2*Math.PI);
+					ctx.fill();
+					ctx.closePath();
+				}			
+			}
+			function triangulation(){
+				triangles = [];
+				let a = 0, b = 1, c = 2;
+				let positiv = 0;
+				for(let i = 0; i < polygon.length && polygon.length > 3; i++){ //В какую сторону задавался многоугольник?
+					let tempTriangle = new Triangle(polygon[a], polygon[b], polygon[c]);
+					let mult = Vector.obMultiple(tempTriangle.a, tempTriangle.b, tempTriangle.c); //Проверка образования левой тройки векторов
+					positiv += mult;
+					a = (a + 1) % polygon.length;
+					b = (a + 1) % polygon.length;
+					c = (b + 1) % polygon.length;
+				}
+				if(positiv < 0) {
+					positiv = -1;
+				}
+				else {
+					positiv = 1;
+				}
+				a = 0; b = 1; c = 2;
+				let i = 0;
+				let copyPolygon = [];
+				for(vector of polygon){
+					copyPolygon.push(vector.copy());
+				}					
+				while(copyPolygon.length > 3 && i < 10000){ //Триангуляция
+					let tempTriangle = new Triangle(copyPolygon[a], copyPolygon[b], copyPolygon[c]);
+					let mult = Vector.obMultiple(tempTriangle.a, tempTriangle.b, tempTriangle.c); //Проверка образования левой тройки векторов
+					pointInTriangle = false;
+					for(point of polygon){
+						if(tempTriangle.pointInTriangle(point)) pointInTriangle = true;
+					}
+					if(mult*positiv >= 0 && !pointInTriangle){
+						triangles.push(tempTriangle);
+						copyPolygon.splice(b, 1);
+					}
+					a = (a + 1) % copyPolygon.length;
+					b = (a + 1) % copyPolygon.length;
+					c = (b + 1) % copyPolygon.length;
+					i++;
+				}
+				if(copyPolygon.length >= 3){
+					triangles.push(new Triangle(copyPolygon[0], copyPolygon[1], copyPolygon[2]));
+				}
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: black;
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  max-width: 800px;
+}
+
+th,
+td {
+  border: 1px solid #222;
+  text-align: center;
+  padding: 12px;
+}
+
+th {
+  background-color: #222;
+  font-weight: bold;
+}
+
+tbody th{
+  writing-mode: vertical-lr;
+}
+
+tbody tr{
+  background-color: #111;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #111;
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<title>IATA</title>
+		<meta charset = "utf-8">
+		<meta name = "viewport" content = "width=device-width, initial-scale=1">
+		<link rel = "stylesheet" href = "css/inputs.css">
+		<link rel = "stylesheet" href = "css/style.css">
+		<link rel = "stylesheet" href = "css/mainScene.css">
+		<link rel = "stylesheet" href = "css/roomsScene.css">
+		<link rel = "stylesheet" href = "css/achievementsScene.css">
+		<link rel = "stylesheet" href = "css/storeScene.css">
+		<link rel = "stylesheet" href = "css/altarScene.css">
+		<link rel = "stylesheet" href = "css/elementaryScene.css">
+		<link rel = "stylesheet" href = "css/clansScene.css">
+		<link rel = "stylesheet" href = "css/rankingScene.css">
+		<link rel = "stylesheet" href = "css/animations.css">
+		<script src = "js/libraries/socket.io.dev.js"></script>
+		<script src = "https://api.ok.ru/js/fapi5.js" defer></script>
+		<script src = "https://vk.com/js/api/xd_connection.js?2" defer></script>
+		<script src = "js/data.js?v=1" defer></script>
+		<script src = "js/functions.js?v=1" defer></script>
+		<script src = "js/rooms.js?v=1" defer></script>
+		<script src = "js/interfaceDinamic.js?v=1" defer></script>
+		<script src = "js/play.js?v=0" defer></script>
+		<script src = "js/socket.js?v=1" defer></script>
+		<script src = "js/client-server.js?v=1" defer></script>
+		<script src = "js/background.js?v=1" defer></script>
+		<script src = "js/buttons.js?v=1" defer></script>
+
+		<script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer></script>
+	</head>
+	<body>
+	<!-- S1234_6789S -->
+		<div id = "preload" oncontextmenu="return false;">
+			<div id = "preload-container">
+				<h1>Загрузка...</h1>
+				<div class = "load-block" id ="load-block1">
+					<div class = "load-block" id ="load-block2">
+						<div class = "load-block" id ="load-block3">
+							<div class = "load-block" id ="load-block4">
+								<div class = "load-block" id ="load-block5">
+									<div class = "load-block" id ="load-block6">
+										<div class = "load-block" id ="load-block7">
+											<div class = "load-block" id ="load-block8">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id = "game" oncontextmenu="return false;" style = "display: none">
+			<div id = "play">
+				<canvas id = "canvasBack" width = "900" height = "650"></canvas>
+				<canvas id = "canvasPlay" width = "900" height = "650"></canvas>
+			</div>
+			<div id = "interface">
+				<div id = "firstLine">
+					<div id = "lvl">
+						<img width = "35" src = "images/GUI/lvl_100.png" alt="">
+						<p>1</p>
+					</div>
+					<div id = "experience">
+						<div><!--Шкала опыта--></div>
+						<p>0/29</p>
+					</div>
+				</div>
+				<div id = "secondLine">
+					<ul class = "menu">
+						<li id = "menu0" class = "active" onclick = "setScene('main', 0)">Главная</li>
+						<li id = "menu1" onclick = "setScene('rooms', 1)">Комнаты</li>
+						<li id = "menu2" onclick = "setScene('achievements', 2)">Достижения</li>
+						<li id = "menu3" onclick = "setScene('store', 3)">Магазин</li>
+						<li id = "menu4" onclick = "setScene('altar', 4)">Алтарь</li>
+						<li id = "menu5" onclick = "setScene('elementary', 5)">Элементарий</li>
+						<li id = "menu6" onclick = "setScene('clans', 6)">Кланы</li>
+						<li id = "menu7" onclick = "setScene('ranking', 7)">Рейтинг</li>
+					</ul>
+				</div>
+				<div id = "main" class = "menuScene">
+					<div id = "playerInfo">
+						<div class = "portrait-crop">
+							<!-- Ава игрока -->
+						</div>
+						<div id = "ava-notation">
+							<p class = "ava-notation-element" id = "nickName-text"> <!-- Ник --> </p>
+							<p class = "ava-notation-element" id = "clan-text">Клан: <!-- Клан --> </p>
+							<p class = "ava-notation-element" id = "lvl-text">Уровень: <!-- Уровень --> </p>
+							<p class = "ava-notation-element" id = "element">Стихия: <!-- Клан --> </p>
+						</div>
+					</div>
+					<div id = "news">
+						<!--Тут новости-->
+					</div>
+					<div id = "goToPlay"></div>
+				</div>
+				<div id = "rooms" class = "menuScene">
+					<div id = "listRooms" class = "deactive-left"><!--class = "deactive-left"-->
+						<div id = "listRoomsBody">
+							<ul>
+							</ul>
+						</div>
+						<div id = "listRoomsFooter">
+							<p class = "activePlayers">Игроков онлайн: 0</p>
+							<p class = "activeRooms">Активных комнат: 0</p>
+							<div id = "listRoomsHeader">
+								<input oninput = "rooms.search()" type = "text" placeholder="Искать комнату..." spellcheck="false"/>
+							</div>
+						</div>
+					</div>
+					<div id = "createRoom" class = "deactive-right">
+						<input maxlength = "20" placeholder= "Имя комнаты" spellcheck="false" type = "Text">
+						<input maxlength = "20" placeholder= "Пароль" class = "hideInput" spellcheck="false" type = "password">
+						<div class="select collapsed" >
+							<div class="shown">Выбрать режим</div>
+							<div class="option">Каждый сам за себя</div>
+							<div class="option">Командный бой</div>
+							<div class="option">Захват флага</div>
+							<div class="option">Захват точки</div>
+						</div>
+						<div class = "rooms-notation">
+							<img height = "130" width = "350" src = "temp/testmap2.jpg" alt = ""/>
+							<div id = "btn-chooseMap" class = "rooms-notation-hover">
+								<b>Выбрать карту</b>
+							</div>
+						</div>
+						<div id = "btn-CreateRoom" class = "smallButton"><span>Создать</span></div>
+						<input type = "checkbox" id = "createRoom-checkbox"/><label onclick = "changeCheckbox()" for = "createRoom-checkbox">Закрытая комната</label>
+					</div>
+				</div>
+				<div id = "achievements" class = "menuScene">
+					<div id = "achievementsContainer" class = "bigScene deactive-bottom">
+						<h1 class = "inDevText">Достижения в разработке</h1>
+					</div>
+				</div>
+				<div id = "store" class = "menuScene">
+					<div id="storeItems" class = "bigScene deactive-bottom">
+						<h1 class = "inDevText">Магазин в разработке</h1>
+					</div>
+				</div>
+				<div id = "altar" class = "menuScene">
+					<div id = "altarContainer" class = "bigScene deactive-bottom">
+						<h1 class = "inDevText">Алтарь в разработке</h1>
+					</div>
+				</div>
+				<div id = "elementary" class = "menuScene">
+					<div id = "elementaryContainer" class = "bigScene deactive-bottom">
+						<h1 class = "inDevText">Элементарий в разработке</h1>
+					</div>
+				</div>
+				<div id = "clans" class = "menuScene">
+					<div id = "clansContainer" class = "bigScene deactive-bottom">
+						<h1 class = "inDevText">Кланы в разработке</h1>
+					</div>
+				</div>
+				<div id = "ranking" class = "menuScene">
+					<div id = "rankingContainer" class = "bigScene deactive-bottom">
+						<h1 class = "inDevText">Рейтинговая таблица разработке</h1>
+					</div>
+				</div>
+			</div>
+			<div id = "friends">
+				<div id = "friends-block">
+				</div>
+				<ul id = "friends-list">
+				</ul>
+			</div>
+			<div id="modal">
+				<div id = "modal-message">
+					<p><!--Сообщение--></p>
+					<input type ="password" placeholder="Пароль от комнаты"/>
+					<div id = "btn-closeMsg" class = "smallButton prompt"><span>Ок</span></div>
+				</div>
+				<div id = "modal-playerList">
+
+				</div>
+			</div>
+			<div id = "version">
+				v 0.0.2
+			</div>
+		</div>
+	</body>
+</html>
